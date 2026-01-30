@@ -12,7 +12,7 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <Navbar />
   
   <!-- Hero con efecto Scanner de Inventario -->
-  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-[#FAF9F6]">
+  <section class="relative min-h-[75vh] flex items-center justify-center overflow-hidden pt-20 pb-12 bg-[#FAF9F6]">
     <!-- Scanner de Inventario Animado -->
     <InventoryScanner client:load />
     
@@ -21,7 +21,7 @@ import { InventoryScanner } from '../../components/InventoryScanner';
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight">
           Importadora D&R
         </h1>
-        <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-700 mb-8 font-['Poppins'] leading-tight">
+        <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-700 mb-8 font-['Poppins'] leading-tight" data-i18n="hero-subtitle">
           Inventario Preciso para una Operación sin Errores
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
@@ -46,15 +46,15 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-20">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] leading-tight" data-i18n="challenge-title">
           🔴 El Desafío
         </h2>
         
         <div class="grid grid-cols-12 gap-6">
           <!-- Contenido principal 60% -->
           <div class="col-span-12 md:col-span-7 bg-[#1a1a1a] rounded-2xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-shadow duration-500">
-            <p class="text-xl text-neutral-300 mb-6 leading-relaxed font-['Poppins']">
-              Crhistian Dias (42), empresario importador, enfrentaba una brecha crítica: <strong class="text-white">el stock físico en bodega nunca coincidía con las facturas</strong>. La complejidad de gestionar unidades fragmentadas (1 Caja = 32 Displays = 160 Unidades) generaba errores de cálculo manual e incertidumbre financiera.
+            <p class="text-xl text-neutral-300 mb-6 leading-relaxed font-['Poppins']" data-i18n="challenge-desc">
+              Crhistian Dias (42), empresario importador, enfrentaba una brecha crítica: el stock físico en bodega nunca coincidía con las facturas. La complejidad de gestionar unidades fragmentadas (1 Caja = 32 Displays = 160 Unidades) generaba errores de cálculo manual e incertidumbre financiera.
             </p>
             
             <ul class="text-xl text-neutral-300 leading-relaxed font-['Poppins'] space-y-4">
@@ -66,8 +66,8 @@ import { InventoryScanner } from '../../components/InventoryScanner';
           <!-- Card con insight 40% -->
           <div class="col-span-12 md:col-span-5 bg-gradient-to-br from-[#b80000] to-[#8a0000] rounded-2xl p-8 md:p-10 shadow-[0_8px_30px_rgb(184,0,0,0.3)] hover:shadow-[0_20px_60px_rgba(184,0,0,0.4)] transition-shadow duration-500 flex flex-col justify-center">
             <div class="text-7xl font-black text-white/20 mb-4">📦</div>
-            <h3 class="text-3xl font-['Syne'] font-extrabold text-white mb-4">Brecha Crítica</h3>
-            <p class="text-lg text-white/90 font-['Poppins']">
+            <h3 class="text-3xl font-['Syne'] font-extrabold text-white mb-4" data-i18n="challenge-insight-title">Brecha Crítica</h3>
+            <p class="text-lg text-white/90 font-['Poppins']" data-i18n="challenge-insight-desc">
               El stock físico nunca coincidía con las facturas por errores de cálculo manual en unidades fragmentadas
             </p>
           </div>
@@ -80,12 +80,12 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="journey-section mb-16">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto mb-16 text-center">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Syne'] font-bold text-white mb-8 leading-tight">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Syne'] font-bold text-white mb-8 leading-tight" data-i18n="solution-title">
           🔴 La Solución: MVP de Gestión Inteligente
         </h2>
         
-        <p class="text-xl text-neutral-300 font-['Poppins']">
-          En lugar de un sistema genérico de inventario, diseñé una <strong class="text-white">aplicación web progresiva (PWA)</strong> orientada a las tres operaciones clave de Importadora D&R:
+        <p class="text-xl text-neutral-300 font-['Poppins']" data-i18n="solution-intro">
+          En lugar de un sistema genérico de inventario, diseñé una aplicación web progresiva (PWA) orientada a las tres operaciones clave de Importadora D&R:
         </p>
       </div>
       
@@ -96,8 +96,8 @@ import { InventoryScanner } from '../../components/InventoryScanner';
             <img src="/img/Stock_Inventario.png" alt="Stock e Inventario" class="w-full h-64 object-cover rounded-2xl">
           </div>
           <div class="timeline-content">
-            <h3>🚚 Registro de Despacho</h3>
-            <p>Botón directo con icono de camión para vincular salidas de inventario con órdenes de factura en tiempo real. <strong>Cada movimiento queda registrado automáticamente.</strong></p>
+            <h3 data-i18n="solution-step1-title">🚚 Registro de Despacho</h3>
+            <p data-i18n="solution-step1-desc">Botón directo con icono de camión para vincular salidas de inventario con órdenes de factura en tiempo real. Cada movimiento queda registrado automáticamente.</p>
           </div>
         </div>
         
@@ -107,8 +107,8 @@ import { InventoryScanner } from '../../components/InventoryScanner';
             <img src="/img/Motor_conversion.png" alt="Motor de Conversión" class="w-full h-64 object-cover rounded-2xl">
           </div>
           <div class="timeline-content">
-            <h3>⚙️ Motor de Conversión</h3>
-            <p>Lógica automática que convierte unidades fragmentadas sin intervención manual del usuario. <strong>El sistema normaliza cajas, displays y unidades sin errores humanos.</strong></p>
+            <h3 data-i18n="solution-step2-title">⚙️ Motor de Conversión</h3>
+            <p data-i18n="solution-step2-desc">Lógica automática que convierte unidades fragmentadas sin intervención manual del usuario. El sistema normaliza cajas, displays y unidades sin errores humanos.</p>
           </div>
         </div>
         
@@ -118,8 +118,8 @@ import { InventoryScanner } from '../../components/InventoryScanner';
             <img src="/img/stock_inventario_2.png" alt="Vista de Inventario" class="w-full h-64 object-cover rounded-2xl">
           </div>
           <div class="timeline-content">
-            <h3>📊 Vista de Inventario</h3>
-            <p>Panel de consulta instantánea de stock disponible por producto, sabor y formato. <strong>Visibilidad total en tiempo real desde cualquier dispositivo.</strong></p>
+            <h3 data-i18n="solution-step3-title">📊 Vista de Inventario</h3>
+            <p data-i18n="solution-step3-desc">Panel de consulta instantánea de stock disponible por producto, sabor y formato. Visibilidad total en tiempo real desde cualquier dispositivo.</p>
           </div>
         </div>
       </div>
@@ -130,52 +130,52 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-20">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight" data-i18n="arch-title">
           🔴 Arquitectura: Precisión e Integridad
         </h2>
         
-        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
-          Para garantizar datos infalibles, implementé un stack de alto rendimiento enfocado en la <strong class="text-[#111]">consistencia y la velocidad</strong>:
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="arch-intro">
+          Para garantizar datos infalibles, implementé un stack de alto rendimiento enfocado en la consistencia y la velocidad:
         </p>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Card 1 -->
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white">⚛️ Frontend (React + TypeScript)</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
-              Uso de <strong>TypeScript</strong> para eliminar errores de redondeo en conversiones y <strong>PWA</strong> para garantizar el funcionamiento en bodegas con baja señal
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-frontend-title">⚛️ Frontend (React + TypeScript)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-frontend-desc">
+              Uso de TypeScript para eliminar errores de redondeo en conversiones y PWA para garantizar el funcionamiento en bodegas con baja señal
             </p>
           </div>
           
           <!-- Card 2 -->
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white">⚡ Gestión de Estado (Zustand + Query)</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
-              Interfaz ultra-rápida con sincronización <strong>Realtime</strong>, reflejando cambios de stock al instante en todos los dispositivos
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-state-title">⚡ Gestión de Estado (Zustand + Query)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-state-desc">
+              Interfaz ultra-rápida con sincronización Realtime, reflejando cambios de stock al instante en todos los dispositivos
             </p>
           </div>
           
           <!-- Card 3 -->
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white">📦 Backend (Supabase/PostgreSQL)</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
-              Base de datos relacional con políticas <strong>RLS</strong> (seguridad a nivel de fila) para proteger la integridad de la información sensible
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-backend-title">📦 Backend (Supabase/PostgreSQL)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-backend-desc">
+              Base de datos relacional con políticas RLS (seguridad a nivel de fila) para proteger la integridad de la información sensible
             </p>
           </div>
           
           <!-- Card 4 -->
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white">📋 Lógica de Auditoría</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-audit-title">📋 Lógica de Auditoría</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-audit-desc">
               Registro automático de transacciones y motor de normalización de stock para eliminar el cálculo mental del operario
             </p>
           </div>
           
           <!-- Card 5 destacada -->
           <div class="service-card-3d bg-gradient-to-br from-[#b80000] to-[#8a0000] rounded-2xl p-8 md:col-span-2">
-            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white">🚀 Despliegue</h3>
-            <p class="text-white/90 font-['Poppins'] leading-relaxed text-lg">
-              CI/CD en Netlify con carga optimizada <strong>(&lt; 2s)</strong> para un uso móvil intensivo y fluido
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-deploy-title">🚀 Despliegue</h3>
+            <p class="text-white/90 font-['Poppins'] leading-relaxed text-lg" data-i18n="arch-deploy-desc">
+              CI/CD en Netlify con carga optimizada (&lt; 2s) para un uso móvil intensivo y fluido
             </p>
           </div>
         </div>
@@ -187,7 +187,7 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-20 bg-[#f5f5f5]">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight" data-i18n="results-title">
           🔴 Resultados
         </h2>
         
@@ -196,20 +196,20 @@ import { InventoryScanner } from '../../components/InventoryScanner';
           <div class="grid md:grid-cols-3 gap-12">
             <div class="text-center">
               <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">100%</div>
-              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Precisión</h3>
-              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Eliminación total de descuadres entre factura y bodega</p>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-precision">Precisión</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-precision-desc">Eliminación total de descuadres entre factura y bodega</p>
             </div>
             
             <div class="text-center">
               <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">80%</div>
-              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Eficiencia</h3>
-              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Reducción del tiempo en el registro de movimientos</p>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-efficiency">Eficiencia</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-efficiency-desc">Reducción del tiempo en el registro de movimientos</p>
             </div>
             
             <div class="text-center">
               <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">24/7</div>
-              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Control</h3>
-              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Trazabilidad completa de la operación desde el bolsillo del cliente</p>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-control">Control</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-control-desc">Trazabilidad completa de la operación desde el bolsillo del cliente</p>
             </div>
           </div>
         </div>
@@ -221,39 +221,39 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-20">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight" data-i18n="roadmap-title">
           🗺️ Roadmap: Próximos Pasos
         </h2>
         
-        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
-          El MVP es solo el inicio de la digitalización de <strong class="text-[#111]">Importadora D&R</strong>. El plan de evolución incluye:
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="roadmap-intro">
+          El MVP es solo el inicio de la digitalización de Importadora D&R. El plan de evolución incluye:
         </p>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">📱 Escaneo QR/Barra</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-qr-title">📱 Escaneo QR/Barra</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-qr-desc">
               Integración de la cámara para registrar despachos instantáneamente sin selección manual
             </p>
           </div>
           
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">🔔 Notificaciones Inteligentes</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
-              Alertas <em>push</em> al móvil cuando un sabor específico alcance su límite crítico de stock
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-notif-title">🔔 Notificaciones Inteligentes</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-notif-desc">
+              Alertas push al móvil cuando un sabor específico alcance su límite crítico de stock
             </p>
           </div>
           
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">📊 Analítica de Ventas</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-analytics-title">📊 Analítica de Ventas</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-analytics-desc">
               Panel de visualización con los productos de mayor rotación y reportes de rendimiento mensual
             </p>
           </div>
           
           <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
-            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">📶 Modo Offline Avanzado</h3>
-            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-offline-title">📶 Modo Offline Avanzado</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-offline-desc">
               Capacidad de registrar movimientos sin conexión para sincronización automática al recuperar señal
             </p>
           </div>
@@ -266,20 +266,20 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-20 bg-[#f5f5f5]">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight" data-i18n="learning-title">
           💡 Aprendizaje Principal
         </h2>
         
         <!-- Quote Card -->
         <div class="service-card-3d bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-12 md:p-16">
           <blockquote class="mb-8">
-            <p class="text-3xl md:text-4xl font-['Special_Elite'] text-white italic leading-relaxed mb-6">
+            <p class="text-3xl md:text-4xl font-['Special_Elite'] text-white italic leading-relaxed mb-6" data-i18n="learning-quote">
               "Entender la lógica del negocio en terreno fue la clave del éxito."
             </p>
           </blockquote>
           
-          <p class="text-lg text-neutral-300 leading-relaxed font-['Poppins']">
-            El mayor aprendizaje de este proyecto no fue técnico, sino estratégico: la verdadera solución no se diseñó en el escritorio, sino observando la operación real. Comprender cómo se mueven las cajas en la bodega y cómo se gestionan las facturas permitió que el despliegue del MVP fuera natural y de adopción inmediata para el usuario. <strong class="text-white">Diseñar para el contexto real redujo la fricción y garantizó la integridad de los datos desde el primer día.</strong>
+          <p class="text-lg text-neutral-300 leading-relaxed font-['Poppins']" data-i18n="learning-desc">
+            El mayor aprendizaje de este proyecto no fue técnico, sino estratégico: la verdadera solución no se diseñó en el escritorio, sino observando la operación real. Comprender cómo se mueven las cajas en la bodega y cómo se gestionan las facturas permitió que el despliegue del MVP fuera natural y de adopción inmediata para el usuario. Diseñar para el contexto real redujo la fricción y garantizó la integridad de los datos desde el primer día.
           </p>
         </div>
       </div>
@@ -290,10 +290,10 @@ import { InventoryScanner } from '../../components/InventoryScanner';
   <section class="py-32">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight" data-i18n="cta-title">
           Ver el MVP en Producción
         </h2>
-        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="cta-subtitle">
           El sistema está desplegado y funcionando en tiempo real
         </p>
         
@@ -304,7 +304,7 @@ import { InventoryScanner } from '../../components/InventoryScanner';
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] hover:bg-[#8a0000] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-[#b80000]/30 hover:shadow-xl hover:shadow-[#b80000]/40"
           >
-            Abrir MVP
+            <span data-i18n="cta-open">Abrir MVP</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
@@ -313,13 +313,13 @@ import { InventoryScanner } from '../../components/InventoryScanner';
             href="/#contacto" 
             class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30"
           >
-            Contactar
+            <span data-i18n="cta-contact">Contactar</span>
           </a>
           <a 
             href="/" 
             class="px-8 py-4 border-2 border-[#1a1a1a] hover:bg-[#1a1a1a] text-[#1a1a1a] hover:text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300"
           >
-            Volver al Inicio
+            <span data-i18n="cta-home">Volver al Inicio</span>
           </a>
         </div>
       </div>
@@ -344,6 +344,146 @@ import { InventoryScanner } from '../../components/InventoryScanner';
       
       timelineItems.forEach(item => {
         observer.observe(item);
+      });
+
+      // Sistema de traducción
+      const translations = {
+        es: {
+          'hero-subtitle': 'Inventario Preciso para una Operación sin Errores',
+          'challenge-title': '🔴 El Desafío',
+          'challenge-desc': 'Crhistian Dias (42), empresario importador, enfrentaba una brecha crítica: el stock físico en bodega nunca coincidía con las facturas. La complejidad de gestionar unidades fragmentadas (1 Caja = 32 Displays = 160 Unidades) generaba errores de cálculo manual e incertidumbre financiera.',
+          'challenge-problem': 'El Problema: Falta de integridad de datos y pérdida de trazabilidad en los despachos.',
+          'challenge-goal': 'El Objetivo: Crear una herramienta móvil que garantice que "lo que se cuenta es lo que se factura".',
+          'challenge-insight-title': 'Brecha Crítica',
+          'challenge-insight-desc': 'El stock físico nunca coincidía con las facturas por errores de cálculo manual en unidades fragmentadas',
+          'solution-title': '🔴 La Solución: MVP de Gestión Inteligente',
+          'solution-intro': 'En lugar de un sistema genérico de inventario, diseñé una aplicación web progresiva (PWA) orientada a las tres operaciones clave de Importadora D&R:',
+          'solution-step1-title': '🚚 Registro de Despacho',
+          'solution-step1-desc': 'Botón directo con icono de camión para vincular salidas de inventario con órdenes de factura en tiempo real. Cada movimiento queda registrado automáticamente.',
+          'solution-step2-title': '⚙️ Motor de Conversión',
+          'solution-step2-desc': 'Lógica automática que convierte unidades fragmentadas sin intervención manual del usuario. El sistema normaliza cajas, displays y unidades sin errores humanos.',
+          'solution-step3-title': '📊 Vista de Inventario',
+          'solution-step3-desc': 'Panel de consulta instantánea de stock disponible por producto, sabor y formato. Visibilidad total en tiempo real desde cualquier dispositivo.',
+          'arch-title': '🔴 Arquitectura: Precisión e Integridad',
+          'arch-intro': 'Para garantizar datos infalibles, implementé un stack de alto rendimiento enfocado en la consistencia y la velocidad:',
+          'arch-frontend-title': '⚛️ Frontend (React + TypeScript)',
+          'arch-frontend-desc': 'Uso de TypeScript para eliminar errores de redondeo en conversiones y PWA para garantizar el funcionamiento en bodegas con baja señal',
+          'arch-state-title': '⚡ Gestión de Estado (Zustand + Query)',
+          'arch-state-desc': 'Interfaz ultra-rápida con sincronización Realtime, reflejando cambios de stock al instante en todos los dispositivos',
+          'arch-backend-title': '📦 Backend (Supabase/PostgreSQL)',
+          'arch-backend-desc': 'Base de datos relacional con políticas RLS (seguridad a nivel de fila) para proteger la integridad de la información sensible',
+          'arch-audit-title': '📋 Lógica de Auditoría',
+          'arch-audit-desc': 'Registro automático de transacciones y motor de normalización de stock para eliminar el cálculo mental del operario',
+          'arch-deploy-title': '🚀 Despliegue',
+          'arch-deploy-desc': 'CI/CD en Netlify con carga optimizada (< 2s) para un uso móvil intensivo y fluido',
+          'results-title': '🔴 Resultados',
+          'results-precision': 'Precisión',
+          'results-precision-desc': 'Eliminación total de descuadres entre factura y bodega',
+          'results-efficiency': 'Eficiencia',
+          'results-efficiency-desc': 'Reducción del tiempo en el registro de movimientos',
+          'results-control': 'Control',
+          'results-control-desc': 'Trazabilidad completa de la operación desde el bolsillo del cliente',
+          'roadmap-title': '🗺️ Roadmap: Próximos Pasos',
+          'roadmap-intro': 'El MVP es solo el inicio de la digitalización de Importadora D&R. El plan de evolución incluye:',
+          'roadmap-qr-title': '📱 Escaneo QR/Barra',
+          'roadmap-qr-desc': 'Integración de la cámara para registrar despachos instantáneamente sin selección manual',
+          'roadmap-notif-title': '🔔 Notificaciones Inteligentes',
+          'roadmap-notif-desc': 'Alertas push al móvil cuando un sabor específico alcance su límite crítico de stock',
+          'roadmap-analytics-title': '📊 Analítica de Ventas',
+          'roadmap-analytics-desc': 'Panel de visualización con los productos de mayor rotación y reportes de rendimiento mensual',
+          'roadmap-offline-title': '📶 Modo Offline Avanzado',
+          'roadmap-offline-desc': 'Capacidad de registrar movimientos sin conexión para sincronización automática al recuperar señal',
+          'learning-title': '💡 Aprendizaje Principal',
+          'learning-quote': 'Entender la lógica del negocio en terreno fue la clave del éxito.',
+          'learning-desc': 'El mayor aprendizaje de este proyecto no fue técnico, sino estratégico: la verdadera solución no se diseñó en el escritorio, sino observando la operación real. Comprender cómo se mueven las cajas en la bodega y cómo se gestionan las facturas permitió que el despliegue del MVP fuera natural y de adopción inmediata para el usuario. Diseñar para el contexto real redujo la fricción y garantizó la integridad de los datos desde el primer día.',
+          'cta-title': 'Ver el MVP en Producción',
+          'cta-subtitle': 'El sistema está desplegado y funcionando en tiempo real',
+          'cta-open': 'Abrir MVP',
+          'cta-contact': 'Contactar',
+          'cta-home': 'Volver al Inicio'
+        },
+        en: {
+          'hero-subtitle': 'Accurate Inventory for an Error-Free Operation',
+          'challenge-title': '🔴 The Challenge',
+          'challenge-desc': 'Crhistian Dias (42), import business owner, faced a critical gap: physical stock in warehouse never matched invoices. The complexity of managing fragmented units (1 Box = 32 Displays = 160 Units) generated manual calculation errors and financial uncertainty.',
+          'challenge-problem': 'The Problem: Lack of data integrity and loss of traceability in dispatches.',
+          'challenge-goal': 'The Goal: Create a mobile tool that ensures "what is counted is what is invoiced".',
+          'challenge-insight-title': 'Critical Gap',
+          'challenge-insight-desc': 'Physical stock never matched invoices due to manual calculation errors in fragmented units',
+          'solution-title': '🔴 The Solution: Smart Management MVP',
+          'solution-intro': 'Instead of a generic inventory system, I designed a progressive web application (PWA) focused on the three key operations of Importadora D&R:',
+          'solution-step1-title': '🚚 Dispatch Registry',
+          'solution-step1-desc': 'Direct button with truck icon to link inventory outputs with invoice orders in real time. Every movement is automatically recorded.',
+          'solution-step2-title': '⚙️ Conversion Engine',
+          'solution-step2-desc': 'Automatic logic that converts fragmented units without manual user intervention. The system normalizes boxes, displays and units without human errors.',
+          'solution-step3-title': '📊 Inventory View',
+          'solution-step3-desc': 'Instant query panel of available stock by product, flavor and format. Total real-time visibility from any device.',
+          'arch-title': '🔴 Architecture: Precision and Integrity',
+          'arch-intro': 'To ensure infallible data, I implemented a high-performance stack focused on consistency and speed:',
+          'arch-frontend-title': '⚛️ Frontend (React + TypeScript)',
+          'arch-frontend-desc': 'Use of TypeScript to eliminate rounding errors in conversions and PWA to ensure operation in warehouses with low signal',
+          'arch-state-title': '⚡ State Management (Zustand + Query)',
+          'arch-state-desc': 'Ultra-fast interface with Realtime synchronization, reflecting stock changes instantly on all devices',
+          'arch-backend-title': '📦 Backend (Supabase/PostgreSQL)',
+          'arch-backend-desc': 'Relational database with RLS policies (row level security) to protect the integrity of sensitive information',
+          'arch-audit-title': '📋 Audit Logic',
+          'arch-audit-desc': 'Automatic transaction logging and stock normalization engine to eliminate operator mental calculation',
+          'arch-deploy-title': '🚀 Deployment',
+          'arch-deploy-desc': 'CI/CD on Netlify with optimized load (< 2s) for intensive and fluid mobile use',
+          'results-title': '🔴 Results',
+          'results-precision': 'Precision',
+          'results-precision-desc': 'Total elimination of discrepancies between invoice and warehouse',
+          'results-efficiency': 'Efficiency',
+          'results-efficiency-desc': 'Reduction of time in movement registration',
+          'results-control': 'Control',
+          'results-control-desc': 'Complete operation traceability from the client\'s pocket',
+          'roadmap-title': '🗺️ Roadmap: Next Steps',
+          'roadmap-intro': 'The MVP is only the beginning of Importadora D&R digitalization. The evolution plan includes:',
+          'roadmap-qr-title': '📱 QR/Barcode Scanning',
+          'roadmap-qr-desc': 'Camera integration to register dispatches instantly without manual selection',
+          'roadmap-notif-title': '🔔 Smart Notifications',
+          'roadmap-notif-desc': 'Push alerts to mobile when a specific flavor reaches its critical stock limit',
+          'roadmap-analytics-title': '📊 Sales Analytics',
+          'roadmap-analytics-desc': 'Visualization panel with the highest rotation products and monthly performance reports',
+          'roadmap-offline-title': '📶 Advanced Offline Mode',
+          'roadmap-offline-desc': 'Ability to register movements without connection for automatic synchronization when signal is recovered',
+          'learning-title': '💡 Main Learning',
+          'learning-quote': 'Understanding the business logic in the field was the key to success.',
+          'learning-desc': 'The greatest learning from this project was not technical, but strategic: the real solution was not designed at the desk, but by observing the actual operation. Understanding how boxes move in the warehouse and how invoices are managed allowed the MVP deployment to be natural and immediately adopted by the user. Designing for the real context reduced friction and ensured data integrity from day one.',
+          'cta-title': 'View MVP in Production',
+          'cta-subtitle': 'The system is deployed and running in real time',
+          'cta-open': 'Open MVP',
+          'cta-contact': 'Contact',
+          'cta-home': 'Back to Home'
+        }
+      };
+
+      function applyTranslations(locale: string) {
+        const t = translations[locale as 'es' | 'en'] || translations.es;
+        
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.getAttribute('data-i18n');
+          if (key && t[key as keyof typeof t]) {
+            if (element.children.length === 0) {
+              element.textContent = t[key as keyof typeof t];
+            } else {
+              const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3);
+              if (textNodes.length > 0) {
+                element.textContent = t[key as keyof typeof t];
+              }
+            }
+          }
+        });
+      }
+
+      // Aplicar traducciones al cargar
+      const savedLocale = localStorage.getItem('locale') || 'es';
+      applyTranslations(savedLocale);
+
+      // Escuchar cambios de idioma
+      window.addEventListener('localeChanged', (event: Event) => {
+        const customEvent = event as CustomEvent<string>;
+        applyTranslations(customEvent.detail);
       });
     });
   </script>

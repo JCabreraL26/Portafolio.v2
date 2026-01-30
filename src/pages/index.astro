@@ -126,8 +126,8 @@ import { HeroCircle } from '../components/HeroCircle';
             />
           </div>
           <div class="timeline-content">
-            <h3>🔍 Entiendo</h3>
-            <p>Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. <strong>No diseño soluciones sin entender primero el problema real.</strong></p>
+            <h3 data-i18n="journey-step1-title">🔍 Entiendo</h3>
+            <p data-i18n="journey-step1-desc">Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. No diseño soluciones sin entender primero el problema real.</p>
           </div>
         </div>
         
@@ -141,8 +141,8 @@ import { HeroCircle } from '../components/HeroCircle';
             />
           </div>
           <div class="timeline-content">
-            <h3>🎨 Diseño</h3>
-            <p>Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. <strong>El diseño no es decoración, es arquitectura de la experiencia.</strong></p>
+            <h3 data-i18n="journey-step2-title">🎨 Diseño</h3>
+            <p data-i18n="journey-step2-desc">Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. El diseño no es decoración, es arquitectura de la experiencia.</p>
           </div>
         </div>
         
@@ -156,8 +156,8 @@ import { HeroCircle } from '../components/HeroCircle';
             />
           </div>
           <div class="timeline-content">
-            <h3>⚙️ Ejecuto</h3>
-            <p>Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. <strong>Del prototipo al producto funcional.</strong></p>
+            <h3 data-i18n="journey-step3-title">⚙️ Ejecuto</h3>
+            <p data-i18n="journey-step3-desc">Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. Del prototipo al producto funcional.</p>
           </div>
         </div>
       </div>
@@ -269,7 +269,7 @@ import { HeroCircle } from '../components/HeroCircle';
   <!-- Advantage Section -->
   <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
     <div class="container mx-auto px-4 sm:px-6 text-center">
-      <h2 class="advantage-title">
+      <h2 class="advantage-title" data-i18n="advantage-title-full">
         <span class="word-wrapper"><span class="word">💪</span></span>
         <span class="word-wrapper"><span class="word"> Mi</span></span>
         <span class="word-wrapper"><span class="word"> background</span></span>
@@ -284,13 +284,11 @@ import { HeroCircle } from '../components/HeroCircle';
   <section id="contacto" class="py-20 bg-gradient-to-br from-[#2a2a2a] to-[#111111] rounded-3xl mb-16">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6] leading-tight">
+        <h2 class="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6] leading-tight" data-i18n="contact-main-title">
           🔴 Hablemos
         </h2>
-        <p class="text-xl text-[#d1d1d1] mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']">
-          No solo diseño. Resuelvo problemas.<br/>
-          Con la lógica de un gestor y la empatía de un profesor.<br/>
-          Hablemos de tu próximo proyecto.
+        <p class="text-xl text-[#d1d1d1] mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']" data-i18n="contact-description">
+          No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor. Hablemos de tu próximo proyecto.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -299,6 +297,7 @@ import { HeroCircle } from '../components/HeroCircle';
             target="_blank"
             rel="noopener noreferrer"
             class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
+            data-i18n="contact-email-button"
           >
             Email
           </a>
@@ -307,6 +306,7 @@ import { HeroCircle } from '../components/HeroCircle';
             target="_blank"
             rel="noopener noreferrer"
             class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
+            data-i18n="contact-linkedin-button"
           >
             LinkedIn
           </a>
@@ -353,6 +353,12 @@ import { HeroCircle } from '../components/HeroCircle';
           'hero-main': 'Soluciones digitales',
           'hero-secondary': 'para un mundo dinámico',
           'journey-title': '🔴 Mi Proceso de Transformación',
+          'journey-step1-title': '🔍 Entiendo',
+          'journey-step1-desc': 'Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. No diseño soluciones sin entender primero el problema real.',
+          'journey-step2-title': '🎨 Diseño',
+          'journey-step2-desc': 'Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. El diseño no es decoración, es arquitectura de la experiencia.',
+          'journey-step3-title': '⚙️ Ejecuto',
+          'journey-step3-desc': 'Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. Del prototipo al producto funcional.',
           'services-title': '🔴 Servicios',
           'services-subtitle': 'Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue',
           'service-fullstack-title': 'Desarrollo Fullstack a Medida',
@@ -369,6 +375,11 @@ import { HeroCircle } from '../components/HeroCircle';
           'case-load': 'Carga',
           'case-cta': 'Ver Caso Completo',
           'advantage-title': '🔴 ¿Por Qué Trabajar Conmigo?',
+          'advantage-title-full': '💪 Mi background es mi superpoder',
+          'contact-main-title': '🔴 Hablemos',
+          'contact-description': 'No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor. Hablemos de tu próximo proyecto.',
+          'contact-email-button': 'Email',
+          'contact-linkedin-button': 'LinkedIn',
           'contact-title': '¿Listo para Digitalizar tu Operación?',
           'contact-subtitle': 'Conversemos sobre cómo transformar tus procesos en soluciones digitales robustas',
           'contact-cta': 'Contactar por LinkedIn'
@@ -377,6 +388,12 @@ import { HeroCircle } from '../components/HeroCircle';
           'hero-main': 'Digital solutions',
           'hero-secondary': 'for a dynamic world',
           'journey-title': '🔴 My Transformation Process',
+          'journey-step1-title': '🔍 Understand',
+          'journey-step1-desc': 'I map real processes, detect bottlenecks and find digitalization opportunities. I don\'t design solutions without first understanding the real problem.',
+          'journey-step2-title': '🎨 Design',
+          'journey-step2-desc': 'I create intuitive interfaces that adapt to users\' real workflow. Design is not decoration, it\'s experience architecture.',
+          'journey-step3-title': '⚙️ Execute',
+          'journey-step3-desc': 'I develop robust, scalable, production-ready solutions with modern stack: React, TypeScript, Supabase and PostgreSQL. From prototype to functional product.',
           'services-title': '🔴 Services',
           'services-subtitle': 'I cover the entire product lifecycle, from idea to deployment',
           'service-fullstack-title': 'Custom Fullstack Development',
@@ -393,6 +410,11 @@ import { HeroCircle } from '../components/HeroCircle';
           'case-load': 'Load',
           'case-cta': 'View Full Case',
           'advantage-title': '🔴 Why Work With Me?',
+          'advantage-title-full': '💪 My background is my superpower',
+          'contact-main-title': '🔴 Let\'s Talk',
+          'contact-description': 'I don\'t just design. I solve problems. With the logic of a manager and the empathy of a teacher. Let\'s talk about your next project.',
+          'contact-email-button': 'Email',
+          'contact-linkedin-button': 'LinkedIn',
           'contact-title': 'Ready to Digitalize Your Operation?',
           'contact-subtitle': "Let's talk about how to transform your processes into robust digital solutions",
           'contact-cta': 'Contact via LinkedIn'

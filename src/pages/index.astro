@@ -68,12 +68,48 @@ import { HeroCircle } from '../components/HeroCircle';
         transform: translateY(4px) rotate(-45deg);
       }
     }
+
+    /* Timeline header responsive fix */
+    .journey-section h2 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      max-width: 100%;
+    }
+
+    @media (max-width: 640px) {
+      .journey-section h2 {
+        font-size: clamp(1.5rem, 5vw, 1.875rem);
+        padding: 0 0.5rem;
+      }
+      
+      .case-study-title {
+        font-size: clamp(1.5rem, 6vw, 1.875rem) !important;
+        padding: 0 0.5rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      
+      .advantage-title {
+        font-size: clamp(1.5rem, 6vw, 2rem) !important;
+        padding: 0 0.5rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      
+      .contact-title {
+        font-size: clamp(1.5rem, 6vw, 1.875rem) !important;
+        padding: 0 0.5rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+    }
   </style>
 
   <!-- Journey / Timeline Section - Mi Metodología -->
   <section id="journey" class="journey-section mb-16">
-    <div class="container mx-auto px-6">
-      <h2 class="text-4xl md:text-5xl font-['Syne'] font-bold text-center mb-20 text-white">
+    <div class="container mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-bold text-center mb-12 sm:mb-16 md:mb-20 text-white leading-tight">
         🔴 Mi Proceso de Transformación
       </h2>
       
@@ -129,7 +165,7 @@ import { HeroCircle } from '../components/HeroCircle';
   <!-- Servicios - Bento Box Asimétrico -->
   <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
     <div class="container mx-auto px-6">
-      <h2 class="text-4xl md:text-5xl font-black font-['Syne'] text-center mb-4 text-[#111]">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] text-center mb-4 text-[#111] leading-tight px-2">
         🔴 Servicios
       </h2>
       <p class="text-xl text-neutral-600 text-center mb-16 max-w-2xl mx-auto">
@@ -176,9 +212,9 @@ import { HeroCircle } from '../components/HeroCircle';
 
   <!-- Case Study - Grid Asimétrico -->
   <section class="py-20 mb-16">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111]">
+        <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight">
           🔴 Caso de Éxito
         </h2>
       </div>
@@ -231,7 +267,7 @@ import { HeroCircle } from '../components/HeroCircle';
 
   <!-- Advantage Section -->
   <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
-    <div class="container mx-auto px-6 text-center">
+    <div class="container mx-auto px-4 sm:px-6 text-center">
       <h2 class="advantage-title">
         <span class="word-wrapper"><span class="word">💪</span></span>
         <span class="word-wrapper"><span class="word"> Mi</span></span>
@@ -245,9 +281,9 @@ import { HeroCircle } from '../components/HeroCircle';
 
   <!-- Contact Section -->
   <section class="py-20 bg-gradient-to-br from-[#2a2a2a] to-[#111111] rounded-3xl mb-16">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6]">
+        <h2 class="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6] leading-tight">
           🔴 Hablemos
         </h2>
         <p class="text-xl text-[#d1d1d1] mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']">

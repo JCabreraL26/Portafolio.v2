@@ -2,16 +2,16 @@
 
 /* Hero Circle Button con efecto 3D */
 .hero-circle {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background: radial-gradient(circle at 60% 40%, #222 0%, #111 80%, #000 100%);
   box-shadow:
-    0 8px 32px 0 #000a,
-    0 2px 8px 0 #222,
-    inset 0 2px 24px 0 #444,
-    inset 0 -8px 32px 0 #000c,
-    0 0 12px 2px #fff2;
+    0 12px 48px 0 #000a,
+    0 4px 12px 0 #222,
+    inset 0 4px 36px 0 #444,
+    inset 0 -12px 48px 0 #000c,
+    0 0 18px 3px #fff2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,25 +27,25 @@
 .hero-circle::after {
   content: '';
   position: absolute;
-  top: 16px;
-  left: 24px;
-  width: 72px;
-  height: 32px;
+  top: 24px;
+  left: 36px;
+  width: 108px;
+  height: 48px;
   border-radius: 50%;
   background: linear-gradient(120deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 100%);
   opacity: 0.7;
-  filter: blur(1px);
+  filter: blur(1.5px);
   pointer-events: none;
 }
 
 .hero-circle:hover {
   box-shadow:
-    0 16px 48px 0 #fff,
-    0 0 32px 8px #b80000,
-    0 8px 32px 0 #000a,
-    0 2px 8px 0 #222,
-    inset 0 2px 24px 0 #444,
-    inset 0 -8px 32px 0 #000c;
+    0 24px 72px 0 #fff,
+    0 0 48px 12px #b80000,
+    0 12px 48px 0 #000a,
+    0 4px 12px 0 #222,
+    inset 0 4px 36px 0 #444,
+    inset 0 -12px 48px 0 #000c;
   transform: scale(1.08) rotateY(8deg);
 }
 

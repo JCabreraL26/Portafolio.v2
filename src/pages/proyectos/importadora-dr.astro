@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import { InventoryScanner } from '../../components/InventoryScanner';
 ---
 
 <Layout 
@@ -10,17 +11,17 @@ import Footer from '../../components/Footer.astro';
 >
   <Navbar />
   
-  <!-- Hero con círculo decorativo -->
-  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
-    <!-- Círculo decorativo -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#b80000]/20 to-transparent blur-3xl"></div>
+  <!-- Hero con efecto Scanner de Inventario -->
+  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-[#FAF9F6]">
+    <!-- Scanner de Inventario Animado -->
+    <InventoryScanner client:load />
     
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-6xl md:text-8xl font-['Syne'] font-extrabold mb-6 text-[#111]">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight">
           Importadora D&R
         </h1>
-        <p class="text-2xl md:text-3xl text-neutral-700 mb-8 font-['Poppins']">
+        <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-700 mb-8 font-['Poppins'] leading-tight">
           Inventario Preciso para una Operación sin Errores
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
@@ -43,9 +44,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- El Desafío - Bento Box -->
   <section class="py-20">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111]">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] leading-tight">
           🔴 El Desafío
         </h2>
         
@@ -77,9 +78,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- La Solución - Timeline -->
   <section class="journey-section mb-16">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto mb-16 text-center">
-        <h2 class="text-4xl md:text-5xl font-['Syne'] font-bold text-white mb-8">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Syne'] font-bold text-white mb-8 leading-tight">
           🔴 La Solución: MVP de Gestión Inteligente
         </h2>
         
@@ -127,9 +128,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- Arquitectura - Bento Box Grid -->
   <section class="py-20">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-5xl font-['Syne'] font-extrabold mb-8 text-[#111]">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight">
           🔴 Arquitectura: Precisión e Integridad
         </h2>
         
@@ -184,9 +185,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- Resultados - Featured Bento -->
   <section class="py-20 bg-[#f5f5f5]">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight">
           🔴 Resultados
         </h2>
         
@@ -218,9 +219,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- Roadmap - Bento Grid -->
   <section class="py-20">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-5xl font-['Syne'] font-extrabold mb-8 text-[#111]">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight">
           🗺️ Roadmap: Próximos Pasos
         </h2>
         
@@ -263,9 +264,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- Aprendizaje Principal -->
   <section class="py-20 bg-[#f5f5f5]">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-5xl mx-auto">
-        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight">
           💡 Aprendizaje Principal
         </h2>
         
@@ -287,9 +288,9 @@ import Footer from '../../components/Footer.astro';
 
   <!-- CTA -->
   <section class="py-32">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-5xl md:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111]">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight">
           Ver el MVP en Producción
         </h2>
         <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">

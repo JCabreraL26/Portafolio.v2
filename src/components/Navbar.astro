@@ -4,9 +4,12 @@ const currentPath = Astro.url.pathname;
 
 <nav class="navbar-glass fixed top-0 left-0 right-0 z-50 rounded-b-3xl">
   <div class="navbar-content max-w-[900px] mx-auto flex justify-between items-center px-6 py-4">
-    <a href="/" class="navbar-logo flex items-center gap-3 font-semibold text-lg font-['Playfair_Display'] no-underline text-[#222] transition-colors hover:text-[#b80000]">
-      <img src="/img/Logo aperca oscuro.svg" alt="Logo Jorge Cabrera" class="h-10 w-auto object-contain">
-      <span>Jorge Cabrera UX</span>
+    <a href="/" class="navbar-logo flex items-center gap-3 no-underline transition-colors hover:opacity-80">
+      <img src="/img/Logo aperca oscuro.svg" alt="Logo Aperca" class="h-10 w-auto object-contain">
+      <div class="flex flex-col">
+        <span class="text-2xl font-['Impact'] lowercase text-[#222] leading-none">aperca</span>
+        <span class="text-xs font-['Poppins'] text-[#666] mt-0.5">Jorge Cabrera UX</span>
+      </div>
     </a>
     
     <div class="navbar-hamburger hidden flex-col justify-center items-center w-8 h-8 cursor-pointer ml-4" id="navbar-hamburger" role="button" aria-label="Toggle navigation" aria-expanded="false">

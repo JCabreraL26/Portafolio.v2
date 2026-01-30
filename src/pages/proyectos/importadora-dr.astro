@@ -1,0 +1,343 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout 
+  title="Caso de Éxito: Importadora D&R - Jorge Cabrera"
+  description="Solución ERP que eliminó los descuadres de inventario. Del caos al orden con tecnología moderna."
+>
+  <Navbar />
+  
+  <!-- Hero con círculo decorativo -->
+  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
+    <!-- Círculo decorativo -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#b80000]/20 to-transparent blur-3xl"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-6xl md:text-8xl font-['Syne'] font-extrabold mb-6 text-[#111]">
+          Importadora D&R
+        </h1>
+        <p class="text-2xl md:text-3xl text-neutral-700 mb-8 font-['Poppins']">
+          Inventario Preciso para una Operación sin Errores
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            React + TypeScript
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            Supabase
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            PWA
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            Realtime
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- El Desafío - Bento Box -->
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111]">
+          🔴 El Desafío
+        </h2>
+        
+        <div class="grid grid-cols-12 gap-6">
+          <!-- Contenido principal 60% -->
+          <div class="col-span-12 md:col-span-7 bg-[#1a1a1a] rounded-2xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-shadow duration-500">
+            <p class="text-xl text-neutral-300 mb-6 leading-relaxed font-['Poppins']">
+              Crhistian Dias (42), empresario importador, enfrentaba una brecha crítica: <strong class="text-white">el stock físico en bodega nunca coincidía con las facturas</strong>. La complejidad de gestionar unidades fragmentadas (1 Caja = 32 Displays = 160 Unidades) generaba errores de cálculo manual e incertidumbre financiera.
+            </p>
+            
+            <ul class="text-xl text-neutral-300 leading-relaxed font-['Poppins'] space-y-4">
+              <li><strong class="text-white">El Problema:</strong> Falta de integridad de datos y pérdida de trazabilidad en los despachos.</li>
+              <li><strong class="text-white">El Objetivo:</strong> Crear una herramienta móvil que garantice que "lo que se cuenta es lo que se factura".</li>
+            </ul>
+          </div>
+          
+          <!-- Card con insight 40% -->
+          <div class="col-span-12 md:col-span-5 bg-gradient-to-br from-[#b80000] to-[#8a0000] rounded-2xl p-8 md:p-10 shadow-[0_8px_30px_rgb(184,0,0,0.3)] hover:shadow-[0_20px_60px_rgba(184,0,0,0.4)] transition-shadow duration-500 flex flex-col justify-center">
+            <div class="text-7xl font-black text-white/20 mb-4">📦</div>
+            <h3 class="text-3xl font-['Syne'] font-extrabold text-white mb-4">Brecha Crítica</h3>
+            <p class="text-lg text-white/90 font-['Poppins']">
+              El stock físico nunca coincidía con las facturas por errores de cálculo manual en unidades fragmentadas
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- La Solución - Timeline -->
+  <section class="journey-section mb-16">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto mb-16 text-center">
+        <h2 class="text-4xl md:text-5xl font-['Syne'] font-bold text-white mb-8">
+          La Solución: MVP de Gestión Inteligente
+        </h2>
+        
+        <p class="text-xl text-neutral-300 font-['Poppins']">
+          En lugar de un sistema genérico de inventario, diseñé una <strong class="text-white">aplicación web progresiva (PWA)</strong> orientada a las tres operaciones clave de Importadora D&R:
+        </p>
+      </div>
+      
+      <div class="timeline">
+        <!-- Item 1: Registro de Despacho -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <img src="/img/Stock_Inventario.png" alt="Stock e Inventario" class="w-full h-64 object-cover rounded-2xl">
+          </div>
+          <div class="timeline-content">
+            <h3>Registro de Despacho</h3>
+            <p>Botón directo con icono de camión para vincular salidas de inventario con órdenes de factura en tiempo real. <strong>Cada movimiento queda registrado automáticamente.</strong></p>
+          </div>
+        </div>
+        
+        <!-- Item 2: Motor de Conversión -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <img src="/img/Motor_conversion.png" alt="Motor de Conversión" class="w-full h-64 object-cover rounded-2xl">
+          </div>
+          <div class="timeline-content">
+            <h3>Motor de Conversión</h3>
+            <p>Lógica automática que convierte unidades fragmentadas sin intervención manual del usuario. <strong>El sistema normaliza cajas, displays y unidades sin errores humanos.</strong></p>
+          </div>
+        </div>
+        
+        <!-- Item 3: Vista de Inventario -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <img src="/img/stock_inventario_2.png" alt="Vista de Inventario" class="w-full h-64 object-cover rounded-2xl">
+          </div>
+          <div class="timeline-content">
+            <h3>Vista de Inventario</h3>
+            <p>Panel de consulta instantánea de stock disponible por producto, sabor y formato. <strong>Visibilidad total en tiempo real desde cualquier dispositivo.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arquitectura - Bento Box Grid -->
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-['Syne'] font-extrabold mb-8 text-[#111]">
+          Arquitectura: Precisión e Integridad
+        </h2>
+        
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
+          Para garantizar datos infalibles, implementé un stack de alto rendimiento enfocado en la <strong class="text-[#111]">consistencia y la velocidad</strong>:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Card 1 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-4 text-white">Frontend (React + TypeScript)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Uso de <strong>TypeScript</strong> para eliminar errores de redondeo en conversiones y <strong>PWA</strong> para garantizar el funcionamiento en bodegas con baja señal
+            </p>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-4 text-white">Gestión de Estado (Zustand + Query)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Interfaz ultra-rápida con sincronización <strong>Realtime</strong>, reflejando cambios de stock al instante en todos los dispositivos
+            </p>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-4 text-white">Backend (Supabase/PostgreSQL)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Base de datos relacional con políticas <strong>RLS</strong> (seguridad a nivel de fila) para proteger la integridad de la información sensible
+            </p>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-4 text-white">Lógica de Auditoría</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Registro automático de transacciones y motor de normalización de stock para eliminar el cálculo mental del operario
+            </p>
+          </div>
+          
+          <!-- Card 5 destacada -->
+          <div class="service-card-3d bg-gradient-to-br from-[#b80000] to-[#8a0000] rounded-2xl p-8 md:col-span-2">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-4 text-white">Despliegue</h3>
+            <p class="text-white/90 font-['Poppins'] leading-relaxed text-lg">
+              CI/CD en Netlify con carga optimizada <strong>(&lt; 2s)</strong> para un uso móvil intensivo y fluido
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados - Featured Bento -->
+  <section class="py-20 bg-[#f5f5f5]">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center">
+          Resultados
+        </h2>
+        
+        <!-- Featured Bento grande -->
+        <div class="service-card-3d bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-12 md:p-16">
+          <div class="grid md:grid-cols-3 gap-12">
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">100%</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Precisión</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Eliminación total de descuadres entre factura y bodega</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">80%</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Eficiencia</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Reducción del tiempo en el registro de movimientos</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#b80000] mb-6 font-['Syne']">24/7</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Control</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed">Trazabilidad completa de la operación desde el bolsillo del cliente</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap - Bento Grid -->
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-['Syne'] font-extrabold mb-8 text-[#111]">
+          Roadmap: Próximos Pasos
+        </h2>
+        
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
+          El MVP es solo el inicio de la digitalización de <strong class="text-[#111]">Importadora D&R</strong>. El plan de evolución incluye:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Escaneo QR/Barra</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Integración de la cámara para registrar despachos instantáneamente sin selección manual
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Notificaciones Inteligentes</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Alertas <em>push</em> al móvil cuando un sabor específico alcance su límite crítico de stock
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Analítica de Ventas</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Panel de visualización con los productos de mayor rotación y reportes de rendimiento mensual
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white">Modo Offline Avanzado</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed">
+              Capacidad de registrar movimientos sin conexión para sincronización automática al recuperar señal
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aprendizaje Principal -->
+  <section class="py-20 bg-[#f5f5f5]">
+    <div class="container mx-auto px-6">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center">
+          Aprendizaje Principal
+        </h2>
+        
+        <!-- Quote Card -->
+        <div class="service-card-3d bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-12 md:p-16">
+          <blockquote class="mb-8">
+            <p class="text-3xl md:text-4xl font-['Special_Elite'] text-white italic leading-relaxed mb-6">
+              "Entender la lógica del negocio en terreno fue la clave del éxito."
+            </p>
+          </blockquote>
+          
+          <p class="text-lg text-neutral-300 leading-relaxed font-['Poppins']">
+            El mayor aprendizaje de este proyecto no fue técnico, sino estratégico: la verdadera solución no se diseñó en el escritorio, sino observando la operación real. Comprender cómo se mueven las cajas en la bodega y cómo se gestionan las facturas permitió que el despliegue del MVP fuera natural y de adopción inmediata para el usuario. <strong class="text-white">Diseñar para el contexto real redujo la fricción y garantizó la integridad de los datos desde el primer día.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-32">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-5xl md:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111]">
+          Ver el MVP en Producción
+        </h2>
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']">
+          El sistema está desplegado y funcionando en tiempo real
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="https://mvp-stock-inventario.netlify.app" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] hover:bg-[#8a0000] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-[#b80000]/30 hover:shadow-xl hover:shadow-[#b80000]/40"
+          >
+            Abrir MVP
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+          <a 
+            href="/" 
+            class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30"
+          >
+            Volver al Inicio
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    // Animaciones de scroll para timeline items
+    document.addEventListener('DOMContentLoaded', () => {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
+</Layout>

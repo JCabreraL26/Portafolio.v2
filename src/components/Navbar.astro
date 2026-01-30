@@ -1,0 +1,102 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="navbar-glass fixed top-0 left-0 right-0 z-50 rounded-b-3xl">
+  <div class="navbar-content max-w-[900px] mx-auto flex justify-between items-center px-6 py-4">
+    <a href="/" class="navbar-logo flex items-center gap-3 font-semibold text-lg font-['Playfair_Display'] no-underline text-[#222] transition-colors hover:text-[#b80000]">
+      <img src="/img/Logo aperca oscuro.svg" alt="Logo Jorge Cabrera" class="h-10 w-auto object-contain">
+      <span>Jorge Cabrera UX</span>
+    </a>
+    
+    <div class="navbar-hamburger hidden flex-col justify-center items-center w-8 h-8 cursor-pointer ml-4" id="navbar-hamburger" role="button" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
+    </div>
+    
+    <div class="navbar-links flex items-center gap-0" id="navbar-links">
+      <a 
+        href="/" 
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+      >
+        Inicio
+      </a>
+      <a 
+        href="/proyectos/importadora-dr" 
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath.includes('/proyectos') ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+      >
+        Casos de Éxito
+      </a>
+      <a 
+        href="mailto:jcabreralabbe@gmail.com" 
+        class="nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline text-[#111] hover:text-[#b80000]"
+      >
+        Contacto
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('navbar-hamburger');
+    const navLinks = document.getElementById('navbar-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!isExpanded));
+        navLinks.classList.toggle('open');
+      });
+
+      const links = navLinks.querySelectorAll('.nav-link');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          if (navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    }
+  });
+</script>
+
+<style>
+  @media (max-width: 900px) {
+    .navbar-hamburger {
+      display: flex !important;
+    }
+
+    .navbar-links {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 16px 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 90vw;
+      max-width: 280px;
+      z-index: 200;
+    }
+
+    .navbar-links.open {
+      display: flex !important;
+    }
+
+    .navbar-links .nav-link {
+      margin: 8px 0 !important;
+      font-size: 1.1em;
+      margin-left: 0 !important;
+      width: 100%;
+      text-align: center;
+      padding: 8px 16px;
+    }
+  }
+</style>

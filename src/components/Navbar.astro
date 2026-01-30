@@ -1,4 +1,6 @@
 ---
+import { LanguageSwitch } from './LanguageSwitch';
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -22,21 +24,27 @@ const currentPath = Astro.url.pathname;
       <a 
         href="/" 
         class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        data-i18n="nav-home"
       >
         Inicio
       </a>
       <a 
         href="/proyectos/importadora-dr" 
         class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath.includes('/proyectos') ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        data-i18n="nav-cases"
       >
         Casos de Éxito
       </a>
       <a 
         href="/#contacto" 
         class="nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline text-[#111] hover:text-[#b80000]"
+        data-i18n="nav-contact"
       >
         Contacto
       </a>
+      <div class="ml-6">
+        <LanguageSwitch client:load />
+      </div>
     </div>
   </div>
 </nav>
@@ -63,6 +71,41 @@ const currentPath = Astro.url.pathname;
         });
       });
     }
+
+    // Sistema de traducción para navbar
+    const navTranslations = {
+      es: {
+        'nav-home': 'Inicio',
+        'nav-cases': 'Casos de Éxito',
+        'nav-contact': 'Contacto'
+      },
+      en: {
+        'nav-home': 'Home',
+        'nav-cases': 'Success Stories',
+        'nav-contact': 'Contact'
+      }
+    };
+
+    function applyNavTranslations(locale: string) {
+      const t = navTranslations[locale as 'es' | 'en'] || navTranslations.es;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key && t[key as keyof typeof t]) {
+          element.textContent = t[key as keyof typeof t];
+        }
+      });
+    }
+
+    // Aplicar traducciones al cargar
+    const savedLocale = localStorage.getItem('locale') || 'es';
+    applyNavTranslations(savedLocale);
+
+    // Escuchar cambios de idioma
+    window.addEventListener('localeChanged', (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      applyNavTranslations(customEvent.detail);
+    });
   });
 </script>
 

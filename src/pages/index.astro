@@ -20,8 +20,8 @@ import { HeroCircle } from '../components/HeroCircle';
   <section id="story" class="py-20 bg-[#F5F5F5] rounded-3xl">
     <div class="container mx-auto px-6 text-center">
       <h1 class="hero-title mb-12">
-        <span class="hero-main">Soluciones digitales</span><br/>
-        <span class="hero-secondary">para un mundo dinámico</span>
+        <span class="hero-main" data-i18n="hero-main">Soluciones digitales</span><br/>
+        <span class="hero-secondary" data-i18n="hero-secondary">para un mundo dinámico</span>
       </h1>
       <a href="#journey" class="scroll-down-indicator inline-block" aria-label="Scroll down">
         <span></span>
@@ -111,7 +111,7 @@ import { HeroCircle } from '../components/HeroCircle';
   <!-- Journey / Timeline Section - Mi Metodología -->
   <section id="journey" class="journey-section mb-16">
     <div class="container mx-auto px-4 sm:px-6">
-      <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-bold text-center mb-12 sm:mb-16 md:mb-20 text-white leading-tight">
+      <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-bold text-center mb-12 sm:mb-16 md:mb-20 text-white leading-tight" data-i18n="journey-title">
         🔴 Mi Proceso de Transformación
       </h2>
       
@@ -167,10 +167,10 @@ import { HeroCircle } from '../components/HeroCircle';
   <!-- Servicios - Bento Box Asimétrico -->
   <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] text-center mb-4 text-[#111] leading-tight px-2">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] text-center mb-4 text-[#111] leading-tight px-2" data-i18n="services-title">
         🔴 Servicios
       </h2>
-      <p class="text-xl text-neutral-600 text-center mb-16 max-w-2xl mx-auto">
+      <p class="text-xl text-neutral-600 text-center mb-16 max-w-2xl mx-auto" data-i18n="services-subtitle">
         Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue
       </p>
       
@@ -178,10 +178,9 @@ import { HeroCircle } from '../components/HeroCircle';
         <!-- Servicio Destacado - Desarrollo Fullstack (Izquierda Grande) -->
         <div class="service-featured">
           <div class="text-6xl mb-6">⚡</div>
-          <h3 class="text-3xl font-bold font-['Poppins'] mb-4 text-white">Desarrollo Fullstack a Medida</h3>
-          <p class="text-white/90 text-lg leading-relaxed">
-            Arquitecturas modernas y escalables con <strong>React, Node, Supabase y PostgreSQL</strong>. 
-            Soluciones llave en mano diseñadas específicamente para las reglas de tu industria.
+          <h3 class="text-3xl font-bold font-['Poppins'] mb-4 text-white" data-i18n="service-fullstack-title">Desarrollo Fullstack a Medida</h3>
+          <p class="text-white/90 text-lg leading-relaxed" data-i18n="service-fullstack-desc">
+            Arquitecturas modernas y escalables con React, Node, Supabase y PostgreSQL. Soluciones llave en mano diseñadas específicamente para las reglas de tu industria.
           </p>
           <div class="mt-6 flex flex-wrap gap-2">
             <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">React</span>
@@ -194,8 +193,8 @@ import { HeroCircle } from '../components/HeroCircle';
         <!-- Servicio Secundario 1 - UX (Derecha Superior) -->
         <div class="service-secondary service-secondary-1">
           <div class="text-4xl mb-4">🔍</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white">Consultoría UX y Diagnóstico</h3>
-          <p class="text-white/90 leading-relaxed">
+          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-ux-title">Consultoría UX y Diagnóstico</h3>
+          <p class="text-white/90 leading-relaxed" data-i18n="service-ux-desc">
             Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización.
           </p>
         </div>
@@ -203,8 +202,8 @@ import { HeroCircle } from '../components/HeroCircle';
         <!-- Servicio Secundario 2 - Digitalización (Derecha Inferior) -->
         <div class="service-secondary service-secondary-2">
           <div class="text-4xl mb-4">🚀</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white">Digitalización de Procesos</h3>
-          <p class="text-white/90 leading-relaxed">
+          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-digital-title">Digitalización de Procesos</h3>
+          <p class="text-white/90 leading-relaxed" data-i18n="service-digital-desc">
             Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos.
           </p>
         </div>
@@ -216,7 +215,7 @@ import { HeroCircle } from '../components/HeroCircle';
   <section class="py-20 mb-16">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-        <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight">
+        <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight" data-i18n="case-title">
           🔴 Caso de Éxito
         </h2>
       </div>
@@ -229,26 +228,26 @@ import { HeroCircle } from '../components/HeroCircle';
         
         <!-- Contenido (Derecha Superior) -->
         <div class="bento-content">
-          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]">Importadora D&R</h3>
-          <p class="text-lg text-neutral-600 leading-relaxed">
-            <strong class="text-[#b80000]">Del caos al orden:</strong> Solución ERP que eliminó los descuadres de inventario
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company">Importadora D&R</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline">
+            Del caos al orden: Solución ERP que eliminó los descuadres de inventario
           </p>
         </div>
         
         <!-- Métricas (Derecha Inferior) -->
         <div class="bento-metric">
           <div class="text-4xl font-black text-[#b80000] mb-1">100%</div>
-          <div class="text-sm text-neutral-600 font-semibold">Precisión</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-precision">Precisión</div>
         </div>
         
         <div class="bento-metric">
           <div class="text-4xl font-black text-[#b80000] mb-1">80%</div>
-          <div class="text-sm text-neutral-600 font-semibold">Eficiencia</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-efficiency">Eficiencia</div>
         </div>
         
         <div class="bento-metric">
           <div class="text-4xl font-black text-[#b80000] mb-1">&lt;2s</div>
-          <div class="text-sm text-neutral-600 font-semibold">Carga</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-load">Carga</div>
         </div>
       </div>
       
@@ -258,7 +257,7 @@ import { HeroCircle } from '../components/HeroCircle';
           href="/proyectos/importadora-dr" 
           class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] text-white font-semibold rounded-full transition-all hover:bg-[#8b0000] hover:scale-105 shadow-lg hover:shadow-xl"
         >
-          Ver Caso Completo
+          <span data-i18n="case-cta">Ver Caso Completo</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -296,7 +295,7 @@ import { HeroCircle } from '../components/HeroCircle';
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=jcabreralabbe@gmail.com&su=Consulta%20sobre%20proyecto%20web&body=Hola%20Jorge%2C%0A%0AVisit%C3%A9%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto.%0A%0AMi%20nombre%3A%0AMi%20empresa%2Fproyecto%3A%0AQu%C3%A9%20necesito%3A%0A%0ASaludos" 
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=jcabreralabbe@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
@@ -347,6 +346,90 @@ import { HeroCircle } from '../components/HeroCircle';
           document.documentElement.style.setProperty('--scroll-rotation', `${rotation}`);
         });
       }
+
+      // Sistema de traducción
+      const translations = {
+        es: {
+          'hero-main': 'Soluciones digitales',
+          'hero-secondary': 'para un mundo dinámico',
+          'journey-title': '🔴 Mi Proceso de Transformación',
+          'services-title': '🔴 Servicios',
+          'services-subtitle': 'Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue',
+          'service-fullstack-title': 'Desarrollo Fullstack a Medida',
+          'service-fullstack-desc': 'Arquitecturas modernas y escalables con React, Node, Supabase y PostgreSQL. Soluciones llave en mano diseñadas específicamente para las reglas de tu industria.',
+          'service-ux-title': 'Consultoría UX y Diagnóstico',
+          'service-ux-desc': 'Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización.',
+          'service-digital-title': 'Digitalización de Procesos',
+          'service-digital-desc': 'Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos.',
+          'case-title': '🔴 Caso de Éxito',
+          'case-company': 'Importadora D&R',
+          'case-tagline': 'Del caos al orden: Solución ERP que eliminó los descuadres de inventario',
+          'case-precision': 'Precisión',
+          'case-efficiency': 'Eficiencia',
+          'case-load': 'Carga',
+          'case-cta': 'Ver Caso Completo',
+          'advantage-title': '🔴 ¿Por Qué Trabajar Conmigo?',
+          'contact-title': '¿Listo para Digitalizar tu Operación?',
+          'contact-subtitle': 'Conversemos sobre cómo transformar tus procesos en soluciones digitales robustas',
+          'contact-cta': 'Contactar por LinkedIn'
+        },
+        en: {
+          'hero-main': 'Digital solutions',
+          'hero-secondary': 'for a dynamic world',
+          'journey-title': '🔴 My Transformation Process',
+          'services-title': '🔴 Services',
+          'services-subtitle': 'I cover the entire product lifecycle, from idea to deployment',
+          'service-fullstack-title': 'Custom Fullstack Development',
+          'service-fullstack-desc': 'Modern and scalable architectures with React, Node, Supabase and PostgreSQL. Turnkey solutions designed specifically for your industry rules.',
+          'service-ux-title': 'UX Consulting & Diagnosis',
+          'service-ux-desc': 'I use Design Thinking methodologies to map real processes and find digitalization opportunities.',
+          'service-digital-title': 'Process Digitalization',
+          'service-digital-desc': 'Transformation of analog workflows into immutable digital ecosystems. Specialty in data integrity.',
+          'case-title': '🔴 Success Story',
+          'case-company': 'Importadora D&R',
+          'case-tagline': 'From chaos to order: ERP solution that eliminated inventory discrepancies',
+          'case-precision': 'Precision',
+          'case-efficiency': 'Efficiency',
+          'case-load': 'Load',
+          'case-cta': 'View Full Case',
+          'advantage-title': '🔴 Why Work With Me?',
+          'contact-title': 'Ready to Digitalize Your Operation?',
+          'contact-subtitle': "Let's talk about how to transform your processes into robust digital solutions",
+          'contact-cta': 'Contact via LinkedIn'
+        }
+      };
+
+      function applyTranslations(locale: string) {
+        const t = translations[locale as 'es' | 'en'] || translations.es;
+        
+        // Aplicar traducciones a elementos con data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.getAttribute('data-i18n');
+          if (key && t[key as keyof typeof t]) {
+            // Si el elemento tiene hijos (como strong), usar textContent
+            // De lo contrario, preservar la estructura HTML si existe
+            if (element.children.length === 0) {
+              element.textContent = t[key as keyof typeof t];
+            } else {
+              // Para elementos con estructura HTML, reemplazar solo el texto principal
+              const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3);
+              if (textNodes.length > 0) {
+                element.textContent = t[key as keyof typeof t];
+              }
+            }
+          }
+        });
+      }
+
+      // Aplicar traducciones al cargar
+      const savedLocale = localStorage.getItem('locale') || 'es';
+      applyTranslations(savedLocale);
+
+      // Escuchar cambios de idioma
+      window.addEventListener('localeChanged', (event: Event) => {
+        const customEvent = event as CustomEvent<string>;
+        applyTranslations(customEvent.detail);
+      });
     });
   </script>
 </Layout>

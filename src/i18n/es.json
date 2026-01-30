@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "intro": "Intro",
+    "journey": "Proceso",
+    "services": "Servicios",
+    "case": "Caso",
+    "advantage": "Ventaja",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "main": "Soluciones digitales",
+    "secondary": "para un mundo dinámico"
+  },
+  "journey": {
+    "title": "🔴 Mi Proceso de Transformación",
+    "step1": {
+      "title": "🔍 Entiendo",
+      "description": "Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. <strong>No diseño soluciones sin entender primero el problema real.</strong>"
+    },
+    "step2": {
+      "title": "🎨 Diseño",
+      "description": "Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. <strong>El diseño no es decoración, es arquitectura de la experiencia.</strong>"
+    },
+    "step3": {
+      "title": "⚙️ Ejecuto",
+      "description": "Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. <strong>Del prototipo al producto funcional.</strong>"
+    }
+  },
+  "services": {
+    "title": "🔴 Servicios",
+    "subtitle": "Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue",
+    "fullstack": {
+      "title": "Desarrollo Fullstack a Medida",
+      "description": "Arquitecturas modernas y escalables con <strong>React, Node, Supabase y PostgreSQL</strong>. Soluciones llave en mano diseñadas específicamente para las reglas de tu industria."
+    },
+    "ux": {
+      "title": "Consultoría UX y Diagnóstico",
+      "description": "Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización."
+    },
+    "digital": {
+      "title": "Digitalización de Procesos",
+      "description": "Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos."
+    }
+  },
+  "case": {
+    "title": "🔴 Caso de Éxito",
+    "company": "Importadora D&R",
+    "tagline": "<strong class=\"text-[#b80000]\">Del caos al orden:</strong> Solución ERP que eliminó los descuadres de inventario",
+    "precision": "Precisión",
+    "efficiency": "Eficiencia",
+    "load": "Carga",
+    "cta": "Ver Caso Completo"
+  },
+  "advantage": {
+    "title": "🔴 ¿Por Qué Trabajar Conmigo?",
+    "subtitle": "No soy solo un ejecutor. Soy un estratega técnico que entiende las reglas del negocio",
+    "card1": {
+      "title": "🧠 Empatía con el Contexto Real",
+      "description": "No diseño en el vacío. Salgo al terreno, observo operaciones físicas y detecto dónde un sistema digital agrega valor real."
+    },
+    "card2": {
+      "title": "🛠️ Stack Moderno, Mantenible",
+      "description": "React, TypeScript, Supabase, PostgreSQL. Código limpio, arquitecturas modulares, documentación clara. Tu inversión será duradera."
+    },
+    "card3": {
+      "title": "⚡ Iteración Rápida",
+      "description": "MVP funcional en semanas, no meses. Valido hipótesis con usuarios reales y ajusto según los datos reales del negocio."
+    },
+    "card4": {
+      "title": "📊 Integridad de Datos Garantizada",
+      "description": "Especialidad en lógica crítica de negocio (inventarios, facturación, auditoría). Los números siempre cuadran."
+    }
+  },
+  "contact": {
+    "title": "¿Listo para Digitalizar tu Operación?",
+    "subtitle": "Conversemos sobre cómo transformar tus procesos en soluciones digitales robustas",
+    "cta": "Contactar por LinkedIn"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "designed": "Diseñado y desarrollado por Jorge Cabrera"
+  }
+}

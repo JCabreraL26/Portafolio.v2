@@ -7,6 +7,13 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jorge-cabrera.cl',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   vite: {
     plugins: [tailwindcss()]
   },

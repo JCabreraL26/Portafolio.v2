@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "intro": "Intro",
+    "journey": "Process",
+    "services": "Services",
+    "case": "Case",
+    "advantage": "Advantage",
+    "contact": "Contact"
+  },
+  "hero": {
+    "main": "Digital solutions",
+    "secondary": "for a dynamic world"
+  },
+  "journey": {
+    "title": "🔴 My Transformation Process",
+    "step1": {
+      "title": "🔍 Understand",
+      "description": "I map real processes, detect bottlenecks and find digitalization opportunities. <strong>I don't design solutions without first understanding the real problem.</strong>"
+    },
+    "step2": {
+      "title": "🎨 Design",
+      "description": "I create intuitive interfaces that adapt to users' real workflow. <strong>Design is not decoration, it's experience architecture.</strong>"
+    },
+    "step3": {
+      "title": "⚙️ Execute",
+      "description": "I develop robust, scalable, production-ready solutions with modern stack: React, TypeScript, Supabase and PostgreSQL. <strong>From prototype to functional product.</strong>"
+    }
+  },
+  "services": {
+    "title": "🔴 Services",
+    "subtitle": "I cover the entire product lifecycle, from idea to deployment",
+    "fullstack": {
+      "title": "Custom Fullstack Development",
+      "description": "Modern and scalable architectures with <strong>React, Node, Supabase and PostgreSQL</strong>. Turnkey solutions designed specifically for your industry rules."
+    },
+    "ux": {
+      "title": "UX Consulting & Diagnosis",
+      "description": "I use Design Thinking methodologies to map real processes and find digitalization opportunities."
+    },
+    "digital": {
+      "title": "Process Digitalization",
+      "description": "Transformation of analog workflows into immutable digital ecosystems. Specialty in data integrity."
+    }
+  },
+  "case": {
+    "title": "🔴 Success Story",
+    "company": "Importadora D&R",
+    "tagline": "<strong class=\"text-[#b80000]\">From chaos to order:</strong> ERP solution that eliminated inventory discrepancies",
+    "precision": "Precision",
+    "efficiency": "Efficiency",
+    "load": "Load",
+    "cta": "View Full Case"
+  },
+  "advantage": {
+    "title": "🔴 Why Work With Me?",
+    "subtitle": "I'm not just an executor. I'm a technical strategist who understands business rules",
+    "card1": {
+      "title": "🧠 Empathy with Real Context",
+      "description": "I don't design in a vacuum. I go to the field, observe physical operations and detect where a digital system adds real value."
+    },
+    "card2": {
+      "title": "🛠️ Modern, Maintainable Stack",
+      "description": "React, TypeScript, Supabase, PostgreSQL. Clean code, modular architectures, clear documentation. Your investment will be lasting."
+    },
+    "card3": {
+      "title": "⚡ Fast Iteration",
+      "description": "Functional MVP in weeks, not months. I validate hypotheses with real users and adjust according to real business data."
+    },
+    "card4": {
+      "title": "📊 Guaranteed Data Integrity",
+      "description": "Specialty in critical business logic (inventories, billing, auditing). The numbers always add up."
+    }
+  },
+  "contact": {
+    "title": "Ready to Digitalize Your Operation?",
+    "subtitle": "Let's talk about how to transform your processes into robust digital solutions",
+    "cta": "Contact via LinkedIn"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "designed": "Designed and developed by Jorge Cabrera"
+  }
+}

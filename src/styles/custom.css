@@ -2,8 +2,8 @@
 
 /* Hero Circle Button con efecto 3D */
 .hero-circle {
-  width: 180px;
-  height: 180px;
+  width: clamp(220px, 40vw, 280px);
+  height: clamp(220px, 40vw, 280px);
   border-radius: 50%;
   background: radial-gradient(circle at 60% 40%, #222 0%, #111 80%, #000 100%);
   box-shadow:
@@ -36,6 +36,13 @@
   opacity: 0.7;
   filter: blur(1.5px);
   pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .hero-circle {
+    width: 280px;
+    height: 280px;
+  }
 }
 
 .hero-circle:hover {

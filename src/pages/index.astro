@@ -216,11 +216,12 @@ import { HeroCircle } from '../components/HeroCircle';
     <div class="container mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
         <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight" data-i18n="case-title">
-          🔴 Caso de Éxito
+          🔴 Casos de Éxito
         </h2>
       </div>
       
-      <div class="case-study-bento max-w-6xl mx-auto">
+      <!-- Caso 1: Importadora D&R -->
+      <div class="case-study-bento max-w-6xl mx-auto mb-12">
         <!-- Imagen Grande (Izquierda) -->
         <div class="bento-image">
           <img src="/img/Caso_exito_app.jpg" alt="Stock Importadora D&R" class="w-full h-full object-cover rounded-2xl">
@@ -251,13 +252,63 @@ import { HeroCircle } from '../components/HeroCircle';
         </div>
       </div>
       
-      <!-- CTA Centrado -->
-      <div class="text-center mt-8">
+      <!-- CTA Importadora D&R -->
+      <div class="text-center mt-8 mb-16">
         <a 
           href="/proyectos/importadora-dr" 
           class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] text-white font-semibold rounded-full transition-all hover:bg-[#8b0000] hover:scale-105 shadow-lg hover:shadow-xl"
         >
           <span data-i18n="case-cta">Ver Caso Completo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Caso 2: LocalShop Pro -->
+      <div class="case-study-bento max-w-6xl mx-auto">
+        <!-- Imagen Grande (Izquierda) -->
+        <div class="bento-image">
+          <div class="w-full h-full bg-gradient-to-br from-orange-50 to-red-100 rounded-2xl flex items-center justify-center">
+            <div class="text-center p-8">
+              <div class="text-8xl mb-4">🍕</div>
+              <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: LocalShop Pro</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contenido (Derecha Superior) -->
+        <div class="bento-content">
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company2">LocalShop Pro</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline2">
+            De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales
+          </p>
+        </div>
+        
+        <!-- Métricas (Derecha Inferior) -->
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">3 días</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-speed">Velocidad</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">0%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-commission">Comisiones</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">80%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-automation">Automatización</div>
+        </div>
+      </div>
+      
+      <!-- CTA LocalShop Pro -->
+      <div class="text-center mt-8">
+        <a 
+          href="/proyectos/localshop-pro" 
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#DC2626] text-white font-semibold rounded-full transition-all hover:bg-[#B91C1C] hover:scale-105 shadow-lg hover:shadow-xl"
+        >
+          <span data-i18n="case-cta2">Ver Caso Completo</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -365,13 +416,19 @@ import { HeroCircle } from '../components/HeroCircle';
           'service-ux-desc': 'Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización.',
           'service-digital-title': 'Digitalización de Procesos',
           'service-digital-desc': 'Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos.',
-          'case-title': '🔴 Caso de Éxito',
+          'case-title': '🔴 Casos de Éxito',
           'case-company': 'Importadora D&R',
           'case-tagline': 'Del caos al orden: Solución ERP que eliminó los descuadres de inventario',
           'case-precision': 'Precisión',
           'case-efficiency': 'Eficiencia',
           'case-load': 'Carga',
           'case-cta': 'Ver Caso Completo',
+          'case-company2': 'LocalShop Pro',
+          'case-tagline2': 'De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales',
+          'case-speed': 'Velocidad',
+          'case-commission': 'Comisiones',
+          'case-automation': 'Automatización',
+          'case-cta2': 'Ver Caso Completo',
           'advantage-title': '🔴 ¿Por Qué Trabajar Conmigo?',
           'advantage-title-full': '💪 Mi background es mi superpoder',
           'contact-main-title': '🔴 Hablemos',
@@ -400,13 +457,19 @@ import { HeroCircle } from '../components/HeroCircle';
           'service-ux-desc': 'I use Design Thinking methodologies to map real processes and find digitalization opportunities.',
           'service-digital-title': 'Process Digitalization',
           'service-digital-desc': 'Transformation of analog workflows into immutable digital ecosystems. Specialty in data integrity.',
-          'case-title': '🔴 Success Story',
+          'case-title': '🔴 Success Stories',
           'case-company': 'Importadora D&R',
           'case-tagline': 'From chaos to order: ERP solution that eliminated inventory discrepancies',
           'case-precision': 'Precision',
           'case-efficiency': 'Efficiency',
           'case-load': 'Load',
           'case-cta': 'View Full Case',
+          'case-company2': 'LocalShop Pro',
+          'case-tagline2': 'From losing margins to selling direct: Commission-free e-commerce for local businesses',
+          'case-speed': 'Speed',
+          'case-commission': 'Commissions',
+          'case-automation': 'Automation',
+          'case-cta2': 'View Full Case',
           'advantage-title': '🔴 Why Work With Me?',
           'advantage-title-full': '💪 My background is my superpower',
           'contact-main-title': '🔴 Let\'s Talk',

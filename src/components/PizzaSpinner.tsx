@@ -230,7 +230,7 @@ export const PizzaSpinner = () => {
         🍄
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{__html: `
         @keyframes float {
           0%, 100% {
             transform: translateY(0px);
@@ -271,7 +271,7 @@ export const PizzaSpinner = () => {
           animation: float-slow 6s ease-in-out infinite;
           animation-delay: 0.5s;
         }
-      `}</style>
+      `}} />
     </div>
   );
 };

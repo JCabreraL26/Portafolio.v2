@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import { HeroCircle } from '../../components/HeroCircle';
+import { PizzaSpinner } from '../../components/PizzaSpinner';
 ---
 
 <Layout 
@@ -11,10 +11,10 @@ import { HeroCircle } from '../../components/HeroCircle';
 >
   <Navbar />
   
-  <!-- Hero con efecto de círculos -->
+  <!-- Hero con pizza giratoria -->
   <section class="relative min-h-[75vh] flex items-center justify-center overflow-hidden pt-20 pb-12 bg-[#FAF9F6]">
-    <!-- Animación de fondo -->
-    <HeroCircle client:load />
+    <!-- Pizza animada de fondo -->
+    <PizzaSpinner client:load />
     
     <div class="container mx-auto px-4 sm:px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">

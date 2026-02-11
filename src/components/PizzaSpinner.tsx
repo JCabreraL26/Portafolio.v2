@@ -41,15 +41,15 @@ export const PizzaSpinner = () => {
     <div className="absolute inset-0 overflow-hidden opacity-25">
       {/* Pizza central giratoria */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2"
         style={{
-          transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+          transform: `translate(-50%, -50%) rotate(${rotation}deg) scale(0.7)`,
           transition: 'transform 0.05s linear',
         }}
       >
         <svg
-          width="600"
-          height="600"
+          width="450"
+          height="450"
           viewBox="0 0 100 100"
           className="drop-shadow-2xl"
         >

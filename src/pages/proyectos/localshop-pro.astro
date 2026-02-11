@@ -1,0 +1,651 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { HeroCircle } from '../../components/HeroCircle';
+---
+
+<Layout 
+  title="Caso de Éxito: LocalShop Pro - Jorge Cabrera"
+  description="Plataforma e-commerce white-label que liberó a negocios locales de comisiones del 30%. De perder márgenes a vender directo."
+>
+  <Navbar />
+  
+  <!-- Hero con efecto de círculos -->
+  <section class="relative min-h-[75vh] flex items-center justify-center overflow-hidden pt-20 pb-12 bg-[#FAF9F6]">
+    <!-- Animación de fondo -->
+    <HeroCircle client:load />
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight">
+          LocalShop Pro
+        </h1>
+        <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-700 mb-8 font-['Poppins'] leading-tight" data-i18n="hero-subtitle">
+          E-commerce Directo sin Comisiones para Negocios Locales
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            Next.js 14
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            Convex DB
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            WhatsApp Integration
+          </span>
+          <span class="px-6 py-3 bg-[#1a1a1a] rounded-xl text-sm text-white font-['Poppins'] shadow-lg shadow-black/20">
+            Turborepo
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- El Desafío - Bento Box -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] leading-tight" data-i18n="challenge-title">
+          🍕 El Desafío
+        </h2>
+        
+        <div class="grid grid-cols-12 gap-6">
+          <!-- Contenido principal 60% -->
+          <div class="col-span-12 md:col-span-7 bg-[#1a1a1a] rounded-2xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-shadow duration-500">
+            <p class="text-xl text-neutral-300 mb-6 leading-relaxed font-['Poppins']" data-i18n="challenge-desc">
+              Más Pizza Ñuñoa, pizzería artesanal con 5 años de trayectoria, enfrentaba un dilema crítico: cada pedido en apps de delivery (UberEats, Rappi, PedidosYa) les costaba entre 25-30% en comisiones. Con márgenes ajustados, esto significaba perder hasta $500.000 mensuales.
+            </p>
+            
+            <ul class="text-xl text-neutral-300 leading-relaxed font-['Poppins'] space-y-4">
+              <li><strong class="text-white">El Problema:</strong> Dependencia de plataformas costosas que erosionan rentabilidad + atención manual de pedidos por WhatsApp.</li>
+              <li><strong class="text-white">El Objetivo:</strong> Crear presencia digital profesional sin comisiones, donde clientes ordenen directamente.</li>
+            </ul>
+          </div>
+          
+          <!-- Card con insight 40% -->
+          <div class="col-span-12 md:col-span-5 bg-gradient-to-br from-[#DC2626] to-[#B91C1C] rounded-2xl p-8 md:p-10 shadow-[0_8px_30px_rgb(220,38,38,0.3)] hover:shadow-[0_20px_60px_rgba(220,38,38,0.4)] transition-shadow duration-500 flex flex-col justify-center">
+            <div class="text-7xl font-black text-white/20 mb-4">💸</div>
+            <h3 class="text-3xl font-['Syne'] font-extrabold text-white mb-4" data-i18n="challenge-insight-title">Sangría de Márgenes</h3>
+            <p class="text-lg text-white/90 font-['Poppins']" data-i18n="challenge-insight-desc">
+              $500.000 mensuales perdidos en comisiones del 25-30% sin control sobre la experiencia del cliente
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- La Solución - Timeline -->
+  <section class="journey-section mb-16">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto mb-16 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Syne'] font-bold text-white mb-8 leading-tight" data-i18n="solution-title">
+          🍕 La Solución: E-commerce White-Label con WhatsApp
+        </h2>
+        
+        <p class="text-xl text-neutral-300 font-['Poppins']" data-i18n="solution-intro">
+          En lugar de depender de plataformas genéricas, diseñé una solución personalizada que permite a negocios locales vender directamente. El flujo del cliente:
+        </p>
+      </div>
+      
+      <div class="timeline">
+        <!-- Item 1: Catálogo Digital -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <!-- ESPACIO PARA IMAGEN: Captura del sitio web mostrando catálogo de pizzas -->
+            <div class="w-full h-64 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-6xl mb-4">🖼️</div>
+                <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: Catálogo de productos<br/>del sitio web</p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-content">
+            <h3 data-i18n="solution-step1-title">🌐 Explorar Catálogo Digital</h3>
+            <p data-i18n="solution-step1-desc">Cliente entra al sitio personalizado con marca del negocio, ve productos con fotos profesionales, precios y descripciones detalladas. Todo mobile-first.</p>
+          </div>
+        </div>
+        
+        <!-- Item 2: Personalización -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <!-- ESPACIO PARA IMAGEN: Modal de personalización de pizza con toppings -->
+            <div class="w-full h-64 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-6xl mb-4">🖼️</div>
+                <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: Sistema de toppings<br/>y personalización</p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-content">
+            <h3 data-i18n="solution-step2-title">✨ Personalizar Productos</h3>
+            <p data-i18n="solution-step2-desc">Selección de tamaños, toppings extras, ingredientes a quitar. Preview de precio total actualizado en tiempo real sin confusión.</p>
+          </div>
+        </div>
+        
+        <!-- Item 3: Carrito -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <!-- ESPACIO PARA IMAGEN: Vista del carrito de compras -->
+            <div class="w-full h-64 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-6xl mb-4">🖼️</div>
+                <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: Carrito de compras<br/>con resumen de pedido</p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-content">
+            <h3 data-i18n="solution-step3-title">🛒 Revisar Carrito</h3>
+            <p data-i18n="solution-step3-desc">Resumen completo del pedido con todas las personalizaciones visibles, cantidades editables, cálculo automático de subtotales.</p>
+          </div>
+        </div>
+
+        <!-- Item 4: Checkout -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <!-- ESPACIO PARA IMAGEN: Formulario de checkout -->
+            <div class="w-full h-64 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-6xl mb-4">🖼️</div>
+                <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: Formulario de checkout<br/>con datos del cliente</p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-content">
+            <h3 data-i18n="solution-step4-title">📝 Completar Datos</h3>
+            <p data-i18n="solution-step4-desc">Formulario simple: nombre, teléfono, dirección, método de pago. Validación inline para evitar errores.</p>
+          </div>
+        </div>
+
+        <!-- Item 5: WhatsApp -->
+        <div class="timeline-item">
+          <div class="timeline-image">
+            <!-- ESPACIO PARA IMAGEN: Mensaje pre-formateado en WhatsApp -->
+            <div class="w-full h-64 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-6xl mb-4">🖼️</div>
+                <p class="text-neutral-600 font-['Poppins'] text-sm">Imagen: Mensaje estructurado<br/>enviado por WhatsApp</p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-content">
+            <h3 data-i18n="solution-step5-title">💬 Enviar a WhatsApp</h3>
+            <p data-i18n="solution-step5-desc">Click en botón verde abre WhatsApp Business del negocio con pedido completo pre-formateado. Cero fricción para confirmar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel de Administración -->
+  <section class="py-20 bg-[#f5f5f5]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight" data-i18n="admin-title">
+          ⚙️ Panel de Administración
+        </h2>
+        
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="admin-intro">
+          Control total sin conocimientos técnicos. El dueño actualiza su negocio en tiempo real:
+        </p>
+        
+        <!-- ESPACIO PARA IMAGEN: Screenshot del panel de admin -->
+        <div class="mb-12 rounded-2xl overflow-hidden shadow-2xl">
+          <div class="w-full h-96 bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-8xl mb-4">🖼️</div>
+              <p class="text-neutral-600 font-['Poppins'] text-lg">Imagen: Dashboard del panel de administración</p>
+              <p class="text-neutral-500 font-['Poppins'] text-sm mt-2">Gestión de productos, precios, imágenes y disponibilidad</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Card 1 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="admin-products-title">📦 Gestión de Productos</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="admin-products-desc">
+              Agregar, editar, eliminar productos. Subir imágenes, actualizar precios, gestionar categorías. Todo desde el navegador.
+            </p>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="admin-realtime-title">⚡ Actualización en Tiempo Real</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="admin-realtime-desc">
+              Cambios instantáneos en el sitio web. Convex sincroniza automáticamente sin refrescar. Lo que cambias, se ve al momento.
+            </p>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="admin-config-title">🎨 Personalización de Marca</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="admin-config-desc">
+              Logo, colores corporativos, número de WhatsApp. Un solo archivo de configuración controla toda la identidad visual.
+            </p>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="admin-availability-title">🔘 Control de Disponibilidad</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="admin-availability-desc">
+              Mostrar/ocultar productos agotados con un click. Evita frustración del cliente al intentar ordenar algo no disponible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arquitectura - Bento Box Grid -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight" data-i18n="arch-title">
+          🍕 Arquitectura: Moderna y Escalable
+        </h2>
+        
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="arch-intro">
+          Stack técnico optimizado para velocidad, mantenibilidad y experiencia de desarrollo excepcional:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Card 1 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-frontend-title">⚛️ Frontend (Next.js 14 + TypeScript)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-frontend-desc">
+              App Router con Server Components, TypeScript strict mode, Tailwind CSS con theming dinámico. Mobile-first responsive design.
+            </p>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-state-title">🗄️ Estado (Zustand + Convex)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-state-desc">
+              Gestión de carrito con Zustand para estado local. Convex queries para datos en tiempo real con invalidación automática.
+            </p>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-backend-title">🔥 Backend (Convex Database)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-backend-desc">
+              Base de datos TypeScript-native con queries reactivas, file storage integrado, autenticación sin config, escalamiento automático.
+            </p>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-monorepo-title">📦 Monorepo (Turborepo)</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="arch-monorepo-desc">
+              Arquitectura multi-tenant: paquetes compartidos (@localshop/ui, @localshop/core). Un codebase, múltiples clientes.
+            </p>
+          </div>
+          
+          <!-- Card 5 destacada -->
+          <div class="service-card-3d bg-gradient-to-br from-[#DC2626] to-[#B91C1C] rounded-2xl p-8 md:col-span-2">
+            <h3 class="text-lg sm:text-xl font-['Syne'] font-bold mb-4 text-white" data-i18n="arch-deploy-title">🚀 Despliegue (Netlify)</h3>
+            <p class="text-white/90 font-['Poppins'] leading-relaxed text-lg" data-i18n="arch-deploy-desc">
+              CI/CD automático con preview branches. Deploy de commit a producción en 2 minutos. Zero-config, solo push.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados - Featured Bento -->
+  <section class="py-20 bg-[#f5f5f5]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight" data-i18n="results-title">
+          🍕 Resultados
+        </h2>
+        
+        <!-- Featured Bento grande -->
+        <div class="service-card-3d bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-12 md:p-16 mb-12">
+          <div class="grid md:grid-cols-3 gap-12">
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#DC2626] mb-6 font-['Syne']">3 días</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-speed">Velocidad</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-speed-desc">De idea a producción. MVP desplegado y funcionando en menos de una semana.</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#DC2626] mb-6 font-['Syne']">80%</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-automation">Automatización</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-automation-desc">De pedidos llegan pre-formateados vs responder consultas manualmente por WhatsApp</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="text-6xl md:text-7xl font-black text-[#DC2626] mb-6 font-['Syne']">0%</div>
+              <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="results-commission">Comisiones</h3>
+              <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="results-commission-desc">Ahorro de $500k/mes vs 25-30% que cobran apps de delivery. ROI infinito.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI Breakdown -->
+        <div class="service-card-3d bg-white rounded-2xl p-8 md:p-12">
+          <h3 class="text-2xl font-['Syne'] font-bold mb-6 text-[#111]" data-i18n="results-roi-title">💰 Retorno de Inversión</h3>
+          <div class="space-y-4 text-neutral-700 font-['Poppins'] text-lg">
+            <div class="flex justify-between items-center pb-4 border-b border-neutral-200">
+              <span>100 pedidos/mes × $20.000 promedio</span>
+              <span class="font-bold">$2.000.000</span>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-neutral-200">
+              <span>Comisión ahorrada (25% UberEats)</span>
+              <span class="font-bold text-[#DC2626]">$500.000/mes</span>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-neutral-200">
+              <span>Costo mensual proyectado (SaaS)</span>
+              <span class="font-bold">$49.000</span>
+            </div>
+            <div class="flex justify-between items-center pt-2">
+              <span class="text-xl font-bold">Ahorro neto mensual</span>
+              <span class="text-3xl font-black text-green-600">$451.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap - Bento Grid -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-8 text-[#111] leading-tight" data-i18n="roadmap-title">
+          🗺️ Roadmap: Próximos Pasos
+        </h2>
+        
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="roadmap-intro">
+          El MVP está en producción, pero la visión es escalar a un SaaS completo para pequeños negocios en LATAM:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-payment-title">💳 Pasarela de Pago</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-payment-desc">
+              Integración con Mercado Pago para pago online directo. Alternativa para clientes que prefieren pagar antes de recibir.
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-coupons-title">🎟️ Cupones y Descuentos</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-coupons-desc">
+              Sistema de promociones, códigos de descuento, combos. Marketing directo sin depender de plataformas.
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-analytics-title">📊 Analytics Dashboard</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-analytics-desc">
+              Panel de métricas para dueños: productos más vendidos, horarios pico, ticket promedio, tendencias.
+            </p>
+          </div>
+          
+          <div class="service-card-3d bg-[#1a1a1a] rounded-2xl p-8">
+            <h3 class="text-2xl font-['Syne'] font-bold mb-3 text-white" data-i18n="roadmap-app-title">📱 App Nativa</h3>
+            <p class="text-neutral-400 font-['Poppins'] leading-relaxed" data-i18n="roadmap-app-desc">
+              React Native para iOS/Android. Notificaciones push, mejor performance, presencia en app stores.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aprendizaje Principal -->
+  <section class="py-20 bg-[#f5f5f5]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-extrabold mb-12 text-[#111] text-center leading-tight" data-i18n="learning-title">
+          💡 Aprendizaje Principal
+        </h2>
+        
+        <!-- Quote Card -->
+        <div class="service-card-3d bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-12 md:p-16">
+          <blockquote class="mb-8">
+            <p class="text-3xl md:text-4xl font-['Special_Elite'] text-white italic leading-relaxed mb-6" data-i18n="learning-quote">
+              "La tecnología correcta acelera, pero entender el problema real define el éxito."
+            </p>
+          </blockquote>
+          
+          <p class="text-lg text-neutral-300 leading-relaxed font-['Poppins']" data-i18n="learning-desc">
+            El mayor aprendizaje fue estratégico: el dueño no necesitaba un e-commerce complejo con pasarelas de pago y CRM. Necesitaba dejar de perder dinero en comisiones YA. Priorizar WhatsApp (herramienta que ya dominaba) sobre integraciones sofisticadas permitió lanzar en 3 días vs 3 semanas. Ship early, iterate always. El feedback real vale más que las assumptions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-32">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-['Syne'] font-extrabold mb-6 text-[#111] leading-tight" data-i18n="cta-title">
+          Ver LocalShop Pro en Producción
+        </h2>
+        <p class="text-xl text-neutral-700 mb-12 font-['Poppins']" data-i18n="cta-subtitle">
+          Sitio real funcionando con cliente real vendiendo pizzas reales
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="https://mas-pizza-nunoa.netlify.app" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-[#DC2626] hover:bg-[#B91C1C] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-[#DC2626]/30 hover:shadow-xl hover:shadow-[#DC2626]/40"
+          >
+            <span data-i18n="cta-demo">Ver Demo en Vivo</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+          <a 
+            href="/#contacto" 
+            class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30"
+          >
+            <span data-i18n="cta-contact">Contactar</span>
+          </a>
+          <a 
+            href="/" 
+            class="px-8 py-4 border-2 border-[#1a1a1a] hover:bg-[#1a1a1a] text-[#1a1a1a] hover:text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300"
+          >
+            <span data-i18n="cta-home">Volver al Inicio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    // Animaciones de scroll para timeline items
+    document.addEventListener('DOMContentLoaded', () => {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+
+      // Sistema de traducción
+      const translations = {
+        es: {
+          'hero-subtitle': 'E-commerce Directo sin Comisiones para Negocios Locales',
+          'challenge-title': '🍕 El Desafío',
+          'challenge-desc': 'Más Pizza Ñuñoa, pizzería artesanal con 5 años de trayectoria, enfrentaba un dilema crítico: cada pedido en apps de delivery (UberEats, Rappi, PedidosYa) les costaba entre 25-30% en comisiones. Con márgenes ajustados, esto significaba perder hasta $500.000 mensuales.',
+          'challenge-insight-title': 'Sangría de Márgenes',
+          'challenge-insight-desc': '$500.000 mensuales perdidos en comisiones del 25-30% sin control sobre la experiencia del cliente',
+          'solution-title': '🍕 La Solución: E-commerce White-Label con WhatsApp',
+          'solution-intro': 'En lugar de depender de plataformas genéricas, diseñé una solución personalizada que permite a negocios locales vender directamente. El flujo del cliente:',
+          'solution-step1-title': '🌐 Explorar Catálogo Digital',
+          'solution-step1-desc': 'Cliente entra al sitio personalizado con marca del negocio, ve productos con fotos profesionales, precios y descripciones detalladas. Todo mobile-first.',
+          'solution-step2-title': '✨ Personalizar Productos',
+          'solution-step2-desc': 'Selección de tamaños, toppings extras, ingredientes a quitar. Preview de precio total actualizado en tiempo real sin confusión.',
+          'solution-step3-title': '🛒 Revisar Carrito',
+          'solution-step3-desc': 'Resumen completo del pedido con todas las personalizaciones visibles, cantidades editables, cálculo automático de subtotales.',
+          'solution-step4-title': '📝 Completar Datos',
+          'solution-step4-desc': 'Formulario simple: nombre, teléfono, dirección, método de pago. Validación inline para evitar errores.',
+          'solution-step5-title': '💬 Enviar a WhatsApp',
+          'solution-step5-desc': 'Click en botón verde abre WhatsApp Business del negocio con pedido completo pre-formateado. Cero fricción para confirmar.',
+          'admin-title': '⚙️ Panel de Administración',
+          'admin-intro': 'Control total sin conocimientos técnicos. El dueño actualiza su negocio en tiempo real:',
+          'admin-products-title': '📦 Gestión de Productos',
+          'admin-products-desc': 'Agregar, editar, eliminar productos. Subir imágenes, actualizar precios, gestionar categorías. Todo desde el navegador.',
+          'admin-realtime-title': '⚡ Actualización en Tiempo Real',
+          'admin-realtime-desc': 'Cambios instantáneos en el sitio web. Convex sincroniza automáticamente sin refrescar. Lo que cambias, se ve al momento.',
+          'admin-config-title': '🎨 Personalización de Marca',
+          'admin-config-desc': 'Logo, colores corporativos, número de WhatsApp. Un solo archivo de configuración controla toda la identidad visual.',
+          'admin-availability-title': '🔘 Control de Disponibilidad',
+          'admin-availability-desc': 'Mostrar/ocultar productos agotados con un click. Evita frustración del cliente al intentar ordenar algo no disponible.',
+          'arch-title': '🍕 Arquitectura: Moderna y Escalable',
+          'arch-intro': 'Stack técnico optimizado para velocidad, mantenibilidad y experiencia de desarrollo excepcional:',
+          'arch-frontend-title': '⚛️ Frontend (Next.js 14 + TypeScript)',
+          'arch-frontend-desc': 'App Router con Server Components, TypeScript strict mode, Tailwind CSS con theming dinámico. Mobile-first responsive design.',
+          'arch-state-title': '🗄️ Estado (Zustand + Convex)',
+          'arch-state-desc': 'Gestión de carrito con Zustand para estado local. Convex queries para datos en tiempo real con invalidación automática.',
+          'arch-backend-title': '🔥 Backend (Convex Database)',
+          'arch-backend-desc': 'Base de datos TypeScript-native con queries reactivas, file storage integrado, autenticación sin config, escalamiento automático.',
+          'arch-monorepo-title': '📦 Monorepo (Turborepo)',
+          'arch-monorepo-desc': 'Arquitectura multi-tenant: paquetes compartidos (@localshop/ui, @localshop/core). Un codebase, múltiples clientes.',
+          'arch-deploy-title': '🚀 Despliegue (Netlify)',
+          'arch-deploy-desc': 'CI/CD automático con preview branches. Deploy de commit a producción en 2 minutos. Zero-config, solo push.',
+          'results-title': '🍕 Resultados',
+          'results-speed': 'Velocidad',
+          'results-speed-desc': 'De idea a producción. MVP desplegado y funcionando en menos de una semana.',
+          'results-automation': 'Automatización',
+          'results-automation-desc': 'De pedidos llegan pre-formateados vs responder consultas manualmente por WhatsApp',
+          'results-commission': 'Comisiones',
+          'results-commission-desc': 'Ahorro de $500k/mes vs 25-30% que cobran apps de delivery. ROI infinito.',
+          'results-roi-title': '💰 Retorno de Inversión',
+          'roadmap-title': '🗺️ Roadmap: Próximos Pasos',
+          'roadmap-intro': 'El MVP está en producción, pero la visión es escalar a un SaaS completo para pequeños negocios en LATAM:',
+          'roadmap-payment-title': '💳 Pasarela de Pago',
+          'roadmap-payment-desc': 'Integración con Mercado Pago para pago online directo. Alternativa para clientes que prefieren pagar antes de recibir.',
+          'roadmap-coupons-title': '🎟️ Cupones y Descuentos',
+          'roadmap-coupons-desc': 'Sistema de promociones, códigos de descuento, combos. Marketing directo sin depender de plataformas.',
+          'roadmap-analytics-title': '📊 Analytics Dashboard',
+          'roadmap-analytics-desc': 'Panel de métricas para dueños: productos más vendidos, horarios pico, ticket promedio, tendencias.',
+          'roadmap-app-title': '📱 App Nativa',
+          'roadmap-app-desc': 'React Native para iOS/Android. Notificaciones push, mejor performance, presencia en app stores.',
+          'learning-title': '💡 Aprendizaje Principal',
+          'learning-quote': 'La tecnología correcta acelera, pero entender el problema real define el éxito.',
+          'learning-desc': 'El mayor aprendizaje fue estratégico: el dueño no necesitaba un e-commerce complejo con pasarelas de pago y CRM. Necesitaba dejar de perder dinero en comisiones YA. Priorizar WhatsApp (herramienta que ya dominaba) sobre integraciones sofisticadas permitió lanzar en 3 días vs 3 semanas. Ship early, iterate always. El feedback real vale más que las assumptions.',
+          'cta-title': 'Ver LocalShop Pro en Producción',
+          'cta-subtitle': 'Sitio real funcionando con cliente real vendiendo pizzas reales',
+          'cta-demo': 'Ver Demo en Vivo',
+          'cta-contact': 'Contactar',
+          'cta-home': 'Volver al Inicio'
+        },
+        en: {
+          'hero-subtitle': 'Direct E-commerce Without Commissions for Local Businesses',
+          'challenge-title': '🍕 The Challenge',
+          'challenge-desc': 'Más Pizza Ñuñoa, artisan pizzeria with 5 years of experience, faced a critical dilemma: each order on delivery apps (UberEats, Rappi, PedidosYa) cost them 25-30% in commissions. With tight margins, this meant losing up to $500,000 monthly.',
+          'challenge-insight-title': 'Margin Bleeding',
+          'challenge-insight-desc': '$500,000 monthly lost in 25-30% commissions without control over customer experience',
+          'solution-title': '🍕 The Solution: White-Label E-commerce with WhatsApp',
+          'solution-intro': 'Instead of relying on generic platforms, I designed a custom solution that allows local businesses to sell directly. The customer flow:',
+          'solution-step1-title': '🌐 Explore Digital Catalog',
+          'solution-step1-desc': 'Customer enters the customized site with business branding, sees products with professional photos, prices and detailed descriptions. All mobile-first.',
+          'solution-step2-title': '✨ Customize Products',
+          'solution-step2-desc': 'Selection of sizes, extra toppings, ingredients to remove. Total price preview updated in real time without confusion.',
+          'solution-step3-title': '🛒 Review Cart',
+          'solution-step3-desc': 'Complete order summary with all customizations visible, editable quantities, automatic subtotal calculation.',
+          'solution-step4-title': '📝 Complete Details',
+          'solution-step4-desc': 'Simple form: name, phone, address, payment method. Inline validation to avoid errors.',
+          'solution-step5-title': '💬 Send to WhatsApp',
+          'solution-step5-desc': 'Click on green button opens business WhatsApp with complete pre-formatted order. Zero friction to confirm.',
+          'admin-title': '⚙️ Admin Panel',
+          'admin-intro': 'Total control without technical knowledge. Owner updates their business in real time:',
+          'admin-products-title': '📦 Product Management',
+          'admin-products-desc': 'Add, edit, delete products. Upload images, update prices, manage categories. All from browser.',
+          'admin-realtime-title': '⚡ Real-Time Updates',
+          'admin-realtime-desc': 'Instant changes on website. Convex syncs automatically without refresh. What you change is seen immediately.',
+          'admin-config-title': '🎨 Brand Customization',
+          'admin-config-desc': 'Logo, corporate colors, WhatsApp number. Single config file controls entire visual identity.',
+          'admin-availability-title': '🔘 Availability Control',
+          'admin-availability-desc': 'Show/hide out-of-stock products with one click. Avoid customer frustration when trying to order unavailable items.',
+          'arch-title': '🍕 Architecture: Modern and Scalable',
+          'arch-intro': 'Technical stack optimized for speed, maintainability and exceptional development experience:',
+          'arch-frontend-title': '⚛️ Frontend (Next.js 14 + TypeScript)',
+          'arch-frontend-desc': 'App Router with Server Components, TypeScript strict mode, Tailwind CSS with dynamic theming. Mobile-first responsive design.',
+          'arch-state-title': '🗄️ State (Zustand + Convex)',
+          'arch-state-desc': 'Cart management with Zustand for local state. Convex queries for real-time data with automatic invalidation.',
+          'arch-backend-title': '🔥 Backend (Convex Database)',
+          'arch-backend-desc': 'TypeScript-native database with reactive queries, integrated file storage, no-config authentication, automatic scaling.',
+          'arch-monorepo-title': '📦 Monorepo (Turborepo)',
+          'arch-monorepo-desc': 'Multi-tenant architecture: shared packages (@localshop/ui, @localshop/core). One codebase, multiple clients.',
+          'arch-deploy-title': '🚀 Deployment (Netlify)',
+          'arch-deploy-desc': 'Automatic CI/CD with preview branches. Deploy from commit to production in 2 minutes. Zero-config, just push.',
+          'results-title': '🍕 Results',
+          'results-speed': 'Speed',
+          'results-speed-desc': 'From idea to production. MVP deployed and running in less than a week.',
+          'results-automation': 'Automation',
+          'results-automation-desc': 'Of orders arrive pre-formatted vs answering queries manually via WhatsApp',
+          'results-commission': 'Commissions',
+          'results-commission-desc': '$500k/month saved vs 25-30% charged by delivery apps. Infinite ROI.',
+          'results-roi-title': '💰 Return on Investment',
+          'roadmap-title': '🗺️ Roadmap: Next Steps',
+          'roadmap-intro': 'The MVP is in production, but the vision is to scale to a complete SaaS for small businesses in LATAM:',
+          'roadmap-payment-title': '💳 Payment Gateway',
+          'roadmap-payment-desc': 'Mercado Pago integration for direct online payment. Alternative for customers who prefer to pay before receiving.',
+          'roadmap-coupons-title': '🎟️ Coupons and Discounts',
+          'roadmap-coupons-desc': 'Promotion system, discount codes, combos. Direct marketing without depending on platforms.',
+          'roadmap-analytics-title': '📊 Analytics Dashboard',
+          'roadmap-analytics-desc': 'Metrics panel for owners: best-selling products, peak hours, average ticket, trends.',
+          'roadmap-app-title': '📱 Native App',
+          'roadmap-app-desc': 'React Native for iOS/Android. Push notifications, better performance, app store presence.',
+          'learning-title': '💡 Main Learning',
+          'learning-quote': 'The right technology accelerates, but understanding the real problem defines success.',
+          'learning-desc': 'The biggest learning was strategic: the owner didn\'t need complex e-commerce with payment gateways and CRM. He needed to stop losing money on commissions NOW. Prioritizing WhatsApp (tool he already mastered) over sophisticated integrations allowed launching in 3 days vs 3 weeks. Ship early, iterate always. Real feedback is worth more than assumptions.',
+          'cta-title': 'See LocalShop Pro in Production',
+          'cta-subtitle': 'Real site running with real client selling real pizzas',
+          'cta-demo': 'View Live Demo',
+          'cta-contact': 'Contact',
+          'cta-home': 'Back to Home'
+        }
+      };
+
+      function applyTranslations(locale: string) {
+        const t = translations[locale as 'es' | 'en'] || translations.es;
+        
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.getAttribute('data-i18n');
+          if (key && t[key as keyof typeof t]) {
+            if (element.children.length === 0) {
+              element.textContent = t[key as keyof typeof t];
+            } else {
+              const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3);
+              if (textNodes.length > 0) {
+                element.textContent = t[key as keyof typeof t];
+              }
+            }
+          }
+        });
+      }
+
+      // Aplicar traducciones al cargar
+      const savedLocale = localStorage.getItem('locale') || 'es';
+      applyTranslations(savedLocale);
+
+      // Escuchar cambios de idioma
+      window.addEventListener('localeChanged', (event: Event) => {
+        const customEvent = event as CustomEvent<string>;
+        applyTranslations(customEvent.detail);
+      });
+    });
+  </script>
+</Layout>

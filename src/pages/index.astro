@@ -119,38 +119,142 @@ import { HeroCircle } from '../components/HeroCircle';
       </p>
       
       <div class="services-bento max-w-6xl mx-auto">
-        <!-- Servicio Destacado - Desarrollo Fullstack (Izquierda Grande) -->
+        <!-- Servicio Destacado - E-commerce & Tiendas Online (Izquierda Grande) -->
         <div class="service-featured">
-          <div class="text-6xl mb-6">⚡</div>
-          <h3 class="text-3xl font-bold font-['Poppins'] mb-4 text-white" data-i18n="service-fullstack-title">Desarrollo Fullstack a Medida</h3>
-          <p class="text-white/90 text-lg leading-relaxed" data-i18n="service-fullstack-desc">
-            Arquitecturas modernas y escalables con React, Node, Supabase y PostgreSQL. Soluciones llave en mano diseñadas específicamente para las reglas de tu industria.
+          <div class="text-6xl mb-6">🛒</div>
+          <h3 class="text-3xl font-bold font-['Poppins'] mb-4 text-white" data-i18n="service-ecommerce-title">E-commerce & Tiendas Online con Panel Administrable</h3>
+          <p class="text-white/90 text-lg leading-relaxed mb-4" data-i18n="service-ecommerce-desc">
+            Sitios web completos sin comisiones de terceros. Software white-label adaptable a tu marca con panel de autoadministración: actualiza productos, precios e inventario sin conocimientos técnicos. Integración WhatsApp Business para pedidos directos.
+          </p>
+          <p class="text-white/80 text-sm mb-4">
+            <strong>Ejemplo destacado:</strong> LocalShop Pro - Pizzería local eliminó 30% de comisiones
           </p>
           <div class="mt-6 flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">Next.js</span>
             <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">React</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">TypeScript</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">Supabase</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">PostgreSQL</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">Convex</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">WhatsApp API</span>
           </div>
         </div>
         
-        <!-- Servicio Secundario 1 - UX (Derecha Superior) -->
+        <!-- Servicio Secundario 1 - Sistemas ERP/CRM (Derecha Superior) -->
         <div class="service-secondary service-secondary-1">
-          <div class="text-4xl mb-4">🔍</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-ux-title">Consultoría UX y Diagnóstico</h3>
-          <p class="text-white/90 leading-relaxed" data-i18n="service-ux-desc">
-            Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización.
+          <div class="text-4xl mb-4">⚙️</div>
+          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-erp-title">Sistemas ERP/CRM a Medida</h3>
+          <p class="text-white/90 leading-relaxed" data-i18n="service-erp-desc">
+            Software de gestión empresarial personalizado. Inventarios, facturación, control de flujos y automatización de procesos internos. Ejemplo: Importadora D&R.
           </p>
         </div>
         
-        <!-- Servicio Secundario 2 - Digitalización (Derecha Inferior) -->
+        <!-- Servicio Secundario 2 - Consultoría UX (Derecha Inferior) -->
         <div class="service-secondary service-secondary-2">
-          <div class="text-4xl mb-4">🚀</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-digital-title">Digitalización de Procesos</h3>
-          <p class="text-white/90 leading-relaxed" data-i18n="service-digital-desc">
-            Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos.
+          <div class="text-4xl mb-4">🔍</div>
+          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-consulting-title">Consultoría UX & Transformación Digital</h3>
+          <p class="text-white/90 leading-relaxed" data-i18n="service-consulting-desc">
+            Diagnóstico de procesos y oportunidades. Diseño de experiencia centrado en el usuario. Digitalización de flujos de trabajo análogos a ecosistemas digitales.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study - Grid Asimétrico -->
+  <section class="py-20 mb-16">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight" data-i18n="case-title">
+          🔴 Casos de Éxito
+        </h2>
+      </div>
+      
+      <!-- Caso 1: LocalShop Pro -->
+      <div class="case-study-bento max-w-6xl mx-auto mb-12">
+        <!-- Imagen Grande (Izquierda) -->
+        <div class="bento-image">
+          <img src="/img/Mas-Pizza-Logo-Placeholder.jpg" alt="LocalShop Pro - Mas Pizza Ñuñoa" class="w-full h-full object-cover rounded-2xl">
+        </div>
+        
+        <!-- Contenido (Derecha Superior) -->
+        <div class="bento-content">
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company2">LocalShop Pro</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline2">
+            De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales
+          </p>
+        </div>
+        
+        <!-- Métricas (Derecha Inferior) -->
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">3 días</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-speed">Velocidad</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">0%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-commission">Comisiones</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#DC2626] mb-1">80%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-automation">Automatización</div>
+        </div>
+      </div>
+      
+      <!-- CTA LocalShop Pro -->
+      <div class="text-center mt-8 mb-16">
+        <a 
+          href="/proyectos/localshop-pro" 
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#DC2626] text-white font-semibold rounded-full transition-all hover:bg-[#B91C1C] hover:scale-105 shadow-lg hover:shadow-xl"
+        >
+          <span data-i18n="case-cta2">Ver Caso Completo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Caso 2: Importadora D&R -->
+      <div class="case-study-bento max-w-6xl mx-auto">
+        <!-- Imagen Grande (Izquierda) -->
+        <div class="bento-image">
+          <img src="/img/Caso_exito_app.jpg" alt="Stock Importadora D&R" class="w-full h-full object-cover rounded-2xl">
+        </div>
+        
+        <!-- Contenido (Derecha Superior) -->
+        <div class="bento-content">
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company">Importadora D&R</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline">
+            Del caos al orden: Solución ERP que eliminó los descuadres de inventario
+          </p>
+        </div>
+        
+        <!-- Métricas (Derecha Inferior) -->
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#b80000] mb-1">100%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-precision">Precisión</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#b80000] mb-1">80%</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-efficiency">Eficiencia</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#b80000] mb-1">&lt;2s</div>
+          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-load">Carga</div>
+        </div>
+      </div>
+      
+      <!-- CTA Importadora D&R -->
+      <div class="text-center mt-8">
+        <a 
+          href="/proyectos/importadora-dr" 
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] text-white font-semibold rounded-full transition-all hover:bg-[#8b0000] hover:scale-105 shadow-lg hover:shadow-xl"
+        >
+          <span data-i18n="case-cta">Ver Caso Completo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -207,107 +311,6 @@ import { HeroCircle } from '../components/HeroCircle';
             <p data-i18n="journey-step3-desc">Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. Del prototipo al producto funcional.</p>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Case Study - Grid Asimétrico -->
-  <section class="py-20 mb-16">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight" data-i18n="case-title">
-          🔴 Casos de Éxito
-        </h2>
-      </div>
-      
-      <!-- Caso 1: Importadora D&R -->
-      <div class="case-study-bento max-w-6xl mx-auto mb-12">
-        <!-- Imagen Grande (Izquierda) -->
-        <div class="bento-image">
-          <img src="/img/Caso_exito_app.jpg" alt="Stock Importadora D&R" class="w-full h-full object-cover rounded-2xl">
-        </div>
-        
-        <!-- Contenido (Derecha Superior) -->
-        <div class="bento-content">
-          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company">Importadora D&R</h3>
-          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline">
-            Del caos al orden: Solución ERP que eliminó los descuadres de inventario
-          </p>
-        </div>
-        
-        <!-- Métricas (Derecha Inferior) -->
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">100%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-precision">Precisión</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">80%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-efficiency">Eficiencia</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">&lt;2s</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-load">Carga</div>
-        </div>
-      </div>
-      
-      <!-- CTA Importadora D&R -->
-      <div class="text-center mt-8 mb-16">
-        <a 
-          href="/proyectos/importadora-dr" 
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] text-white font-semibold rounded-full transition-all hover:bg-[#8b0000] hover:scale-105 shadow-lg hover:shadow-xl"
-        >
-          <span data-i18n="case-cta">Ver Caso Completo</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Caso 2: LocalShop Pro -->
-      <div class="case-study-bento max-w-6xl mx-auto">
-        <!-- Imagen Grande (Izquierda) -->
-        <div class="bento-image">
-          <img src="/img/Mas-Pizza-Logo-Placeholder.jpg" alt="LocalShop Pro - Mas Pizza Ñuñoa" class="w-full h-full object-cover rounded-2xl">
-        </div>
-        
-        <!-- Contenido (Derecha Superior) -->
-        <div class="bento-content">
-          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company2">LocalShop Pro</h3>
-          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline2">
-            De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales
-          </p>
-        </div>
-        
-        <!-- Métricas (Derecha Inferior) -->
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#DC2626] mb-1">3 días</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-speed">Velocidad</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#DC2626] mb-1">0%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-commission">Comisiones</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#DC2626] mb-1">80%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-automation">Automatización</div>
-        </div>
-      </div>
-      
-      <!-- CTA LocalShop Pro -->
-      <div class="text-center mt-8">
-        <a 
-          href="/proyectos/localshop-pro" 
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#DC2626] text-white font-semibold rounded-full transition-all hover:bg-[#B91C1C] hover:scale-105 shadow-lg hover:shadow-xl"
-        >
-          <span data-i18n="case-cta2">Ver Caso Completo</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
       </div>
     </div>
   </section>

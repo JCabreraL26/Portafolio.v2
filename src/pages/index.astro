@@ -119,39 +119,60 @@ import { HeroCircle } from '../components/HeroCircle';
       </p>
       
       <div class="services-bento max-w-6xl mx-auto">
-        <!-- Servicio Destacado - E-commerce & Tiendas Online (Izquierda Grande) -->
-        <div class="service-featured">
-          <div class="text-6xl mb-6">🛒</div>
-          <h3 class="text-3xl font-bold font-['Poppins'] mb-4 text-white" data-i18n="service-ecommerce-title">E-commerce & Tiendas Online con Panel Administrable</h3>
-          <p class="text-white/90 text-lg leading-relaxed mb-4" data-i18n="service-ecommerce-desc">
-            Sitios web completos sin comisiones de terceros. Software white-label adaptable a tu marca con panel de autoadministración: actualiza productos, precios e inventario sin conocimientos técnicos. Integración WhatsApp Business para pedidos directos.
+        <!-- Servicio 1 - E-commerce & Tiendas Online -->
+        <div class="service-card service-card-1">
+          <div class="text-5xl mb-4">🛒</div>
+          <h3 class="text-2xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-ecommerce-title">E-commerce & Tiendas Online</h3>
+          <p class="text-white/90 leading-relaxed mb-3" data-i18n="service-ecommerce-desc">
+            Tiendas online sin comisiones con panel de autoadministración. Actualiza productos, precios e inventario sin conocimientos técnicos. Integración WhatsApp Business.
           </p>
-          <p class="text-white/80 text-sm mb-4">
-            <strong>Ejemplo destacado:</strong> LocalShop Pro - Pizzería local eliminó 30% de comisiones
+          <p class="text-white/70 text-sm mb-3">
+            <strong>Ejemplo:</strong> LocalShop Pro
           </p>
-          <div class="mt-6 flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">Next.js</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">React</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">Convex</span>
-            <span class="px-3 py-1 bg-white/20 rounded-full text-sm text-white">WhatsApp API</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">Next.js</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">Convex</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">WhatsApp</span>
           </div>
         </div>
         
-        <!-- Servicio Secundario 1 - Sistemas ERP/CRM (Derecha Superior) -->
-        <div class="service-secondary service-secondary-1">
-          <div class="text-4xl mb-4">⚙️</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-erp-title">Sistemas ERP/CRM a Medida</h3>
-          <p class="text-white/90 leading-relaxed" data-i18n="service-erp-desc">
-            Software de gestión empresarial personalizado. Inventarios, facturación, control de flujos y automatización de procesos internos. Ejemplo: Importadora D&R.
+        <!-- Servicio 2 - Sitios Web & Presencia Digital -->
+        <div class="service-card service-card-2">
+          <div class="text-5xl mb-4">🌐</div>
+          <h3 class="text-2xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-website-title">Sitios Web & Presencia Digital</h3>
+          <p class="text-white/90 leading-relaxed mb-3" data-i18n="service-website-desc">
+            Sitios web corporativos, landing pages, portfolios profesionales. Diseño responsive, optimización SEO, velocidad ultra-rápida. Presencia digital completa para tu empresa.
           </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">Astro</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">React</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">SEO</span>
+          </div>
         </div>
         
-        <!-- Servicio Secundario 2 - Consultoría UX (Derecha Inferior) -->
-        <div class="service-secondary service-secondary-2">
-          <div class="text-4xl mb-4">🔍</div>
-          <h3 class="text-xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-consulting-title">Consultoría UX & Transformación Digital</h3>
+        <!-- Servicio 3 - Sistemas ERP/CRM -->
+        <div class="service-card service-card-3">
+          <div class="text-5xl mb-4">⚙️</div>
+          <h3 class="text-2xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-erp-title">Sistemas ERP/CRM a Medida</h3>
+          <p class="text-white/90 leading-relaxed mb-3" data-i18n="service-erp-desc">
+            Software de gestión empresarial personalizado. Inventarios, facturación, control de flujos y automatización de procesos internos.
+          </p>
+          <p class="text-white/70 text-sm mb-3">
+            <strong>Ejemplo:</strong> Importadora D&R
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">React</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">Supabase</span>
+            <span class="px-2 py-1 bg-white/20 rounded-full text-xs text-white">PostgreSQL</span>
+          </div>
+        </div>
+        
+        <!-- Servicio 4 - Consultoría UX -->
+        <div class="service-card service-card-4">
+          <div class="text-5xl mb-4">🔍</div>
+          <h3 class="text-2xl font-bold font-['Poppins'] mb-3 text-white" data-i18n="service-consulting-title">Consultoría UX & Transformación Digital</h3>
           <p class="text-white/90 leading-relaxed" data-i18n="service-consulting-desc">
-            Diagnóstico de procesos y oportunidades. Diseño de experiencia centrado en el usuario. Digitalización de flujos de trabajo análogos a ecosistemas digitales.
+            Diagnóstico de procesos y oportunidades. Diseño de experiencia centrado en el usuario. Digitalización de flujos de trabajo a ecosistemas digitales.
           </p>
         </div>
       </div>

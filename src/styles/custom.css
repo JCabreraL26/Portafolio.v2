@@ -664,16 +664,35 @@
 }
 
 .service-card-2 {
-  background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,245,0.95) 100%);
+  color: #111;
   box-shadow: 
-    0 4px 12px rgba(37, 99, 235, 0.2),
-    0 8px 24px rgba(37, 99, 235, 0.15);
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .service-card-2:hover {
   box-shadow: 
-    0 12px 24px rgba(37, 99, 235, 0.25),
-    0 24px 48px rgba(37, 99, 235, 0.2);
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+.service-card-2 h3,
+.service-card-2 p {
+  color: #111;
+}
+
+.service-card-2 .text-white\/90 {
+  color: rgba(17, 17, 17, 0.9) !important;
+}
+
+.service-card-2 .text-white\/70 {
+  color: rgba(17, 17, 17, 0.7) !important;
+}
+
+.service-card-2 span {
+  background: rgba(0, 0, 0, 0.1);
+  color: #111;
 }
 
 .service-card-3 {

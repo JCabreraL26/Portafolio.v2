@@ -197,17 +197,18 @@ const currentPath = Astro.url.pathname;
       position: static !important;
       margin-top: 0 !important;
       width: 100% !important;
-      opacity: 0;
+      opacity: 0 !important;
       max-height: 0;
       overflow: hidden;
       transition: all 0.3s ease;
       box-shadow: none;
       border: none;
       background: transparent;
+      visibility: hidden !important;
     }
 
     .dropdown-menu.dropdown-mobile-open {
-      opacity: 1;
+      opacity: 1 !important;
       max-height: 200px;
       visibility: visible !important;
     }

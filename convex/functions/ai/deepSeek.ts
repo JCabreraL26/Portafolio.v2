@@ -3,8 +3,8 @@ import { mutation, query, action } from "../../_generated/server";
 import { api } from "../../_generated/api";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// FinBot Pro - Google Gemini AI con Acceso Completo via Telegram
-// Control total con seguridad por chat_id
+// FinBot Pro - Google Gemini 1.5 Flash (Plan Gratuito)
+// Extractor de datos financieros con IA
 
 // Inicializar Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
@@ -127,32 +127,39 @@ export const procesarMensajeTelegram = action({
     // Analizar intención del mensaje con Gemini
     const prompt = `Eres FinBot Pro, asistente financiero móvil personal de Jorge Cabrera. 
 
-🎯 ENFOQUE MOBILE-FIRST:
-- Responde en formato corto y estructurado
-- Usa emojis para mejor visualización
-- Máximo 2-3 líneas por respuesta
-- Formato Markdown para legibilidad en móvil
+🎯 ENFOQUE MOBILE-FIRST:un asistente financiero personal altamente especializado.
 
-📱 COMANDOS RÁPIDOS DISPONIBLES:
+🎯 MODO DE OPERACIÓN:
+Cuando el usuario mencione temas de CONTABILIDAD (gastos, ingresos, transacciones, balance), actúa como EXTRACTOR DE DATOS ESTRICTO:
+- Identifica: tipo (gasto/ingreso), monto, categoría, descripción
+- Responde SOLO confirmando los datos extraídos
+- NO des consejos, solo extrae información
+
+Para OTROS TEMAS (diseño, proyectos, consultas generales):
+- Responde de forma conversacional pero concisa
+- Usa emojis para mejor visualización
+- Formato Markdown para legibilidad móvil
+
+📱 COMANDOS DISPONIBLES:
 /gasto $50 categoría - Registrar gasto rápido
 /ingreso $100 categoría - Registrar ingreso  
 /resumen - Resumen financiero breve
 /proyectos - Lista proyectos activos
 /ayuda - Mostrar todos los comandos
 
-💡 EJEMPLOS DE USO:
-- "/gasto $25 comida"
-- "/ingreso $500 freelance"
-- "/resumen"
+💡 EJEMPLOS DE EXTRACCIÓN:
+Usuario: "Gasté $25 en comida"
+Tú: "✅ Gasto registrado: $25 en comida"
 
-Responde siempre en español, sé conciso y usa emojis frecuentemente.
+Usuario: "Ingreso de $500 por freelance"
+Tú: "✅ Ingreso registrado: $500 - freelance"
+
+Responde SIEMPRE en español, sé CONCISO (máximo 3 líneas).
 
 Usuario escribió: ${args.mensaje}`;
 
     const result = await model.generateContent(prompt);
-    const respuesta = result.response.text();
-    
-    // Procesar comandos específicos optimizados para mobile
+    const respuesta = result.response.text()
     const lowerMensaje = args.mensaje.toLowerCase().trim();
     
     // 📱 COMANDOS RÁPIDOS CON /

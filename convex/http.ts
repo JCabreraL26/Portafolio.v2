@@ -26,9 +26,9 @@ http.route({
 
       console.log(`📝 Procesando mensaje de ${userName} (${userId}): "${messageText}"`);
 
-      // Procesar con Gemini via Convex (action, no mutation)
+      // Procesar con Gemini via Convex
       console.log("🤖 Ejecutando procesarMensajeTelegram...");
-      const resultado = await ctx.runAction((api as any)["functions/ai/deepSeek:procesarMensajeTelegram"], {
+      const resultado = await ctx.runAction(api["functions/ai/gemini"].procesarMensajeTelegram, {
         mensaje: messageText,
         chat_id: chatId.toString(),
         username: userName,

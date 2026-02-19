@@ -27,7 +27,7 @@ export const registrarTransaccion = mutation({
     const transaccionId = await ctx.db.insert("contabilidad", {
       ...args,
       fecha: Date.now(),
-      creado_por: "deep_seek",
+      creado_por: "gemini",
       creado_en: Date.now(),
     });
     
@@ -54,7 +54,7 @@ export const crearProyectoDT = mutation({
     const proyectoId = await ctx.db.insert("design_thinking", {
       ...args,
       estado: "activo",
-      creado_por: "deep_seek",
+      creado_por: "gemini",
       creado_en: Date.now(),
       actualizado_en: Date.now(),
     });
@@ -339,7 +339,7 @@ export const actualizarConfiguracion = mutation({
       await ctx.db.insert("configuracion", {
         ...args,
         acceso: "privado",
-        creado_por: "deep_seek",
+        creado_por: "gemini",
         creado_en: Date.now(),
         actualizado_en: Date.now(),
       });

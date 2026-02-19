@@ -1,8 +1,8 @@
 # Bot de Telegram con Polling (sin webhooks)
 # Script para recibir y procesar mensajes usando getUpdates
 
-$botToken = "8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE"
-$chatId = "8597397136"
+$botToken = $env:TELEGRAM_BOT_TOKEN
+$chatId = $env:TELEGRAM_AUTHORIZED_USER
 $offset = 0
 
 Write-Host "=== FinBot Pro - Modo Polling ===" -ForegroundColor Cyan

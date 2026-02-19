@@ -3,9 +3,9 @@
 
 import { ConvexHttpClient } from "convex/browser";
 
-const BOT_TOKEN = "8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE";
-const AUTHORIZED_ID = "8597397136";
-const CONVEX_URL = "https://bright-rooster-475.convex.cloud";
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const AUTHORIZED_ID = process.env.TELEGRAM_AUTHORIZED_USER;
+const CONVEX_URL = process.env.CONVEX_URL || "https://bright-rooster-475.convex.cloud";
 
 const client = new ConvexHttpClient(CONVEX_URL);
 let offset = 0;

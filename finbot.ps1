@@ -1,6 +1,6 @@
 # FinBot Pro - Telegram Bot con Polling
-$BOT_TOKEN = "8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE"
-$AUTHORIZED_ID = "8597397136"
+$BOT_TOKEN = $env:TELEGRAM_BOT_TOKEN
+$AUTHORIZED_ID = $env:TELEGRAM_AUTHORIZED_USER
 $offset = 0
 
 Write-Host "=== FinBot Pro - Polling Mode ===" -ForegroundColor Cyan

@@ -24,18 +24,28 @@ export const registrarTransaccion = mutation({
     comprobante_url: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const transaccionId = await ctx.db.insert("contabilidad", {
-      ...args,
-      fecha: Date.now(),
-      creado_por: "gemini",
-      creado_en: Date.now(),
-    });
+    console.log("🔥🔥🔥 REGISTRAR TRANSACCION LLAMADA 🔥🔥🔥");
+    console.log("📋 Args recibidos:", JSON.stringify(args, null, 2));
     
-    return { 
-      success: true, 
-      transaccionId,
-      mensaje: `Transacción ${args.tipo} de $${args.monto} registrada exitosamente`
-    };
+    try {
+      const transaccionId = await ctx.db.insert("contabilidad", {
+        ...args,
+        fecha: Date.now(),
+        creado_por: "gemini",
+        creado_en: Date.now(),
+      });
+      
+      console.log("✅ Transacción insertada exitosamente. ID:", transaccionId);
+      
+      return { 
+        success: true, 
+        transaccionId,
+        mensaje: `Transacción ${args.tipo} de $${args.monto} registrada exitosamente`
+      };
+    } catch (error) {
+      console.error("❌ ERROR al insertar transacción:", error);
+      throw error;
+    }
   },
 });
 
@@ -168,10 +178,20 @@ Usuario escribió: ${args.mensaje}`;
     // Procesar comandos específicos optimizados para mobile
     const lowerMensaje = args.mensaje.toLowerCase().trim();
     
+    console.log(`🔍 Procesando comando: "${args.mensaje}"`);
+    console.log(`🔍 Mensaje en minúsculas: "${lowerMensaje}"`);
+    
     // 📱 COMANDOS RÁPIDOS CON /
     if (lowerMensaje.startsWith("/gasto")) {
-      const match = args.mensaje.match(/\/gasto\s+\$(\d+)\s+(.+)/);
+      console.log("💸 Detectado comando /gasto");
+      // Regex flexible: acepta con o sin $, con o sin espacios extras
+      const match = args.mensaje.match(/\/gasto\s+\$?(\d+)\s+(.+)/) || 
+                    args.mensaje.match(/\/gasto\s+(\d+)\s+(.+)/);
+      
+      console.log(`🔍 Regex match:`, match ? `✅ [${match[1]}, ${match[2]}]` : "❌ No match");
+      
       if (match) {
+        console.log(`💾 Registrando gasto: $${match[1]} en ${match[2].trim()}`);
         const resultado: any = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
           tipo: "gasto",
           categoria: match[2].trim(),
@@ -179,17 +199,32 @@ Usuario escribió: ${args.mensaje}`;
           descripcion: `Gasto vía Telegram móvil`,
         });
         
+        console.log(`✅ Gasto registrado:`, resultado);
+        
         return {
           respuesta: `💸 *Gasto Registrado*\n\`\`\`${match[2].trim()}\`\`\`\n💰 **$${match[1]}**\n✅ ¡Listo!`,
           accion: "transaccion_registrada",
           datos: resultado
         };
+      } else {
+        console.log("❌ Formato incorrecto de comando /gasto");
+        return {
+          respuesta: `❌ *Formato incorrecto*\n\n📝 Usa:\n\`/gasto 50 comida\` o\n\`/gasto $50 comida\``,
+          accion: "error_formato",
+          datos: null
+        };
       }
     }
     
     if (lowerMensaje.startsWith("/ingreso")) {
-      const match = args.mensaje.match(/\/ingreso\s+\$(\d+)\s+(.+)/);
+      console.log("💰 Detectado comando /ingreso");
+      const match = args.mensaje.match(/\/ingreso\s+\$?(\d+)\s+(.+)/) || 
+                    args.mensaje.match(/\/ingreso\s+(\d+)\s+(.+)/);
+      
+      console.log(`🔍 Regex match:`, match ? `✅ [${match[1]}, ${match[2]}]` : "❌ No match");
+      
       if (match) {
+        console.log(`💾 Registrando ingreso: $${match[1]} en ${match[2].trim()}`);
         const resultado = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
           tipo: "ingreso",
           categoria: match[2].trim(),
@@ -197,10 +232,19 @@ Usuario escribió: ${args.mensaje}`;
           descripcion: `Ingreso vía Telegram móvil`,
         });
         
+        console.log(`✅ Ingreso registrado:`, resultado);
+        
         return {
-          respuesta: `💰 *Ingreso Registrado*\n\`\`\`${match[2].trim()}\`\`\`\n💵 **+$${match[1]}**\n🎉 ¡Genial!`,
+          respuesta: `💰 *Ingreso Registrado*\n\`\`\`${match[2].trim()}\`\`\`\n💵 **$${match[1]}**\n✅ ¡Listo!`,
           accion: "transaccion_registrada",
           datos: resultado
+        };
+      } else {
+        console.log("❌ Formato incorrecto de comando /ingreso");
+        return {
+          respuesta: `❌ *Formato incorrecto*\n\n📝 Usa:\n\`/ingreso 100 freelance\` o\n\`/ingreso $100 freelance\``,
+          accion: "error_formato",
+          datos: null
         };
       }
     }

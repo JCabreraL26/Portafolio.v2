@@ -16,7 +16,7 @@ TELEGRAM_BOT_TOKEN=8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE
 Una vez deployado en Netlify, configura el webhook con:
 
 ```powershell
-$botToken = "8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE"
+$botToken = $env:TELEGRAM_BOT_TOKEN
 $webhookUrl = "https://TU-SITIO.netlify.app/.netlify/functions/telegram"
 
 Invoke-RestMethod -Uri "https://api.telegram.org/bot$botToken/setWebhook" `

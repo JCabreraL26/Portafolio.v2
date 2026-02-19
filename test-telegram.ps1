@@ -2,8 +2,8 @@
 # Autor: Jorge Cabrera
 # Fecha: 2026-02-18
 
-$botToken = "8367559959:AAF44I9ZOqBM7t5e28_5br1OONeiVx8LKkE"
-$chatId = "8597397136"
+$botToken = $env:TELEGRAM_BOT_TOKEN
+$chatId = $env:TELEGRAM_AUTHORIZED_USER
 
 Write-Host "=== Test de FinBot Pro ===" -ForegroundColor Cyan
 Write-Host ""

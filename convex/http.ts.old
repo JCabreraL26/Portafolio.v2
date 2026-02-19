@@ -1,0 +1,67 @@
+import { httpRouter } from "convex/server";
+import { httpAction } from "./_generated/server";
+import { api } from "./_generated/api";
+
+const http = httpRouter();
+
+// Webhook de Telegram - recibir mensajes directamente
+http.route({
+  path: "/telegram",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    try {
+      const body = await request.json();
+      console.log("📱 Telegram update:", JSON.stringify(body));
+      
+      // Verificar si es un mensaje de texto
+      if (!body.message || !body.message.text) {
+        return new Response("OK", { status: 200 });
+      }
+      
+      const message = body.message;
+      const chatId = message.chat.id.toString();
+      const text = message.text;
+      const messageId = message.message_id;
+      const username = message.from.username || message.from.first_name;
+      
+      console.log(`📨 Message from ${username}: ${text}`);
+      
+      // Procesar con Gemini
+      const resultado = await ctx.runAction((api as any)["functions/ai/deepSeek"].procesarMensajeTelegram, {
+        mensaje: text,
+        chat_id: chatId,
+        username: username,
+        message_id: messageId,
+      });
+      
+      console.log("🤖 Response:", resultado);
+      
+      // Enviar respuesta a Telegram
+      if (resultado.respuesta) {
+        const botToken = process.env.TELEGRAM_BOT_TOKEN;
+        const sendUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+        
+        await fetch(sendUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: resultado.respuesta,
+            reply_to_message_id: messageId,
+            parse_mode: "Markdown",
+          }),
+        });
+      }
+      
+      return new Response("OK", { status: 200 });
+    } catch (error) {
+      console.error("❌ Error:", error);
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
+export default http;

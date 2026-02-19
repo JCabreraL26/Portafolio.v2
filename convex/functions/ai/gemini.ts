@@ -1,14 +1,15 @@
 import { v } from "convex/values";
 import { mutation, query, action } from "../../_generated/server";
 import { api } from "../../_generated/api";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-// FinBot Pro - Google Gemini 1.5 Flash (Plan Gratuito)
+// FinBot Pro - Google Gemini (Plan Gratuito)
 // Extractor de datos financieros con IA
 
-// Inicializar Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+// Inicializar cliente de Gemini
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
 
 // Mutaciones para Contabilidad
 export const registrarTransaccion = mutation({
@@ -109,7 +110,7 @@ export const obtenerProyectosDT = query({
   },
 });
 
-// Actions de IA con Deep Seek para Telegram
+// Actions de IA con Gemini para Telegram
 export const procesarMensajeTelegram = action({
   args: {
     mensaje: v.string(),
@@ -117,7 +118,7 @@ export const procesarMensajeTelegram = action({
     username: v.string(),
     message_id: v.number(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{ respuesta: string; accion: string; datos: any }> => {
     // 🔐 SEGURIDAD: Verificar que el chat_id esté autorizado
     const MY_TELEGRAM_ID = process.env.MY_TELEGRAM_ID;
     if (!MY_TELEGRAM_ID || args.chat_id !== MY_TELEGRAM_ID) {
@@ -158,15 +159,20 @@ Responde SIEMPRE en español, sé CONCISO (máximo 3 líneas).
 
 Usuario escribió: ${args.mensaje}`;
 
-    const result = await model.generateContent(prompt);
-    const respuesta = result.response.text()
+    const result = await ai.models.generateContent({
+      model: "gemini-2.0-flash-exp",
+      contents: prompt,
+    });
+    const respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";
+    
+    // Procesar comandos específicos optimizados para mobile
     const lowerMensaje = args.mensaje.toLowerCase().trim();
     
     // 📱 COMANDOS RÁPIDOS CON /
     if (lowerMensaje.startsWith("/gasto")) {
       const match = args.mensaje.match(/\/gasto\s+\$(\d+)\s+(.+)/);
       if (match) {
-        const resultado = await ctx.runMutation(registrarTransaccion, {
+        const resultado: any = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
           tipo: "gasto",
           categoria: match[2].trim(),
           monto: parseInt(match[1]),
@@ -184,7 +190,7 @@ Usuario escribió: ${args.mensaje}`;
     if (lowerMensaje.startsWith("/ingreso")) {
       const match = args.mensaje.match(/\/ingreso\s+\$(\d+)\s+(.+)/);
       if (match) {
-        const resultado = await ctx.runMutation(registrarTransaccion, {
+        const resultado = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
           tipo: "ingreso",
           categoria: match[2].trim(),
           monto: parseInt(match[1]),
@@ -200,7 +206,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje === "/resumen") {
-      const resumen = await ctx.runQuery(obtenerResumenFinanciero);
+      const resumen = await ctx.runQuery(api["functions/ai/gemini"].obtenerResumenFinanciero);
       
       return {
         respuesta: `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n📝 *Transacciones:* ${resumen.total_transacciones}`,
@@ -210,7 +216,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje === "/proyectos") {
-      const proyectos = await ctx.runQuery(obtenerProyectosDT, {});
+      const proyectos = await ctx.runQuery(api["functions/ai/gemini"].obtenerProyectosDT, {});
       
       if (proyectos.length === 0) {
         return {
@@ -220,7 +226,7 @@ Usuario escribió: ${args.mensaje}`;
         };
       }
       
-      const listaProyectos = proyectos.slice(0, 5).map(p => 
+      const listaProyectos = proyectos.slice(0, 5).map((p: any) => 
         `🔹 ${p.titulo}\n   📂 ${p.fase} ⭐ ${p.prioridad}`
       ).join('\n\n');
       
@@ -245,7 +251,7 @@ Usuario escribió: ${args.mensaje}`;
       const categoriaMatch = args.mensaje.match(/en\s+([^:]+)/);
       
       if (montoMatch && categoriaMatch) {
-        const resultado = await ctx.runMutation(registrarTransaccion, {
+        const resultado = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
           tipo: lowerMensaje.includes("gasto") ? "gasto" : "ingreso",
           categoria: categoriaMatch[1].trim(),
           monto: parseInt(montoMatch[1]),
@@ -261,7 +267,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje.includes("resumen financiero")) {
-      const resumen = await ctx.runQuery(obtenerResumenFinanciero);
+      const resumen = await ctx.runQuery(api["functions/ai/gemini"].obtenerResumenFinanciero);
       
       return {
         respuesta: `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n\n💡 *Tip:* Usa \`/resumen\` para más rápido`,

@@ -172,7 +172,7 @@ Usuario escribió: ${args.mensaje}`;
     if (lowerMensaje.startsWith("/gasto")) {
       const match = args.mensaje.match(/\/gasto\s+\$(\d+)\s+(.+)/);
       if (match) {
-        const resultado: any = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
+        const resultado: any = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
           tipo: "gasto",
           categoria: match[2].trim(),
           monto: parseInt(match[1]),
@@ -190,7 +190,7 @@ Usuario escribió: ${args.mensaje}`;
     if (lowerMensaje.startsWith("/ingreso")) {
       const match = args.mensaje.match(/\/ingreso\s+\$(\d+)\s+(.+)/);
       if (match) {
-        const resultado = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
+        const resultado = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
           tipo: "ingreso",
           categoria: match[2].trim(),
           monto: parseInt(match[1]),
@@ -206,7 +206,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje === "/resumen") {
-      const resumen = await ctx.runQuery(api["functions/ai/gemini"].obtenerResumenFinanciero);
+      const resumen = await ctx.runQuery(api.functions.ai.gemini.obtenerResumenFinanciero);
       
       return {
         respuesta: `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n📝 *Transacciones:* ${resumen.total_transacciones}`,
@@ -216,7 +216,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje === "/proyectos") {
-      const proyectos = await ctx.runQuery(api["functions/ai/gemini"].obtenerProyectosDT, {});
+      const proyectos = await ctx.runQuery(api.functions.ai.gemini.obtenerProyectosDT, {});
       
       if (proyectos.length === 0) {
         return {
@@ -251,7 +251,7 @@ Usuario escribió: ${args.mensaje}`;
       const categoriaMatch = args.mensaje.match(/en\s+([^:]+)/);
       
       if (montoMatch && categoriaMatch) {
-        const resultado = await ctx.runMutation(api["functions/ai/gemini"].registrarTransaccion, {
+        const resultado = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
           tipo: lowerMensaje.includes("gasto") ? "gasto" : "ingreso",
           categoria: categoriaMatch[1].trim(),
           monto: parseInt(montoMatch[1]),
@@ -267,7 +267,7 @@ Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje.includes("resumen financiero")) {
-      const resumen = await ctx.runQuery(api["functions/ai/gemini"].obtenerResumenFinanciero);
+      const resumen = await ctx.runQuery(api.functions.ai.gemini.obtenerResumenFinanciero);
       
       return {
         respuesta: `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n\n💡 *Tip:* Usa \`/resumen\` para más rápido`,

@@ -28,7 +28,7 @@ http.route({
 
       // Procesar con Gemini via Convex
       console.log("🤖 Ejecutando procesarMensajeTelegram...");
-      const resultado = await ctx.runAction(api["functions/ai/gemini"].procesarMensajeTelegram, {
+      const resultado = await ctx.runAction(api.functions.ai.gemini.procesarMensajeTelegram, {
         mensaje: messageText,
         chat_id: chatId.toString(),
         username: userName,

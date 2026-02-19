@@ -160,7 +160,7 @@ Responde SIEMPRE en español, sé CONCISO (máximo 3 líneas).
 Usuario escribió: ${args.mensaje}`;
 
     const result = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp",
+      model: "gemini-3-flash-preview",
       contents: prompt,
     });
     const respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";

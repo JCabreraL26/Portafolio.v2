@@ -11,23 +11,44 @@ interface RotatingEarthProps {
 
 export default function RotatingEarth({ width = 800, height = 600, className = "", onClick, showControls = true }: RotatingEarthProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+
+  // ResizeObserver to handle container size changes
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
+        const size = Math.min(rect.width || width, rect.height || height)
+        setDimensions({ width: size, height: size })
+      }
+    }
+
+    // Initial measurement
+    updateDimensions()
+
+    const resizeObserver = new ResizeObserver(updateDimensions)
+    resizeObserver.observe(containerRef.current)
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [width, height])
 
   useEffect(() => {
-    if (!canvasRef.current) return
+    if (!canvasRef.current || !containerRef.current || dimensions.width === 0) return
 
     const canvas = canvasRef.current
     const context = canvas.getContext("2d")
     if (!context) return
 
-    // Set up responsive dimensions - FORCE SQUARE ASPECT RATIO
-    const maxSize = Math.min(
-      Math.min(width, window.innerWidth - 40),
-      Math.min(height, window.innerHeight - 100)
-    )
-    const containerWidth = maxSize
-    const containerHeight = maxSize
+    // Set up responsive dimensions - FORCE SQUARE ASPECT RATIO based on container
+    const containerWidth = dimensions.width
+    const containerHeight = dimensions.height
     const radius = containerWidth / 2.5
 
     const dpr = window.devicePixelRatio || 1
@@ -290,7 +311,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       canvas.removeEventListener("mousedown", handleMouseDown)
       canvas.removeEventListener("wheel", handleWheel)
     }
-  }, [width, height])
+  }, [dimensions])
 
   if (error) {
     return (
@@ -304,7 +325,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${className}`}>
       <canvas
         ref={canvasRef}
         className={`w-full h-auto ${onClick ? '' : 'rounded-2xl'}`}

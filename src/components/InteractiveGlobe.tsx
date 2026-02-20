@@ -27,7 +27,7 @@ export function InteractiveGlobe() {
         height={400}
         onClick={handleClick}
         showControls={false}
-        className="w-[clamp(220px,40vw,400px)] aspect-square"
+        className="w-full max-w-[min(90vw,400px)] aspect-square mx-auto"
       />
 
       {showOverlay && (

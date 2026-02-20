@@ -3,17 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import { HeroCircle } from '../components/HeroCircle';
+import { InteractiveGlobe } from '../components/InteractiveGlobe';
 ---
 
 <Layout title="Jorge Cabrera - Desarrollo Fullstack & UX">
   <Navbar />
   
-  <!-- Hero Section: solo el círculo -->
-  <section id="intro" class="relative min-h-screen flex items-center justify-center pt-20">
+  <!-- Hero Section: solo el globo -->
+  <section id="intro" class="relative min-h-screen flex items-center justify-center pt-20 bg-[#111111]">
     <!-- Grid cuadriculado de fondo -->
-    <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(90deg, #b80000 0%, #b80000 1px, transparent 1px, transparent 4%), repeating-linear-gradient(0deg, #b80000 0%, #b80000 1px, transparent 1px, transparent 4%); background-size: 50px 50px;"></div>
-    <HeroCircle client:load />
+    <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(90deg, #ffffff 0%, #ffffff 1px, transparent 1px, transparent 4%), repeating-linear-gradient(0deg, #ffffff 0%, #ffffff 1px, transparent 1px, transparent 4%); background-size: 50px 50px;"></div>
+    <InteractiveGlobe client:load />
   </section>
 
   <!-- Hero Content: storytelling -->

@@ -28,6 +28,13 @@ const currentPath = Astro.url.pathname;
       >
         Inicio
       </a>
+      <a 
+        href="/mi-perfil" 
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/mi-perfil' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        data-i18n="nav-profile"
+      >
+        Mi Perfil
+      </a>
       <div class="relative ml-6 group">
         <button 
           class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] cursor-pointer transition-colors pb-0.5 no-underline flex items-center gap-1 ${currentPath.includes('/proyectos') ? 'text-[#b80000]' : 'text-[#111] group-hover:text-[#b80000]'}`}
@@ -124,11 +131,13 @@ const currentPath = Astro.url.pathname;
     const navTranslations = {
       es: {
         'nav-home': 'Inicio',
+        'nav-profile': 'Mi Perfil',
         'nav-cases': 'Casos de Éxito',
         'nav-contact': 'Contacto'
       },
       en: {
         'nav-home': 'Home',
+        'nav-profile': 'My Profile',
         'nav-cases': 'Success Stories',
         'nav-contact': 'Contact'
       }

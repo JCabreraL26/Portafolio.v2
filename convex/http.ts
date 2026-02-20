@@ -12,27 +12,75 @@ http.route({
       const update = await req.json();
       console.log("📥 Telegram update recibido:", JSON.stringify(update));
 
-      // Verificar si hay mensaje
-      if (!update.message || !update.message.text) {
-        console.log("⚠️ No hay mensaje de texto, ignorando");
+      // Verificar si hay mensaje (texto, voz, documento o foto)
+      const hasText = update.message?.text;
+      const hasVoice = update.message?.voice;
+      const hasDocument = update.message?.document;
+      const hasPhoto = update.message?.photo;
+
+      if (!update.message || (!hasText && !hasVoice && !hasDocument && !hasPhoto)) {
+        console.log("⚠️ No hay mensaje válido, ignorando");
         return new Response("OK");
       }
 
       const chatId = update.message.chat.id;
       const userId = update.message.from.id;
-      const messageText = update.message.text;
       const userName = update.message.from.first_name || "Usuario";
       const messageId = update.message.message_id;
 
-      console.log(`📝 Procesando mensaje de ${userName} (${userId}): "${messageText}"`);
+      // Variables para contenido del mensaje
+      let messageText = "";
+      let messageType: "texto" | "voz" | "documento" | "foto" = "texto";
+      let fileId: string | undefined = undefined;
+      let fileName: string | undefined = undefined;
+      let mimeType: string | undefined = undefined;
+      let fileSize: number | undefined = undefined;
+
+      // Procesar según tipo de mensaje
+      if (hasDocument) {
+        messageType = "documento";
+        fileId = update.message.document.file_id;
+        fileName = update.message.document.file_name;
+        mimeType = update.message.document.mime_type;
+        fileSize = update.message.document.file_size;
+        messageText = update.message.caption || "";
+        
+        console.log(`📄 Documento detectado: ${fileName} (${mimeType}, ${fileSize} bytes)`);
+      } else if (hasPhoto) {
+        messageType = "foto";
+        // Telegram envía múltiples tamaños, tomar el más grande
+        const photos = update.message.photo;
+        const largestPhoto = photos[photos.length - 1];
+        fileId = largestPhoto.file_id;
+        fileSize = largestPhoto.file_size;
+        mimeType = "image/jpeg";
+        messageText = update.message.caption || "";
+        
+        console.log(`📸 Foto detectada: ${fileSize} bytes`);
+      } else if (hasVoice) {
+        messageType = "voz";
+        fileId = update.message.voice.file_id;
+        fileSize = update.message.voice.duration;
+        mimeType = "audio/ogg";
+        
+        console.log(`🎤 Mensaje de voz detectado: ${fileSize}s, file_id: ${fileId}`);
+      } else {
+        messageText = update.message.text;
+        console.log(`📝 Mensaje de texto de ${userName} (${userId}): "${messageText}"`);
+      }
 
       // Procesar con Gemini via Convex
-      console.log("🤖 Ejecutando procesarMensajeTelegram...");
+      console.log(`🤖 Ejecutando procesarMensajeTelegram (tipo: ${messageType})...`);
       const resultado = await ctx.runAction(api.functions.ai.gemini.procesarMensajeTelegram, {
         mensaje: messageText,
         chat_id: chatId.toString(),
         username: userName,
         message_id: messageId,
+        tipo_mensaje: messageType,
+        file_id: fileId,
+        file_name: fileName,
+        mime_type: mimeType,
+        file_size: fileSize,
       });
 
       console.log("✅ Resultado:", JSON.stringify(resultado));

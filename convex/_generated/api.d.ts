@@ -11,6 +11,7 @@
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
 import type * as functions_ai_googleChatbot from "../functions/ai/googleChatbot.js";
 import type * as http from "../http.js";
+import type * as seed from "../seed.js";
 import type * as telegram from "../telegram.js";
 
 import type {
@@ -23,6 +24,7 @@ declare const fullApi: ApiFromModules<{
   "functions/ai/gemini": typeof functions_ai_gemini;
   "functions/ai/googleChatbot": typeof functions_ai_googleChatbot;
   http: typeof http;
+  seed: typeof seed;
   telegram: typeof telegram;
 }>;
 

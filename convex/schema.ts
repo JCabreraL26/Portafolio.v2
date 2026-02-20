@@ -5,22 +5,60 @@ import { v } from "convex/values";
 
 export default defineSchema({
   // Tabla de Contabilidad - Solo Deep Seek (Admin)
+  // Adaptada para declaración F29 Chile
   contabilidad: defineTable({
     tipo: v.union(v.literal("ingreso"), v.literal("gasto"), v.literal("transferencia")),
     categoria: v.string(),
-    monto: v.number(),
     descripcion: v.string(),
     fecha: v.number(), // Timestamp Unix
+    
+    // Montos financieros
+    monto_neto: v.optional(v.number()), // Monto sin IVA
+    monto_iva: v.optional(v.number()), // Monto del IVA (19%)
+    monto_total: v.optional(v.number()), // Monto total con IVA incluido
+    
+    // Información tributaria (F29 Chile)
+    afecto_iva: v.optional(v.boolean()), // Si está afecto a IVA (default: true para facturas)
+    iva_porcentaje: v.optional(v.number()), // Porcentaje de IVA (normalmente 19)
+    tipo_documento: v.optional(v.union(
+      v.literal("factura"),
+      v.literal("boleta"),
+      v.literal("nota_credito"),
+      v.literal("nota_debito"),
+      v.literal("factura_exenta"),
+      v.literal("otro")
+    )),
+    numero_documento: v.optional(v.string()), // Número de factura/boleta
+    folio: v.optional(v.string()), // Folio del documento tributario
+    
+    // Partes involucradas
+    rut_emisor: v.optional(v.string()), // RUT de quien emite el documento
+    razon_social_emisor: v.optional(v.string()),
+    rut_receptor: v.optional(v.string()), // RUT de quien recibe
+    razon_social_receptor: v.optional(v.string()),
+    
+    // Período tributario (para F29)
+    periodo_tributario: v.optional(v.string()), // Formato: "YYYY-MM" (ej: "2026-02")
+    mes_declaracion: v.optional(v.number()), // Mes (1-12)
+    anio_declaracion: v.optional(v.number()), // Año
+    
+    // Campos legacy (mantener compatibilidad)
+    monto: v.optional(v.number()), // DEPRECATED: usar monto_total
     cuenta_origen: v.optional(v.string()),
     cuenta_destino: v.optional(v.string()),
     etiquetas: v.optional(v.array(v.string())),
     comprobante_url: v.optional(v.string()),
-    creado_por: v.string(), // "deep_seek"
+    
+    // Metadata
+    creado_por: v.string(), // "gemini", "sistema", etc.
     creado_en: v.number(),
   })
     .index("por_fecha", ["fecha"])
     .index("por_tipo", ["tipo"])
-    .index("por_categoria", ["categoria"]),
+    .index("por_categoria", ["categoria"])
+    .index("por_periodo", ["periodo_tributario"])
+    .index("por_tipo_doc", ["tipo_documento"])
+    .index("por_afecto_iva", ["afecto_iva"]),
 
   // Tabla de Design Thinking - Solo Deep Seek (Admin)
   design_thinking: defineTable({
@@ -89,6 +127,41 @@ export default defineSchema({
     .index("por_categoria", ["categoria"])
     .index("por_activo", ["activo"])
     .index("por_destacado", ["destacado"]),
+
+  // Tabla de Mensajes Telegram - Gemini Bot (Admin personal)
+  mensajes_telegram: defineTable({
+    message_id: v.number(),        // ID único del mensaje de Telegram
+    chat_id: v.string(),            // ID del chat (para filtrar por usuario)
+    username: v.string(),           // Nombre del usuario que envió el mensaje
+    
+    // Tipo de mensaje recibido
+    tipo_mensaje: v.union(
+      v.literal("texto"),           // Mensaje de texto normal
+      v.literal("voz"),             // Nota de voz
+      v.literal("foto"),            // Imagen (futuro: OCR de recibos)
+      v.literal("documento")        // Documento adjunto
+    ),
+    
+    // Contenido del mensaje
+    contenido_texto: v.optional(v.string()),        // Texto original si tipo="texto"
+    contenido_transcrito: v.optional(v.string()),   // Transcripción si tipo="voz"
+    archivo_url: v.optional(v.string()),            // URL del archivo de Telegram
+    duracion_audio: v.optional(v.number()),         // Duración en segundos (solo voz)
+    
+    // Respuesta del bot
+    respuesta_bot: v.string(),                      // Respuesta enviada por Gemini
+    
+    // Análisis y acción realizada
+    accion_realizada: v.string(),   // "transaccion" | "proyecto_dt" | "consulta" | "comando"
+    datos_extraidos: v.optional(v.any()), // JSON con datos relevantes (monto, categoría, etc.)
+    
+    // Metadata temporal
+    timestamp: v.number(),          // Timestamp Unix para memoria contextual
+  })
+    .index("por_chat_id", ["chat_id"])              // Filtrar mensajes por usuario
+    .index("por_timestamp", ["timestamp"])          // Ordenar cronológicamente
+    .index("por_tipo_mensaje", ["tipo_mensaje"])    // Filtrar por tipo (voz, texto, etc.)
+    .index("por_chat_timestamp", ["chat_id", "timestamp"]), // Memoria contextual optimizada
 
   // Tabla de Mensajes Chatbot Web - Acceso Público (solo escritura)
   mensajes_chatbot_web: defineTable({

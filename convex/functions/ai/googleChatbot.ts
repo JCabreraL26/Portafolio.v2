@@ -104,13 +104,13 @@ export const procesarMensajeWeb = action({
     ip_usuario: v.optional(v.string()),
     user_agent: v.optional(v.string()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{ respuesta: string; tipo_mensaje: string; intencion_detectada: string; agente: string; servicios_sugeridos: any[] }> => {
     // Obtener servicios disponibles para contexto
-    const servicios = await ctx.runQuery(api["functions/ai/googleChatbot"].obtenerServiciosActivos, {});
+    const servicios: any[] = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerServiciosActivos, {});
     
     // Detectar intención del mensaje
     const lowerMensaje = args.mensaje.toLowerCase();
-    let tipo_mensaje = "consulta";
+    let tipo_mensaje: "consulta" | "faq" | "servicios" | "contacto" | "otro" = "consulta";
     let intencion_detectada = "general";
     let respuesta = "";
     
@@ -121,9 +121,9 @@ export const procesarMensajeWeb = action({
       intencion_detectada = "saludo";
     }
     else if (lowerMensaje.includes("servicios") || lowerMensaje.includes("qué ofreces")) {
-      const categorias = [...new Set(servicios.map(s => s.categoria))];
-      respuesta = `Ofrezco servicios en las siguientes áreas:\n\n${categorias.map(cat => {
-        const serviciosCat = servicios.filter(s => s.categoria === cat);
+      const categorias = [...new Set(servicios.map((s: any) => s.categoria))];
+      respuesta = `Ofrezco servicios en las siguientes áreas:\n\n${categorias.map((cat: any) => {
+        const serviciosCat = servicios.filter((s: any) => s.categoria === cat);
         return `• **${cat.replace('_', ' ').toUpperCase()}**: ${serviciosCat.length} servicios disponibles`;
       }).join('\n')}\n\n¿Sobre qué categoría te gustaría saber más?`;
       tipo_mensaje = "servicios";
@@ -146,12 +146,12 @@ export const procesarMensajeWeb = action({
     }
     else {
       // Búsqueda en servicios
-      const serviciosEncontrados = await ctx.runQuery(api["functions/ai/googleChatbot"].buscarServicios, { 
+      const serviciosEncontrados = await ctx.runQuery(api.functions.ai.googleChatbot.buscarServicios, { 
         termino: args.mensaje 
       });
       
       if (serviciosEncontrados.length > 0) {
-        respuesta = `Encontré ${serviciosEncontrados.length} servicio(s) relacionado(s) con tu consulta:\n\n${serviciosEncontrados.slice(0, 3).map(s => 
+        respuesta = `Encontré ${serviciosEncontrados.length} servicio(s) relacionado(s) con tu consulta:\n\n${serviciosEncontrados.slice(0, 3).map((s: any) => 
           `**${s.nombre}**\n${s.descripcion}\n💰 Desde $${s.precio_base}\n📂 ${s.categoria.replace('_', ' ').toUpperCase()}`
         ).join('\n\n')}\n\n¿Te gustaría más detalles sobre alguno de estos servicios?`;
         tipo_mensaje = "servicios";
@@ -164,7 +164,7 @@ export const procesarMensajeWeb = action({
     }
     
     // Registrar la conversación
-    await ctx.runMutation(api["functions/ai/googleChatbot"].registrarMensajeChatbot, {
+    await ctx.runMutation(api.functions.ai.googleChatbot.registrarMensajeChatbot, {
       session_id: args.session_id,
       mensaje_usuario: args.mensaje,
       respuesta_bot: respuesta,
@@ -191,16 +191,14 @@ export const obtenerHistorialSesion = query({
     limite: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    let historial = ctx.db
+    const historial = ctx.db
       .query("mensajes_chatbot_web")
       .filter(q => q.eq(q.field("session_id"), args.session_id))
       .order("desc");
     
-    if (args.limite) {
-      historial = historial.take(args.limite);
-    }
-    
-    return await historial.collect();
+    const limite = args.limite || 50;
+    const resultado = await historial.take(limite);
+    return resultado;
   },
 });
 

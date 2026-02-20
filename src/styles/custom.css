@@ -71,54 +71,7 @@
   }
 }
 
-/* Overlay con cita filosófica */
-.overlay-dark {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  pointer-events: none;
-  display: none;
-  place-items: center;
-  background-color: rgba(10, 10, 10, 0.98);
-}
 
-.overlay-dark.active {
-  display: grid;
-  pointer-events: auto;
-}
-
-.overlay-quote {
-  position: relative;
-  z-index: 1;
-  color: #e0e0e0;
-  font-family: 'Special Elite', monospace;
-  font-size: 1.4em;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 550px;
-  padding: 20px;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7), 0 0 12px rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
-}
-
-.overlay-dark.active .overlay-quote {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.overlay-quote span {
-  display: block;
-  margin-top: 1em;
-  font-size: 0.7em;
-  opacity: 0.7;
-  font-family: 'Poppins', sans-serif;
-  text-shadow: none;
-}
 
 /* Títulos con efecto Syne */
 .hero-title {
@@ -659,74 +612,150 @@
 
 /* Gradientes específicos para cada servicio */
 .service-card-1 {
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-  box-shadow: 
-    0 4px 12px rgba(220, 38, 38, 0.2),
-    0 8px 24px rgba(220, 38, 38, 0.15);
+  background: #ffffff;
+  border: 2px solid #000000;
+  color: #000000;
 }
 
 .service-card-1:hover {
+  background: #000000;
+  color: #ffffff;
   box-shadow: 
-    0 12px 24px rgba(220, 38, 38, 0.25),
-    0 24px 48px rgba(220, 38, 38, 0.2);
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-1 h3,
+.service-card-1 p {
+  color: inherit;
+}
+
+.service-card-1:hover .text-white,
+.service-card-1:hover .text-white\/90,
+.service-card-1:hover .text-white\/70 {
+  color: #ffffff !important;
+}
+
+.service-card-1 .text-white,
+.service-card-1 .text-white\/90,
+.service-card-1 .text-white\/70 {
+  color: #000000 !important;
+}
+
+.service-card-1 span {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.service-card-1:hover span {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .service-card-2 {
-  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,245,0.95) 100%);
-  color: #111;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.1),
-    0 8px 24px rgba(0, 0, 0, 0.08);
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
 }
 
 .service-card-2:hover {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
   box-shadow: 
     0 12px 24px rgba(0, 0, 0, 0.15),
-    0 24px 48px rgba(0, 0, 0, 0.12);
+    0 24px 48px rgba(0, 0, 0, 0.1);
 }
 
 .service-card-2 h3,
 .service-card-2 p {
-  color: #111;
+  color: inherit;
 }
 
-.service-card-2 .text-white\/90 {
-  color: rgba(17, 17, 17, 0.9) !important;
-}
-
-.service-card-2 .text-white\/70 {
-  color: rgba(17, 17, 17, 0.7) !important;
+.service-card-2:hover h3,
+.service-card-2:hover p {
+  color: #000000;
 }
 
 .service-card-2 span {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.service-card-2:hover span {
   background: rgba(0, 0, 0, 0.1);
-  color: #111;
+  color: #000000;
 }
 
 .service-card-3 {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 8px 24px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  border: 2px solid #000000;
+  color: #000000;
 }
 
 .service-card-3:hover {
+  background: #000000;
+  color: #ffffff;
   box-shadow: 
-    0 12px 24px rgba(0, 0, 0, 0.2),
-    0 24px 48px rgba(26, 26, 26, 0.15);
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-3 h3,
+.service-card-3 p {
+  color: inherit;
+}
+
+.service-card-3:hover .text-white,
+.service-card-3:hover .text-white\/90,
+.service-card-3:hover .text-white\/70 {
+  color: #ffffff !important;
+}
+
+.service-card-3 .text-white,
+.service-card-3 .text-white\/90,
+.service-card-3 .text-white\/70 {
+  color: #000000 !important;
+}
+
+.service-card-3 span {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.service-card-3:hover span {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .service-card-4 {
-  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 8px 24px rgba(0, 0, 0, 0.12);
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
 }
 
 .service-card-4:hover {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
   box-shadow: 
-    0 12px 24px rgba(0, 0, 0, 0.2),
-    0 24px 48px rgba(42, 42, 42, 0.15);
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-4 h3,
+.service-card-4 p {
+  color: inherit;
+}
+
+.service-card-4:hover .text-white,
+.service-card-4:hover .text-white\/90 {
+  color: #000000 !important;
+}
+
+.service-card-4 .text-white,
+.service-card-4 .text-white\/90 {
+  color: #ffffff !important;
 }
 
 /* Responsive para Services Bento */

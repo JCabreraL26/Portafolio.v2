@@ -325,7 +325,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
   }
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ overflow: 'visible' }}>
       <canvas
         ref={canvasRef}
         className={`w-full h-auto ${onClick ? '' : 'rounded-2xl'}`}
@@ -334,7 +334,8 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
           height: "auto",
           aspectRatio: "1 / 1",
           cursor: onClick ? 'pointer' : 'default',
-          background: onClick ? 'transparent' : undefined
+          background: onClick ? 'transparent' : undefined,
+          display: 'block'
         }}
         onClick={onClick}
       />

@@ -2,75 +2,30 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import ServiceCard from '../components/ServiceCard.astro';
 import { InteractiveGlobe } from '../components/InteractiveGlobe';
 ---
 
 <Layout title="Jorge Cabrera - Desarrollo Fullstack & UX">
   <Navbar />
   
-  <!-- Hero Section: solo el globo -->
-  <section id="intro" class="relative min-h-screen flex items-center justify-center pt-20 bg-[#111111]">
+  <!-- SLIDE 1: Hero con Esfera y Cita -->
+  <section id="intro" class="relative min-h-screen flex items-center justify-center pt-20 bg-[#111111] overflow-visible">
     <!-- Grid cuadriculado de fondo -->
     <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(90deg, #ffffff 0%, #ffffff 1px, transparent 1px, transparent 4%), repeating-linear-gradient(0deg, #ffffff 0%, #ffffff 1px, transparent 1px, transparent 4%); background-size: 50px 50px;"></div>
-    <InteractiveGlobe client:load />
+    <InteractiveGlobe client:idle />
   </section>
 
-  <!-- Hero Content: storytelling -->
-  <section id="story" class="py-20 bg-[#F5F5F5] rounded-3xl">
-    <div class="container mx-auto px-6 text-center">
+  <!-- SLIDE 2: Soluciones Digitales -->
+  <section class="min-h-screen flex items-center justify-center bg-white">
+    <div class="container mx-auto px-6 text-center w-full">
       <h1 class="hero-title mb-12">
         <span class="hero-main" data-i18n="hero-main">Soluciones digitales</span><br/>
         <span class="hero-secondary" data-i18n="hero-secondary">para un mundo dinámico</span>
       </h1>
-      <a href="#journey" class="scroll-down-indicator inline-block" aria-label="Scroll down">
-        <span></span>
-      </a>
     </div>
   </section>
 
   <style>
-    .scroll-down-indicator {
-      display: block;
-      width: 24px;
-      height: 24px;
-      margin: 32px auto 0;
-      position: relative;
-      text-decoration: none;
-    }
-
-    .scroll-down-indicator span {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 20px;
-      height: 20px;
-      margin-left: -10px;
-      border-left: 2px solid #888;
-      border-bottom: 2px solid #888;
-      transform: rotate(-45deg);
-      animation: bounce-arrow 2s infinite;
-      box-sizing: border-box;
-      transition: border-color 0.3s;
-    }
-
-    .scroll-down-indicator:hover span {
-      border-color: #b80000;
-      animation-play-state: paused;
-    }
-
-    @keyframes bounce-arrow {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0) rotate(-45deg);
-      }
-      40% {
-        transform: translateY(8px) rotate(-45deg);
-      }
-      60% {
-        transform: translateY(4px) rotate(-45deg);
-      }
-    }
-
     /* Timeline header responsive fix */
     .journey-section h2 {
       word-wrap: break-word;
@@ -108,14 +63,14 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
     }
   </style>
 
-  <!-- Servicios - Bento Box Asimétrico -->
-  <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] text-center mb-4 text-[#111] leading-tight px-2" data-i18n="services-title">
-        🔴 Servicios
+  <!-- SLIDE 3: Servicios -->
+  <section class="min-h-screen flex items-center justify-center bg-white">
+    <div class="container mx-auto px-6 w-full py-20">
+      <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black font-['Syne'] text-center mb-6 text-[#111] leading-tight px-2" data-i18n="services-title">
+        Expertise
       </h2>
-      <p class="text-xl text-neutral-600 text-center mb-16 max-w-2xl mx-auto" data-i18n="services-subtitle">
-        Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue
+      <p class="text-base sm:text-lg md:text-xl text-neutral-500 text-center mb-16 max-w-xl mx-auto font-light italic" data-i18n="services-subtitle" style="font-family: 'Playfair Display', serif;">
+        De la idea al despliegue
       </p>
       
       <div class="services-bento max-w-6xl mx-auto">
@@ -179,12 +134,12 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
     </div>
   </section>
 
-  <!-- Case Study - Grid Asimétrico -->
-  <section class="py-20 mb-16">
-    <div class="container mx-auto px-4 sm:px-6">
+  <!-- SLIDE 4: Proyectos Desplegados -->
+  <section class="min-h-screen flex items-center justify-center bg-white">
+    <div class="container mx-auto px-4 sm:px-6 w-full py-20">
       <div class="text-center mb-12">
         <h2 class="case-study-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-4 text-[#111] leading-tight" data-i18n="case-title">
-          🔴 Casos de Éxito
+          Proyectos Desplegados
         </h2>
       </div>
       
@@ -224,9 +179,12 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
       <div class="text-center mt-8 mb-16">
         <a 
           href="/proyectos/localshop-pro" 
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#DC2626] text-white font-semibold rounded-full transition-all hover:bg-[#B91C1C] hover:scale-105 shadow-lg hover:shadow-xl"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#111] text-white font-semibold rounded-full transition-all hover:scale-105 no-underline"
+          style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"
+          onmouseover="this.style.boxShadow='0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4)'"
+          onmouseout="this.style.boxShadow='0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'"
         >
-          <span data-i18n="case-cta2">Ver Caso Completo</span>
+          <span data-i18n="case-cta2">Ver Proyecto Desplegado</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -269,9 +227,12 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
       <div class="text-center mt-8">
         <a 
           href="/proyectos/importadora-dr" 
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#b80000] text-white font-semibold rounded-full transition-all hover:bg-[#8b0000] hover:scale-105 shadow-lg hover:shadow-xl"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#111] text-white font-semibold rounded-full transition-all hover:scale-105 no-underline"
+          style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"
+          onmouseover="this.style.boxShadow='0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4)'"
+          onmouseout="this.style.boxShadow='0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'"
         >
-          <span data-i18n="case-cta">Ver Caso Completo</span>
+          <span data-i18n="case-cta">Ver Proyecto Desplegado</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -279,92 +240,22 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
       </div>
     </div>
   </section>
-
-  <!-- Journey / Timeline Section - Mi Metodología -->
-  <section id="journey" class="journey-section mb-16">
-    <div class="container mx-auto px-4 sm:px-6">
-      <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-bold text-center mb-12 sm:mb-16 md:mb-20 text-white leading-tight" data-i18n="journey-title">
-        🔴 Mi Proceso de Transformación
-      </h2>
-      
-      <div class="timeline">
-        <!-- Item 1: Entiendo -->
-        <div class="timeline-item">
-          <div class="timeline-image">
-            <img 
-              src="/img/caos_to_order.jpg" 
-              alt="Del caos al orden - Proceso de entendimiento"
-              class="w-full h-64 object-cover rounded-2xl"
-            />
-          </div>
-          <div class="timeline-content">
-            <h3 data-i18n="journey-step1-title">🔍 Entiendo</h3>
-            <p data-i18n="journey-step1-desc">Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. No diseño soluciones sin entender primero el problema real.</p>
-          </div>
-        </div>
-        
-        <!-- Item 2: Diseño -->
-        <div class="timeline-item">
-          <div class="timeline-image">
-            <img 
-              src="/img/diseno_ux.jpg" 
-              alt="Diseño UX - Arquitectura de la experiencia"
-              class="w-full h-64 object-cover rounded-2xl"
-            />
-          </div>
-          <div class="timeline-content">
-            <h3 data-i18n="journey-step2-title">🎨 Diseño</h3>
-            <p data-i18n="journey-step2-desc">Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. El diseño no es decoración, es arquitectura de la experiencia.</p>
-          </div>
-        </div>
-        
-        <!-- Item 3: Ejecuto -->
-        <div class="timeline-item">
-          <div class="timeline-image">
-            <img 
-              src="/img/stack_tecnologico.jpg" 
-              alt="Stack tecnológico - React, TypeScript, Supabase"
-              class="w-full h-64 object-cover rounded-2xl"
-            />
-          </div>
-          <div class="timeline-content">
-            <h3 data-i18n="journey-step3-title">⚙️ Ejecuto</h3>
-            <p data-i18n="journey-step3-desc">Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. Del prototipo al producto funcional.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Advantage Section -->
-  <section class="py-20 bg-[#F5F5F5] rounded-3xl mb-16">
-    <div class="container mx-auto px-4 sm:px-6 text-center">
-      <h2 class="advantage-title" data-i18n="advantage-title-full">
-        <span class="word-wrapper"><span class="word">💪</span></span>
-        <span class="word-wrapper"><span class="word"> Mi</span></span>
-        <span class="word-wrapper"><span class="word"> background</span></span>
-        <span class="word-wrapper"><span class="word"> es</span></span>
-        <span class="word-wrapper"><span class="word"> mi</span></span>
-        <span class="word-wrapper"><span class="word word-accent"> superpoder</span></span>
-      </h2>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contacto" class="py-20 bg-gradient-to-br from-[#2a2a2a] to-[#111111] rounded-3xl mb-16">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6] leading-tight" data-i18n="contact-main-title">
-          🔴 Hablemos
+  
+  <!-- SLIDE 5: Contacto + Footer -->
+  <section class="min-h-screen flex items-center justify-center bg-white">
+    <div class="container mx-auto px-4 sm:px-6 w-full">
+      <div class="max-w-4xl mx-auto text-center mb-20">
+        <h2 class="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#111] leading-tight" data-i18n="contact-main-title">
+          Hablemos
         </h2>
-        <p class="text-xl text-[#d1d1d1] mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']" data-i18n="contact-description">
+        <p class="text-xl text-neutral-700 mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']" data-i18n="contact-description">
           No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor. Hablemos de tu próximo proyecto.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="mailto:jcabreralabbe@gmail.com"
-            class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
+            class="px-8 py-4 border-2 border-[#111] text-[#111] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:text-white hover:scale-105 no-underline"
             data-i18n="contact-email-button"
           >
             Email
@@ -373,19 +264,18 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
             href="https://linkedin.com/in/jorge-cabrera-ux" 
             target="_blank"
             rel="noopener noreferrer"
-            class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
+            class="px-8 py-4 border-2 border-[#111] text-[#111] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:text-white hover:scale-105 no-underline"
             data-i18n="contact-linkedin-button"
           >
             LinkedIn
           </a>
         </div>
       </div>
+      <Footer />
     </div>
   </section>
 
-  <Footer />
-
-  <script>
+  <style>
     // Animaciones de scroll para timeline items
     document.addEventListener('DOMContentLoaded', () => {
       const timelineItems = document.querySelectorAll('.timeline-item');
@@ -420,37 +310,37 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         es: {
           'hero-main': 'Soluciones digitales',
           'hero-secondary': 'para un mundo dinámico',
-          'journey-title': '🔴 Mi Proceso de Transformación',
+          'journey-title': 'Mi Proceso de Transformación',
           'journey-step1-title': '🔍 Entiendo',
           'journey-step1-desc': 'Mapeo procesos reales, detecto cuellos de botella y encuentro oportunidades de digitalización. No diseño soluciones sin entender primero el problema real.',
           'journey-step2-title': '🎨 Diseño',
           'journey-step2-desc': 'Creo interfaces intuitivas que se adaptan al flujo de trabajo real de los usuarios. El diseño no es decoración, es arquitectura de la experiencia.',
           'journey-step3-title': '⚙️ Ejecuto',
           'journey-step3-desc': 'Desarrollo soluciones robustas, escalables y listas para producción con stack moderno: React, TypeScript, Supabase y PostgreSQL. Del prototipo al producto funcional.',
-          'services-title': '🔴 Servicios',
-          'services-subtitle': 'Cubro todo el ciclo de vida del producto, desde la idea hasta el despliegue',
+          'services-title': 'Expertise',
+          'services-subtitle': 'De la idea al despliegue',
           'service-fullstack-title': 'Desarrollo Fullstack a Medida',
           'service-fullstack-desc': 'Arquitecturas modernas y escalables con React, Node, Supabase y PostgreSQL. Soluciones llave en mano diseñadas específicamente para las reglas de tu industria.',
           'service-ux-title': 'Consultoría UX y Diagnóstico',
           'service-ux-desc': 'Utilizo metodologías de Design Thinking para mapear procesos reales y encontrar oportunidades de digitalización.',
           'service-digital-title': 'Digitalización de Procesos',
           'service-digital-desc': 'Transformación de flujos de trabajo análogos en ecosistemas digitales inmutables. Especialidad en integridad de datos.',
-          'case-title': '🔴 Casos de Éxito',
+          'case-title': 'Proyectos Desplegados',
           'case-company': 'Importadora D&R',
           'case-tagline': 'Del caos al orden: Solución ERP que eliminó los descuadres de inventario',
           'case-precision': 'Precisión',
           'case-efficiency': 'Eficiencia',
           'case-load': 'Carga',
-          'case-cta': 'Ver Caso Completo',
+          'case-cta': 'Ver Proyecto Desplegado',
           'case-company2': 'LocalShop Pro',
           'case-tagline2': 'De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales',
           'case-speed': 'Velocidad',
           'case-commission': 'Comisiones',
           'case-automation': 'Automatización',
-          'case-cta2': 'Ver Caso Completo',
-          'advantage-title': '🔴 ¿Por Qué Trabajar Conmigo?',
+          'case-cta2': 'Ver Proyecto Desplegado',
+          'advantage-title': '¿Por Qué Trabajar Conmigo?',
           'advantage-title-full': '💪 Mi background es mi superpoder',
-          'contact-main-title': '🔴 Hablemos',
+          'contact-main-title': 'Hablemos',
           'contact-description': 'No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor. Hablemos de tu próximo proyecto.',
           'contact-email-button': 'Email',
           'contact-linkedin-button': 'LinkedIn',
@@ -461,37 +351,37 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         en: {
           'hero-main': 'Digital solutions',
           'hero-secondary': 'for a dynamic world',
-          'journey-title': '🔴 My Transformation Process',
+          'journey-title': 'My Transformation Process',
           'journey-step1-title': '🔍 Understand',
           'journey-step1-desc': 'I map real processes, detect bottlenecks and find digitalization opportunities. I don\'t design solutions without first understanding the real problem.',
           'journey-step2-title': '🎨 Design',
           'journey-step2-desc': 'I create intuitive interfaces that adapt to users\' real workflow. Design is not decoration, it\'s experience architecture.',
           'journey-step3-title': '⚙️ Execute',
           'journey-step3-desc': 'I develop robust, scalable, production-ready solutions with modern stack: React, TypeScript, Supabase and PostgreSQL. From prototype to functional product.',
-          'services-title': '🔴 Services',
-          'services-subtitle': 'I cover the entire product lifecycle, from idea to deployment',
+          'services-title': 'Expertise',
+          'services-subtitle': 'From idea to deployment',
           'service-fullstack-title': 'Custom Fullstack Development',
           'service-fullstack-desc': 'Modern and scalable architectures with React, Node, Supabase and PostgreSQL. Turnkey solutions designed specifically for your industry rules.',
           'service-ux-title': 'UX Consulting & Diagnosis',
           'service-ux-desc': 'I use Design Thinking methodologies to map real processes and find digitalization opportunities.',
           'service-digital-title': 'Process Digitalization',
           'service-digital-desc': 'Transformation of analog workflows into immutable digital ecosystems. Specialty in data integrity.',
-          'case-title': '🔴 Success Stories',
+          'case-title': 'Deployed Projects',
           'case-company': 'Importadora D&R',
           'case-tagline': 'From chaos to order: ERP solution that eliminated inventory discrepancies',
           'case-precision': 'Precision',
           'case-efficiency': 'Efficiency',
           'case-load': 'Load',
-          'case-cta': 'View Full Case',
+          'case-cta': 'View Deployed Project',
           'case-company2': 'LocalShop Pro',
           'case-tagline2': 'From losing margins to selling direct: Commission-free e-commerce for local businesses',
           'case-speed': 'Speed',
           'case-commission': 'Commissions',
           'case-automation': 'Automation',
-          'case-cta2': 'View Full Case',
-          'advantage-title': '🔴 Why Work With Me?',
+          'case-cta2': 'View Deployed Project',
+          'advantage-title': 'Why Work With Me?',
           'advantage-title-full': '💪 My background is my superpower',
-          'contact-main-title': '🔴 Let\'s Talk',
+          'contact-main-title': 'Let\'s Talk',
           'contact-description': 'I don\'t just design. I solve problems. With the logic of a manager and the empathy of a teacher. Let\'s talk about your next project.',
           'contact-email-button': 'Email',
           'contact-linkedin-button': 'LinkedIn',

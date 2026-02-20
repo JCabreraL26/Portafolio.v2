@@ -33,3 +33,6 @@ telegram-bot.js
 .idea/
 
 .env.local
+
+# inventario-tabaco es una app separada
+inventario-tabaco/

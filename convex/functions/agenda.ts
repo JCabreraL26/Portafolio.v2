@@ -277,6 +277,64 @@ export const agendarCita = mutation({
     
     console.log(`✅ Cita agendada exitosamente. ID: ${citaId}`);
     
+    // 📱 NOTIFICACIÓN POR TELEGRAM
+    try {
+      const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+      const CHAT_ID = process.env.TELEGRAM_AUTHORIZED_USER;
+      
+      if (BOT_TOKEN && CHAT_ID) {
+        // Formatear fecha y hora
+        const fecha = new Date(args.fecha_inicio);
+        const fechaFormateada = fecha.toLocaleDateString('es-CL', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        const horaFormateada = fecha.toLocaleTimeString('es-CL', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+        
+        const mensaje = `🗓️ *NUEVA CITA AGENDADA*
+
+📅 *Fecha:* ${fechaFormateada}
+🕐 *Hora:* ${horaFormateada}
+👤 *Cliente:* ${args.cliente_nombre}
+📧 *Email:* ${args.cliente_email}
+${args.cliente_telefono ? `📱 *Teléfono:* ${args.cliente_telefono}\n` : ''}📝 *Motivo:* ${args.motivo}
+⏱️ *Duración:* ${duracion} minutos
+🌐 *Fuente:* ${args.source === 'web' ? 'Chatbot Web' : 'Telegram'}
+
+_ID: ${citaId}_`;
+        
+        // Enviar mensaje a Telegram
+        const response = await fetch(
+          `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: CHAT_ID,
+              text: mensaje,
+              parse_mode: "Markdown",
+            }),
+          }
+        );
+        
+        if (response.ok) {
+          console.log("📱 Notificación enviada a Telegram exitosamente");
+        } else {
+          console.warn("⚠️ Error enviando notificación a Telegram:", await response.text());
+        }
+      } else {
+        console.warn("⚠️ Telegram no configurado - notificación no enviada");
+      }
+    } catch (notifError) {
+      console.error("❌ Error enviando notificación Telegram:", notifError);
+      // No lanzamos error para que no falle el agendamiento
+    }
+    
     return {
       success: true,
       citaId: citaId,
@@ -317,6 +375,54 @@ export const cancelarCita = mutation({
     });
     
     console.log(`✅ Cita cancelada exitosamente`);
+    
+    // 📱 NOTIFICACIÓN POR TELEGRAM - CANCELACIÓN
+    try {
+      const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+      const CHAT_ID = process.env.TELEGRAM_AUTHORIZED_USER;
+      
+      if (BOT_TOKEN && CHAT_ID) {
+        const fecha = new Date(cita.fecha_inicio);
+        const fechaFormateada = fecha.toLocaleDateString('es-CL', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        const horaFormateada = fecha.toLocaleTimeString('es-CL', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+        
+        const mensaje = `❌ *CITA CANCELADA*
+
+📅 *Fecha:* ${fechaFormateada}
+🕐 *Hora:* ${horaFormateada}
+👤 *Cliente:* ${cita.cliente_nombre}
+📧 *Email:* ${cita.cliente_email}
+📝 *Motivo original:* ${cita.motivo}
+⚠️ *Razón de cancelación:* ${args.razon}
+
+_ID: ${args.citaId}_`;
+        
+        await fetch(
+          `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: CHAT_ID,
+              text: mensaje,
+              parse_mode: "Markdown",
+            }),
+          }
+        );
+        
+        console.log("📱 Notificación de cancelación enviada a Telegram");
+      }
+    } catch (notifError) {
+      console.error("❌ Error enviando notificación de cancelación:", notifError);
+    }
     
     return {
       success: true,

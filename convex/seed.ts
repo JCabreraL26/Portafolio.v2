@@ -54,3 +54,83 @@ export const seedEmpresa = mutation({
     };
   },
 });
+
+// Script de inicialización - Configuración de Agenda
+export const seedAgenda = mutation({
+  handler: async (ctx) => {
+    // Verificar si ya existe configuración
+    const configExistente = await ctx.db
+      .query("configuracion_agenda")
+      .filter(q => q.eq(q.field("activo"), true))
+      .first();
+    
+    if (configExistente) {
+      return {
+        success: false,
+        mensaje: "La configuración de agenda ya existe."
+      };
+    }
+    
+    // Crear configuración por defecto
+    const configId = await ctx.db.insert("configuracion_agenda", {
+      hora_inicio: 8,        // 8:00 AM
+      hora_fin: 22,          // 10:00 PM
+      dias_laborales: [1, 2, 3, 4, 5, 6, 7], // Todos los días (Lun-Dom)
+      duracion_slot: 30,     // 30 minutos
+      zona_horaria: "America/Santiago",
+      dias_bloqueados: [],
+      activo: true,
+      creado_en: Date.now(),
+      actualizado_en: Date.now(),
+    });
+    
+    console.log("✅ Configuración de agenda creada:");
+    console.log("   - Horario: 8:00 AM - 10:00 PM");
+    console.log("   - Días: Lunes a Domingo");
+    console.log("   - Duración slot: 30 minutos");
+    console.log("   - Zona horaria: America/Santiago");
+    
+    return {
+      success: true,
+      mensaje: "Configuración de agenda creada exitosamente",
+      configId: configId,
+      horarios: {
+        inicio: "8:00 AM",
+        fin: "10:00 PM",
+        dias: "Lunes a Domingo",
+        slot: "30 minutos"
+      }
+    };
+  },
+});
+
+// Actualizar horarios de agenda existente
+export const updateHorariosAgenda = mutation({
+  handler: async (ctx) => {
+    const config = await ctx.db
+      .query("configuracion_agenda")
+      .filter(q => q.eq(q.field("activo"), true))
+      .first();
+    
+    if (!config) {
+      throw new Error("No existe configuración de agenda activa");
+    }
+    
+    await ctx.db.patch(config._id, {
+      hora_inicio: 8,
+      hora_fin: 22,
+      actualizado_en: Date.now(),
+    });
+    
+    console.log("✅ Horarios actualizados a 8:00 AM - 10:00 PM");
+    
+    return {
+      success: true,
+      mensaje: "Horarios actualizados correctamente",
+      horarios: {
+        inicio: "8:00 AM",
+        fin: "10:00 PM"
+      }
+    };
+  },
+});

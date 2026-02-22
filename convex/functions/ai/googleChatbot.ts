@@ -1,9 +1,16 @@
 import { v } from "convex/values";
 import { mutation, query, action } from "../../_generated/server";
-import { api } from "../../_generated/api";
+import { api, internal } from "../../_generated/api";
+import { GoogleGenAI } from "@google/genai";
+import { EMPRESA, SERVICIOS, DESIGN_THINKING, PROYECTOS_DESTACADOS, FAQS, CHATBOT_CONFIG } from "../../constants";
 
 // Google Chatbot - Modo Cliente con Acceso Limitado
 // Solo lectura de servicios y respuestas básicas
+
+// Inicializar cliente de Gemini
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY || "",
+});
 
 // Queries de Solo Lectura para Servicios Web
 export const obtenerServiciosActivos = query({
@@ -96,7 +103,7 @@ export const registrarMensajeChatbot = mutation({
   },
 });
 
-// Action de IA con Google Gemini
+// Action de IA con Google Gemini - MEJORADA CON CONTEXTO COMPLETO
 export const procesarMensajeWeb = action({
   args: {
     mensaje: v.string(),
@@ -105,65 +112,288 @@ export const procesarMensajeWeb = action({
     user_agent: v.optional(v.string()),
   },
   handler: async (ctx, args): Promise<{ respuesta: string; tipo_mensaje: string; intencion_detectada: string; agente: string; servicios_sugeridos: any[] }> => {
+    console.log(`🌐 WEB CHATBOT - Mensaje recibido: "${args.mensaje}"`);
+    console.log(`📱 Session ID: ${args.session_id}`);
+    
     // Obtener servicios disponibles para contexto
     const servicios: any[] = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerServiciosActivos, {});
     
-    // Detectar intención del mensaje
-    const lowerMensaje = args.mensaje.toLowerCase();
+    // Obtener historial reciente de la sesión para contexto
+    const historial = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerHistorialSesion, {
+      session_id: args.session_id,
+      limite: 5,
+    });
+    
+    // Construir contexto de historial
+    const contextoHistorial = historial.length > 0 
+      ? `\n\n📜 HISTORIAL RECIENTE (últimos ${historial.length} mensajes):\n` + 
+        historial.reverse().map((msg: any) => 
+          `Usuario: ${msg.mensaje_usuario}\nAsistente: ${msg.respuesta_bot}`
+        ).join('\n\n')
+      : "";
+    
+    // Construir prompt con contexto completo de la empresa
+    const systemPrompt = `${CHATBOT_CONFIG.system_prompt}
+
+📊 INFORMACIÓN CORPORATIVA:
+- Razón Social: ${EMPRESA.razon_social}
+- RUT: ${EMPRESA.rut}
+- Email: ${EMPRESA.propietario.email}
+- Sitio Web: ${EMPRESA.sitio_web}
+- Especialidad: ${EMPRESA.propietario.especialidad}
+
+💼 SERVICIOS DISPONIBLES:
+${Object.entries(SERVICIOS).map(([key, servicio]: [string, any]) => 
+  `- ${servicio.titulo}: ${servicio.descripcion} (Desde $${servicio.precio_base} USD, ${servicio.duracion_estimada})`
+).join('\n')}
+
+🚀 PROYECTOS DESTACADOS:
+${PROYECTOS_DESTACADOS.map(proyecto => 
+  `- ${proyecto.nombre} (${proyecto.cliente}): ${proyecto.descripcion}\n  Resultados: ${JSON.stringify(proyecto.resultados)}`
+).join('\n\n')}
+
+🎨 METODOLOGÍA DESIGN THINKING:
+${DESIGN_THINKING.descripcion}
+Fases: ${Object.values(DESIGN_THINKING.fases).map((fase: any) => fase.nombre).join(' → ')}
+
+❓ FAQs COMUNES:
+${FAQS.map(faq => `P: ${faq.pregunta}\nR: ${faq.respuesta}`).join('\n\n')}
+
+🎯 TU TAREA:
+1. Analiza el mensaje del usuario
+2. Identifica la intención (consulta, faq, servicios, contacto, otro)
+3. Responde de forma profesional pero cercana
+4. Si hablan de servicios, menciona precios aproximados
+5. Si preguntan por el RUT, responde: "${EMPRESA.rut}"
+6. Si piden datos financieros privados, responde: "${CHATBOT_CONFIG.respuestas_seguridad.datos_financieros}"
+7. Mantén respuestas concisas (máximo 150 palabras)
+8. Usa emojis para mejor visualización
+9. Al final, ofrece siguiente paso (agendar reunión, ver más servicios, etc.)
+
+RESTRICCIONES DE SEGURIDAD:
+- NUNCA inventes datos que no están en el contexto
+- NUNCA menciones información de contabilidad privada
+- NUNCA accedas a tablas restringidas
+- SOLO información pública del portafolio${contextoHistorial}`;
+
+    // Llamar a Gemini con Function Calling (Tools)
+    let respuesta = "";
     let tipo_mensaje: "consulta" | "faq" | "servicios" | "contacto" | "otro" = "consulta";
     let intencion_detectada = "general";
-    let respuesta = "";
     
-    // FAQ básicas
-    if (lowerMensaje.includes("hola") || lowerMensaje.includes("buenos")) {
-      respuesta = "¡Hola! Soy Google, el asistente virtual de Jorge Cabrera. ¿En qué puedo ayudarte hoy? Puedes consultarme sobre servicios, proyectos o información de contacto.";
+    try {
+      // Detectar si el mensaje es sobre agendamiento
+      const esAgendamiento = args.mensaje.toLowerCase().includes("agendar") || 
+                             args.mensaje.toLowerCase().includes("reunión") || 
+                             args.mensaje.toLowerCase().includes("cita") || 
+                             args.mensaje.toLowerCase().includes("disponibilidad") || 
+                             args.mensaje.toLowerCase().includes("horario");
+      
+      if (esAgendamiento) {
+        tipo_mensaje = "contacto";
+        intencion_detectada = "agendamiento";
+        
+        // Paso 1: Usar Gemini para extraer datos estructurados del mensaje
+        const extractorPrompt = `Analiza el siguiente mensaje y extrae información para agendar una reunión.
+
+Mensaje del usuario: "${args.mensaje}"
+
+Contexto de conversación previa (si existe):
+${historial.length > 0 ? historial.slice(-3).map((m: any) => `Usuario: ${m.mensaje_usuario}\nBot: ${m.respuesta_bot}`).join('\n') : 'Primera interacción'}
+
+EXTRAE (si están disponibles):
+- nombre: El nombre completo del cliente
+- email: El email de contacto
+- fecha: Fecha deseada en formato YYYY-MM-DD
+- hora: Hora en formato HH:MM (24 horas)
+- motivo: Razón de la reunión
+
+RESPONDE EN JSON ESTRICTO:
+{
+  "tiene_datos_completos": true/false,
+  "nombre": "...",
+  "email": "...",
+  "fecha": "YYYY-MM-DD",
+  "hora": "HH:MM",
+  "motivo": "...",
+  "faltan": ["campo1", "campo2"]
+}
+
+Si falta información, marca tiene_datos_completos: false y lista qué falta en "faltan".`;
+
+        const extractorResult = await ai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: extractorPrompt,
+        });
+        
+        let datosExtraidos;
+        try {
+          // Limpiar respuesta de Gemini (puede venir con ```json o texto extra)
+          const textoRaw = extractorResult.text || "{}";
+          const textoLimpio = textoRaw
+            .replace(/```json\n?/g, '')
+            .replace(/```\n?/g, '')
+            .trim();
+          datosExtraidos = JSON.parse(textoLimpio);
+          console.log("📊 Datos extraídos:", datosExtraidos);
+        } catch (parseError) {
+          console.error("❌ Error parseando JSON de Gemini:", parseError);
+          datosExtraidos = { tiene_datos_completos: false, faltan: ["todos"] };
+        }
+        
+        // Paso 2: Si tenemos todos los datos, agendar la cita
+        if (datosExtraidos.tiene_datos_completos && datosExtraidos.fecha && datosExtraidos.hora) {
+          try {
+            // Convertir fecha y hora a timestamp
+            const [year, month, day] = datosExtraidos.fecha.split('-').map(Number);
+            const [hour, minute] = datosExtraidos.hora.split(':').map(Number);
+            const fechaInicio = new Date(year, month - 1, day, hour, minute, 0, 0);
+            const timestampInicio = fechaInicio.getTime();
+            
+            // Llamar a la mutation para agendar
+            const resultado = await ctx.runMutation(api.functions.agenda.agendarCita as any, {
+              fecha_inicio: timestampInicio,
+              duracion: 30,
+              cliente_nombre: datosExtraidos.nombre,
+              cliente_email: datosExtraidos.email,
+              motivo: datosExtraidos.motivo,
+              source: "web",
+            });
+            
+            console.log("✅ Cita agendada:", resultado);
+            
+            // Formatear fecha para mostrar
+            const fechaFormateada = fechaInicio.toLocaleDateString('es-CL', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            });
+            const horaFormateada = fechaInicio.toLocaleTimeString('es-CL', { 
+              hour: '2-digit', 
+              minute: '2-digit' 
+            });
+            
+            respuesta = `✅ **¡Cita confirmada exitosamente!**
+
+📅 **Fecha**: ${fechaFormateada}
+🕐 **Hora**: ${horaFormateada}
+👤 **Nombre**: ${datosExtraidos.nombre}
+📧 **Email**: ${datosExtraidos.email}
+📝 **Motivo**: ${datosExtraidos.motivo}
+
+Jorge Cabrera te estará esperando. Recibirás un recordatorio por email 24 horas antes.
+
+Si necesitas cancelar o reprogramar, responde aquí mismo. ¡Nos vemos! 🎉`;
+            
+          } catch (errorAgendamiento: any) {
+            console.error("❌ Error al agendar cita:", errorAgendamiento);
+            respuesta = `❌ Lo siento, hubo un problema al agendar la cita: ${errorAgendamiento.message}
+
+Por favor intenta con otro horario o contacta directamente a jcabreralabbe@gmail.com`;
+          }
+        } else {
+          // Paso 3: Si faltan datos, pedir lo que falta conversacionalmente
+          const promptSeguimiento = `El usuario quiere agendar una reunión pero falta información.
+
+Datos que ya tenemos:
+${JSON.stringify(datosExtraidos, null, 2)}
+
+Genera una respuesta amable pidiendo SOLO la información faltante. Sé conciso y directo.
+Incluye disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM.`;
+
+          const seguimientoResult = await ai.models.generateContent({
+            model: "gemini-3-flash-preview",
+            contents: promptSeguimiento,
+          });
+          
+          respuesta = seguimientoResult.text || `🗓️ Para agendar tu reunión necesito:
+
+${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
+
+📅 Disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM
+⏱️ Duración: 30 minutos
+
+¡Comparte los datos y agendamos! 📧`;
+        }
+        
+      } else {
+        // Respuesta normal sin agendamiento
+        const result = await ai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: `${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`,
+        });
+        
+        respuesta = result.text || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+      }
+      
+      console.log(`✅ Respuesta generada por Gemini (${respuesta.length} caracteres)`);
+      
+    } catch (error) {
+      console.error("❌ Error llamando a Gemini:", error);
+      respuesta = "Lo siento, estoy experimentando problemas técnicos. Por favor contacta directamente a jcabreralabbe@gmail.com";
+    }
+    
+    // Detectar intención basada en el contenido del mensaje
+    const lowerMensaje = args.mensaje.toLowerCase();
+    
+    if (lowerMensaje.includes("hola") || lowerMensaje.includes("buenos") || lowerMensaje.includes("saludos")) {
       tipo_mensaje = "faq";
       intencion_detectada = "saludo";
     }
-    else if (lowerMensaje.includes("servicios") || lowerMensaje.includes("qué ofreces")) {
-      const categorias = [...new Set(servicios.map((s: any) => s.categoria))];
-      respuesta = `Ofrezco servicios en las siguientes áreas:\n\n${categorias.map((cat: any) => {
-        const serviciosCat = servicios.filter((s: any) => s.categoria === cat);
-        return `• **${cat.replace('_', ' ').toUpperCase()}**: ${serviciosCat.length} servicios disponibles`;
-      }).join('\n')}\n\n¿Sobre qué categoría te gustaría saber más?`;
+    else if (lowerMensaje.includes("rut") || lowerMensaje.includes("razón social") || lowerMensaje.includes("empresa")) {
+      tipo_mensaje = "faq";
+      intencion_detectada = "informacion_corporativa";
+    }
+    else if (lowerMensaje.includes("servicio") || lowerMensaje.includes("qué ofrec") || lowerMensaje.includes("qué hac")) {
       tipo_mensaje = "servicios";
       intencion_detectada = "lista_servicios";
     }
-    else if (lowerMensaje.includes("precio") || lowerMensaje.includes("cuánto cuesta")) {
-      respuesta = "Los precios varían según el tipo y complejidad del proyecto. ¿Podrías indicarme qué servicio te interesa para darte información más específica?";
+    else if (lowerMensaje.includes("precio") || lowerMensaje.includes("costo") || lowerMensaje.includes("cotiza") || lowerMensaje.includes("cuánto")) {
       tipo_mensaje = "servicios";
       intencion_detectada = "consulta_precio";
     }
-    else if (lowerMensaje.includes("contacto") || lowerMensaje.includes("contactar")) {
-      respuesta = "Puedes contactar a Jorge Cabrera por:\n\n📧 Email: jcabreralabbe@gmail.com\n🌐 Sitio: jorge-cabrera.cl\n\n¿Hay algún proyecto específico que te gustaría discutir?";
+    else if (lowerMensaje.includes("contacto") || lowerMensaje.includes("email") || lowerMensaje.includes("contactar") || lowerMensaje.includes("hablar")) {
       tipo_mensaje = "contacto";
       intencion_detectada = "informacion_contacto";
     }
-    else if (lowerMensaje.includes("proyecto") || lowerMensaje.includes("trabajo")) {
-      respuesta = "Jorge trabaja en proyectos de desarrollo web, UI/UX y automatización. Si tienes un proyecto en mente, cuéntame más sobre tus necesidades y te ayudaré a encontrar la mejor solución.";
+    else if (lowerMensaje.includes("agendar") || lowerMensaje.includes("reunión") || lowerMensaje.includes("cita") || 
+             lowerMensaje.includes("calendario") || lowerMensaje.includes("disponibilidad") || lowerMensaje.includes("horario")) {
+      tipo_mensaje = "contacto";
+      intencion_detectada = "agendamiento";
+    }
+    else if (lowerMensaje.includes("cancelar") && (lowerMensaje.includes("cita") || lowerMensaje.includes("reunión"))) {
+      tipo_mensaje = "contacto";
+      intencion_detectada = "cancelar_cita";
+    }
+    else if (lowerMensaje.includes("proyecto") || lowerMensaje.includes("caso") || lowerMensaje.includes("ejemplo")) {
       tipo_mensaje = "consulta";
       intencion_detectada = "interes_proyecto";
     }
-    else {
-      // Búsqueda en servicios
+    else if (lowerMensaje.includes("design thinking") || lowerMensaje.includes("metodología") || lowerMensaje.includes("proceso")) {
+      tipo_mensaje = "faq";
+      intencion_detectada = "metodologia";
+    }
+    // SEGURIDAD: Detectar intentos de acceso a datos privados
+    else if (lowerMensaje.includes("gasto") || lowerMensaje.includes("ingreso") || lowerMensaje.includes("contabilidad") || 
+             lowerMensaje.includes("factura") || lowerMensaje.includes("iva") || lowerMensaje.includes("finanzas")) {
+      tipo_mensaje = "otro";
+      intencion_detectada = "intento_acceso_restringido";
+      respuesta = CHATBOT_CONFIG.respuestas_seguridad.datos_financieros;
+      console.warn(`⚠️ INTENTO DE ACCESO RESTRINGIDO detectado: "${args.mensaje}"`);
+    }
+    
+    // Sugerir servicios relevantes si aplica
+    let servicios_sugeridos: any[] = [];
+    if (tipo_mensaje === "servicios") {
+      // Buscar servicios relacionados con el mensaje
       const serviciosEncontrados = await ctx.runQuery(api.functions.ai.googleChatbot.buscarServicios, { 
         termino: args.mensaje 
       });
-      
-      if (serviciosEncontrados.length > 0) {
-        respuesta = `Encontré ${serviciosEncontrados.length} servicio(s) relacionado(s) con tu consulta:\n\n${serviciosEncontrados.slice(0, 3).map((s: any) => 
-          `**${s.nombre}**\n${s.descripcion}\n💰 Desde $${s.precio_base}\n📂 ${s.categoria.replace('_', ' ').toUpperCase()}`
-        ).join('\n\n')}\n\n¿Te gustaría más detalles sobre alguno de estos servicios?`;
-        tipo_mensaje = "servicios";
-        intencion_detectada = "busqueda_servicios";
-      } else {
-        respuesta = "Entiendo tu consulta. Para darte la mejor respuesta, ¿podrías ser más específico sobre qué información necesitas? Puedo ayudarte con:\n\n• Información sobre servicios\n• Precios y cotizaciones\n• Contacto con Jorge\n• Detalles de proyectos";
-        tipo_mensaje = "consulta";
-        intencion_detectada = "necesita_clarificacion";
-      }
+      servicios_sugeridos = serviciosEncontrados.slice(0, 3);
     }
     
-    // Registrar la conversación
+    // Registrar la conversación en la base de datos
     await ctx.runMutation(api.functions.ai.googleChatbot.registrarMensajeChatbot, {
       session_id: args.session_id,
       mensaje_usuario: args.mensaje,
@@ -174,12 +404,14 @@ export const procesarMensajeWeb = action({
       user_agent: args.user_agent,
     });
     
+    console.log(`✅ Conversación guardada - Tipo: ${tipo_mensaje}, Intención: ${intencion_detectada}`);
+    
     return {
       respuesta,
       tipo_mensaje,
       intencion_detectada,
       agente: "google",
-      servicios_sugeridos: tipo_mensaje === "servicios" ? servicios.slice(0, 3) : [],
+      servicios_sugeridos,
     };
   },
 });
@@ -222,5 +454,72 @@ export const obtenerFAQsPopulares = query({
       .sort(([,a], [,b]) => b - a)
       .slice(0, 5)
       .map(([intencion, count]) => ({ intencion, count }));
+  },
+});
+
+// ====================================================================
+// ACTION PARA TELEGRAM BOT - Con capacidad de agendamiento
+// ====================================================================
+
+export const procesarMensajeTelegram = action({
+  args: {
+    mensaje: v.string(),
+    chat_id: v.string(),
+    username: v.string(),
+    message_id: v.number(),
+  },
+  handler: async (ctx, args): Promise<{ respuesta: string }> => {
+    console.log(`📱 TELEGRAM - Mensaje de ${args.username}: "${args.mensaje}"`);
+    
+    // Construir prompt con capacidad de agendamiento
+    const systemPrompt = `${CHATBOT_CONFIG.system_prompt}
+
+NOTA: Este mensaje viene de Telegram del usuario ${args.username}.`;
+
+    let respuesta = "";
+    
+    try {
+      // Detectar si el mensaje es sobre agendamiento
+      const lowerMensaje = args.mensaje.toLowerCase();
+      const esAgendamiento = lowerMensaje.includes("agendar") || 
+                             lowerMensaje.includes("reunión") || 
+                             lowerMensaje.includes("reunion") ||
+                             lowerMensaje.includes("cita") || 
+                             lowerMensaje.includes("disponibilidad") || 
+                             lowerMensaje.includes("horario");
+      
+      if (esAgendamiento) {
+        // Respuesta de agendamiento conversacional
+        respuesta = `🗓️ ¡Perfecto! Me encantaría ayudarte a agendar una reunión con Jorge Cabrera.
+
+📅 **Disponibilidad**: Lunes a Domingo, 8:00 AM - 10:00 PM
+⏱️ **Duración**: Reuniones de 30 minutos
+
+Para coordinar, necesito:
+1. ¿Qué día prefieres? (ej: mañana, viernes, 25 de febrero)
+2. ¿Horario aproximado? (mañana/tarde/noche)
+3. Tu nombre completo
+4. Tu email
+5. Motivo de la reunión
+
+También puedes escribir directamente a jcabreralabbe@gmail.com 📧`;
+      } else {
+        // Respuesta normal con Gemini
+        const result = await ai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: `${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`,
+        });
+        
+        respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";
+      }
+      
+      console.log(`✅ Respuesta generada (${respuesta.length} caracteres)`);
+      
+    } catch (error) {
+      console.error("❌ Error en Telegram bot:", error);
+      respuesta = "Lo siento, hubo un error. Contacta a jcabreralabbe@gmail.com";
+    }
+    
+    return { respuesta };
   },
 });

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/custom.css';
+import { ChatbotWidget } from '../components/ChatbotWidget';
 
 interface Props {
   title: string;
@@ -53,5 +54,8 @@ const { title, description = "Soluciones digitales para un mundo real. Desarroll
   </head>
   <body class="bg-[#FAF9F6] text-neutral-950 antialiased">
     <slot />
+    
+    <!-- Chatbot flotante - Cargado con client:idle para no afectar Core Web Vitals -->
+    <ChatbotWidget client:idle />
   </body>
 </html>

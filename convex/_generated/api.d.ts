@@ -8,6 +8,8 @@
  * @module
  */
 
+import type * as constants from "../constants.js";
+import type * as functions_agenda from "../functions/agenda.js";
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
 import type * as functions_ai_googleChatbot from "../functions/ai/googleChatbot.js";
 import type * as http from "../http.js";
@@ -21,6 +23,8 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  constants: typeof constants;
+  "functions/agenda": typeof functions_agenda;
   "functions/ai/gemini": typeof functions_ai_gemini;
   "functions/ai/googleChatbot": typeof functions_ai_googleChatbot;
   http: typeof http;

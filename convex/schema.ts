@@ -186,4 +186,63 @@ export default defineSchema({
     .index("por_agente", ["agente"])
     .index("por_timestamp", ["timestamp"])
     .index("por_tipo", ["tipo_mensaje"]),
+
+  // Tabla de Agenda - Sistema de Agendamiento Inteligente
+  agenda: defineTable({
+    // Fecha y tiempo
+    fecha_inicio: v.number(),     // Timestamp Unix del inicio de la reunión
+    fecha_fin: v.number(),        // Timestamp Unix del fin de la reunión
+    duracion: v.number(),         // Duración en minutos (default: 30)
+    
+    // Información del cliente
+    cliente_nombre: v.string(),
+    cliente_email: v.string(),
+    cliente_telefono: v.optional(v.string()),
+    
+    // Detalles de la reunión
+    motivo: v.string(),           // Razón de la reunión
+    notas: v.optional(v.string()), // Notas adicionales
+    
+    // Estado y origen
+    estado: v.union(
+      v.literal("confirmada"),
+      v.literal("cancelada"),
+      v.literal("completada"),
+      v.literal("no_asistio")
+    ),
+    source: v.union(
+      v.literal("web"),
+      v.literal("telegram")
+    ),
+    
+    // Metadata
+    creado_en: v.number(),
+    actualizado_en: v.number(),
+    cancelado_en: v.optional(v.number()),
+    razon_cancelacion: v.optional(v.string()),
+  })
+    .index("por_fecha_inicio", ["fecha_inicio"])
+    .index("por_estado", ["estado"])
+    .index("por_cliente_email", ["cliente_email"])
+    .index("por_fecha_estado", ["fecha_inicio", "estado"])
+    .index("por_source", ["source"]),
+
+  // Configuración de Agenda - Horarios laborales
+  configuracion_agenda: defineTable({
+    // Horarios laborales
+    hora_inicio: v.number(),       // Ej: 8 (8:00 AM)
+    hora_fin: v.number(),          // Ej: 24 (12:00 AM - medianoche)
+    dias_laborales: v.array(v.number()), // [1,2,3,4,5,6,7] = Lun-Dom
+    duracion_slot: v.number(),     // Minutos por slot (default: 30)
+    zona_horaria: v.string(),      // 'America/Santiago'
+    
+    // Bloqueos y excepciones
+    dias_bloqueados: v.optional(v.array(v.number())), // Timestamps de días no disponibles
+    
+    // Metadata
+    activo: v.boolean(),
+    creado_en: v.number(),
+    actualizado_en: v.number(),
+  })
+    .index("por_activo", ["activo"]),
 });

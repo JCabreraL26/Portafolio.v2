@@ -40,8 +40,10 @@ export function InteractiveGlobe() {
       <div className="tech-tags">
         <div className="tech-tag tag-top-left">Web Apps</div>
         <div className="tech-tag tag-top-right">Sitios Web</div>
-        <div className="tech-tag tag-bottom-left">Cloud Software</div>
+        <div className="tech-tag tag-bottom-left">IA Agentica</div>
         <div className="tech-tag tag-bottom-right">E-commerce</div>
+        <div className="tech-tag tag-middle-left">Pensamiento Crítico</div>
+        <div className="tech-tag tag-middle-right">Design Thinking</div>
       </div>
 
       <style>{`
@@ -183,6 +185,18 @@ export function InteractiveGlobe() {
           animation-delay: 1.2s;
         }
 
+        .tag-middle-left {
+          top: 45%;
+          left: 2%;
+          animation-delay: 1.5s;
+        }
+
+        .tag-middle-right {
+          top: 45%;
+          right: 2%;
+          animation-delay: 1.8s;
+        }
+
         @keyframes fadeInTag {
           from {
             opacity: 0;
@@ -198,19 +212,32 @@ export function InteractiveGlobe() {
         @media (max-width: 768px) {
           .tech-tags {
             position: static;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 0.75rem;
             margin-top: 2rem;
             padding: 0 1rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
           }
 
           .tech-tag {
             position: static;
             font-size: 0.75rem;
             padding: 0.4rem 0.8rem;
+            text-align: center;
+            animation: fadeInTag 0.8s ease-out forwards;
           }
+
+          /* Mobile animation delays for sequential appearance */
+          .tech-tag:nth-child(1) { animation-delay: 0.3s; }
+          .tech-tag:nth-child(2) { animation-delay: 0.6s; }
+          .tech-tag:nth-child(3) { animation-delay: 0.9s; }
+          .tech-tag:nth-child(4) { animation-delay: 1.2s; }
+          .tech-tag:nth-child(5) { animation-delay: 1.5s; }
+          .tech-tag:nth-child(6) { animation-delay: 1.8s; }
         }
       `}</style>
     </div>

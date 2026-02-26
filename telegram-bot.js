@@ -28,11 +28,10 @@ async function sendMessage(chatId, text, replyToMessageId) {
 }
 
 async function processUpdate(update) {
-  if (!update.message || !update.message.text) return;
+  if (!update.message) return;
   
   const msg = update.message;
   const chatId = msg.chat.id.toString();
-  const text = msg.text;
   const messageId = msg.message_id;
   const username = msg.from.username || msg.from.first_name;
   
@@ -43,15 +42,61 @@ async function processUpdate(update) {
     return;
   }
   
-  console.log(`📨 ${username}: ${text}`);
+  // Detectar tipo de mensaje
+  let tipoMensaje = "texto";
+  let mensaje = "";
+  let fileId = undefined;
+  let fileName = undefined;
+  let mimeType = undefined;
+  let fileSize = undefined;
+  
+  if (msg.voice) {
+    // Mensaje de voz
+    tipoMensaje = "voz";
+    mensaje = "[Audio de voz]";
+    fileId = msg.voice.file_id;
+    mimeType = msg.voice.mime_type || "audio/ogg";
+    fileSize = msg.voice.duration;
+    console.log(`🎤 ${username}: Audio (${fileSize}s)`);
+  } else if (msg.document) {
+    // Documento (PDF, etc)
+    tipoMensaje = "documento";
+    mensaje = msg.caption || "[Documento adjunto]";
+    fileId = msg.document.file_id;
+    fileName = msg.document.file_name;
+    mimeType = msg.document.mime_type;
+    fileSize = msg.document.file_size;
+    console.log(`📄 ${username}: ${fileName}`);
+  } else if (msg.photo) {
+    // Foto
+    tipoMensaje = "foto";
+    mensaje = msg.caption || "[Imagen adjunta]";
+    fileId = msg.photo[msg.photo.length - 1].file_id; // La foto más grande
+    mimeType = "image/jpeg";
+    fileSize = msg.photo[msg.photo.length - 1].file_size;
+    console.log(`📷 ${username}: Foto`);
+  } else if (msg.text) {
+    // Mensaje de texto
+    mensaje = msg.text;
+    console.log(`📨 ${username}: ${mensaje}`);
+  } else {
+    // Tipo de mensaje no soportado
+    console.log(`⚠️ Tipo de mensaje no soportado`);
+    return;
+  }
   
   try {
-    // Llamar a Convex action
-    const resultado = await client.action("functions/ai/deepSeek:procesarMensajeTelegram", {
-      mensaje: text,
+    // Llamar a Convex action (Agente Personal - Gemini)
+    const resultado = await client.action("functions/ai/gemini:procesarMensajeTelegram", {
+      mensaje: mensaje,
       chat_id: chatId,
       username: username,
       message_id: messageId,
+      tipo_mensaje: tipoMensaje,
+      file_id: fileId,
+      file_name: fileName,
+      mime_type: mimeType,
+      file_size: fileSize,
     });
     
     console.log(`✅ Response sent`);

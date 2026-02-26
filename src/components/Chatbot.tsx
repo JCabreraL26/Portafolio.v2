@@ -140,7 +140,7 @@ export function Chatbot() {
       
       {/* Ventana de chat */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-100 h-150 bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border-2 border-[#111]">
+        <div className="fixed bottom-6 right-6 w-[400px] max-w-[calc(100vw-3rem)] h-[600px] max-h-[calc(100vh-3rem)] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border-2 border-[#111] sm:w-96 sm:h-[600px]">
           {/* Header */}
           <div className="bg-[#111] text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -265,18 +265,6 @@ export function Chatbot() {
           </div>
         </div>
       )}
-      
-      {/* Responsive mobile adjustments */}
-      <style>{`
-        @media (max-width: 640px) {
-          .fixed.bottom-6.right-6.w-100 {
-            width: calc(100vw - 2rem);
-            height: calc(100vh - 2rem);
-            bottom: 1rem;
-            right: 1rem;
-          }
-        }
-      `}</style>
     </>
   );
 }

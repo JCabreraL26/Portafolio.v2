@@ -27,7 +27,7 @@ Se ha integrado exitosamente un chatbot web inteligente en el portafolio de Jorg
 
 El chatbot tiene conocimiento completo de:
 - ✅ Servicios ofrecidos (E-commerce, Sitios Web, ERP/CRM, Consultoría UX, Automatización)
-- ✅ Proyectos destacados (LocalShop Pro, Importadora D&R)
+- ✅ Proyectos destacados (MenuClick, Importadora D&R)
 - ✅ Metodología Design Thinking
 - ✅ Precios base y tiempos de entrega estimados
 - ✅ FAQs comunes
@@ -112,7 +112,7 @@ npm run dev
 
 ### Prueba 4: Proyectos Destacados ✅
 **Pregunta:** Cuéntame sobre tus proyectos  
-**Respuesta esperada:** Información sobre LocalShop Pro e Importadora D&R con resultados
+**Respuesta esperada:** Información sobre MenuClick e Importadora D&R con resultados
 
 ### Prueba 5: Metodología ✅
 **Pregunta:** ¿Qué es Design Thinking?  

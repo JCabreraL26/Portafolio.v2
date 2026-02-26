@@ -48,7 +48,7 @@ export const SERVICIOS = {
   desarrollo_web: {
     titulo: "E-commerce & Tiendas Online",
     descripcion: "Tiendas online sin comisiones con panel de autoadministración. Actualiza productos, precios e inventario sin conocimientos técnicos. Integración WhatsApp Business.",
-    casos_exito: ["LocalShop Pro - E-commerce para pizzería sin comisiones de delivery"],
+    casos_exito: ["MenuClick - E-commerce para pizzería sin comisiones de delivery"],
     tecnologias: ["Next.js", "Convex", "WhatsApp Business API", "Tailwind CSS"],
     precio_base: 1500, // USD
     duracion_estimada: "2-4 semanas",
@@ -207,7 +207,7 @@ export const DESIGN_THINKING = {
 
 export const PROYECTOS_DESTACADOS = [
   {
-    nombre: "LocalShop Pro",
+    nombre: "MenuClick",
     cliente: "Mas Pizza Deliver",
     industria: "Restauración / Delivery",
     descripcion: "E-commerce sin comisiones para pizzería local. Eliminó dependencia de apps de delivery (UberEats, PedidosYa) que cobraban 25-30% de comisión.",
@@ -353,7 +353,7 @@ export const CHATBOT_CONFIG = {
 Tu rol es ayudar a visitantes del sitio web a:
 1. Conocer los servicios ofrecidos (E-commerce, Sitios Web, ERP/CRM, Consultoría UX, Automatización)
 2. Entender la metodología Design Thinking
-3. Revisar casos de éxito (LocalShop Pro, Importadora D&R)
+3. Revisar casos de éxito (MenuClick, Importadora D&R)
 4. Facilitar el contacto con Jorge
 5. ✨ NUEVO: Agendar reuniones directamente en la agenda de Jorge
 

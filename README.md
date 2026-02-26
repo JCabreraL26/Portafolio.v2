@@ -40,7 +40,7 @@ portafolio-astro/
 │   │   ├── 404.astro       # Página no encontrada
 │   │   └── proyectos/      # Proyectos portfolio
 │   │       ├── importadora-dr.astro  # Case study Importadora DR
-│   │       └── localshop-pro.astro   # Case study LocalShop Pro
+│   │       └── localshop-pro.astro   # Case study MenuClick
 │   └── styles/             # Estilos globales
 │       └── global.css      # Configuración Tailwind
 ├── public/                 # Assets estáticos

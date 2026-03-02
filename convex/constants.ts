@@ -20,6 +20,7 @@ export const EMPRESA = {
   propietario: {
     nombre: "Jorge Cabrera",
     email: "jcabreralabbe@gmail.com",
+    email_contacto: "contacto@aperca.cl", // Email principal para consultas de clientes
     linkedin: "https://www.linkedin.com/in/jorge-cabrera-labbe/",
     especialidad: "Fullstack Developer & UX Consultant",
   },
@@ -45,50 +46,76 @@ export const EMPRESA = {
 // ===================================
 
 export const SERVICIOS = {
-  desarrollo_web: {
-    titulo: "E-commerce & Tiendas Online",
-    descripcion: "Tiendas online sin comisiones con panel de autoadministración. Actualiza productos, precios e inventario sin conocimientos técnicos. Integración WhatsApp Business.",
-    casos_exito: ["MenuClick - E-commerce para pizzería sin comisiones de delivery"],
-    tecnologias: ["Next.js", "Convex", "WhatsApp Business API", "Tailwind CSS"],
-    precio_base: 1500, // USD
-    duracion_estimada: "2-4 semanas",
+  landing_simple: {
+    titulo: "Landing Page Simple",
+    descripcion: "Una página profesional y responsive. Ideal para empezar tu presencia digital. Incluye formulario de contacto, integración WhatsApp, SEO básico y Meta Tags.",
+    tecnologias: ["Astro", "React", "Tailwind CSS"],
+    precio_setup: 150000, // CLP
+    precio_mantenimiento: 15000, // CLP/mes
+    duracion_estimada: "2-3 días",
     entregables: [
-      "Sitio web responsive mobile-first",
-      "Panel de administración",
-      "Integración con WhatsApp",
-      "Deploy en producción",
-      "Capacitación al equipo"
+      "Diseño responsive (móvil/desktop)",
+      "Formulario de contacto",
+      "Botón WhatsApp flotante",
+      "SEO básico + Meta Tags",
+      "Hosting + Dominio primer año"
     ],
   },
   
-  sitios_web: {
-    titulo: "Sitios Web & Presencia Digital",
-    descripcion: "Sitios web corporativos, landing pages, portfolios profesionales. Diseño responsive, optimización SEO, velocidad ultra-rápida. Presencia digital completa para tu empresa.",
+  sitio_completo: {
+    titulo: "Sitio Web Completo (Multi-página)",
+    descripcion: "Hasta 5 páginas con navegación. Perfecto para negocios establecidos. Incluye diseño personalizado, panel admin básico, blog opcional y SEO avanzado.",
     tecnologias: ["Astro", "React", "TypeScript", "Tailwind CSS"],
-    precio_base: 800, // USD
-    duracion_estimada: "1-2 semanas",
+    precio_setup: 300000, // CLP
+    precio_mantenimiento: 25000, // CLP/mes
+    duracion_estimada: "3-7 días",
     entregables: [
-      "Sitio web optimizado para SEO",
-      "Diseño responsive",
-      "Hosting y dominio configurado",
-      "Google Analytics",
-      "Formularios de contacto"
+      "Hasta 5 páginas (Inicio, Servicios, Portafolio, etc)",
+      "Diseño 100% personalizado",
+      "Blog/noticias (opcional)",
+      "Formularios múltiples",
+      "Panel admin básico",
+      "SEO avanzado + Google Analytics",
+      "Hosting + Dominio primer año"
     ],
   },
   
-  erp_crm: {
-    titulo: "Sistemas ERP/CRM a Medida",
-    descripcion: "Software de gestión empresarial personalizado. Inventarios, facturación, control de flujos y automatización de procesos internos.",
-    casos_exito: ["Importadora D&R - ERP que eliminó descuadres de inventario"],
-    tecnologias: ["React", "Supabase", "PostgreSQL", "TypeScript"],
-    precio_base: 3000, // USD
-    duracion_estimada: "1-3 meses",
+  ecommerce: {
+    titulo: "E-commerce con Panel Admin",
+    descripcion: "Vende online sin comisiones. Catálogo ilimitado con sistema de personalización avanzado. Panel admin en tiempo real para gestionar todo tu negocio.",
+    casos_exito: ["MenuClick - Más Pizza Ñuñoa ahorra $500.000/mes vs plataformas con comisión"],
+    tecnologias: ["Astro", "React", "Convex", "WhatsApp Business", "Tailwind CSS"],
+    precio_setup: 800000, // CLP
+    precio_mantenimiento: 50000, // CLP/mes
+    duracion_estimada: "5-7 días",
     entregables: [
-      "Sistema de gestión completo",
-      "Base de datos relacional",
+      "Catálogo de productos ilimitado",
+      "Sistema de personalización (ingredientes/opciones)",
+      "Carrito de compras inteligente",
+      "Integración WhatsApp Business",
+      "Panel admin realtime",
+      "PWA (funciona como app móvil)",
+      "Hosting + Dominio primer año"
+    ],
+  },
+  
+  erp_personalizado: {
+    titulo: "ERP Personalizado",
+    descripcion: "Sistema a medida para tu operación. Análisis profundo de procesos, diseño de flujos personalizados, panel realtime y capacitación completa del equipo.",
+    casos_exito: ["Importadora D&R - Eliminó 100% descuadres de inventario"],
+    tecnologias: ["React", "TypeScript", "Supabase", "PostgreSQL", "PWA"],
+    precio_setup: 1800000, // CLP
+    precio_mantenimiento: 80000, // CLP/mes
+    duracion_estimada: "7 días",
+    entregables: [
+      "Análisis profundo de procesos",
+      "Diseño de flujos personalizados",
+      "Panel de control realtime",
       "Roles y permisos",
-      "Reportes y dashboards",
-      "Capacitación y documentación"
+      "PWA (funciona offline)",
+      "Integración con sistemas existentes",
+      "Capacitación del equipo",
+      "Hosting + Dominio primer año"
     ],
   },
   

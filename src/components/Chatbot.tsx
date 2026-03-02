@@ -43,7 +43,7 @@ export function Chatbot() {
     if (isOpen && messages.length === 0) {
       setMessages([{
         id: "welcome",
-        texto: "👋 ¡Hola! Soy el asistente virtual de **ÁPERCA SpA**. Puedo ayudarte con:\n\n• Información sobre servicios\n• Precios y cotizaciones\n• Proyectos realizados\n• Contacto con Jorge Cabrera\n\n¿En qué puedo ayudarte hoy?",
+        texto: "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages ($150K)\n• 🏢 Sitios web completos ($300K)\n• 🛒 E-commerce sin comisiones ($800K)\n• ⚙️ ERP personalizados ($1.8M)\n\n💡 Precios flexibles según tu realidad.\n\n¿En qué puedo ayudarte?\n\n📧 **contacto@aperca.cl**",
         esUsuario: false,
         timestamp: Date.now(),
       }]);
@@ -85,7 +85,7 @@ export function Chatbot() {
       
       const errorMessage: Message = {
         id: `error_${Date.now()}`,
-        texto: "Lo siento, hubo un error al procesar tu mensaje. Por favor intenta de nuevo o contacta directamente a jcabreralabbe@gmail.com",
+        texto: "Lo siento, hubo un error al procesar tu mensaje. Por favor intenta de nuevo o contacta directamente a **contacto@aperca.cl**",
         esUsuario: false,
         timestamp: Date.now(),
       };

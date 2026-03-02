@@ -161,7 +161,7 @@ export const procesarMensajeWeb = action({
    ✅ Multi-página + Panel admin + Analytics + Blog
 
 🛒 **E-commerce con Panel Admin**
-   Setup: $800.000 | Mantenimiento: $50.000/mes
+   Setup: $500.000 | Mantenimiento: $50.000/mes
    ⏱️ 3-7 días
    ✅ Sin comisiones + WhatsApp + Stock + Realtime
    📌 Caso: Más Pizza ahorra $500.000/mes vs plataformas

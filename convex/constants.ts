@@ -85,7 +85,7 @@ export const SERVICIOS = {
     descripcion: "Vende online sin comisiones. Catálogo ilimitado con sistema de personalización avanzado. Panel admin en tiempo real para gestionar todo tu negocio.",
     casos_exito: ["MenuClick - Más Pizza Ñuñoa ahorra $500.000/mes vs plataformas con comisión"],
     tecnologias: ["Astro", "React", "Convex", "WhatsApp Business", "Tailwind CSS"],
-    precio_setup: 800000, // CLP
+    precio_setup: 500000, // CLP
     precio_mantenimiento: 50000, // CLP/mes
     duracion_estimada: "3-7 días",
     entregables: [

@@ -142,6 +142,87 @@ export const crearProyectoDT = mutation({
   },
 });
 
+// NUEVA FUNCIÓN: Crear proyecto completo con tabla de proyectos + design thinking
+export const crearProyectoCompleto = mutation({
+  args: {
+    nombre: v.string(),
+    descripcion: v.string(),
+    categoria: v.optional(v.union(
+      v.literal("web"),
+      v.literal("mobile"),
+      v.literal("ia"),
+      v.literal("automatizacion"),
+      v.literal("consultoria"),
+      v.literal("personal"),
+      v.literal("otro")
+    )),
+    fase: v.optional(v.union(v.literal("empatizar"), v.literal("definir"), v.literal("idear"), v.literal("prototipar"), v.literal("testear"))),
+    prioridad: v.optional(v.union(v.literal("baja"), v.literal("media"), v.literal("alta"), v.literal("urgente"))),
+    insights: v.optional(v.array(v.string())),
+    tags: v.optional(v.array(v.string())),
+  },
+  handler: async (ctx, args) => {
+    console.log(`📝 Creando proyecto completo: ${args.nombre}`);
+    
+    // 1. Crear proyecto en tabla de proyectos
+    const proyectoId = await ctx.db.insert("proyectos", {
+      nombre: args.nombre,
+      descripcion: args.descripcion,
+      objetivo: undefined,
+      categoria: args.categoria || "personal",
+      estado: "activo",
+      prioridad: args.prioridad || "media",
+      fecha_inicio: Date.now(),
+      fecha_fin_estimada: undefined,
+      fecha_fin_real: undefined,
+      progreso: 0,
+      presupuesto_estimado: undefined,
+      presupuesto_gastado: 0,
+      moneda: "CLP",
+      cliente_nombre: undefined,
+      cliente_email: undefined,
+      equipo: undefined,
+      tags: args.tags,
+      notas: undefined,
+      archivos_adjuntos: undefined,
+      creado_por: "gemini",
+      creado_en: Date.now(),
+      actualizado_en: Date.now(),
+    });
+    
+    console.log(`✅ Proyecto creado con ID: ${proyectoId}`);
+    
+    // 2. Crear fase de design thinking vinculada al proyecto
+    const faseDT = args.fase || "idear";
+    // Mapear prioridad: design_thinking no soporta "urgente", usar "alta"
+    const prioridadDT = (args.prioridad === "urgente" ? "alta" : args.prioridad) || "media";
+    const dtId = await ctx.db.insert("design_thinking", {
+      proyecto_id: proyectoId,
+      fase: faseDT,
+      titulo: args.nombre,
+      descripcion: args.descripcion,
+      insights: args.insights,
+      archivos_adjuntos: undefined,
+      stakeholders: undefined,
+      prioridad: prioridadDT as "baja" | "media" | "alta",
+      estado: "activo",
+      creado_por: "gemini",
+      creado_en: Date.now(),
+      actualizado_en: Date.now(),
+    });
+    
+    console.log(`✅ Fase de Design Thinking creada con ID: ${dtId}`);
+    
+    return { 
+      success: true, 
+      proyectoId,
+      designThinkingId: dtId,
+      mensaje: `Proyecto "${args.nombre}" creado exitosamente en fase ${faseDT}`
+    };
+  },
+});
+
+
 // Queries para Dashboard Admin
 export const obtenerResumenFinanciero = query({
   handler: async (ctx) => {
@@ -1070,12 +1151,14 @@ ${contextoMemoria}Transcribe y analiza el siguiente audio:`;
             
             console.log(`💡 Guardando idea: ${titulo}`);
             
-            const resultado = await ctx.runMutation(api.functions.ai.gemini.crearProyectoDT, {
-              proyecto_id: `telegram_${Date.now()}`,
-              fase: fase as any,
-              titulo,
+            // Usar crearProyectoCompleto para crear en tabla de proyectos + design_thinking
+            const resultado = await ctx.runMutation(api.functions.ai.gemini.crearProyectoCompleto, {
+              nombre: titulo,
               descripcion: `🎤 ${descripcion}`,
+              categoria: "personal",
+              fase: fase as any,
               prioridad: "media",
+              tags: ["telegram", "audio"],
             });
             
             // Guardar mensaje en historial
@@ -1087,14 +1170,14 @@ ${contextoMemoria}Transcribe y analiza el siguiente audio:`;
               contenido_transcrito: respuestaGemini,
               archivo_url: audioUrl,
               duracion_audio: args.file_size,
-              respuesta_bot: `💡 Idea guardada: ${titulo}`,
+              respuesta_bot: `💡 Proyecto creado: ${titulo}`,
               accion_realizada: "proyecto_dt",
               datos_extraidos: resultado,
               timestamp: Date.now(),
             });
             
             return {
-              respuesta: `💡 *Idea Guardada*\n**${titulo}**\n📂 Fase: ${fase}\n✅ ¡Registrada!`,
+              respuesta: `💡 *Proyecto Creado*\n**${titulo}**\n📂 Categoría: personal\n🎯 Fase: ${fase}\n✅ ¡Registrado en Convex!`,
               accion: "proyecto_dt",
               datos: resultado
             };
@@ -1423,13 +1506,14 @@ Analiza el documento:`;
             const descripcion = partes[1]?.trim() || respuestaGemini;
             const fase = partes[2]?.trim() || "idear";
             
-            const resultado = await ctx.runMutation(api.functions.ai.gemini.crearProyectoDT, {
-              proyecto_id: `telegram_${Date.now()}`,
-              fase: fase as any,
-              titulo,
+            // Usar crearProyectoCompleto para crear en tabla de proyectos + design_thinking
+            const resultado = await ctx.runMutation(api.functions.ai.gemini.crearProyectoCompleto, {
+              nombre: titulo,
               descripcion: `📄 ${descripcion}`,
-              archivos_adjuntos: [fileUrl],
+              categoria: "personal",
+              fase: fase as any,
               prioridad: "media",
+              tags: ["telegram", "documento"],
             });
             
             await ctx.runMutation(api.functions.ai.gemini.guardarMensajeTelegram, {
@@ -1439,14 +1523,14 @@ Analiza el documento:`;
               tipo_mensaje: args.tipo_mensaje,
               contenido_texto: respuestaGemini,
               archivo_url: fileUrl,
-              respuesta_bot: `💡 Idea guardada: ${titulo}`,
+              respuesta_bot: `💡 Proyecto creado: ${titulo}`,
               accion_realizada: "proyecto_dt",
               datos_extraidos: resultado,
               timestamp: Date.now(),
             });
             
             return {
-              respuesta: `💡 *Idea Guardada*\n**${titulo}**\n📂 Fase: ${fase}\n📎 Archivo adjunto guardado`,
+              respuesta: `💡 *Proyecto Creado*\n**${titulo}**\n📂 Categoría: personal\n🎯 Fase: ${fase}\n📎 Archivo adjunto guardado\n✅ ¡Registrado en Convex!`,
               accion: "proyecto_dt",
               datos: resultado
             };

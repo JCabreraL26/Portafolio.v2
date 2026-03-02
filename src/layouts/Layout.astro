@@ -6,9 +6,15 @@ import { ChatbotWidget } from '../components/ChatbotWidget';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Soluciones digitales para un mundo real. Desarrollo fullstack con enfoque en resultados operativos." } = Astro.props;
+const { title, description = "Soluciones digitales para un mundo real. Desarrollo fullstack con enfoque en resultados operativos.", image = "/img/LikedIn-banner.jpg" } = Astro.props;
+
+// URL base del sitio configurada en astro.config.mjs
+const siteUrl = 'https://jorge-cabrera.cl';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = new URL(image, siteUrl).href;
 ---
 
 <!doctype html>
@@ -22,12 +28,26 @@ const { title, description = "Soluciones digitales para un mundo real. Desarroll
     
     <!-- SEO -->
     <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:site_name" content="Jorge Cabrera - Desarrollo Fullstack" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/img/Logo aperca oscuro.jpg" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="es_CL" />
+    
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/img/Logo aperca oscuro.jpg" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={title} />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -12,6 +12,7 @@ import type * as constants from "../constants.js";
 import type * as functions_agenda from "../functions/agenda.js";
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
 import type * as functions_ai_googleChatbot from "../functions/ai/googleChatbot.js";
+import type * as functions_proyectos from "../functions/proyectos.js";
 import type * as http from "../http.js";
 import type * as seed from "../seed.js";
 import type * as telegram from "../telegram.js";
@@ -27,6 +28,7 @@ declare const fullApi: ApiFromModules<{
   "functions/agenda": typeof functions_agenda;
   "functions/ai/gemini": typeof functions_ai_gemini;
   "functions/ai/googleChatbot": typeof functions_ai_googleChatbot;
+  "functions/proyectos": typeof functions_proyectos;
   http: typeof http;
   seed: typeof seed;
   telegram: typeof telegram;

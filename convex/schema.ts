@@ -60,9 +60,62 @@ export default defineSchema({
     .index("por_tipo_doc", ["tipo_documento"])
     .index("por_afecto_iva", ["afecto_iva"]),
 
+  // Tabla de Proyectos - Lista maestra de proyectos
+  proyectos: defineTable({
+    nombre: v.string(),
+    descripcion: v.string(),
+    objetivo: v.optional(v.string()),
+    categoria: v.union(
+      v.literal("web"),
+      v.literal("mobile"),
+      v.literal("ia"),
+      v.literal("automatizacion"),
+      v.literal("consultoria"),
+      v.literal("personal"),
+      v.literal("otro")
+    ),
+    estado: v.union(
+      v.literal("activo"),
+      v.literal("pausado"),
+      v.literal("completado"),
+      v.literal("cancelado")
+    ),
+    prioridad: v.union(v.literal("baja"), v.literal("media"), v.literal("alta"), v.literal("urgente")),
+    
+    // Planificación
+    fecha_inicio: v.optional(v.number()),
+    fecha_fin_estimada: v.optional(v.number()),
+    fecha_fin_real: v.optional(v.number()),
+    progreso: v.optional(v.number()), // 0-100
+    
+    // Presupuesto (para proyectos con costo)
+    presupuesto_estimado: v.optional(v.number()),
+    presupuesto_gastado: v.optional(v.number()),
+    moneda: v.optional(v.string()), // "CLP", "USD"
+    
+    // Stakeholders
+    cliente_nombre: v.optional(v.string()),
+    cliente_email: v.optional(v.string()),
+    equipo: v.optional(v.array(v.string())),
+    
+    // Metadata
+    tags: v.optional(v.array(v.string())),
+    notas: v.optional(v.string()),
+    archivos_adjuntos: v.optional(v.array(v.string())),
+    
+    creado_por: v.string(), // "gemini", "deep_seek", "sistema"
+    creado_en: v.number(),
+    actualizado_en: v.number(),
+  })
+    .index("por_estado", ["estado"])
+    .index("por_prioridad", ["prioridad"])
+    .index("por_categoria", ["categoria"])
+    .index("por_fecha_inicio", ["fecha_inicio"])
+    .index("por_creado_en", ["creado_en"]),
+
   // Tabla de Design Thinking - Solo Deep Seek (Admin)
   design_thinking: defineTable({
-    proyecto_id: v.string(),
+    proyecto_id: v.string(), // Referencia a proyectos._id
     fase: v.union(
       v.literal("empatizar"),
       v.literal("definir"),

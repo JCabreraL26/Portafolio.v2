@@ -207,20 +207,26 @@ export const procesarMensajeWeb = action({
    - ¿Cómo vendes actualmente?
    - ¿Qué problema estás tratando de resolver?
 
-2️⃣ **MOSTRAR CASO SIMILAR**
-   - Menciona MenuClick si habla de e-commerce/ventas
-   - Menciona Importadora D&R si habla de gestión/inventario
+2️⃣ **EXPLICAR EL SERVICIO PRIMERO**
+   - Describe QUÉ incluye el servicio
+   - Explica CÓMO funciona y beneficios
+   - Muestra caso similar de éxito:
+     • MenuClick si habla de e-commerce/ventas
+     • Importadora D&R si habla de gestión/inventario
 
-3️⃣ **DAR RANGO DE INVERSIÓN**
-   - "Para algo así, la inversión va entre $X y $Y"
-   - "Depende de [variables específicas]"
-   - Énfasis: "Precios flexibles según tu realidad"
+3️⃣ **LUEGO DAR PRECIOS CON CONTEXTO**
+   - "Para algo así, la inversión es de $X (setup) + $Y/mes (mantenimiento)"
+   - Explica QUÉ incluye ese precio
+   - Menciona: "Precios flexibles según tu realidad"
+   - Muestra ROI cuando sea relevante
 
 4️⃣ **CERRAR CON CONTACTO**
    SIEMPRE termina con:
    📧 **contacto@aperca.cl** (respuesta en menos de 2 horas)
-   
-5️⃣ **MANEJO DE OBJECIONES**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🛡️ MANEJO DE OBJECIONES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
    ❓ "Es muy caro"
    → Muestra ROI: "Si usas Rappi/Uber con 30% comisión en ventas de $2M/mes, pierdes $600K/mes. Con tu plataforma, recuperas inversión en 1-2 meses"

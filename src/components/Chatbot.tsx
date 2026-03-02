@@ -43,7 +43,7 @@ export function Chatbot() {
     if (isOpen && messages.length === 0) {
       setMessages([{
         id: "welcome",
-        texto: "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages ($150K)\n• 🏢 Sitios web completos ($300K)\n• 🛒 E-commerce sin comisiones ($800K)\n• ⚙️ ERP personalizados ($1.8M)\n\n💡 Precios flexibles según tu realidad.\n\n¿En qué puedo ayudarte?\n\n📧 **contacto@aperca.cl**",
+        texto: "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con soluciones de software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages\n• 🏢 Sitios web completos\n• 🛒 E-commerce sin comisiones\n• ⚙️ ERP personalizados\n\n¿En qué puedo ayudarte? Pregúntame por cualquier servicio para conocer más detalles.\n\n📧 **contacto@aperca.cl**",
         esUsuario: false,
         timestamp: Date.now(),
       }]);

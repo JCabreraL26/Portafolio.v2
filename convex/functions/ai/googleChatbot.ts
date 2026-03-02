@@ -152,23 +152,23 @@ export const procesarMensajeWeb = action({
 
 🌐 **Landing Page Simple**
    Setup: $150.000 | Mantenimiento: $15.000/mes
-   ⏱️ 2-3 días
+   ⏱️ 24hrs-3 días
    ✅ Diseño responsive + WhatsApp + SEO + Hosting
 
 🏢 **Sitio Web Completo (5+ páginas)**
    Setup: $300.000 | Mantenimiento: $25.000/mes
-   ⏱️ 3-7 días
+   ⏱️ 3-5 días
    ✅ Multi-página + Panel admin + Analytics + Blog
 
 🛒 **E-commerce con Panel Admin**
    Setup: $800.000 | Mantenimiento: $50.000/mes
-   ⏱️ 5-7 días
+   ⏱️ 3-7 días
    ✅ Sin comisiones + WhatsApp + Stock + Realtime
    📌 Caso: Más Pizza ahorra $500.000/mes vs plataformas
 
 ⚙️ **ERP Personalizado**
    Setup: $1.800.000 | Mantenimiento: $80.000/mes
-   ⏱️ 7 días
+   ⏱️ 5-7 días
    ✅ A medida + PWA + Offline + Capacitación
    📌 Caso: Importadora D&R - 0 descuadres
 

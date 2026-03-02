@@ -18,7 +18,7 @@
    
    📦 Setup:          $150.000
    🔧 Mantenimiento:  $15.000/mes
-   ⏱️  Tiempo:         2-3 días
+   ⏱️  Tiempo:         24hrs-3 días
    
    ✅ Incluye:
    • Diseño responsive (móvil/desktop)
@@ -34,7 +34,7 @@
    
    📦 Setup:          $300.000
    🔧 Mantenimiento:  $25.000/mes
-   ⏱️  Tiempo:         3-7 días
+   ⏱️  Tiempo:         3-5 días
    
    ✅ Incluye:
    • Diseño personalizado
@@ -52,7 +52,7 @@
    
    📦 Setup:          $800.000
    🔧 Mantenimiento:  $50.000/mes
-   ⏱️  Tiempo:         5-7 días
+   ⏱️  Tiempo:         3-7 días
    
    ✅ Incluye:
    • Catálogo de productos ilimitado
@@ -73,7 +73,7 @@
    
    📦 Setup:          $1.800.000
    🔧 Mantenimiento:  $80.000/mes
-   ⏱️  Tiempo:         7 días
+   ⏱️  Tiempo:         5-7 días
    
    ✅ Incluye:
    • Análisis profundo de procesos
@@ -123,10 +123,10 @@
 ```
 💰 INVERSIÓN REFERENCIAL:
 
-🌐 Landing Simple → $150K + $15K/mes (2-3 días)
-🏢 Sitio Completo → $300K + $25K/mes (3-7 días)  
-🛒 E-commerce → $800K + $50K/mes (5-7 días)
-⚙️ ERP Custom → $1.8M + $80K/mes (7 días)
+🌐 Landing Simple → $150K + $15K/mes (24hrs-3 días)
+🏢 Sitio Completo → $300K + $25K/mes (3-5 días)  
+🛒 E-commerce → $800K + $50K/mes (3-7 días)
+⚙️ ERP Custom → $1.8M + $80K/mes (5-7 días)
 
 💡 Precios flexibles. Hablemos sin compromiso.
 📧 contacto@aperca.cl
@@ -189,7 +189,7 @@ transmite confianza y genera contactos.
 💰 INVERSIÓN:
    Setup: $150.000
    Mantenimiento: $15.000/mes
-   ⏱️ Listo en: 2-3 días
+   ⏱️ Listo en: 24hrs-3 días
 
 ✅ INCLUYE:
 • Diseño responsive (móvil/desktop)
@@ -220,7 +220,7 @@ presencia profesional con múltiples secciones.
 💰 INVERSIÓN:
    Setup: $300.000
    Mantenimiento: $25.000/mes
-   ⏱️ Listo en: 3-7 días
+   ⏱️ Listo en: 3-5 días
 
 ✅ INCLUYE:
 • Hasta 5 páginas (Inicio, Servicios, Portafolio, etc)
@@ -313,7 +313,7 @@ e) Otra situación
 💰 INVERSIÓN PLATAFORMA E-COMMERCE:
    Setup: $800.000
    Mantenimiento: $50.000/mes
-   ⏱️ Listo en: 5-7 días
+   ⏱️ Listo en: 3-7 días
 
 ✅ INCLUYE:
 • Catálogo de productos ilimitado
@@ -420,12 +420,12 @@ Basado en lo que me cuentas, esto suena a:
    [Si es proceso simple/medio]
    Setup: $800.000 - $1.200.000
    Mantenimiento: $50.000/mes
-   Tiempo: 5-7 días
+   Tiempo: 3-7 días
    
    [Si es proceso complejo]
    Setup: $1.800.000
    Mantenimiento: $80.000/mes
-   Tiempo: 7 días
+   Tiempo: 5-7 días
 
 ✅ INCLUYE:
 • Análisis profundo de tu proceso
@@ -455,17 +455,17 @@ darte una cotización precisa?
 ═══════════════════════════════════════════
 
 🌐 LANDING PAGE SIMPLE
-   $150.000 + $15.000/mes → 2-3 días
+   $150.000 + $15.000/mes → 24hrs-3 días
 
 🏢 SITIO WEB COMPLETO
-   $300.000 + $25.000/mes → 3-7 días
+   $300.000 + $25.000/mes → 3-5 días
 
 🛒 E-COMMERCE CON PANEL ADMIN
-   $800.000 + $50.000/mes → 5-7 días
+   $800.000 + $50.000/mes → 3-7 días
    📌 Ver caso: Más Pizza Ñuñoa
 
 ⚙️ ERP PERSONALIZADO
-   $1.800.000 + $80.000/mes → 7 días
+   $1.800.000 + $80.000/mes → 5-7 días
    📌 Ver caso: Importadora D&R
 
 ═══════════════════════════════════════════
@@ -665,10 +665,10 @@ O si prefieres:
 
 | Servicio | Tu Precio Setup | Mercado Setup | Ahorro | Tiempo |
 |----------|-----------------|---------------|--------|--------|
-| Landing Simple | $150.000 | $300.000-500.000 | 50-70% | 2-3 días |
-| Web Completa | $300.000 | $600.000-1.200.000 | 50-75% | 3-7 días |
-| E-commerce | $800.000 | $1.500.000-3.000.000 | 47-73% | 5-7 días |
-| ERP Custom | $1.800.000 | $3.000.000-8.000.000 | 40-77% | 7 días |
+| Landing Simple | $150.000 | $300.000-500.000 | 50-70% | 24hrs-3 días |
+| Web Completa | $300.000 | $600.000-1.200.000 | 50-75% | 3-5 días |
+| E-commerce | $800.000 | $1.500.000-3.000.000 | 47-73% | 3-7 días |
+| ERP Custom | $1.800.000 | $3.000.000-8.000.000 | 40-77% | 5-7 días |
 
 ---
 

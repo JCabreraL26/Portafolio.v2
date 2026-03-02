@@ -52,7 +52,7 @@ export const SERVICIOS = {
     tecnologias: ["Astro", "React", "Tailwind CSS"],
     precio_setup: 150000, // CLP
     precio_mantenimiento: 15000, // CLP/mes
-    duracion_estimada: "2-3 días",
+    duracion_estimada: "24hrs-3 días",
     entregables: [
       "Diseño responsive (móvil/desktop)",
       "Formulario de contacto",
@@ -68,7 +68,7 @@ export const SERVICIOS = {
     tecnologias: ["Astro", "React", "TypeScript", "Tailwind CSS"],
     precio_setup: 300000, // CLP
     precio_mantenimiento: 25000, // CLP/mes
-    duracion_estimada: "3-7 días",
+    duracion_estimada: "3-5 días",
     entregables: [
       "Hasta 5 páginas (Inicio, Servicios, Portafolio, etc)",
       "Diseño 100% personalizado",
@@ -87,7 +87,7 @@ export const SERVICIOS = {
     tecnologias: ["Astro", "React", "Convex", "WhatsApp Business", "Tailwind CSS"],
     precio_setup: 800000, // CLP
     precio_mantenimiento: 50000, // CLP/mes
-    duracion_estimada: "5-7 días",
+    duracion_estimada: "3-7 días",
     entregables: [
       "Catálogo de productos ilimitado",
       "Sistema de personalización (ingredientes/opciones)",
@@ -106,7 +106,7 @@ export const SERVICIOS = {
     tecnologias: ["React", "TypeScript", "Supabase", "PostgreSQL", "PWA"],
     precio_setup: 1800000, // CLP
     precio_mantenimiento: 80000, // CLP/mes
-    duracion_estimada: "7 días",
+    duracion_estimada: "5-7 días",
     entregables: [
       "Análisis profundo de procesos",
       "Diseño de flujos personalizados",

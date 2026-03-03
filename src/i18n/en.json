@@ -79,5 +79,14 @@
   "footer": {
     "rights": "All rights reserved.",
     "designed": "Designed and developed by Jorge Cabrera"
+  },
+  "profile": {
+    "necessity": {
+      "title": "Necessity",
+      "subtitle": "as the best teacher",
+      "text1": "Without prior knowledge in poultry farming, I went south to raise birds.",
+      "text2": "I raised flocks of chicks for 5 years. The field taught me to <strong>learn fast and solve problems</strong> with what's at hand.",
+      "text3": "I lacked the UX skills I acquired later at that time. Simply put: I adapt."
+    }
   }
 }

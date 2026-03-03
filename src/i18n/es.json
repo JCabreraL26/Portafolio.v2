@@ -79,5 +79,14 @@
   "footer": {
     "rights": "Todos los derechos reservados.",
     "designed": "Diseñado y desarrollado por Jorge Cabrera"
+  },
+  "profile": {
+    "necessity": {
+      "title": "La necesidad",
+      "subtitle": "como mejor maestra",
+      "text1": "Sin conocimientos previos en avicultura, fui al sur a criar aves.",
+      "text2": "Crié planteles de pollitas durante 5 años. El campo me enseñó a <strong>aprender rápido y resolver problemas</strong> con lo que está a la mano.",
+      "text3": "Me hicieron falta en ese tiempo las habilidades UX que adquirí después. En simple: me adapto."
+    }
   }
 }

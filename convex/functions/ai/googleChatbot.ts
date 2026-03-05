@@ -173,10 +173,12 @@ export const procesarMensajeWeb = action({
     const servicios: any[] = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerServiciosActivos, {});
     
     // Obtener historial reciente de la sesión para contexto
+    console.log("⏱️ [TIMING] Obteniendo historial de sesión...");
     const historial = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerHistorialSesion, {
       session_id: args.session_id,
       limite: 5,
     });
+    console.log(`⏱️ [TIMING] Historial obtenido: ${historial.length} mensajes`);
     
     // Construir contexto de historial
     const contextoHistorial = historial.length > 0 
@@ -392,18 +394,25 @@ Si preguntan por finanzas privadas:
 
 ${contextoHistorial}`;
 
+    console.log(`⏱️ [TIMING] SystemPrompt construido (${systemPrompt.length} caracteres)`);
+
     // Llamar a Gemini con Function Calling (Tools)
     let respuesta = "";
     let tipo_mensaje: "consulta" | "faq" | "servicios" | "contacto" | "otro" = "consulta";
     let intencion_detectada = "general";
     
+    console.log("⏱️ [TIMING] Iniciando lógica de respuesta...");
+    
     try {
       // Detectar si el mensaje es sobre agendamiento
+      console.log("🔍 [TIMING] Detectando si es agendamiento...");
       const esAgendamiento = args.mensaje.toLowerCase().includes("agendar") || 
                              args.mensaje.toLowerCase().includes("reunión") || 
                              args.mensaje.toLowerCase().includes("cita") || 
                              args.mensaje.toLowerCase().includes("disponibilidad") || 
                              args.mensaje.toLowerCase().includes("horario");
+      
+      console.log(`📋 Es agendamiento: ${esAgendamiento}`);
       
       if (esAgendamiento) {
         tipo_mensaje = "contacto";
@@ -527,34 +536,49 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
         
       } else {
         // Respuesta normal sin agendamiento usando RAG para reducir tokens
+        const tiempoInicio = Date.now();
         console.log("🔍 RAG: Iniciando búsqueda de contexto...");
         
         try {
           // Paso 1: Buscar contexto relevante con RAG
+          console.log("🔍 [PASO 1/3] Llamando a buscarContextoCompleto...");
+          const t1 = Date.now();
           const contextoRAG = await ctx.runAction(api.functions.ai.ragv2.buscarContextoCompleto, {
             query: args.mensaje,
             incluir_faqs: true
           });
+          console.log(`✅ [PASO 1/3] Completado en ${Date.now() - t1}ms`);
           
           console.log(`📊 RAG: Proyectos encontrados: ${contextoRAG.proyectos_encontrados}, FAQs: ${contextoRAG.faqs_encontradas}`);
           
           // Paso 2: Construir prompt optimizado (300 tokens vs 3000)
+          console.log("🔍 [PASO 2/3] Llamando a construirPromptOptimizado...");
+          const t2 = Date.now();
           const promptData = await ctx.runAction(api.functions.ai.ragv2.construirPromptOptimizado, {
             mensaje_usuario: args.mensaje,
             contexto_rag: contextoRAG,
             historial_reciente: contextoHistorial
           });
+          console.log(`✅ [PASO 2/3] Completado en ${Date.now() - t2}ms`);
           
           console.log(`⚡ RAG: Prompt optimizado generado (${promptData.metadata.tokens_estimados} tokens estimados)`);
           
           // Paso 3: Generar respuesta con Gemini usando prompt optimizado
+          console.log("🔍 [PASO 3/3] Llamando a Gemini...");
+          const t3 = Date.now();
           respuesta = await llamarGeminiConFallback(promptData.prompt) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+          console.log(`✅ [PASO 3/3] Completado en ${Date.now() - t3}ms`);
+          
+          console.log(`⏱️ TIEMPO TOTAL RAG: ${Date.now() - tiempoInicio}ms`);
           
         } catch (errorRAG) {
           console.error("❌ Error en RAG, usando fallback a prompt completo:", errorRAG);
           
           // Fallback: usar prompt completo si RAG falla
+          console.log("🔍 FALLBACK: Llamando a Gemini con prompt completo...");
+          const tFallback = Date.now();
           respuesta = await llamarGeminiConFallback(`${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+          console.log(`✅ FALLBACK completado en ${Date.now() - tFallback}ms`);
         }
       }
       
@@ -625,6 +649,8 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
     }
     
     // Registrar la conversación en la base de datos
+    console.log("⏱️ [TIMING] Guardando mensaje en DB...");
+    const tDB = Date.now();
     await ctx.runMutation(api.functions.ai.googleChatbot.registrarMensajeChatbot, {
       session_id: args.session_id,
       mensaje_usuario: args.mensaje,
@@ -634,8 +660,11 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
       ip_usuario: args.ip_usuario,
       user_agent: args.user_agent,
     });
+    console.log(`⏱️ [TIMING] DB guardada en ${Date.now() - tDB}ms`);
     
     console.log(`✅ Conversación guardada - Tipo: ${tipo_mensaje}, Intención: ${intencion_detectada}`);
+    
+    console.log("⏱️ [TIMING] Preparando return...");
     
     return {
       respuesta,

@@ -15,19 +15,19 @@ const ai = new GoogleGenAI({
 /**
  * Helper: Llamar a Gemini con fallback automático entre modelos
  * Intenta modelos en secuencia sin delays (Convex no soporta setTimeout)
- * 1. gemini-3-flash-preview (más reciente)
- * 2. gemini-2.0-flash-exp (fallback 1)
- * 3. gemini-1.5-flash (fallback 2)
+ * 1. gemini-2.0-flash-exp (más confiable)
+ * 2. gemini-1.5-flash (fallback)
  */
 async function llamarGeminiConFallback(prompt: string): Promise<string> {
-  const modelos = ["gemini-3-flash-preview", "gemini-2.0-flash-exp", "gemini-1.5-flash"];
+  const modelos = ["gemini-2.0-flash-exp", "gemini-1.5-flash"];
+  let ultimoError: any = null;
   
   for (let i = 0; i < modelos.length; i++) {
     const modelo = modelos[i];
     const esUltimoModelo = i === modelos.length - 1;
     
     try {
-      console.log(`🤖 Intentando con modelo: ${modelo}`);
+      console.log(`🤖 [${i + 1}/${modelos.length}] Intentando modelo: ${modelo}`);
       
       const result = await ai.models.generateContent({
         model: modelo,
@@ -41,23 +41,29 @@ async function llamarGeminiConFallback(prompt: string): Promise<string> {
         return texto;
       }
       
+      // Si no hay texto, intentar siguiente modelo
+      console.log(`⚠️ ${modelo} retornó respuesta vacía, probando siguiente...`);
+      ultimoError = new Error("Respuesta vacía");
+      
     } catch (error: any) {
-      const es503 = error?.status === 503 || error?.message?.includes("high demand");
+      ultimoError = error;
+      const errorMsg = error?.message || JSON.stringify(error);
+      const errorStatus = error?.status || error?.error?.code || "unknown";
       
-      console.error(`❌ Error en ${modelo}:`, error?.message || error);
+      console.error(`❌ Error en ${modelo} (status: ${errorStatus}):`, errorMsg);
       
-      // Si es 503 o cualquier error y no es el último modelo, probar el siguiente
+      // Si no es el último modelo, continuar con el siguiente
       if (!esUltimoModelo) {
         console.log(`🔄 Cambiando a fallback: ${modelos[i + 1]}`);
-        continue;
+        continue; // Importante: continuar el loop
       }
-      
-      // Si es el último modelo, lanzar error
-      throw new Error(`Todos los modelos fallaron. Último error: ${error?.message}`);
     }
   }
   
-  throw new Error("Ningún modelo de Gemini pudo responder");
+  // Si llegamos aquí, todos los modelos fallaron
+  const errorFinal = ultimoError?.message || "Todos los modelos no disponibles";
+  console.error(`💥 TODOS LOS MODELOS FALLARON. Último error:`, errorFinal);
+  throw new Error(`Gemini no disponible: ${errorFinal}`);
 }
 
 // Queries de Solo Lectura para Servicios Web

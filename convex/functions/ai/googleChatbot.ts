@@ -162,9 +162,10 @@ export const procesarMensajeWeb = action({
 
 🛒 **E-commerce con Panel Admin**
    Setup: $500.000 | Mantenimiento: $50.000/mes
-   ⏱️ 3-7 días
-   ✅ Sin comisiones + WhatsApp + Stock + Realtime
-   📌 Caso: Más Pizza ahorra $500.000/mes vs plataformas
+   ⏱️ 24-48 horas (según catálogo)
+   ✅ 0% comisión + WhatsApp + Panel realtime + Stock + PWA
+   📌 Caso: MenuClick - Más Pizza ahorra $500k/mes vs apps
+   📹 Video + Demo: jorge-cabrera.cl/proyectos/menuclick
 
 ⚙️ **ERP Personalizado**
    Setup: $1.800.000 | Mantenimiento: $80.000/mes
@@ -186,16 +187,65 @@ export const procesarMensajeWeb = action({
 🚀 CASOS DE ÉXITO REALES:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🛒 **MenuClick - Más Pizza Ñuñoa**
-   Problema: Comisiones 30% + pedidos manuales
-   Solución: E-commerce + WhatsApp + Panel Admin
-   Resultado: Ahorra $500.000/mes, 0% comisión
-   Link: jorge-cabrera.cl/proyectos/menuclick
+🛒 **MenuClick - E-commerce para Más Pizza Ñuñoa**
+   
+   📊 **El Problema:**
+   • Comisiones 25-30% en apps de delivery (Rappi/Uber/PedidosYa)
+   • Pérdida de $500.000/mes en comisiones
+   • 0 control sobre marca y datos de clientes
+   • Dependencia 100% de plataformas externas
+   
+   💡 **La Solución:**
+   • E-commerce personalizado con 0% comisión
+   • Integración directa con WhatsApp Business
+   • Panel de administración en tiempo real
+   • Cliente arma su pedido + WhatsApp auto-formatea
+   • PWA (funciona como app móvil sin descargar)
+   
+   🎯 **Stack Técnico:**
+   • Frontend: Next.js 14 + TypeScript + Tailwind
+   • Backend: Convex (database realtime)
+   • Estado: Zustand + Convex queries reactivas
+   • Deploy: Netlify (CI/CD automático)
+   • Monorepo: Turborepo (multi-tenant)
+   
+   ✅ **Resultados:**
+   • Ahorra $500.000/mes (0% comisión vs 30%)
+   • De idea a producción en 7 días
+   • Sitio en vivo: maspizzadelivery.cl
+   • Plataforma 100% de su propiedad
+   • Tiempo implementación: 24-48 horas
+   
+   🎬 **Video Demo:** Ver en jorge-cabrera.cl/proyectos/menuclick
+   
+   ⚔️ **MenuClick vs Apps de Delivery:**
+   • Apps: 25-30% comisión → MenuClick: 0% comisión
+   • Apps: Su marca → MenuClick: 100% tu marca
+   • Apps: Sin datos clientes → MenuClick: Tus datos
+   • Apps: $500k+/mes → MenuClick: $50k/mes fijo
+   • Apps: Dependencia → MenuClick: Tú controlas
+   
+   💬 **FAQs Resueltas:**
+   
+   Q: ¿Es difícil de usar?
+   A: No. Interfaz UX intuitiva, tanto dueño como clientes operan desde el primer minuto.
+   
+   Q: ¿Cuánto tarda en estar online?
+   A: 24-48 horas según catálogo. Viernes hablamos, lunes estás vendiendo.
+   
+   Q: ¿Necesito conocimientos técnicos?
+   A: Para nada. Nosotros manejamos toda la infraestructura, tú solo recibes pedidos.
+   
+   Q: ¿Qué pasa con los pagos?
+   A: Tú decides. Efectivo/transferencia por defecto, o integración con Mercado Pago/Webpay.
+   
+   Q: ¿Puedo seguir usando apps mientras pruebo MenuClick?
+   A: Sí. MenuClick es complementario, migras clientes gradualmente sin riesgo.
 
-⚙️ **Importadora D&R**
+⚙️ **Importadora D&R - ERP Personalizado**
    Problema: Descuadres de inventario constantes
-   Solución: ERP con motor de conversión automático
-   Resultado: 0 descuadres en 6 meses
+   Solución: ERP con motor de conversión automático (kg↔unidades)
+   Resultado: 0 descuadres en 6 meses operando
    Link: jorge-cabrera.cl/proyectos/importadora-dr
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -211,8 +261,11 @@ export const procesarMensajeWeb = action({
    - Describe QUÉ incluye el servicio
    - Explica CÓMO funciona y beneficios
    - Muestra caso similar de éxito:
-     • MenuClick si habla de e-commerce/ventas
-     • Importadora D&R si habla de gestión/inventario
+     • **MenuClick** si habla de e-commerce/ventas online/delivery
+       → Menciona: "Como Más Pizza que ahorra $500k/mes vs apps delivery"
+       → Link video: jorge-cabrera.cl/proyectos/menuclick
+     • **Importadora D&R** si habla de gestión/inventario/ERP
+       → Menciona: "0 descuadres en 6 meses"
 
 3️⃣ **LUEGO DAR PRECIOS CON CONTEXTO**
    - "Para algo así, la inversión es de $X (setup) + $Y/mes (mantenimiento)"
@@ -229,18 +282,27 @@ export const procesarMensajeWeb = action({
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
    ❓ "Es muy caro"
-   → Muestra ROI: "Si usas Rappi/Uber con 30% comisión en ventas de $2M/mes, pierdes $600K/mes. Con tu plataforma, recuperas inversión en 1-2 meses"
-   → "Podemos ajustar alcance a tu presupuesto"
+   → **ROI calculado**: "Si vendes $2M/mes con apps (30% comisión), pierdes $600k/mes. Con MenuClick ($500k setup + $50k/mes), recuperas inversión en 1 mes."
+   → "Más Pizza ahorra $500k/mes desde el primer mes operando"
+   → "Podemos ajustar alcance a tu presupuesto inicial"
 
-   ❓ "¿Por qué no Wix/WordPress?"
-   → "Para necesidades simples, usa plantilla"
-   → "Para procesos específicos de tu negocio, desarrollo custom te da control total y mejor rendimiento"
-   → Menciona caso donde plantilla no funcionó (ej: personalización Más Pizza)
+   ❓ "¿Por qué no Wix/WordPress/Shopify?"
+   → "Para landing simple, úsalos sin problema"
+   → "Para procesos específicos (personalización productos, integración WhatsApp, panel admin realtime), desarrollo custom te da:"
+     • 0% comisiones transaccionales (Shopify cobra 2-3% + plan)
+     • Control total código y datos
+     • Funcionalidades exactas a tu negocio
+   → "MenuClick tiene personalización de productos que plantillas no ofrecen"
 
-   ❓ "¿Y después quién mantiene?"
-   → Explica mantenimiento mensual
-   → "Código es tuyo, no te encierro"
-   → "Stack moderno, fácil de mantener"
+   ❓ "¿Y después quién lo mantiene?"
+   → "Incluye mantenimiento mensual ($50k e-commerce): hosting + SSL + actualizaciones + soporte WhatsApp"
+   → "Código es tuyo, no quedas encerrado"
+   → "Stack moderno (Next.js/Convex), cualquier dev lo entiende"
+
+   ❓ "¿Cuánto tardo en ver resultados?"
+   → "Implementación: 24-48 horas"
+   → "Más Pizza lanzó en 7 días de idea a producción"
+   → "Puedes migrar clientes gradualmente, sin apagar apps de golpe"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎨 TONO Y ESTILO:

@@ -302,6 +302,29 @@ import Footer from '../../components/Footer.astro';
     });
   </script>
 
+  <!-- Script para FAQ accordion -->
+  <script>
+    function toggleFAQ(button: HTMLButtonElement) {
+      const content = button.nextElementSibling as HTMLElement;
+      const icon = button.querySelector('.faq-icon') as SVGElement;
+      
+      if (content) {
+        const isHidden = content.classList.contains('hidden');
+        
+        if (isHidden) {
+          content.classList.remove('hidden');
+          icon?.classList.add('rotate-180');
+        } else {
+          content.classList.add('hidden');
+          icon?.classList.remove('rotate-180');
+        }
+      }
+    }
+
+    // Hacer la función disponible globalmente
+    (window as any).toggleFAQ = toggleFAQ;
+  </script>
+
   <!-- Agitar el Problema -->
   <section class="py-20 bg-white border-t-2 border-neutral-200">
     <div class="container mx-auto px-4 sm:px-6">
@@ -701,8 +724,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq1-answer-short">
+                No.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq1-answer">
-                NO. Si usas WhatsApp, sabes usar MenuClick. El panel es más simple que Instagram. Todo visual, con botones grandes. No necesitas saber de programación, servidores ni nada técnico.
+                Diseñamos la interfaz enfocada en la experiencia de usuario (UX) para que tanto tú como tus clientes operen el sistema de forma intuitiva desde el primer minuto.
               </p>
             </div>
           </div>
@@ -718,8 +744,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq2-answer-short">
+                Ofrecemos planes flexibles adaptados al tamaño de tu negocio.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq2-answer">
-                Menos que lo que pierdes en 2 pedidos de apps de reparto. Plan desde $49.000/mes costo fijo. Sin comisiones variables, sin sorpresas. Si haces 100 pedidos al mes, cada uno te cuesta $490 vs $6.000 en comisiones a las apps. Haces las cuentas.
+                Agenda una breve llamada para entregarte un presupuesto personalizado basado en tus necesidades específicas de digitalización.
               </p>
             </div>
           </div>
@@ -735,8 +764,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq3-answer-short">
+                Tu plataforma estará lista en un plazo de 24 a 48 horas.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq3-answer">
-                48-72 horas. Agendamos una llamada rápida para entender tu negocio, tú nos pasas tu logo, fotos y menú, nosotros montamos todo. Este viernes hablamos, el lunes estás recibiendo pedidos. Así de rápido.
+                El tiempo final dependerá únicamente del volumen de productos y la complejidad de tu catálogo actual.
               </p>
             </div>
           </div>
@@ -752,8 +784,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq4-answer-short">
+                Para nada.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq4-answer">
-                CERO. Todo visual. Si subes fotos a Facebook o Instagram, puedes gestionar tu menú. Cambiar un precio es como editar un post. Además te hacemos onboarding personalizado para que sepas usar todo en 15 minutos.
+                Nosotros nos encargamos de toda la infraestructura tecnológica y la puesta en marcha; tú solo te encargas de recibir los pedidos en tu panel.
               </p>
             </div>
           </div>
@@ -769,8 +804,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq5-answer-short">
+                Tú decides cómo cobrar.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq5-answer">
-                Tú decides. Por defecto funciona con pago en efectivo o transferencia (como lo haces ahora por WhatsApp). Si quieres integrar Mercado Pago o Webpay para cobrar con tarjeta online, lo hacemos en una actualización posterior. Pero no es necesario para empezar.
+                El sistema permite configurar pagos en efectivo, transferencias o integrar pasarelas de pago digitales para que el dinero llegue directo a tu cuenta.
               </p>
             </div>
           </div>
@@ -786,8 +824,11 @@ import Footer from '../../components/Footer.astro';
               </svg>
             </button>
             <div class="faq-content hidden px-6 pb-6">
+              <p class="text-lg text-neutral-800 font-['Poppins'] font-semibold mb-3" data-i18n="faq6-answer-short">
+                Sí, sin problemas.
+              </p>
               <p class="text-lg text-neutral-600 font-['Poppins'] leading-relaxed" data-i18n="faq6-answer">
-                Obvio. No tienes que elegir de un día para otro. Mantén las apps activas mientras promocionas tu nuevo sitio a tus clientes habituales. A medida que más gente ordene directo, vas bajando tu dependencia de las apps. Transición gradual, sin riesgo.
+                MenuClick es una infraestructura complementaria que te permite migrar a tus clientes fieles a tu propio canal digital mientras mantienes tus otros servicios activos.
               </p>
             </div>
           </div>

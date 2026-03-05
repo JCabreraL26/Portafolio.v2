@@ -50,21 +50,34 @@
 🛒 E-COMMERCE CON PANEL ADMIN
    Vende online sin comisiones
    
-   📦 Setup:          $800.000
+   📦 Setup:          $500.000
    🔧 Mantenimiento:  $50.000/mes
-   ⏱️  Tiempo:         3-7 días
+   ⏱️  Tiempo:         24-48 horas (según catálogo)
    
    ✅ Incluye:
    • Catálogo de productos ilimitado
    • Sistema de personalización (ingredientes/opciones)
    • Panel admin en tiempo real
-   • Integración WhatsApp Business
+   • Integración WhatsApp Business (pedidos auto-formateados)
    • Carrito de compras inteligente
-   • PWA (funciona como app móvil)
+   • PWA (funciona como app móvil, sin descargar)
+   • Control de stock en tiempo real
+   • 0% comisiones transaccionales
    • Hosting + Dominio primer año
    
-   📌 Caso real: MenuClick (Más Pizza Ñuñoa)
-      Ahorra $500.000/mes vs plataformas con comisión
+   📌 **Caso real: MenuClick (Más Pizza Ñuñoa)**
+      • Problema: Pagaba 25-30% comisión en apps delivery
+      • Solución: E-commerce propio + WhatsApp + Panel realtime
+      • Resultado: Ahorra $500.000/mes (0% comisión)
+      • Stack: Next.js 14 + Convex + Turborepo
+      • Tiempo: De idea a producción en 7 días
+      • Ver demo: jorge-cabrera.cl/proyectos/menuclick
+   
+   ⚔️ **MenuClick vs Apps Delivery:**
+      Apps: 25-30% comisión → MenuClick: 0% comisión ✅
+      Apps: Su marca → MenuClick: 100% tu marca ✅
+      Apps: Sin datos → MenuClick: Tus clientes, tus datos ✅
+      Apps: $500k+/mes → MenuClick: $50k/mes fijo ✅
    
 ───────────────────────────────────────────────────
 
@@ -299,21 +312,27 @@ e) Otra situación
 
 📉 ANTES:
 • Pedidos manuales por WhatsApp (errores, confusión)
-• Comisiones del 30% = $500.000/mes perdidos
+• Comisiones del 25-30% = $500.000/mes perdidos
 • Sin catálogo profesional actualizado
+• Sin datos de clientes (propiedad de apps)
 
 📈 DESPUÉS (con MenuClick):
 • Catálogo digital profesional con su marca
 • Pedidos llegan pre-formateados a WhatsApp
 • 0% comisión, 100% para ellos
-• Panel admin para cambiar precios en vivo
+• Panel admin para cambiar precios en tiempo real
+• PWA (funciona como app sin descargar)
+• Cliente dueño de su plataforma y datos
 
-🔗 Ver caso real: jorge-cabrera.cl/proyectos/menuclick
+🔗 Ver video + demo: jorge-cabrera.cl/proyectos/menuclick
 
 💰 INVERSIÓN PLATAFORMA E-COMMERCE:
-   Setup: $800.000
+   Setup: $500.000
    Mantenimiento: $50.000/mes
-   ⏱️ Listo en: 3-7 días
+   ⏱️ Listo en: 24-48 horas (según catálogo)
+   
+   ROI: Si gastas $500k/mes en comisiones,
+        recuperas inversión en 1 mes ✅
 
 ✅ INCLUYE:
 • Catálogo de productos ilimitado
@@ -667,7 +686,7 @@ O si prefieres:
 |----------|-----------------|---------------|--------|--------|
 | Landing Simple | $150.000 | $300.000-500.000 | 50-70% | 24hrs-3 días |
 | Web Completa | $300.000 | $600.000-1.200.000 | 50-75% | 3-5 días |
-| E-commerce | $800.000 | $1.500.000-3.000.000 | 47-73% | 3-7 días |
+| E-commerce | $500.000 | $1.200.000-2.500.000 | 58-80% | 24-48 horas |
 | ERP Custom | $1.800.000 | $3.000.000-8.000.000 | 40-77% | 5-7 días |
 
 ---
@@ -675,10 +694,12 @@ O si prefieres:
 ## 🎯 CASOS DE USO REALES
 
 ### **MenuClick - Más Pizza Ñuñoa**
-- **Problema:** Comisiones 30% + pedidos manuales
-- **Solución:** E-commerce + WhatsApp + Panel Admin
-- **Resultado:** Ahorro $500K/mes, 0% comisión
-- **Link:** jorge-cabrera.cl/proyectos/menuclick
+- **Problema:** Comisiones 25-30% en apps delivery + pedidos manuales + sin datos clientes
+- **Solución:** E-commerce propio + WhatsApp auto-formateado + Panel Admin realtime + PWA
+- **Stack:** Next.js 14 + TypeScript + Convex + Turborepo (multi-tenant)
+- **Resultado:** Ahorro $500K/mes (0% comisión), De idea a producción en 7 días
+- **Video + Demo:** jorge-cabrera.cl/proyectos/menuclick
+- **Sitio en vivo:** maspizzadelivery.cl
 
 ### **Importadora D&R**
 - **Problema:** Descuadres de inventario constantes

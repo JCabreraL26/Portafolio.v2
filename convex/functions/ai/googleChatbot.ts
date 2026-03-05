@@ -12,6 +12,66 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY || "",
 });
 
+/**
+ * Helper: Llamar a Gemini con retry logic y fallback automático
+ * 1. Intenta gemini-3-flash-preview (3 reintentos con exponential backoff)
+ * 2. Si falla → fallback a gemini-2.0-flash-exp
+ * 3. Si falla → fallback a gemini-1.5-flash
+ */
+async function llamarGeminiConRetry(prompt: string, intentosMax = 3): Promise<string> {
+  const modelos = ["gemini-3-flash-preview", "gemini-2.0-flash-exp", "gemini-1.5-flash"];
+  
+  for (let modeloIndex = 0; modeloIndex < modelos.length; modeloIndex++) {
+    const modelo = modelos[modeloIndex];
+    
+    for (let intento = 1; intento <= intentosMax; intento++) {
+      try {
+        console.log(`🤖 Intento ${intento}/${intentosMax} con modelo: ${modelo}`);
+        
+        const result = await ai.models.generateContent({
+          model: modelo,
+          contents: prompt,
+        });
+        
+        const texto = result.text;
+        
+        if (texto) {
+          console.log(`✅ Respuesta exitosa de ${modelo} (intento ${intento})`);
+          return texto;
+        }
+        
+      } catch (error: any) {
+        const es503 = error?.status === 503 || error?.message?.includes("high demand");
+        const esUltimoIntento = intento === intentosMax;
+        const esUltimoModelo = modeloIndex === modelos.length - 1;
+        
+        console.error(`❌ Error en ${modelo} (intento ${intento}/${intentosMax}):`, error?.message || error);
+        
+        // Si es 503 y no es el último intento, esperar y reintentar
+        if (es503 && !esUltimoIntento) {
+          const delay = Math.pow(2, intento) * 1000; // Exponential backoff: 2s, 4s, 8s
+          console.log(`⏳ Esperando ${delay}ms antes de reintentar...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+        
+        // Si es el último intento con este modelo, probar el siguiente modelo
+        if (esUltimoIntento && !esUltimoModelo) {
+          console.log(`🔄 Cambiando a modelo fallback: ${modelos[modeloIndex + 1]}`);
+          break;
+        }
+        
+        // Si es el último modelo y último intento, lanzar error
+        if (esUltimoModelo && esUltimoIntento) {
+          throw error;
+        }
+      }
+    }
+  }
+  
+  throw new Error("Todos los modelos de Gemini fallaron después de múltiples reintentos");
+}
+
 // Queries de Solo Lectura para Servicios Web
 export const obtenerServiciosActivos = query({
   args: { 
@@ -383,15 +443,12 @@ RESPONDE EN JSON ESTRICTO:
 
 Si falta información, marca tiene_datos_completos: false y lista qué falta en "faltan".`;
 
-        const extractorResult = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
-          contents: extractorPrompt,
-        });
+        const textoExtractor = await llamarGeminiConRetry(extractorPrompt);
         
         let datosExtraidos;
         try {
           // Limpiar respuesta de Gemini (puede venir con ```json o texto extra)
-          const textoRaw = extractorResult.text || "{}";
+          const textoRaw = textoExtractor || "{}";
           const textoLimpio = textoRaw
             .replace(/```json\n?/g, '')
             .replace(/```\n?/g, '')
@@ -464,12 +521,7 @@ ${JSON.stringify(datosExtraidos, null, 2)}
 Genera una respuesta amable pidiendo SOLO la información faltante. Sé conciso y directo.
 Incluye disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM.`;
 
-          const seguimientoResult = await ai.models.generateContent({
-            model: "gemini-3-flash-preview",
-            contents: promptSeguimiento,
-          });
-          
-          respuesta = seguimientoResult.text || `🗓️ Para agendar tu reunión necesito:
+          respuesta = await llamarGeminiConRetry(promptSeguimiento) || `🗓️ Para agendar tu reunión necesito:
 
 ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
 
@@ -481,32 +533,35 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
         
       } else {
         // Respuesta normal sin agendamiento usando RAG para reducir tokens
-        console.log("🔍 RAG: Buscando contexto relevante...");
+        console.log("🔍 RAG: Iniciando búsqueda de contexto...");
         
-        // Paso 1: Buscar contexto relevante con RAG
-        const contextoRAG = await ctx.runAction(api.functions.ai.ragv2.buscarContextoCompleto, {
-          query: args.mensaje,
-          incluir_faqs: true
-        });
-        
-        console.log(`📊 RAG: Proyectos encontrados: ${contextoRAG.proyectos_encontrados}, FAQs: ${contextoRAG.faqs_encontradas}`);
-        
-        // Paso 2: Construir prompt optimizado (300 tokens vs 3000)
-        const promptData = await ctx.runAction(api.functions.ai.ragv2.construirPromptOptimizado, {
-          mensaje_usuario: args.mensaje,
-          contexto_rag: contextoRAG,
-          historial_reciente: contextoHistorial
-        });
-        
-        console.log(`⚡ RAG: Prompt optimizado generado (${promptData.metadata.tokens_estimados} tokens estimados)`);
-        
-        // Paso 3: Generar respuesta con Gemini usando prompt optimizado
-        const result = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
-          contents: promptData.prompt,
-        });
-        
-        respuesta = result.text || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+        try {
+          // Paso 1: Buscar contexto relevante con RAG
+          const contextoRAG = await ctx.runAction(api.functions.ai.ragv2.buscarContextoCompleto, {
+            query: args.mensaje,
+            incluir_faqs: true
+          });
+          
+          console.log(`📊 RAG: Proyectos encontrados: ${contextoRAG.proyectos_encontrados}, FAQs: ${contextoRAG.faqs_encontradas}`);
+          
+          // Paso 2: Construir prompt optimizado (300 tokens vs 3000)
+          const promptData = await ctx.runAction(api.functions.ai.ragv2.construirPromptOptimizado, {
+            mensaje_usuario: args.mensaje,
+            contexto_rag: contextoRAG,
+            historial_reciente: contextoHistorial
+          });
+          
+          console.log(`⚡ RAG: Prompt optimizado generado (${promptData.metadata.tokens_estimados} tokens estimados)`);
+          
+          // Paso 3: Generar respuesta con Gemini usando prompt optimizado
+          respuesta = await llamarGeminiConRetry(promptData.prompt) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+          
+        } catch (errorRAG) {
+          console.error("❌ Error en RAG, usando fallback a prompt completo:", errorRAG);
+          
+          // Fallback: usar prompt completo si RAG falla
+          respuesta = await llamarGeminiConRetry(`${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+        }
       }
       
       console.log(`✅ Respuesta generada por Gemini (${respuesta.length} caracteres)`);
@@ -704,12 +759,7 @@ También puedes escribir directamente a jcabreralabbe@gmail.com 📧`;
         
         console.log(`⚡ RAG (Telegram): Prompt optimizado (${promptData.metadata.tokens_estimados} tokens)`);
         
-        const result = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
-          contents: promptData.prompt,
-        });
-        
-        respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";
+        respuesta = await llamarGeminiConRetry(promptData.prompt) || "Lo siento, no pude procesar tu mensaje.";
       }
       
       console.log(`✅ Respuesta generada (${respuesta.length} caracteres)`);

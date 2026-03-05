@@ -196,46 +196,64 @@ export const buscarContextoCompleto = action({
     faqs_encontradas: number;
     relevancia: number;
   }> => {
-    // Buscar proyectos relevantes
-    const resultadoProyectos: { proyectos: any[], relevancia_maxima: number } = await ctx.runQuery(
-      api.functions.ai.ragv2.buscarProyectoRelevante,
-      { query: args.query }
-    );
+    console.log(`🔍 [RAG] buscarContextoCompleto iniciado con query: "${args.query}"`);
     
-    // Formatear proyectos
-    const proyectosFormateados: string[] = await Promise.all(
-      resultadoProyectos.proyectos.map((proyecto: any) =>
-        ctx.runQuery(api.functions.ai.ragv2.formatearProyectoParaPrompt, { proyecto })
-      )
-    );
-    
-    // Buscar FAQs si se solicita
-    let faqsFormateadas = "";
-    let faqsEncontradas = 0;
-    
-    if (args.incluir_faqs) {
-      const resultadoFAQs = await ctx.runQuery(
-        api.functions.ai.ragv2.buscarFAQsRelevantes,
-        { query: args.query, limite: 3 }
+    try {
+      // Buscar proyectos relevantes
+      console.log(`🔍 [RAG] Llamando a buscarProyectoRelevante...`);
+      const resultadoProyectos: { proyectos: any[], relevancia_maxima: number } = await ctx.runQuery(
+        api.functions.ai.ragv2.buscarProyectoRelevante,
+        { query: args.query }
       );
       
-      faqsEncontradas = resultadoFAQs.cantidad;
+      console.log(`✅ [RAG] buscarProyectoRelevante completado: ${resultadoProyectos.proyectos.length} proyectos`);
       
-      if (resultadoFAQs.faqs.length > 0) {
-        faqsFormateadas = "\n\n📋 PREGUNTAS FRECUENTES RELEVANTES:\n" +
-          resultadoFAQs.faqs.map((faq, i) => 
-            `${i + 1}. ${faq.pregunta}\n   ${faq.respuesta}`
-          ).join('\n\n');
+      // Formatear proyectos
+      console.log(`🔍 [RAG] Formateando ${resultadoProyectos.proyectos.length} proyectos...`);
+      const proyectosFormateados: string[] = await Promise.all(
+        resultadoProyectos.proyectos.map((proyecto: any) =>
+          ctx.runQuery(api.functions.ai.ragv2.formatearProyectoParaPrompt, { proyecto })
+        )
+      );
+      
+      console.log(`✅ [RAG] Proyectos formateados`);
+      
+      // Buscar FAQs si se solicita
+      let faqsFormateadas = "";
+      let faqsEncontradas = 0;
+      
+      if (args.incluir_faqs) {
+        console.log(`🔍 [RAG] Buscando FAQs relevantes...`);
+        const resultadoFAQs = await ctx.runQuery(
+          api.functions.ai.ragv2.buscarFAQsRelevantes,
+          { query: args.query, limite: 3 }
+        );
+        
+        console.log(`✅ [RAG] FAQs encontradas: ${resultadoFAQs.cantidad}`);
+        
+        faqsEncontradas = resultadoFAQs.cantidad;
+        
+        if (resultadoFAQs.faqs.length > 0) {
+          faqsFormateadas = "\n\n📋 PREGUNTAS FRECUENTES RELEVANTES:\n" +
+            resultadoFAQs.faqs.map((faq, i) => 
+              `${i + 1}. ${faq.pregunta}\n   ${faq.respuesta}`
+            ).join('\n\n');
+        }
       }
+      
+      console.log(`✅ [RAG] buscarContextoCompleto completado exitosamente`);
+      
+      return {
+        proyectos: proyectosFormateados,
+        faqs: faqsFormateadas,
+        proyectos_encontrados: resultadoProyectos.proyectos.length,
+        faqs_encontradas: faqsEncontradas,
+        relevancia: resultadoProyectos.relevancia_maxima
+      };
+    } catch (error) {
+      console.error(`❌ [RAG] Error en buscarContextoCompleto:`, error);
+      throw error;
     }
-    
-    return {
-      proyectos: proyectosFormateados,
-      faqs: faqsFormateadas,
-      proyectos_encontrados: resultadoProyectos.proyectos.length,
-      faqs_encontradas: faqsEncontradas,
-      relevancia: resultadoProyectos.relevancia_maxima
-    };
   },
 });
 
@@ -256,7 +274,11 @@ export const construirPromptOptimizado = action({
     historial_reciente: v.optional(v.string()),
   },
   handler: async (ctx, args): Promise<{ prompt: string, metadata: any }> => {
+    console.log(`⚡ [RAG] construirPromptOptimizado iniciado`);
+    
     const { mensaje_usuario, contexto_rag, historial_reciente } = args;
+    
+    console.log(`📊 [RAG] Contexto recibido: ${contexto_rag.proyectos_encontrados} proyectos, ${contexto_rag.faqs_encontradas} FAQs`);
     
     // Construir prompt base (compacto)
     let prompt = `Eres el Asistente de Ventas de Jorge Cabrera (Áperca Spa), desarrollador fullstack freelance.
@@ -290,6 +312,8 @@ export const construirPromptOptimizado = action({
     
     // Calcular tokens estimados (1 token ≈ 4 caracteres)
     const tokens_estimados = Math.ceil(prompt.length / 4);
+    
+    console.log(`✅ [RAG] Prompt construido: ${tokens_estimados} tokens estimados (${prompt.length} caracteres)`);
     
     return {
       prompt,

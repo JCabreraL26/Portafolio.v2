@@ -480,10 +480,30 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
         }
         
       } else {
-        // Respuesta normal sin agendamiento
+        // Respuesta normal sin agendamiento usando RAG para reducir tokens
+        console.log("🔍 RAG: Buscando contexto relevante...");
+        
+        // Paso 1: Buscar contexto relevante con RAG
+        const contextoRAG = await ctx.runAction(api.functions.ai.ragv2.buscarContextoCompleto, {
+          query: args.mensaje,
+          incluir_faqs: true
+        });
+        
+        console.log(`📊 RAG: Proyectos encontrados: ${contextoRAG.proyectos_encontrados}, FAQs: ${contextoRAG.faqs_encontradas}`);
+        
+        // Paso 2: Construir prompt optimizado (300 tokens vs 3000)
+        const promptData = await ctx.runAction(api.functions.ai.ragv2.construirPromptOptimizado, {
+          mensaje_usuario: args.mensaje,
+          contexto_rag: contextoRAG,
+          historial_reciente: contextoHistorial
+        });
+        
+        console.log(`⚡ RAG: Prompt optimizado generado (${promptData.metadata.tokens_estimados} tokens estimados)`);
+        
+        // Paso 3: Generar respuesta con Gemini usando prompt optimizado
         const result = await ai.models.generateContent({
           model: "gemini-3-flash-preview",
-          contents: `${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`,
+          contents: promptData.prompt,
         });
         
         respuesta = result.text || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
@@ -666,10 +686,27 @@ Para coordinar, necesito:
 
 También puedes escribir directamente a jcabreralabbe@gmail.com 📧`;
       } else {
-        // Respuesta normal con Gemini
+        // Respuesta normal con Gemini usando RAG para reducir tokens
+        console.log("🔍 RAG (Telegram): Buscando contexto relevante...");
+        
+        // Buscar contexto relevante con RAG
+        const contextoRAG = await ctx.runAction(api.functions.ai.ragv2.buscarContextoCompleto, {
+          query: args.mensaje,
+          incluir_faqs: true
+        });
+        
+        // Construir prompt optimizado
+        const promptData = await ctx.runAction(api.functions.ai.ragv2.construirPromptOptimizado, {
+          mensaje_usuario: args.mensaje,
+          contexto_rag: contextoRAG,
+          historial_reciente: `Usuario de Telegram: ${args.username}`
+        });
+        
+        console.log(`⚡ RAG (Telegram): Prompt optimizado (${promptData.metadata.tokens_estimados} tokens)`);
+        
         const result = await ai.models.generateContent({
           model: "gemini-3-flash-preview",
-          contents: `${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`,
+          contents: promptData.prompt,
         });
         
         respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";

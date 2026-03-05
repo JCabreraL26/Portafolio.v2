@@ -14,12 +14,15 @@ const ai = new GoogleGenAI({
 
 /**
  * Helper: Llamar a Gemini con fallback automático entre modelos
- * Intenta modelos en secuencia sin delays (Convex no soporta setTimeout)
- * 1. gemini-2.0-flash-exp (más confiable)
- * 2. gemini-1.5-flash (fallback)
+ * Usa solo modelos estables y confirmados de Gemini API
  */
 async function llamarGeminiConFallback(prompt: string): Promise<string> {
-  const modelos = ["gemini-2.0-flash-exp", "gemini-1.5-flash"];
+  // Modelos oficiales de Gemini (marzo 2026)
+  const modelos = [
+    "gemini-1.5-flash",      // Más rápido y económico
+    "gemini-1.5-pro",        // Más potente si flash falla
+  ];
+  
   let ultimoError: any = null;
   
   for (let i = 0; i < modelos.length; i++) {

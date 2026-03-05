@@ -13,63 +13,51 @@ const ai = new GoogleGenAI({
 });
 
 /**
- * Helper: Llamar a Gemini con retry logic y fallback automático
- * 1. Intenta gemini-3-flash-preview (3 reintentos con exponential backoff)
- * 2. Si falla → fallback a gemini-2.0-flash-exp
- * 3. Si falla → fallback a gemini-1.5-flash
+ * Helper: Llamar a Gemini con fallback automático entre modelos
+ * Intenta modelos en secuencia sin delays (Convex no soporta setTimeout)
+ * 1. gemini-3-flash-preview (más reciente)
+ * 2. gemini-2.0-flash-exp (fallback 1)
+ * 3. gemini-1.5-flash (fallback 2)
  */
-async function llamarGeminiConRetry(prompt: string, intentosMax = 3): Promise<string> {
+async function llamarGeminiConFallback(prompt: string): Promise<string> {
   const modelos = ["gemini-3-flash-preview", "gemini-2.0-flash-exp", "gemini-1.5-flash"];
   
-  for (let modeloIndex = 0; modeloIndex < modelos.length; modeloIndex++) {
-    const modelo = modelos[modeloIndex];
+  for (let i = 0; i < modelos.length; i++) {
+    const modelo = modelos[i];
+    const esUltimoModelo = i === modelos.length - 1;
     
-    for (let intento = 1; intento <= intentosMax; intento++) {
-      try {
-        console.log(`🤖 Intento ${intento}/${intentosMax} con modelo: ${modelo}`);
-        
-        const result = await ai.models.generateContent({
-          model: modelo,
-          contents: prompt,
-        });
-        
-        const texto = result.text;
-        
-        if (texto) {
-          console.log(`✅ Respuesta exitosa de ${modelo} (intento ${intento})`);
-          return texto;
-        }
-        
-      } catch (error: any) {
-        const es503 = error?.status === 503 || error?.message?.includes("high demand");
-        const esUltimoIntento = intento === intentosMax;
-        const esUltimoModelo = modeloIndex === modelos.length - 1;
-        
-        console.error(`❌ Error en ${modelo} (intento ${intento}/${intentosMax}):`, error?.message || error);
-        
-        // Si es 503 y no es el último intento, esperar y reintentar
-        if (es503 && !esUltimoIntento) {
-          const delay = Math.pow(2, intento) * 1000; // Exponential backoff: 2s, 4s, 8s
-          console.log(`⏳ Esperando ${delay}ms antes de reintentar...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
-          continue;
-        }
-        
-        // Si es el último intento con este modelo, probar el siguiente modelo
-        if (esUltimoIntento && !esUltimoModelo) {
-          console.log(`🔄 Cambiando a modelo fallback: ${modelos[modeloIndex + 1]}`);
-          break;
-        }
-        
-        // Si es el último modelo y último intento, lanzar error
-        if (esUltimoModelo && esUltimoIntento) {
-          throw error;
-        }
+    try {
+      console.log(`🤖 Intentando con modelo: ${modelo}`);
+      
+      const result = await ai.models.generateContent({
+        model: modelo,
+        contents: prompt,
+      });
+      
+      const texto = result.text;
+      
+      if (texto) {
+        console.log(`✅ Respuesta exitosa de ${modelo}`);
+        return texto;
       }
+      
+    } catch (error: any) {
+      const es503 = error?.status === 503 || error?.message?.includes("high demand");
+      
+      console.error(`❌ Error en ${modelo}:`, error?.message || error);
+      
+      // Si es 503 o cualquier error y no es el último modelo, probar el siguiente
+      if (!esUltimoModelo) {
+        console.log(`🔄 Cambiando a fallback: ${modelos[i + 1]}`);
+        continue;
+      }
+      
+      // Si es el último modelo, lanzar error
+      throw new Error(`Todos los modelos fallaron. Último error: ${error?.message}`);
     }
   }
   
-  throw new Error("Todos los modelos de Gemini fallaron después de múltiples reintentos");
+  throw new Error("Ningún modelo de Gemini pudo responder");
 }
 
 // Queries de Solo Lectura para Servicios Web
@@ -443,7 +431,7 @@ RESPONDE EN JSON ESTRICTO:
 
 Si falta información, marca tiene_datos_completos: false y lista qué falta en "faltan".`;
 
-        const textoExtractor = await llamarGeminiConRetry(extractorPrompt);
+        const textoExtractor = await llamarGeminiConFallback(extractorPrompt);
         
         let datosExtraidos;
         try {
@@ -521,7 +509,7 @@ ${JSON.stringify(datosExtraidos, null, 2)}
 Genera una respuesta amable pidiendo SOLO la información faltante. Sé conciso y directo.
 Incluye disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM.`;
 
-          respuesta = await llamarGeminiConRetry(promptSeguimiento) || `🗓️ Para agendar tu reunión necesito:
+          respuesta = await llamarGeminiConFallback(promptSeguimiento) || `🗓️ Para agendar tu reunión necesito:
 
 ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
 
@@ -554,13 +542,13 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
           console.log(`⚡ RAG: Prompt optimizado generado (${promptData.metadata.tokens_estimados} tokens estimados)`);
           
           // Paso 3: Generar respuesta con Gemini usando prompt optimizado
-          respuesta = await llamarGeminiConRetry(promptData.prompt) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+          respuesta = await llamarGeminiConFallback(promptData.prompt) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
           
         } catch (errorRAG) {
           console.error("❌ Error en RAG, usando fallback a prompt completo:", errorRAG);
           
           // Fallback: usar prompt completo si RAG falla
-          respuesta = await llamarGeminiConRetry(`${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
+          respuesta = await llamarGeminiConFallback(`${systemPrompt}\n\n---\n\nUsuario pregunta: ${args.mensaje}\n\nResponde de forma profesional, concisa y útil:`) || "Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?";
         }
       }
       
@@ -759,7 +747,7 @@ También puedes escribir directamente a jcabreralabbe@gmail.com 📧`;
         
         console.log(`⚡ RAG (Telegram): Prompt optimizado (${promptData.metadata.tokens_estimados} tokens)`);
         
-        respuesta = await llamarGeminiConRetry(promptData.prompt) || "Lo siento, no pude procesar tu mensaje.";
+        respuesta = await llamarGeminiConFallback(promptData.prompt) || "Lo siento, no pude procesar tu mensaje.";
       }
       
       console.log(`✅ Respuesta generada (${respuesta.length} caracteres)`);

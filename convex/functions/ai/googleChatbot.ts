@@ -17,10 +17,9 @@ const ai = new GoogleGenAI({
  * Usa solo modelos estables y confirmados de Gemini API
  */
 async function llamarGeminiConFallback(prompt: string): Promise<string> {
-  // Modelos oficiales de Gemini (marzo 2026)
+  // Usar Gemini 2.5 Flash (cuota disponible)
   const modelos = [
-    "gemini-1.5-flash",      // Más rápido y económico
-    "gemini-1.5-pro",        // Más potente si flash falla
+    "gemini-2.5-flash",  // Gemini 2.5 Flash (0% usado, disponible)
   ];
   
   let ultimoError: any = null;
@@ -34,13 +33,13 @@ async function llamarGeminiConFallback(prompt: string): Promise<string> {
       
       const result = await ai.models.generateContent({
         model: modelo,
-        contents: prompt,
+        contents: [{ text: prompt }],
       });
       
       const texto = result.text;
       
       if (texto) {
-        console.log(`✅ Respuesta exitosa de ${modelo}`);
+        console.log(`✅ Respuesta exitosa de ${modelo} (${texto.length} chars)`);
         return texto;
       }
       
@@ -65,7 +64,7 @@ async function llamarGeminiConFallback(prompt: string): Promise<string> {
   
   // Si llegamos aquí, todos los modelos fallaron
   const errorFinal = ultimoError?.message || "Todos los modelos no disponibles";
-  console.error(`💥 TODOS LOS MODELOS FALLARON. Último error:`, errorFinal);
+  console.error(`💥 MODELO FALLÓ. Error:`, errorFinal);
   throw new Error(`Gemini no disponible: ${errorFinal}`);
 }
 
@@ -169,11 +168,23 @@ export const procesarMensajeWeb = action({
     user_agent: v.optional(v.string()),
   },
   handler: async (ctx, args): Promise<{ respuesta: string; tipo_mensaje: string; intencion_detectada: string; agente: string; servicios_sugeridos: any[] }> => {
-    console.log(`🌐 WEB CHATBOT - Mensaje recibido: "${args.mensaje}"`);
-    console.log(`📱 Session ID: ${args.session_id}`);
+    const inicioTotal = Date.now();
+    console.log(`═══════════════════════════════════════`);
+    console.log(`🌐 WEB CHATBOT - INICIO DE FUNCIÓN`);
+    console.log(`📱 Session: ${args.session_id}`);
+    console.log(`💬 Mensaje: "${args.mensaje}"`);
+    console.log(`⏱️ Timestamp: ${new Date().toISOString()}`);
+    console.log(`═══════════════════════════════════════`);
+    
+    // 🧪 MODOS DEBUG (todos desactivados - chatbot normal)
+    const MODO_DEBUG = false;
+    const MODO_RAG_ONLY = false;
+    const MODO_GEMINI_SOLO = false;
     
     // Obtener servicios disponibles para contexto
+    console.log("⏱️ [TIMING] Obteniendo servicios activos...");
     const servicios: any[] = await ctx.runQuery(api.functions.ai.googleChatbot.obtenerServiciosActivos, {});
+    console.log(`⏱️ [TIMING] Servicios obtenidos: ${servicios.length}`);
     
     // Obtener historial reciente de la sesión para contexto
     console.log("⏱️ [TIMING] Obteniendo historial de sesión...");
@@ -182,6 +193,77 @@ export const procesarMensajeWeb = action({
       limite: 5,
     });
     console.log(`⏱️ [TIMING] Historial obtenido: ${historial.length} mensajes`);
+    
+    // 🧪 MODO DEBUG: Retornar aquí si queries funcionan
+    if (MODO_DEBUG) {
+      console.log("🧪 MODO DEBUG ACTIVADO - Queries OK");
+      console.log(`   Servicios: ${servicios.length}`);
+      console.log(`   Historial: ${historial.length} msgs`);
+      
+      const respuestaDebug = `🧪 DEBUG MODE
+
+✅ Queries funcionando:
+• Servicios: ${servicios.length} encontrados
+• Historial: ${historial.length} mensajes previos
+• Tiempo: ${Date.now() - inicioTotal}ms
+
+Siguiente: Probar RAG y Gemini`;
+      
+      console.log(`✅ Retornando respuesta debug (${Date.now() - inicioTotal}ms)`);
+      
+      return {
+        respuesta: respuestaDebug,
+        tipo_mensaje: "otro",
+        intencion_detectada: "test_queries",
+        agente: "google",
+        servicios_sugeridos: [],
+      };
+    }
+    
+    // 🧪 Modo debug gemini (desactivado)
+    if (MODO_GEMINI_SOLO) {
+      console.log("🧪 MODO GEMINI_SOLO - Probando Gemini con prompt mínimo");
+      
+      const promptMinimo = `Eres un asistente. El usuario dice: "${args.mensaje}". Responde brevemente.`;
+      
+      try {
+        console.log("📞 Llamando a Gemini...");
+        const t1 = Date.now();
+        const respuestaGemini = await llamarGeminiConFallback(promptMinimo);
+        const tiempoGemini = Date.now() - t1;
+        
+        console.log(`✅ Gemini respondió en ${tiempoGemini}ms`);
+        
+        const respuesta = respuestaGemini || "Gemini no respondió";
+        
+        await ctx.runMutation(api.functions.ai.googleChatbot.registrarMensajeChatbot, {
+          session_id: args.session_id,
+          mensaje_usuario: args.mensaje,
+          respuesta_bot: `🧪 GEMINI TEST (${tiempoGemini}ms)\n\n${respuesta}`,
+          tipo_mensaje: "otro",
+          intencion_detectada: "test_gemini",
+          ip_usuario: args.ip_usuario,
+          user_agent: args.user_agent,
+        });
+        
+        return {
+          respuesta: `🧪 GEMINI TEST (${tiempoGemini}ms)\n\n${respuesta}`,
+          tipo_mensaje: "otro",
+          intencion_detectada: "test_gemini",
+          agente: "google",
+          servicios_sugeridos: [],
+        };
+      } catch (errorGemini) {
+        console.error("❌ Error en Gemini:", errorGemini);
+        return {
+          respuesta: `❌ Gemini falló: ${errorGemini}`,
+          tipo_mensaje: "otro",
+          intencion_detectada: "error_gemini",
+          agente: "google",
+          servicios_sugeridos: [],
+        };
+      }
+    }
     
     // Construir contexto de historial
     const contextoHistorial = historial.length > 0 
@@ -271,7 +353,7 @@ export const procesarMensajeWeb = action({
    ✅ **Resultados:**
    • Ahorra $500.000/mes (0% comisión vs 30%)
    • De idea a producción en 7 días
-   • Sitio en vivo: maspizzadelivery.cl
+   • Sitio en vivo: www.maspizzadelivery.cl
    • Plataforma 100% de su propiedad
    • Tiempo implementación: 24-48 horas
    
@@ -573,6 +655,45 @@ ${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
           console.log(`✅ [PASO 3/3] Completado en ${Date.now() - t3}ms`);
           
           console.log(`⏱️ TIEMPO TOTAL RAG: ${Date.now() - tiempoInicio}ms`);
+          
+          // 🧪 MODO RAG_ONLY: Retornar aquí sin llamar Gemini
+          if (MODO_RAG_ONLY) {
+            console.log("🧪 MODO RAG_ONLY - RAG completado exitosamente");
+            console.log(`   Proyectos: ${contextoRAG.proyectos_encontrados}`);
+            console.log(`   FAQs: ${contextoRAG.faqs_encontradas}`);
+            console.log(`   Tokens estimados: ${promptData.metadata.tokens_estimados}`);
+            
+            respuesta = `🧪 RAG TEST OK
+
+✅ RAG funcionando:
+• Proyectos: ${contextoRAG.proyectos_encontrados}
+• FAQs: ${contextoRAG.faqs_encontradas}
+• Prompt: ${promptData.metadata.tokens_estimados} tokens
+• Tiempo RAG: ${Date.now() - tiempoInicio}ms
+
+Siguiente: Probar Gemini`;
+            
+            console.log(`✅ RAG test completado sin Gemini (${Date.now() - inicioTotal}ms)`);
+            
+            // Guardar en DB y retornar
+            await ctx.runMutation(api.functions.ai.googleChatbot.registrarMensajeChatbot, {
+              session_id: args.session_id,
+              mensaje_usuario: args.mensaje,
+              respuesta_bot: respuesta,
+              tipo_mensaje: "otro",
+              intencion_detectada: "test_rag",
+              ip_usuario: args.ip_usuario,
+              user_agent: args.user_agent,
+            });
+            
+            return {
+              respuesta,
+              tipo_mensaje: "otro",
+              intencion_detectada: "test_rag",
+              agente: "google",
+              servicios_sugeridos: [],
+            };
+          }
           
         } catch (errorRAG) {
           console.error("❌ Error en RAG, usando fallback a prompt completo:", errorRAG);

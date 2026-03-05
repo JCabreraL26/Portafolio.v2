@@ -246,7 +246,7 @@ export const PROYECTOS_DESTACADOS = [
       automatizacion: "Pedidos pre-formateados vs consultas manuales",
     },
     tecnologias: ["Next.js 14", "Convex Database", "TypeScript", "Tailwind CSS", "Turborepo", "Netlify"],
-    url: "https://localshop-pro.netlify.app",
+    url: "https://www.maspizzadelivery.cl",
   },
   
   {

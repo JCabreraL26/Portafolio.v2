@@ -16,13 +16,23 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 - **Uso**: Procesamiento de mensajes de Telegram, análisis de intención
 - **Seguridad**: Mantener privada, nunca exponer en cliente
 
-### Google AI (Chatbot Web)
+### Google AI (Chatbot Web & Gemini)
 ```
 GOOGLE_AI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GEMINI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
-- **Propósito**: Conexión con Google Gemini para chatbot web
+- **Propósito**: Conexión con Google Gemini para chatbot web y Telegram
 - **Uso**: Respuestas automáticas, procesamiento de lenguaje natural
 - **Seguridad**: Mantener privada, nunca exponer en cliente
+
+### Zep Cloud (Memoria de Largo Plazo)
+```
+ZEP_API_KEY=z_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+- **Propósito**: Sistema de memoria de largo plazo para el bot
+- **Uso**: Almacenamiento de conversaciones, hechos del usuario, contexto histórico
+- **Seguridad**: Alta - contiene datos privados del usuario
+- **Cómo obtener**: Crear cuenta en https://www.getzep.com y obtener API key del dashboard
 
 ---
 
@@ -95,7 +105,8 @@ CONVEX_URL=https://tu-proyecto.convex.cloud
 
 ### ✅ Variables Críticas (Requeridas)
 - [ ] `OPENAI_API_KEY`
-- [ ] `GOOGLE_AI_API_KEY`
+- [ ] `GOOGLE_AI_API_KEY` o `GEMINI_API_KEY`
+- [ ] `ZEP_API_KEY` (para memoria de largo plazo)
 - [ ] `TELEGRAM_BOT_TOKEN`
 - [ ] `MY_TELEGRAM_ID`
 

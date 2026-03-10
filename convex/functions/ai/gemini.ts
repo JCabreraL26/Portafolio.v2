@@ -247,6 +247,41 @@ export const obtenerResumenFinanciero = query({
   },
 });
 
+// Query para obtener proyectos de la tabla principal "proyectos"
+export const obtenerProyectos = query({
+  args: {
+    limite: v.optional(v.number()),
+    estado: v.optional(v.union(v.literal("activo"), v.literal("pausado"), v.literal("completado"), v.literal("cancelado"))),
+    categoria: v.optional(v.union(
+      v.literal("web"),
+      v.literal("mobile"),
+      v.literal("ia"),
+      v.literal("automatizacion"),
+      v.literal("consultoria"),
+      v.literal("personal"),
+      v.literal("otro")
+    )),
+  },
+  handler: async (ctx, args) => {
+    let proyectos = await ctx.db.query("proyectos").order("desc").collect();
+    
+    // Aplicar filtros en memoria
+    if (args.estado) {
+      proyectos = proyectos.filter(p => p.estado === args.estado);
+    }
+    if (args.categoria) {
+      proyectos = proyectos.filter(p => p.categoria === args.categoria);
+    }
+    
+    // Aplicar límite
+    if (args.limite) {
+      proyectos = proyectos.slice(0, args.limite);
+    }
+    
+    return proyectos;
+  },
+});
+
 export const obtenerProyectosDT = query({
   args: { 
     proyecto_id: v.optional(v.string()),
@@ -661,39 +696,73 @@ export const procesarMensajeTelegram = action({
       throw new Error(`Unauthorized access from chat_id: ${args.chat_id}`);
     }
     
-    // 🧠 MEMORIA CONTEXTUAL: Obtener mensajes recientes (últimos 2 minutos)
-    const dosMinutosAtras = Date.now() - (2 * 60 * 1000);
+    // 🧠 MEMORIA CONTEXTUAL CON ZEP: Memoria de largo plazo + últimos mensajes
     let contextoMemoria = "";
     
     try {
-      const mensajesRecientes = await ctx.runQuery(
-        api.functions.ai.gemini.obtenerMensajesRecientes,
-        {
-          chat_id: args.chat_id,
-          desde: dosMinutosAtras,
-          limite: 5
-        }
-      );
+      console.log(`🧠 Cargando memoria de Zep para usuario: ${args.chat_id}`);
       
-      if (mensajesRecientes.length > 0) {
-        console.log(`🧠 Encontrados ${mensajesRecientes.length} mensajes recientes para contexto`);
-        
-        const historial = mensajesRecientes
-          .reverse() // Orden cronológico (más antiguo primero)
-          .map((m: any) => {
-            const contenido = m.contenido_texto || m.contenido_transcrito || "[audio/imagen]";
-            return `- Tú: "${contenido}"\n  Bot: "${m.respuesta_bot.substring(0, 100)}..."`;
-          })
-          .join('\n');
-        
-        contextoMemoria = `\n\n📜 CONTEXTO DE CONVERSACIÓN RECIENTE (últimos 2 minutos):\n${historial}\n\n`;
+      // 1. Guardar mensaje del usuario en Zep (esto crea el thread si no existe)
+      await ctx.runAction(api.functions.ai.zep.agregarMensaje, {
+        userId: args.chat_id,
+        rol: "user",
+        contenido: args.mensaje,
+      });
+      console.log(`💾 Mensaje del usuario guardado en Zep`);
+      
+      // 2. Obtener memoria formateada de Zep
+      const memoriaResult = await ctx.runAction(api.functions.ai.zep.formatearMemoriaParaPrompt, {
+        userId: args.chat_id,
+      });
+      
+      if (memoriaResult.success && memoriaResult.contexto) {
+        contextoMemoria = `\n\n🧠 MEMORIA DEL USUARIO (Zep):\n${memoriaResult.contexto}\n\n`;
+        console.log(`✅ Memoria de Zep cargada (${memoriaResult.contexto.length} caracteres)`);
       } else {
-        console.log(`ℹ️ No hay mensajes recientes en los últimos 2 minutos`);
+        console.log(`ℹ️ No hay memoria previa en Zep o hubo error`);
+        
+        // Fallback: usar mensajes recientes de Convex
+        const dosMinutosAtras = Date.now() - (2 * 60 * 1000);
+        const mensajesRecientes = await ctx.runQuery(
+          api.functions.ai.gemini.obtenerMensajesRecientes,
+          {
+            chat_id: args.chat_id,
+            desde: dosMinutosAtras,
+            limite: 5
+          }
+        );
+        
+        if (mensajesRecientes.length > 0) {
+          const historial = mensajesRecientes
+            .reverse()
+            .map((m: any) => {
+              const contenido = m.contenido_texto || m.contenido_transcrito || "[audio/imagen]";
+              return `- Tú: "${contenido}"\n  Bot: "${m.respuesta_bot.substring(0, 100)}..."`;
+            })
+            .join('\n');
+          
+          contextoMemoria = `\n\n📜 CONTEXTO RECIENTE:\n${historial}\n\n`;
+        }
       }
     } catch (memoryError) {
-      console.warn(`⚠️ Error obteniendo memoria contextual:`, memoryError);
+      console.warn(`⚠️ Error obteniendo memoria de Zep:`, memoryError);
       // Continuar sin contexto si hay error
     }
+    
+    // 💾 Función auxiliar para guardar respuesta del bot en Zep
+    const guardarRespuestaEnZep = async (respuesta: string) => {
+      try {
+        await ctx.runAction(api.functions.ai.zep.agregarMensaje, {
+          userId: args.chat_id,
+          rol: "assistant",
+          contenido: respuesta,
+        });
+        console.log(`💾 Respuesta del bot guardada en Zep`);
+      } catch (zepSaveError) {
+        console.warn(`⚠️ Error guardando respuesta en Zep:`, zepSaveError);
+        // No bloqueamos si falla el guardado en Zep
+      }
+    };
     
     // 📄 PROCESAMIENTO DE DOCUMENTOS (PDF, Imágenes)
     if ((args.tipo_mensaje === "documento" || args.tipo_mensaje === "foto") && args.file_id) {
@@ -817,7 +886,7 @@ ${contextoMemoria}Analiza el siguiente documento:`;
         ];
         
         const response = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
+          model: "gemini-2.5-flash",
           contents: contents,
         });
         
@@ -1077,7 +1146,7 @@ ${contextoMemoria}Transcribe y analiza el siguiente audio:`;
         console.log("🤖 Llamando a Gemini con audio...");
         
         const response = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
+          model: "gemini-2.5-flash",
           contents: createUserContent([
             createPartFromUri(uploadedFile.uri, uploadedFile.mimeType),
             promptAudio,
@@ -1341,7 +1410,7 @@ Analiza el documento:`;
         console.log("🤖 Llamando a Gemini con documento...");
         
         const response = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
+          model: "gemini-2.5-flash",
           contents: createUserContent([
             createPartFromUri(uploadedFile.uri, uploadedFile.mimeType),
             promptDocumento,
@@ -1576,24 +1645,27 @@ Analiza el documento:`;
 1️⃣ **GESTOR FINANCIERO**:
    - Registra gastos, ingresos, transacciones
    - Gestiona IVA y Formulario 29 (Chile)
-   - Extrae datos de forma estricta
-   - Responde solo confirmando datos
+   - SIEMPRE usa formato:
+   ACCION:GASTO|monto|categoría|descripción
+   ACCION:INGRESO|monto|categoría|descripción
 
 2️⃣ **CONSULTOR DE DISEÑO**:
    - Captura insights y ideas de proyectos
-   - Organiza fases de Design Thinking
-   - Ayuda con planificación de proyectos
+   - SIEMPRE usa formato:
+   ACCION:IDEA|título|descripción|fase
+   - Fases válidas: empatizar, definir, idear, prototipar, testear
+   - IMPORTANTE: Usa ACCION:IDEA cada vez que el usuario mencione una nueva idea, proyecto, o insight
 
 📊 CLASIFICACIÓN AUTOMÁTICA:
 
 **Si menciona: gastos, ingresos, transacciones, IVA, F29, contabilidad, factura**
-→ Modo: Gestor Financiero (extracción estricta)
+→ Responde con formato ACCION:GASTO o ACCION:INGRESO
 
-**Si menciona: idea, diseño, insight, proyecto, fase, empatizar, prototipar**
-→ Modo: Consultor de Diseño (conversacional)
+**Si menciona: idea, diseño, insight, proyecto, crear, hacer, desarrollar**
+→ Responde con formato ACCION:IDEA (siempre)
 
-**Para otras consultas:**
-→ Responde de forma conversacional pero concisa
+**Para consultas sobre datos existentes (¿cuánto?, ¿cuál?, ¿qué proyectos?)**
+→ Responde conversacionalmente SIN formato ACCION
 
 📱 COMANDOS FINANCIEROS DISPONIBLES:
 /gasto $50 categoría - Registrar gasto rápido
@@ -1606,26 +1678,44 @@ Analiza el documento:`;
 /proyectos - Lista proyectos Design Thinking
 /ayuda - Mostrar todos los comandos
 
-💡 EJEMPLOS:
+💡 EJEMPLOS DE REGISTRO (USA ACCION:):
 
 Usuario: "Gasté $25 en comida"
-Tú: "✅ Gasto registrado: $25 en comida"
+Tú: ACCION:GASTO|25|comida|Gasto diario
 
 Usuario: "Ingreso de $500 por freelance"
-Tú: "✅ Ingreso registrado: $500 - freelance"
+Tú: ACCION:INGRESO|500|freelance|Trabajo freelance
+
+Usuario: "Idea: crear app de presupuestos con IA"
+Tú: ACCION:IDEA|App de presupuestos con IA|Aplicación móvil que use IA para generar presupuestos automáticos|idear
+
+Usuario: "Tengo una idea para mejorar el onboarding"
+Tú: ACCION:IDEA|Mejorar onboarding|Optimización del proceso de onboarding de usuarios|definir
+
+Usuario: "Quiero crear un proyecto de automatización"
+Tú: ACCION:IDEA|Proyecto de automatización|Sistema de automatización de tareas repetitivas|idear
+
+💡 EJEMPLOS DE CONSULTA (NO uses ACCION:):
 
 Usuario: "¿Cuánto IVA debo pagar este mes?"
 Tú: "Para ver tu declaración F29 del mes actual, usa: /iva"
 
-Usuario: "Idea: usar colores pasteles en el diseño"
-Tú: "[Respuesta conversacional capturando la idea]"
+Usuario: "¿Qué proyectos tengo activos?"
+Tú: "Usa /proyectos para ver tu lista de proyectos activos"
+
+Usuario: "¿Qué tal estuvo tu día?"
+Tú: "¡Bien! ¿En qué puedo ayudarte hoy?"
+
+⚠️ REGLA CLAVE: 
+- Usa formato ACCION: cuando el usuario CREA/REGISTRA algo nuevo (gasto, ingreso, idea, proyecto)
+- NO uses ACCION: cuando el usuario CONSULTA información existente o hace conversación general
 
 Responde SIEMPRE en español, sé CONCISO (máximo 3 líneas).
 
 ${contextoMemoria}Usuario escribió: ${args.mensaje}`;
 
     const result = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.5-flash",
       contents: prompt,
     });
     const respuesta = result.text || "Lo siento, no pude procesar tu mensaje.";
@@ -1961,18 +2051,21 @@ ${contextoMemoria}Usuario escribió: ${args.mensaje}`;
     }
     
     if (lowerMensaje === "/proyectos") {
-      const proyectos = await ctx.runQuery(api.functions.ai.gemini.obtenerProyectosDT, {});
+      const proyectos = await ctx.runQuery(api.functions.ai.gemini.obtenerProyectos, { 
+        estado: "activo",
+        limite: 10 
+      });
       
       if (proyectos.length === 0) {
         return {
-          respuesta: `📋 *Proyectos*\n\n🔍 No hay proyectos activos\n\n💡 Usa \`/crear proyecto\` para empezar`,
+          respuesta: `📋 *Proyectos*\n\n🔍 No hay proyectos activos\n\n💡 Envía una idea y la registraré:\n"Idea: crear app de presupuestos con IA"`,
           accion: "lista_proyectos_vacia",
           datos: []
         };
       }
       
       const listaProyectos = proyectos.slice(0, 5).map((p: any) => 
-        `🔹 ${p.titulo}\n   📂 ${p.fase} ⭐ ${p.prioridad}`
+        `🔹 *${p.nombre}*\n   📂 ${p.categoria} | ⭐ ${p.prioridad} | 📊 ${p.progreso}%`
       ).join('\n\n');
       
       return {
@@ -2068,12 +2161,109 @@ ${contextoMemoria}Usuario escribió: ${args.mensaje}`;
     if (lowerMensaje.includes("resumen financiero")) {
       const resumen = await ctx.runQuery(api.functions.ai.gemini.obtenerResumenFinanciero);
       
+      const respuestaTexto = `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n\n💡 *Tip:* Usa \`/resumen\` para más rápido`;
+      
+      await guardarRespuestaEnZep(respuestaTexto);
+      
       return {
-        respuesta: `📊 *Resumen Financiero*\n\n💵 *Ingresos:* $${resumen.total_ingresos}\n💸 *Gastos:* $${resumen.total_gastos}\n💰 *Balance:* $${resumen.balance}\n\n💡 *Tip:* Usa \`/resumen\` para más rápido`,
+        respuesta: respuestaTexto,
         accion: "resumen_financiero",
         datos: resumen
       };
     }
+    
+    // 💾 Analizar respuesta de Gemini para detectar acciones antes de guardar
+    console.log(`🤖 Respuesta de Gemini (texto completo): "${respuesta}"`);
+    
+    const accionMatch = respuesta.match(/ACCION:(GASTO|INGRESO|IDEA)\|(.+)/i);
+    console.log(`🔍 Regex match ACCION:`, accionMatch ? `✅ Tipo: ${accionMatch[1]}` : "❌ No match");
+    
+    if (accionMatch) {
+      const tipoAccion = accionMatch[1].toUpperCase();
+      const datosStr = accionMatch[2];
+      
+      if (tipoAccion === "GASTO" || tipoAccion === "INGRESO") {
+        // Parsear: $monto|categoría|descripción
+        const partes = datosStr.split("|");
+        const monto = parseInt(partes[0].replace(/\$/g, "").trim());
+        const categoria = partes[1]?.trim() || "Sin categoría";
+        const descripcion = partes[2]?.trim() || "Vía chat";
+        
+        console.log(`💾 Guardando transacción desde texto: ${tipoAccion} de $${monto} en ${categoria}`);
+        
+        const resultado = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccion, {
+          tipo: tipoAccion.toLowerCase() as "gasto" | "ingreso",
+          categoria,
+          monto,
+          descripcion: `💬 ${descripcion}`,
+        });
+        
+        // Guardar mensaje en historial
+        await ctx.runMutation(api.functions.ai.gemini.guardarMensajeTelegram, {
+          message_id: args.message_id,
+          chat_id: args.chat_id,
+          username: args.username,
+          tipo_mensaje: "texto",
+          contenido_texto: args.mensaje,
+          respuesta_bot: `✅ ${tipoAccion === "GASTO" ? "💸 Gasto" : "💰 Ingreso"} registrado: $${monto} en ${categoria}`,
+          accion_realizada: "transaccion",
+          datos_extraidos: resultado,
+          timestamp: Date.now(),
+        });
+        
+        await guardarRespuestaEnZep(`✅ ${tipoAccion === "GASTO" ? "💸 Gasto" : "💰 Ingreso"} registrado: $${monto} en ${categoria}`);
+        
+        return {
+          respuesta: `✅ ${tipoAccion === "GASTO" ? "💸 Gasto" : "💰 Ingreso"} *Registrado*\n\`\`\`${categoria}\`\`\`\n💰 **$${monto}**\n📝 ${descripcion}`,
+          accion: "transaccion",
+          datos: resultado
+        };
+      }
+      
+      if (tipoAccion === "IDEA") {
+        // Parsear: título|descripción|fase
+        const partes = datosStr.split("|");
+        const titulo = partes[0]?.trim() || "Idea sin título";
+        const descripcion = partes[1]?.trim() || args.mensaje;
+        const fase = partes[2]?.trim() || "idear";
+        
+        console.log(`💡 Guardando proyecto desde texto: ${titulo}`);
+        
+        // Usar crearProyectoCompleto para crear en tabla de proyectos + design_thinking
+        const resultado = await ctx.runMutation(api.functions.ai.gemini.crearProyectoCompleto, {
+          nombre: titulo,
+          descripcion: `💬 ${descripcion}`,
+          categoria: "personal",
+          fase: fase as any,
+          prioridad: "media",
+          tags: ["telegram", "texto"],
+        });
+        
+        // Guardar mensaje en historial
+        await ctx.runMutation(api.functions.ai.gemini.guardarMensajeTelegram, {
+          message_id: args.message_id,
+          chat_id: args.chat_id,
+          username: args.username,
+          tipo_mensaje: "texto",
+          contenido_texto: args.mensaje,
+          respuesta_bot: `💡 Proyecto creado: ${titulo}`,
+          accion_realizada: "proyecto_dt",
+          datos_extraidos: resultado,
+          timestamp: Date.now(),
+        });
+        
+        await guardarRespuestaEnZep(`💡 Proyecto creado: ${titulo} (Fase: ${fase})`);
+        
+        return {
+          respuesta: `💡 *Proyecto Creado*\n**${titulo}**\n📂 Categoría: personal\n🎯 Fase: ${fase}\n✅ ¡Registrado en Convex!`,
+          accion: "proyecto_dt",
+          datos: resultado
+        };
+      }
+    }
+    
+    // 💾 Guardar respuesta en Zep antes de retornar
+    await guardarRespuestaEnZep(respuesta);
     
     return {
       respuesta,

@@ -13,6 +13,7 @@ import type * as functions_agenda from "../functions/agenda.js";
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
 import type * as functions_ai_googleChatbot from "../functions/ai/googleChatbot.js";
 import type * as functions_ai_ragv2 from "../functions/ai/ragv2.js";
+import type * as functions_ai_zep from "../functions/ai/zep.js";
 import type * as functions_proyectos from "../functions/proyectos.js";
 import type * as http from "../http.js";
 import type * as seed from "../seed.js";
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   "functions/ai/gemini": typeof functions_ai_gemini;
   "functions/ai/googleChatbot": typeof functions_ai_googleChatbot;
   "functions/ai/ragv2": typeof functions_ai_ragv2;
+  "functions/ai/zep": typeof functions_ai_zep;
   "functions/proyectos": typeof functions_proyectos;
   http: typeof http;
   seed: typeof seed;

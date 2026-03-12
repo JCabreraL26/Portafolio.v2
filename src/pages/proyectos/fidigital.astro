@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { FiDigitalPresentation } from '../../components/FiDigitalPresentation';
+---
+
+<Layout title="FiDigital - Sistema de Gestión de Turnos para Barberías">
+  <Navbar />
+  
+  <!-- FiDigital Presentation Slider -->
+  <FiDigitalPresentation client:load />
+</Layout>
+
+<style is:global>
+  /* FiDigital Color Palette */
+  :root {
+    --primary: #F97316;
+    --primary-dark: #EA580C;
+    --secondary: #FB923C;
+  }
+  
+  /* Ensure full height */
+  #fidigital-presentation {
+    min-height: 100vh;
+  }
+  
+  /* Gradient text animation */
+  .text-gradient {
+    background: linear-gradient(135deg, #F97316, #FB923C, #FDBA74);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-animated {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Primary color utilities */
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  
+  .text-primary {
+    color: var(--primary);
+  }
+  
+  .border-primary {
+    border-color: var(--primary);
+  }
+  
+  .hover\:shadow-primary\/50:hover {
+    box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.5), 0 8px 10px -6px rgba(249, 115, 22, 0.5);
+  }
+</style>

@@ -121,7 +121,18 @@ export function FiDigitalPresentation({ liveCount = 4 }: FiDigitalPresentationPr
 // SLIDE 1: Hero
 function Slide1({ liveCount }: { liveCount: number }) {
   return (
-    <div className="relative h-full w-full flex items-center justify-center bg-gradient-to-br from-black via-black to-orange-950/20">
+    <div className="relative h-full w-full flex items-center justify-center">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="/img/barber3.jpg"
+          alt="Professional barber"
+          className="w-full h-full object-cover opacity-40"
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-black/80 to-transparent" />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}

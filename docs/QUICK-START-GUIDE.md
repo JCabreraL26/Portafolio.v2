@@ -21,7 +21,7 @@
 /newbot
 
 # Sigue las instrucciones y guarda el token:
-# Ejemplo: 7123456789:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw
+# Ejemplo: 1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 ```
 
 ### 2. Obtener Gemini API Key

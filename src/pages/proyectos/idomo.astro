@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { IDomoPresentation } from '../../components/iDomoPresentation';
+---
+
+<Layout title="iDomo - Sistema de Gestión de Conserjería">
+  <Navbar />
+  
+  <!-- iDomo Presentation Slider -->
+  <IDomoPresentation client:load />
+</Layout>
+
+<style is:global>
+  /* iDomo Color Palette */
+  :root {
+    --idomo-primary: #00D9FF;
+    --idomo-primary-dark: #00BCD4;
+    --idomo-secondary: #0097A7;
+    --idomo-bg-dark: #0A0E27;
+    --idomo-bg-darker: #0D1117;
+  }
+  
+  /* Ensure full height */
+  body {
+    background-color: var(--idomo-bg-dark);
+  }
+  
+  /* Cyan glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+  
+  /* Primary color utilities */
+  .bg-idomo-primary {
+    background-color: var(--idomo-primary);
+  }
+  
+  .text-idomo-primary {
+    color: var(--idomo-primary);
+  }
+  
+  .border-idomo-primary {
+    border-color: var(--idomo-primary);
+  }
+</style>

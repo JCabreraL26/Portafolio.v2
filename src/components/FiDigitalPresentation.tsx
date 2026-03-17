@@ -40,6 +40,38 @@ export function FiDigitalPresentation({ liveCount = 4 }: FiDigitalPresentationPr
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentSlide, nextSlide, prevSlide]);
 
+  // Touch/Swipe gestures para mobile
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    };
+
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      if (touchStartX - touchEndX > swipeThreshold) {
+        nextSlide();
+      }
+      if (touchEndX - touchStartX > swipeThreshold) {
+        prevSlide();
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [currentSlide, nextSlide, prevSlide]);
+
   return (
     <div className="relative h-screen w-full bg-black overflow-hidden">
       {/* Slides Container */}
@@ -67,10 +99,10 @@ export function FiDigitalPresentation({ liveCount = 4 }: FiDigitalPresentationPr
       {currentSlide > 0 && (
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-50 rounded-full p-3 transition-all hover:scale-110"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 rounded-full p-2 sm:p-3 transition-all hover:scale-110"
           style={{ background: "rgba(255, 255, 255, 0.1)", backdropFilter: "blur(10px)" }}
         >
-          <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -79,10 +111,10 @@ export function FiDigitalPresentation({ liveCount = 4 }: FiDigitalPresentationPr
       {currentSlide < totalSlides - 1 && (
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-50 rounded-full p-3 transition-all hover:scale-110"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-50 rounded-full p-2 sm:p-3 transition-all hover:scale-110"
           style={{ background: "rgba(255, 255, 255, 0.1)", backdropFilter: "blur(10px)" }}
         >
-          <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -255,20 +287,20 @@ function Slide3() {
 
   return (
     <div className="relative h-full w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-orange-950/30 to-black">
-      <div className="relative z-10 w-full max-w-lg mx-auto px-6 py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="text-center mb-8"
+          className="text-center mb-5"
         >
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
             La Solución
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
+          <div className="h-1 w-16 bg-primary mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 gap-3">
           {solutions.map((solution, index) => (
             <motion.div
               key={index}
@@ -277,16 +309,16 @@ function Slide3() {
               transition={{ delay: 0.2 + index * 0.1, type: "spring" }}
               className="group"
             >
-              <div className="relative h-full min-h-[140px] sm:min-h-[160px] flex flex-col items-center justify-center text-center p-4 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 hover:border-primary/50 hover:from-primary/20 hover:to-primary/10 transition-all cursor-pointer">
-                <div className="text-5xl mb-2 group-hover:scale-110 transition-transform">
+              <div className="relative h-full min-h-[110px] flex flex-col items-center justify-center text-center p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 hover:border-primary/50 hover:from-primary/20 hover:to-primary/10 transition-all cursor-pointer">
+                <div className="text-3xl mb-1.5 group-hover:scale-110 transition-transform">
                   {solution.icon}
                 </div>
                 
-                <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                <h3 className="text-white font-bold text-sm mb-1">
                   {solution.title}
                 </h3>
                 
-                <p className="text-white/70 text-xs sm:text-sm leading-tight">
+                <p className="text-white/70 text-xs leading-tight">
                   {solution.text}
                 </p>
               </div>
@@ -309,16 +341,16 @@ function Slide4() {
 
   return (
     <div className="relative h-full w-full flex items-center justify-center overflow-hidden bg-black/90">
-      <div className="relative z-10 w-full max-w-lg mx-auto px-6 py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-4">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl sm:text-4xl font-black text-white text-center mb-12"
+          className="text-2xl sm:text-3xl font-black text-white text-center mb-6"
         >
           ¿Por qué FiDigital?
         </motion.h2>
 
-        <div className="grid grid-cols-2 gap-8 sm:gap-12 max-w-md mx-auto">
+        <div className="grid grid-cols-2 gap-5 max-w-sm mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -332,18 +364,18 @@ function Slide4() {
               }}
               className="flex flex-col items-center group"
             >
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 mb-3">
-                <div className="absolute inset-0 rounded-full border-4 border-primary/20 group-hover:border-primary/50 transition-colors" />
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 group-hover:from-primary/30 group-hover:to-primary/10 transition-all" />
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-2">
+                <div className="absolute inset-0 rounded-full border-3 border-primary/20 group-hover:border-primary/50 transition-colors" />
+                <div className="absolute inset-1.5 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 group-hover:from-primary/30 group-hover:to-primary/10 transition-all" />
                 
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-5xl group-hover:scale-110 transition-transform">
+                  <span className="text-3xl sm:text-4xl group-hover:scale-110 transition-transform">
                     {feature.emoji}
                   </span>
                 </div>
               </div>
               
-              <h3 className={`text-lg sm:text-xl font-bold ${feature.color} text-center`}>
+              <h3 className={`text-sm sm:text-base font-bold ${feature.color} text-center`}>
                 {feature.title}
               </h3>
             </motion.div>
@@ -354,7 +386,7 @@ function Slide4() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="text-center text-white/50 text-sm mt-12"
+          className="text-center text-white/50 text-xs sm:text-sm mt-6"
         >
           Todo lo que necesitas en una plataforma
         </motion.p>
@@ -373,34 +405,36 @@ function Slide5() {
 
   return (
     <div className="relative h-full w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-950/20 to-black">
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
             Investigación UX
           </h2>
-          <div className="h-1 w-20 bg-purple-500 mx-auto rounded-full" />
+          <div className="h-1 w-16 bg-purple-500 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-3">
           {research.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3"
             >
-              <div className="text-4xl mb-4 text-center">{item.icon}</div>
-              <h3 className="text-white font-bold text-lg mb-4 text-center">{item.title}</h3>
-              <ul className="space-y-2">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="text-2xl">{item.icon}</div>
+                <h3 className="text-white font-bold text-sm">{item.title}</h3>
+              </div>
+              <ul className="space-y-1 pl-8">
                 {item.items.map((point, i) => (
-                  <li key={i} className="text-white/70 text-sm flex items-start gap-2">
-                    <span className="text-purple-400 mt-1">→</span>
+                  <li key={i} className="text-white/70 text-xs flex items-start gap-1.5">
+                    <span className="text-purple-400 mt-0.5">→</span>
                     <span>{point}</span>
                   </li>
                 ))}
@@ -417,39 +451,39 @@ function Slide5() {
 function Slide6() {
   return (
     <div className="relative h-full w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-blue-950/20 to-black">
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
             Dos Usuarios, Un Objetivo
           </h2>
-          <div className="h-1 w-20 bg-blue-500 mx-auto rounded-full" />
+          <div className="h-1 w-16 bg-blue-500 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
           >
-            <div className="text-6xl mb-4 text-center">👨‍💼</div>
-            <h3 className="text-white font-bold text-2xl mb-2 text-center">El Cliente</h3>
-            <p className="text-white/60 text-sm mb-4 text-center">Profesional ocupado, 25-45 años</p>
-            <div className="space-y-2">
-              <p className="text-white/70 text-sm flex items-start gap-2">
+            <div className="text-4xl mb-2 text-center">👨‍💼</div>
+            <h3 className="text-white font-bold text-lg mb-1 text-center">El Cliente</h3>
+            <p className="text-white/60 text-xs mb-2 text-center">Profesional ocupado, 25-45 años</p>
+            <div className="space-y-1">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Saber cuánto tiempo esperará</span>
               </p>
-              <p className="text-white/70 text-sm flex items-start gap-2">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Poder salir y volver a tiempo</span>
               </p>
-              <p className="text-white/70 text-sm flex items-start gap-2">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Experiencia simple, sin apps</span>
               </p>
@@ -460,21 +494,21 @@ function Slide6() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
           >
-            <div className="text-6xl mb-4 text-center">✂️</div>
-            <h3 className="text-white font-bold text-2xl mb-2 text-center">El Barbero</h3>
-            <p className="text-white/60 text-sm mb-4 text-center">Profesional, 28-50 años</p>
-            <div className="space-y-2">
-              <p className="text-white/70 text-sm flex items-start gap-2">
+            <div className="text-4xl mb-2 text-center">💈</div>
+            <h3 className="text-white font-bold text-lg mb-1 text-center">El Barbero</h3>
+            <p className="text-white/60 text-xs mb-2 text-center">Profesional, 28-50 años</p>
+            <div className="space-y-1">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Concentrarse en su trabajo</span>
               </p>
-              <p className="text-white/70 text-sm flex items-start gap-2">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Ver quién sigue en la cola</span>
               </p>
-              <p className="text-white/70 text-sm flex items-start gap-2">
+              <p className="text-white/70 text-xs flex items-start gap-2">
                 <span className="text-blue-400">✓</span>
                 <span>Herramienta profesional y rápida</span>
               </p>
@@ -497,31 +531,31 @@ function Slide7() {
 
   return (
     <div className="relative h-full w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-green-950/20 to-black">
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
             Stack Moderno
           </h2>
-          <div className="h-1 w-20 bg-green-500 mx-auto rounded-full" />
+          <div className="h-1 w-16 bg-green-500 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-3">
           {tech.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 hover:border-green-500/50 transition-all"
             >
-              <div className="text-5xl mb-4">{item.icon}</div>
-              <h3 className="text-white font-bold text-xl mb-2">{item.title}</h3>
-              <p className="text-white/70 text-sm">{item.desc}</p>
+              <div className="text-3xl mb-2">{item.icon}</div>
+              <h3 className="text-white font-bold text-sm mb-1">{item.title}</h3>
+              <p className="text-white/70 text-xs leading-tight">{item.desc}</p>
             </motion.div>
           ))}
         </div>

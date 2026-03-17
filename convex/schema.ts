@@ -298,4 +298,115 @@ export default defineSchema({
     actualizado_en: v.number(),
   })
     .index("por_activo", ["activo"]),
+
+  // ========================================
+  // 🎨 UX RESEARCH - MÓDULO MULTI-AGENTE
+  // ========================================
+
+  // Tabla de User Personas
+  user_personas: defineTable({
+    proyecto_id: v.string(),           // Referencia a proyectos._id
+    nombre: v.string(),
+    edad_rango: v.string(),            // "25-35"
+    ocupacion: v.string(),
+    objetivos: v.array(v.string()),
+    pain_points: v.array(v.string()),
+    tech_savviness: v.union(
+      v.literal("bajo"),
+      v.literal("medio"),
+      v.literal("alto")
+    ),
+    
+    // Metadata
+    creado_por: v.string(),            // "ux_researcher_agent"
+    creado_en: v.number(),
+    actualizado_en: v.number(),
+  })
+    .index("por_proyecto", ["proyecto_id"])
+    .index("por_creado_en", ["creado_en"]),
+
+  // Tabla de Informes de Design Thinking Completos
+  informes_ux: defineTable({
+    proyecto_id: v.string(),
+    proyecto_nombre: v.string(),
+    proyecto_descripcion: v.string(),
+    
+    // Fase 1: Empatía
+    empathy_personas: v.array(v.string()),      // IDs de user_personas
+    empathy_insights: v.array(v.string()),
+    empathy_map: v.any(),                       // JSON del mapa de empatía
+    empathy_methods: v.array(v.string()),       // Métodos de investigación
+    
+    // Fase 2: Definición
+    problem_statement: v.string(),              // POV statement
+    how_might_we: v.array(v.string()),          // Preguntas HMW
+    user_needs: v.array(v.string()),
+    constraints: v.array(v.string()),
+    
+    // Fase 3: Ideación
+    ideas: v.array(v.any()),                    // [{idea, score, viabilidad}]
+    selected_concepts: v.array(v.string()),
+    ideation_techniques: v.array(v.string()),
+    
+    // Fase 4: Prototipado
+    prototype_type: v.string(),                 // "low-fi", "mid-fi", "high-fi"
+    prototype_url: v.optional(v.string()),
+    key_features: v.array(v.string()),
+    assumptions_to_test: v.array(v.string()),
+    
+    // Fase 5: Testing
+    test_participants: v.number(),
+    test_method: v.string(),
+    findings: v.array(v.any()),                 // [{finding, severity}]
+    iterations_needed: v.array(v.string()),
+    
+    // Metadata del informe
+    next_steps: v.array(v.string()),
+    confidence_score: v.number(),               // 0-1
+    iteration_count: v.number(),                // Cuántas veces fue revisado
+    approved_by_evaluator: v.boolean(),
+    
+    // Agente que lo generó
+    generated_by: v.string(),                   // "langgraph_workflow"
+    creado_en: v.number(),
+    actualizado_en: v.number(),
+  })
+    .index("por_proyecto", ["proyecto_id"])
+    .index("por_confidence", ["confidence_score"])
+    .index("por_aprobado", ["approved_by_evaluator"])
+    .index("por_creado_en", ["creado_en"]),
+
+  // Tabla de Ejecuciones de Workflow (para debugging)
+  workflow_executions: defineTable({
+    workflow_type: v.string(),                  // "design_thinking_full"
+    proyecto_id: v.string(),
+    estado: v.union(
+      v.literal("running"),
+      v.literal("completed"),
+      v.literal("failed"),
+      v.literal("cancelled")
+    ),
+    
+    // Progreso
+    current_step: v.string(),                   // "researcher", "facilitator", "evaluator"
+    iteration_count: v.number(),
+    max_iterations: v.number(),
+    
+    // Resultados parciales
+    research_data: v.optional(v.string()),
+    draft_report: v.optional(v.any()),
+    evaluation_feedback: v.optional(v.array(v.string())),
+    
+    // Tiempos
+    started_at: v.number(),
+    completed_at: v.optional(v.number()),
+    duration_ms: v.optional(v.number()),
+    
+    // Metadata
+    triggered_by: v.string(),                   // chat_id de Telegram
+    error_message: v.optional(v.string()),
+  })
+    .index("por_proyecto", ["proyecto_id"])
+    .index("por_estado", ["estado"])
+    .index("por_started_at", ["started_at"]),
 });

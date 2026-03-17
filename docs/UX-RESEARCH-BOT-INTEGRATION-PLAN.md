@@ -815,23 +815,23 @@ export const evaluarInforme = action({
 
 ## 📝 Checklist de Integración
 
-### Fase 0: Preparación
-- [ ] Branch de backup creado
-- [ ] Arquitectura actual documentada
-- [ ] Estructura de carpetas creada
-- [ ] Plan de rollback definido
+### Fase 0: Preparación ✅
+- [x] Branch de backup creado
+- [x] Arquitectura actual documentada
+- [x] Estructura de carpetas creada
+- [x] Plan de rollback definido
 
-### Fase 1: Schemas
-- [ ] 3 tablas nuevas agregadas a schema
-- [ ] Migración ejecutada sin errores
-- [ ] Schemas TypeScript creados
-- [ ] Tests de validación pasando
+### Fase 1: Schemas (Parcial) ⏳
+- [x] Tabla `agenda` agregada a schema (sistema de reuniones)
+- [x] Migración ejecutada sin errores
+- [x] Schemas TypeScript creados (agenda.ts)
+- [ ] Tablas UX Research pendientes (user_personas, informes_ux, workflow_executions)
 
-### Fase 2: Router
-- [ ] Router de intenciones implementado
-- [ ] Webhook modificado
-- [ ] Retrocompatibilidad validada
-- [ ] 30 mensajes de prueba clasificados correctamente
+### Fase 2: Router ✅ COMPLETADA
+- [x] Router de intenciones implementado (`uxResearch/router.ts`)
+- [x] Webhook modificado con routing inteligente
+- [x] Retrocompatibilidad validada (finanzas funciona 100%)
+- [x] Clasificación multi-método (comandos, palabras clave, Gemini)
 
 ### Fase 3: Primer Agente
 - [ ] Agente Researcher funcional

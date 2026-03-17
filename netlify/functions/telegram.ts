@@ -32,13 +32,44 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
     console.log(`📨 Processing: ${text}`);
 
-    // Llamar a Convex action
-    const resultado = await client.action("functions/ai/deepSeek:procesarMensajeTelegram" as any, {
+    // 🔍 PASO 1: Clasificar intención del mensaje
+    console.log("🔍 Clasificando intención...");
+    const clasificacion = await client.action("functions/ai/uxResearch/router:clasificarIntencion" as any, {
       mensaje: text,
       chat_id: chatId,
       username: username,
-      message_id: messageId,
     });
+
+    console.log(`🎯 Intención detectada: ${clasificacion.categoria} (confianza: ${clasificacion.confianza})`);
+
+    // 🎯 PASO 2: Rutear al módulo correspondiente
+    let resultado;
+    
+    if (clasificacion.categoria === "ux_research") {
+      // Módulo UX Research (próximamente)
+      console.log("🎨 Ruta: UX Research Module");
+      resultado = {
+        respuesta: `🎨 **Módulo UX Research**\n\n🚧 En desarrollo...\n\nPróximamente podrás:\n• Generar user personas\n• Crear informes de Design Thinking\n• Analizar insights de usuarios\n\n💡 Por ahora, usa el módulo de finanzas o proyectos.`,
+      };
+    } else if (clasificacion.categoria === "agenda") {
+      // Módulo de Agenda (ya implementado en gemini.ts)
+      console.log("📅 Ruta: Agenda Module (via Gemini)");
+      resultado = await client.action("functions/ai/gemini:procesarMensajeTelegram" as any, {
+        mensaje: text,
+        chat_id: chatId,
+        username: username,
+        message_id: messageId,
+      });
+    } else {
+      // Módulo de Finanzas + General (existente)
+      console.log("💰 Ruta: Finanzas/General Module (Gemini)");
+      resultado = await client.action("functions/ai/gemini:procesarMensajeTelegram" as any, {
+        mensaje: text,
+        chat_id: chatId,
+        username: username,
+        message_id: messageId,
+      });
+    }
 
     console.log("✅ Convex response:", resultado);
 

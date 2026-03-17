@@ -2075,9 +2075,115 @@ ${contextoMemoria}Usuario escribió: ${args.mensaje}`;
       };
     }
     
+    // 📅 COMANDO /REUNION - Agendar reunión con cliente
+    if (lowerMensaje.startsWith("/reunion")) {
+      console.log("📅 Detectado comando /reunion");
+      
+      // Formato: /reunion YYYY-MM-DD HH:MM | Nombre Cliente | Email | Motivo
+      // Ejemplo: /reunion 2026-03-20 14:30 | Juan Pérez | juan@email.com | Consultoría UX
+      const partes = args.mensaje.substring(8).trim().split("|").map(p => p.trim());
+      
+      if (partes.length < 4) {
+        return {
+          respuesta: `❌ *Formato incorrecto*\n\n📝 Usa:\n\`/reunion FECHA HORA | NOMBRE | EMAIL | MOTIVO\`\n\nEjemplo:\n\`/reunion 2026-03-20 14:30 | Juan Pérez | juan@email.com | Consultoría UX\`\n\n💡 También puedes usar lenguaje natural:\n"Quiero agendar reunión mañana 3pm con Juan sobre proyecto iDomo"`,
+          accion: "error_formato_reunion",
+          datos: null
+        };
+      }
+      
+      try {
+        // Parsear fecha y hora
+        const fechaHoraStr = partes[0]; // "2026-03-20 14:30"
+        const [fechaStr, horaStr] = fechaHoraStr.split(" ");
+        const [anio, mes, dia] = fechaStr.split("-").map(Number);
+        const [hora, minuto] = horaStr.split(":").map(Number);
+        
+        const fechaInicio = new Date(anio, mes - 1, dia, hora, minuto).getTime();
+        const clienteNombre = partes[1];
+        const clienteEmail = partes[2];
+        const motivo = partes[3];
+        
+        // Verificar disponibilidad
+        const disponibilidad = await ctx.runQuery(api.functions.ai.agenda.verificarDisponibilidad, {
+          fecha_inicio: fechaInicio,
+          duracion: 30, // Default 30 minutos
+        });
+        
+        if (!disponibilidad.disponible) {
+          const conflictos = disponibilidad.conflictos.map((c: any) => 
+            `• ${c.cliente}: ${c.inicio} - ${c.fin}`
+          ).join('\n');
+          
+          return {
+            respuesta: `⚠️ *Horario No Disponible*\n\n❌ Ya tienes reuniones en ese horario:\n\n${conflictos}\n\n💡 Usa \`/agenda hoy\` para ver horarios disponibles`,
+            accion: "horario_ocupado",
+            datos: disponibilidad
+          };
+        }
+        
+        // Crear reunión
+        const resultado = await ctx.runMutation(api.functions.ai.agenda.crearReunion, {
+          fecha_inicio: fechaInicio,
+          duracion: 30,
+          cliente_nombre: clienteNombre,
+          cliente_email: clienteEmail,
+          motivo: motivo,
+          source: "telegram",
+        });
+        
+        const fechaFormateada = new Date(fechaInicio).toLocaleString('es-CL', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        return {
+          respuesta: `✅ *Reunión Agendada*\n\n👤 **Cliente:** ${clienteNombre}\n📧 **Email:** ${clienteEmail}\n📅 **Fecha:** ${fechaFormateada}\n⏱️ **Duración:** 30 minutos\n📝 **Motivo:** ${motivo}\n\n✨ ¡Confirmación enviada!`,
+          accion: "reunion_creada",
+          datos: resultado
+        };
+        
+      } catch (error: any) {
+        console.error("❌ Error creando reunión:", error);
+        return {
+          respuesta: `❌ Error al agendar reunión: ${error.message}\n\n💡 Verifica el formato de fecha y hora`,
+          accion: "error_crear_reunion",
+          datos: null
+        };
+      }
+    }
+    
+    // 📅 COMANDO /AGENDA - Ver agenda del día
+    if (lowerMensaje === "/agenda" || lowerMensaje === "/agenda hoy") {
+      const reunionesHoy = await ctx.runQuery(api.functions.ai.agenda.obtenerReunionesHoy);
+      
+      if (reunionesHoy.length === 0) {
+        return {
+          respuesta: `📅 *Agenda de Hoy*\n\n🔍 No tienes reuniones agendadas para hoy\n\n💡 Usa \`/reunion\` para agendar una nueva`,
+          accion: "agenda_vacia",
+          datos: []
+        };
+      }
+      
+      const lista = reunionesHoy.map((r: any, idx: number) => {
+        const inicio = new Date(r.fecha_inicio).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+        const fin = new Date(r.fecha_fin).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+        return `${idx + 1}. 🕐 ${inicio} - ${fin}\n   👤 ${r.cliente_nombre}\n   📝 ${r.motivo}`;
+      }).join('\n\n');
+      
+      return {
+        respuesta: `📅 *Agenda de Hoy*\n\n${lista}\n\n📊 Total: ${reunionesHoy.length} reunión(es)`,
+        accion: "agenda_hoy",
+        datos: reunionesHoy
+      };
+    }
+    
     if (lowerMensaje === "/ayuda") {
       return {
-        respuesta: `🤖 *FinBot Pro - Tu Asistente Personal*\n\n📱 *Comandos Rápidos:*\n\n💸 \`/gasto $50 comida\`\n💰 \`/ingreso $100 freelance\`\n📊 \`/resumen\`\n📋 \`/listar\`\n✏️ \`/editar ID tipo\`\n🗑️ \`/eliminar ID\`\n🧾 \`/iva 2026-02\` - IVA mensual (F29)\n🏢 \`/empresa\` - Ver/Configurar empresa\n📋 \`/proyectos\` - Design Thinking\n❓ \`/ayuda\`\n\n💡 *Ejemplos:*\n\`/gasto $25 uber\`\n\`/ingreso $500 cliente\`\n\`/iva\` - IVA mes actual\n\`/iva febrero\` - IVA de febrero\n\n📄 *Facturas:*\nEnvía foto/PDF de factura para registro automático con IVA\n\n🚀 *Rápido y fácil!*`,
+        respuesta: `🤖 *FinBot Pro - Tu Asistente Personal*\n\n📱 *Comandos Rápidos:*\n\n💸 \`/gasto $50 comida\`\n💰 \`/ingreso $100 freelance\`\n📊 \`/resumen\`\n📋 \`/listar\`\n✏️ \`/editar ID tipo\`\n🗑️ \`/eliminar ID\`\n🧾 \`/iva 2026-02\` - IVA mensual (F29)\n🏢 \`/empresa\` - Ver/Configurar empresa\n📋 \`/proyectos\` - Design Thinking\n📅 \`/reunion FECHA HORA | NOMBRE | EMAIL | MOTIVO\`\n📅 \`/agenda\` - Ver reuniones de hoy\n❓ \`/ayuda\`\n\n💡 *Ejemplos:*\n\`/gasto $25 uber\`\n\`/ingreso $500 cliente\`\n\`/iva\` - IVA mes actual\n\`/reunion 2026-03-20 14:30 | Juan | juan@mail.com | UX\`\n\n📄 *Facturas:*\nEnvía foto/PDF de factura para registro automático con IVA\n\n🚀 *Rápido y fácil!*`,
         accion: "ayuda",
         datos: null
       };

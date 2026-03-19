@@ -1,0 +1,304 @@
+---
+import { LanguageSwitch } from './LanguageSwitch';
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="navbar-glassy fixed top-0 left-0 right-0 z-50">
+  <div class="navbar-content max-w-[900px] mx-auto flex justify-between items-center px-6 py-4">
+    <a href="/" class="navbar-logo flex items-center gap-3 no-underline transition-all hover:opacity-80 group">
+      <img src="/img/Logo aperca claro.svg" alt="Logo Aperca" class="h-10 w-auto object-contain">
+      <div class="flex flex-col">
+        <span class="text-2xl lowercase text-white leading-none group-hover:text-[#00D9FF] transition-colors" style="font-family: Impact, 'Haettenschweiler', 'Franklin Gothic Bold', 'Arial Black', sans-serif; font-weight: 900; letter-spacing: 0.02em;">aperca</span>
+        <span class="text-xs font-['Poppins'] text-white/70 mt-0.5">Jorge Cabrera UX</span>
+      </div>
+    </a>
+    
+    <div class="navbar-hamburger hidden flex-col justify-center items-center w-8 h-8 cursor-pointer ml-4" id="navbar-hamburger" role="button" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
+    </div>
+    
+    <div class="navbar-links flex items-center gap-0" id="navbar-links">
+      <a 
+        href="/" 
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-all pb-0.5 no-underline ${currentPath === '/' ? 'text-[#00D9FF] glow-text' : 'text-white/90 hover:text-[#00D9FF]'}`}
+        data-i18n="nav-home"
+      >
+        Inicio
+      </a>
+      <a 
+        href="/mi-perfil" 
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-all pb-0.5 no-underline ${currentPath === '/mi-perfil' ? 'text-[#00D9FF] glow-text' : 'text-white/90 hover:text-[#00D9FF]'}`}
+        data-i18n="nav-profile"
+      >
+        Mi Perfil
+      </a>
+      <div class="relative ml-6 group">
+        <button 
+          class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] cursor-pointer transition-all pb-0.5 no-underline flex items-center gap-1 ${currentPath.includes('/proyectos') ? 'text-[#00D9FF] glow-text' : 'text-white/90 group-hover:text-[#00D9FF]'}`}
+          data-i18n="nav-cases"
+        >
+          Casos de Éxito
+          <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu absolute top-full left-0 mt-2 w-56 bg-[#0A0E27]/95 backdrop-blur-xl rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden border border-[#00D9FF]/20">
+          <a 
+            href="/proyectos/menuclick"
+            class="block px-4 py-3 text-white/90 hover:bg-[#00D9FF]/10 hover:text-[#DC2626] transition-all font-['Poppins'] text-sm border-b border-white/5"
+          >
+            <div class="font-semibold">MenuClick</div>
+            <div class="text-xs text-white/50 mt-0.5">E-commerce sin Comisiones</div>
+          </a>
+          <a 
+            href="/proyectos/fidigital"
+            class="block px-4 py-3 text-white/90 hover:bg-[#00D9FF]/10 hover:text-[#F97316] transition-all font-['Poppins'] text-sm border-b border-white/5"
+          >
+            <div class="font-semibold">FiDigital</div>
+            <div class="text-xs text-white/50 mt-0.5">Sistema de Gestión de Turnos</div>
+          </a>
+          <a 
+            href="/proyectos/idomo"
+            class="block px-4 py-3 text-white/90 hover:bg-[#00D9FF]/10 hover:text-[#00D9FF] transition-all font-['Poppins'] text-sm border-b border-white/5"
+          >
+            <div class="font-semibold">iDomo</div>
+            <div class="text-xs text-white/50 mt-0.5">Gestión de Conserjería Digital</div>
+          </a>
+          <a 
+            href="/proyectos/importadora-dr"
+            class="block px-4 py-3 text-white/90 hover:bg-[#00D9FF]/10 hover:text-[#b80000] transition-all font-['Poppins'] text-sm"
+          >
+            <div class="font-semibold">Importadora D&R</div>
+            <div class="text-xs text-white/50 mt-0.5">Sistema ERP de Inventario</div>
+          </a>
+        </div>
+      </div>
+      <a 
+        href="/#contacto" 
+        class="nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-all pb-0.5 no-underline text-white/90 hover:text-[#00D9FF]"
+        data-i18n="nav-contact"
+      >
+        Contacto
+      </a>
+      <div class="ml-6">
+        <LanguageSwitch client:load />
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('navbar-hamburger');
+    const navLinks = document.getElementById('navbar-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!isExpanded));
+        navLinks.classList.toggle('open');
+      });
+
+      const links = navLinks.querySelectorAll('a.nav-link');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          if (navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    }
+
+    const dropdownButton = document.querySelector('.group button');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownButton && dropdownMenu) {
+      dropdownButton.addEventListener('click', (e) => {
+        if (window.innerWidth <= 900) {
+          e.preventDefault();
+          e.stopPropagation();
+          dropdownMenu.classList.toggle('dropdown-mobile-open');
+        }
+      });
+      
+      const dropdownLinks = dropdownMenu.querySelectorAll('a');
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (navLinks && navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            if (hamburger) {
+              hamburger.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+      });
+    }
+
+    const navTranslations = {
+      es: {
+        'nav-home': 'Inicio',
+        'nav-profile': 'Mi Perfil',
+        'nav-cases': 'Casos de Éxito',
+        'nav-contact': 'Contacto'
+      },
+      en: {
+        'nav-home': 'Home',
+        'nav-profile': 'My Profile',
+        'nav-cases': 'Success Stories',
+        'nav-contact': 'Contact'
+      }
+    };
+
+    function applyNavTranslations(locale: string) {
+      const t = navTranslations[locale as 'es' | 'en'] || navTranslations.es;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key && t[key as keyof typeof t]) {
+          element.textContent = t[key as keyof typeof t];
+        }
+      });
+    }
+
+    const savedLocale = localStorage.getItem('locale') || 'es';
+    applyNavTranslations(savedLocale);
+
+    window.addEventListener('localeChanged', (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      applyNavTranslations(customEvent.detail);
+    });
+  });
+</script>
+
+<style>
+  /* Glassmorphism Effect - iDomo Dark Theme */
+  .navbar-glassy {
+    background: rgba(10, 14, 39, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(0, 217, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    animation: fadeInNav 0.6s ease-out;
+  }
+
+  @keyframes fadeInNav {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Cyan Glow Effect */
+  .glow-text {
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+  }
+
+  .nav-link:hover {
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+  }
+
+  /* Dropdown Glassmorphism */
+  .dropdown-menu {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(0, 217, 255, 0.1);
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 900px) {
+    .navbar-hamburger {
+      display: flex !important;
+    }
+
+    .navbar-links {
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(0, 217, 255, 0.2);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 16px;
+      padding: 16px 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 90vw;
+      max-width: 280px;
+      z-index: 200;
+    }
+
+    .navbar-links.open {
+      display: flex !important;
+    }
+
+    .navbar-links .nav-link {
+      margin: 8px 0 !important;
+      font-size: 1.1em;
+      margin-left: 0 !important;
+      width: 100%;
+      text-align: center;
+      padding: 8px 16px;
+    }
+
+    .navbar-links .group {
+      width: 100%;
+      margin-left: 0 !important;
+    }
+
+    .navbar-links .group button {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      margin: 8px 0;
+      font-size: 1.1em;
+      padding: 8px 16px;
+    }
+
+    .dropdown-menu {
+      position: static !important;
+      margin-top: 0 !important;
+      width: 100% !important;
+      opacity: 0 !important;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: none;
+      border: none;
+      background: transparent;
+      visibility: hidden !important;
+    }
+
+    .dropdown-menu.dropdown-mobile-open {
+      opacity: 1 !important;
+      max-height: 300px;
+      visibility: visible !important;
+    }
+
+    .dropdown-menu a {
+      background: rgba(0, 217, 255, 0.05);
+      border-radius: 8px;
+      margin: 4px 8px;
+      border: 1px solid rgba(0, 217, 255, 0.1);
+    }
+  }
+
+  /* Smooth transitions */
+  * {
+    transition: color 0.2s ease, background-color 0.2s ease, text-shadow 0.2s ease;
+  }
+</style>

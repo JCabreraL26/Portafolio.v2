@@ -310,12 +310,12 @@ import { InventoryScanner } from '../../components/InventoryScanner';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
           </a>
-          <a 
-            href="/#contacto" 
-            class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30"
+          <button 
+            onclick="window.dispatchEvent(new CustomEvent('openChat', { detail: { type: 'schedule_meeting', initialMessage: 'Hola, me interesa la solución de inventario para mi negocio.' } }))"
+            class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 border-none cursor-pointer"
           >
             <span data-i18n="cta-contact">Contactar</span>
-          </a>
+          </button>
           <a 
             href="/" 
             class="px-8 py-4 border-2 border-[#1a1a1a] hover:bg-[#1a1a1a] text-[#1a1a1a] hover:text-white font-['Poppins'] font-semibold rounded-xl transition-all duration-300"

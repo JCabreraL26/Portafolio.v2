@@ -350,7 +350,8 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
-            onclick="window.dispatchEvent(new CustomEvent('openChat', { detail: { type: 'contact' } }))"
+            id="contact-button"
+            type="button"
             class="px-8 py-4 border-2 border-[#111] text-[#111] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:text-white hover:scale-105 no-underline"
             data-i18n="contact-email-button"
           >
@@ -518,6 +519,15 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         const customEvent = event as CustomEvent<string>;
         applyTranslations(customEvent.detail);
       });
+
+      // Event listener para el botón de contacto
+      const contactButton = document.getElementById('contact-button');
+      if (contactButton) {
+        contactButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent('openChat', { detail: { type: 'contact' } }));
+        });
+      }
     });
   </script>
 </Layout>

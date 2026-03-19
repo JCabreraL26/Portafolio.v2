@@ -75,7 +75,7 @@ const ogImageUrl = new URL(image, siteUrl).href;
   <body class="bg-[#FAF9F6] text-neutral-950 antialiased">
     <slot />
     
-    <!-- Chatbot flotante - Cargado con client:idle para no afectar Core Web Vitals -->
-    <ChatbotWidget client:idle />
+    <!-- Chatbot flotante - Cargado con client:load para asegurar disponibilidad inmediata -->
+    <ChatbotWidget client:load />
   </body>
 </html>

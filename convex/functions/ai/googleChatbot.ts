@@ -289,8 +289,10 @@ Cuando pregunten por iDomo/idomo/IDOMO:
 ✅ SÍ: "¿Conserje pierde 45 min/día en cuadernos? iDomo: QR en 30 seg, $375k/mes ahorrados. 48 horas operando."
 
 Cuando pregunten por FiDigital/fidigital:
-❌ NO: "FiDigital es una plataforma robusta..."
-✅ SÍ: "¿Pierdes clientes por espera? FiDigital: cola virtual, cliente llega justo a tiempo. 30% más clientes. $50k/mes."
+❌ NO: "FiDigital es una plataforma financiera..." o "plataforma robusta..."
+✅ SÍ: "¿Tienes barbería/peluquería? ¿Pierdes clientes por espera larga? FiDigital: cola virtual, cliente reserva desde casa, llega justo a tiempo. 30% más clientes atendidos. $50k/mes."
+
+IMPORTANTE: FiDigital es SOLO para barberías/peluquerías (gestión de turnos y colas), NO es plataforma financiera.
 
 NUNCA uses frases genéricas como:
 ❌ "plataforma desarrollada a medida"

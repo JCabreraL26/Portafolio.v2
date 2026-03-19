@@ -349,13 +349,13 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="mailto:jcabreralabbe@gmail.com"
+          <button 
+            onclick="window.dispatchEvent(new CustomEvent('openChat', { detail: { type: 'contact' } }))"
             class="px-8 py-4 border-2 border-[#111] text-[#111] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:text-white hover:scale-105 no-underline"
             data-i18n="contact-email-button"
           >
-            Email
-          </a>
+            Contacto
+          </button>
           <a 
             href="https://linkedin.com/in/jorge-cabrera-ux" 
             target="_blank"

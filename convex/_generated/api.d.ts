@@ -9,6 +9,7 @@
  */
 
 import type * as constants from "../constants.js";
+import type * as constants_proyectos from "../constants/proyectos.js";
 import type * as functions_agenda from "../functions/agenda.js";
 import type * as functions_ai_agenda from "../functions/ai/agenda.js";
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
@@ -29,6 +30,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   constants: typeof constants;
+  "constants/proyectos": typeof constants_proyectos;
   "functions/agenda": typeof functions_agenda;
   "functions/ai/agenda": typeof functions_ai_agenda;
   "functions/ai/gemini": typeof functions_ai_gemini;

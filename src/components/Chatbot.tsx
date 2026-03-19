@@ -9,12 +9,18 @@ interface Message {
   timestamp: number;
 }
 
+interface ChatContext {
+  type: 'general' | 'schedule_meeting' | 'contact';
+  initialMessage?: string;
+}
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sessionId] = useState(() => `web_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [context, setContext] = useState<ChatContext>({ type: 'general' });
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,17 +44,48 @@ export function Chatbot() {
     }
   }, [isOpen]);
   
+  // Escuchar eventos globales para abrir chat
+  useEffect(() => {
+    const handleOpenChat = (e: Event) => {
+      const customEvent = e as CustomEvent<ChatContext>;
+      const { type, initialMessage } = customEvent.detail || { type: 'general' };
+      
+      setContext({ type, initialMessage });
+      setIsOpen(true);
+      
+      // Si hay mensaje inicial, enviarlo automáticamente después de abrir
+      if (initialMessage) {
+        setTimeout(() => {
+          setInputText(initialMessage);
+        }, 500);
+      }
+    };
+    
+    window.addEventListener('openChat', handleOpenChat);
+    return () => window.removeEventListener('openChat', handleOpenChat);
+  }, []);
+  
   // Mensaje de bienvenida al abrir por primera vez
   useEffect(() => {
     if (isOpen && messages.length === 0) {
+      let welcomeText = "";
+      
+      if (context.type === 'schedule_meeting') {
+        welcomeText = "📅 **¡Perfecto! Agendemos tu reunión**\n\nPara agendar tu reunión con Jorge Cabrera, necesito algunos datos:\n\n**Opciones de horario disponibles:**\n• Lunes a Viernes: 9:00 - 18:00\n• Duración: 30 minutos\n\n¿Qué día y hora prefieres? (Ej: 'Mañana 15:00' o 'Viernes 10:30')";
+      } else if (context.type === 'contact') {
+        welcomeText = "💬 **¡Hola! ¿En qué puedo ayudarte?**\n\nPuedes preguntarme sobre:\n• 📅 Agendar una reunión\n• 💼 Servicios de desarrollo\n• 📊 Proyectos anteriores\n• 💰 Cotizaciones\n\nTambién puedes escribir directamente a **contacto@aperca.cl**";
+      } else {
+        welcomeText = "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con soluciones de software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages\n• 🏢 Sitios web completos\n• 🛒 E-commerce sin comisiones\n• ⚙️ ERP personalizados\n\n¿En qué puedo ayudarte? Pregúntame por cualquier servicio para conocer más detalles.\n\n📧 **contacto@aperca.cl**";
+      }
+      
       setMessages([{
         id: "welcome",
-        texto: "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con soluciones de software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages\n• 🏢 Sitios web completos\n• 🛒 E-commerce sin comisiones\n• ⚙️ ERP personalizados\n\n¿En qué puedo ayudarte? Pregúntame por cualquier servicio para conocer más detalles.\n\n📧 **contacto@aperca.cl**",
+        texto: welcomeText,
         esUsuario: false,
         timestamp: Date.now(),
       }]);
     }
-  }, [isOpen]);
+  }, [isOpen, context]);
   
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
@@ -68,8 +105,9 @@ export function Chatbot() {
       const response = await procesarMensaje({
         mensaje: inputText,
         session_id: sessionId,
-        ip_usuario: undefined, // El servidor lo detecta automáticamente
+        ip_usuario: undefined,
         user_agent: navigator.userAgent,
+        context: context.type,
       });
       
       const botMessage: Message = {

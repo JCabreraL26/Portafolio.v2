@@ -166,8 +166,10 @@ export const procesarMensajeWeb = action({
     session_id: v.string(),
     ip_usuario: v.optional(v.string()),
     user_agent: v.optional(v.string()),
+    context: v.optional(v.union(v.literal("general"), v.literal("schedule_meeting"), v.literal("contact"))),
   },
   handler: async (ctx, args): Promise<{ respuesta: string; tipo_mensaje: string; intencion_detectada: string; agente: string; servicios_sugeridos: any[] }> => {
+    const chatContext = args.context || "general";
     const inicioTotal = Date.now();
     console.log(`═══════════════════════════════════════`);
     console.log(`🌐 WEB CHATBOT - INICIO DE FUNCIÓN`);
@@ -499,23 +501,26 @@ ${contextoHistorial}`;
       
       console.log(`📋 Es agendamiento: ${esAgendamiento}`);
       
-      if (esAgendamiento) {
+      if (esAgendamiento || chatContext === "schedule_meeting") {
         tipo_mensaje = "contacto";
         intencion_detectada = "agendamiento";
         
+        // FLUJO OPTIMIZADO PARA CONVERSIÓN RÁPIDA
         // Paso 1: Usar Gemini para extraer datos estructurados del mensaje
         const extractorPrompt = `Analiza el siguiente mensaje y extrae información para agendar una reunión.
 
+CONTEXTO: ${chatContext === "schedule_meeting" ? "Usuario hizo click en 'Agendar Reunión' - alta intención de compra" : "Usuario preguntó por agendar"}
+
 Mensaje del usuario: "${args.mensaje}"
 
-Contexto de conversación previa (si existe):
+Conversación previa:
 ${historial.length > 0 ? historial.slice(-3).map((m: any) => `Usuario: ${m.mensaje_usuario}\nBot: ${m.respuesta_bot}`).join('\n') : 'Primera interacción'}
 
 EXTRAE (si están disponibles):
-- nombre: El nombre completo del cliente
-- email: El email de contacto
-- fecha: Fecha deseada en formato YYYY-MM-DD
-- hora: Hora en formato HH:MM (24 horas)
+- nombre: Nombre completo del cliente
+- email: Email de contacto
+- fecha: Fecha deseada en formato YYYY-MM-DD (o "mañana", "hoy", día de semana)
+- hora: Hora en formato HH:MM (o "mañana", "tarde", "10am", etc)
 - motivo: Razón de la reunión
 
 RESPONDE EN JSON ESTRICTO:
@@ -526,7 +531,7 @@ RESPONDE EN JSON ESTRICTO:
   "fecha": "YYYY-MM-DD",
   "hora": "HH:MM",
   "motivo": "...",
-  "faltan": ["campo1", "campo2"]
+  "faltan": ["nombre", "email", "fecha", "hora"]
 }
 
 Si falta información, marca tiene_datos_completos: false y lista qué falta en "faltan".`;
@@ -600,23 +605,46 @@ Si necesitas cancelar o reprogramar, responde aquí mismo. ¡Nos vemos! 🎉`;
 Por favor intenta con otro horario o contacta directamente a jcabreralabbe@gmail.com`;
           }
         } else {
-          // Paso 3: Si faltan datos, pedir lo que falta conversacionalmente
-          const promptSeguimiento = `El usuario quiere agendar una reunión pero falta información.
+          // Paso 3: CONVERSIÓN RÁPIDA - Ofrecer opciones de horario inmediatas
+          const hoy = new Date();
+          const mañana = new Date(hoy);
+          mañana.setDate(hoy.getDate() + 1);
+          
+          const opcionesHorario = [
+            { dia: "Hoy", fecha: hoy, horas: ["15:00", "17:00", "19:00"] },
+            { dia: "Mañana", fecha: mañana, horas: ["10:00", "14:00", "16:00"] },
+          ];
+          
+          const promptSeguimiento = `El usuario quiere agendar una reunión. CONVERSIÓN RÁPIDA.
 
 Datos que ya tenemos:
 ${JSON.stringify(datosExtraidos, null, 2)}
 
-Genera una respuesta amable pidiendo SOLO la información faltante. Sé conciso y directo.
-Incluye disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM.`;
+INSTRUCCIONES:
+1. Si falta nombre/email: Pídelos de forma ULTRA concisa (1 línea)
+2. Si falta fecha/hora: Ofrece 3 opciones ESPECÍFICAS de hoy o mañana
+3. Usa formato: "¿Te viene bien [DÍA] a las [HORA]?"
+4. Máximo 80 palabras
+5. Tono: Directo, amigable, orientado a CERRAR la cita YA
 
-          respuesta = await llamarGeminiConFallback(promptSeguimiento) || `🗓️ Para agendar tu reunión necesito:
+Genera respuesta optimizada para conversión.`;
 
-${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}
-
-📅 Disponibilidad: Lunes a Domingo, 8:00 AM - 10:00 PM
-⏱️ Duración: 30 minutos
-
-¡Comparte los datos y agendamos! 📧`;
+          const respuestaGemini = await llamarGeminiConFallback(promptSeguimiento);
+          
+          // Agregar opciones de horario si faltan fecha/hora
+          const faltaHorario = datosExtraidos.faltan?.includes("fecha") || datosExtraidos.faltan?.includes("hora");
+          
+          if (faltaHorario) {
+            const opcionesTexto = opcionesHorario.map(opt => {
+              const fechaStr = opt.fecha.toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' });
+              const horasStr = opt.horas.map(h => `**${h}**`).join(', ');
+              return `📅 **${opt.dia}** (${fechaStr}): ${horasStr}`;
+            }).join('\n');
+            
+            respuesta = `${respuestaGemini || '�️ ¡Perfecto! Agendemos tu reunión.'}\n\n**Opciones disponibles:**\n${opcionesTexto}\n\n💡 Responde con el día y hora que prefieras (ej: "Mañana 14:00")`;
+          } else {
+            respuesta = respuestaGemini || `🗓️ Para confirmar tu reunión necesito:\n\n${datosExtraidos.faltan?.map((f: string) => `• ${f}`).join('\n')}\n\n¡Compártelos y agendamos en segundos! ⚡`;
+          }
         }
         
       } else {

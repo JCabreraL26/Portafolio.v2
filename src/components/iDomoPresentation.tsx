@@ -220,16 +220,23 @@ function Slide1({ liveCount }: { liveCount: number }) {
             <span>Ver Demo en Vivo</span>
           </a>
 
-          <a
-            href="mailto:contacto@aperca.cl?subject=Solicitud de Reunión - iDomo&body=Hola, me interesa agendar una reunión para conocer más sobre iDomo."
-            className="group inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 text-sm sm:text-base font-bold text-white transition-all hover:scale-105 w-full sm:w-auto justify-center"
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('openChat', {
+                detail: {
+                  type: 'schedule_meeting',
+                  initialMessage: 'Hola, me gustaría agendar una reunión para conocer más sobre iDomo'
+                }
+              }));
+            }}
+            className="group inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 text-sm sm:text-base font-bold text-white transition-all hover:scale-105 w-full sm:w-auto justify-center cursor-pointer"
             style={{ background: "rgba(0, 217, 255, 0.1)", backdropFilter: "blur(10px)", border: "2px solid rgba(0, 217, 255, 0.3)" }}
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>Agendar Reunión</span>
-          </a>
+          </button>
         </motion.div>
 
         <motion.div
@@ -715,16 +722,23 @@ function Slide8({ goToSlide }: { goToSlide: (index: number) => void }) {
             <span>Ver Demo en Vivo</span>
           </a>
 
-          <a
-            href="mailto:contacto@aperca.cl?subject=Solicitud de Reunión - iDomo&body=Hola, me interesa agendar una reunión para conocer más sobre iDomo."
-            className="group inline-flex items-center justify-center gap-2 rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold text-white transition-all hover:scale-105"
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('openChat', {
+                detail: {
+                  type: 'schedule_meeting',
+                  initialMessage: 'Hola, me gustaría agendar una reunión para conocer más sobre iDomo'
+                }
+              }));
+            }}
+            className="group inline-flex items-center justify-center gap-2 rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold text-white transition-all hover:scale-105 cursor-pointer"
             style={{ background: "rgba(255, 255, 255, 0.2)", backdropFilter: "blur(10px)", border: "2px solid rgba(255, 255, 255, 0.3)" }}
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>Agendar Reunión</span>
-          </a>
+          </button>
         </motion.div>
 
         <motion.p

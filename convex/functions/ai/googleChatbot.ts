@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { mutation, query, action } from "../../_generated/server";
 import { api, internal } from "../../_generated/api";
 import { GoogleGenAI } from "@google/genai";
-import { EMPRESA, SERVICIOS, DESIGN_THINKING, PROYECTOS_DESTACADOS, FAQS, CHATBOT_CONFIG } from "../../constants";
+import { EMPRESA, SERVICIOS, DESIGN_THINKING, PROYECTOS_DESTACADOS, FAQS, CHATBOT_CONFIG, PROYECTO_IDOMO, PROYECTO_FIDIGITAL } from "../../constants";
 
 // Google Chatbot - Modo Cliente con Acceso Limitado
 // Solo lectura de servicios y respuestas básicas
@@ -391,6 +391,78 @@ Siguiente: Probar RAG y Gemini`;
    Resultado: 0 descuadres en 6 meses operando
    Link: jorge-cabrera.cl/proyectos/importadora-dr
 
+🏢 **iDomo - Sistema de Gestión de Conserjería Digital**
+   
+   📊 **El Problema:**
+   • Tiempo perdido: 45 min/día en escritura manual = $225.000/mes
+   • Registro visitas: 3-5 min manual vs 30 seg con QR (85% menos tiempo)
+   • Recepción encomiendas: 2-3 min manual vs 45 seg digital (75% menos)
+   • Reportes diarios: 30-60 min manual vs automático en tiempo real
+   • Errores: Letra ilegible, papeles perdidos, información incompleta
+   
+   💡 **La Solución:**
+   • QR Digital: Residente genera desde celular, conserje escanea en 30 seg
+   • Gestión Encomiendas: Registro digital con foto, notificaciones automáticas
+   • Dashboard Admin: Métricas tiempo real, reportes 1 click, alertas automáticas
+   • PWA Instalable: App móvil sin App Store, funciona offline
+   • Multi-Tenant Seguro: Cada edificio aislado, encriptación nivel bancario
+   
+   🎯 **Stack Técnico:**
+   • Frontend: React 19 + Vite + PWA
+   • Backend: Supabase (PostgreSQL + Auth + Edge Functions)
+   • Seguridad: Row Level Security (RLS), HMAC-SHA256 para QR
+   • Offline: IndexedDB + cola de sincronización
+   
+   ✅ **ROI y Resultados:**
+   • Ahorro: $375.000/mes por edificio
+   • ROI: 750% primer mes, payback en 4 días
+   • Implementación: 48 horas operando
+   • Precio: $0 prueba 30 días, luego $49.990/mes
+   
+   📌 **Casos Reales:**
+   • Edificio Las Terrazas (120 unidades): $420.000 ahorrados/mes, satisfacción 95%
+   • Condominio Vista Verde (80 unidades): Tiempo espera reducido 90%
+   
+   🎬 **Demo:** jorge-cabrera.cl/proyectos/idomo
+
+💈 **FiDigital - Sistema de Turnos y Colas Virtuales**
+   
+   📊 **El Problema:**
+   • Clientes no saben cuánto esperarán (frustración)
+   • 30% de clientes se van sin atenderse por espera indefinida
+   • Gestión manual: papel, confusión, errores
+   • Clientes deben estar físicamente en local para hacer fila
+   
+   💡 **La Solución:**
+   • Cola Virtual: Cliente reserva desde casa, ve tiempo espera en vivo
+   • Cálculo Dinámico ETA: Predicción precisa basada en servicios en curso
+   • Panel Barbero Reactivo: Dashboard tiempo real, auto-actualizado
+   • Sin Login: Reserva con nombre + teléfono, fricción mínima
+   • Notificaciones: WhatsApp/SMS 15 min antes del turno
+   
+   🎯 **Stack Técnico:**
+   • Frontend: Next.js 16 + React 19 + Tailwind CSS 4
+   • Backend: Convex (Document-Relational DB + Serverless)
+   • Realtime: Suscripciones automáticas WebSocket
+   • PWA: Instalable, funciona offline
+   
+   ✅ **Resultados:**
+   • 30% más clientes atendidos
+   • 0 quejas por espera
+   • Cliente llega justo a tiempo, 0 espera física
+   • Satisfacción 95%
+   
+   💰 **Precio:**
+   • Setup: $500.000 (una vez)
+   • Mensual: $50.000/mes
+   • Implementación: 1 semana operando
+   
+   📌 **Casos de Uso:**
+   • Barbería Premium (3 barberos): 30% más clientes, 0 quejas
+   • Peluquería Unisex (2 estilistas): 50% más reservas
+   
+   🎬 **Demo:** jorge-cabrera.cl/proyectos/fidigital
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 ESTRATEGIA DE CONVERSACIÓN:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -407,6 +479,12 @@ Siguiente: Probar RAG y Gemini`;
      • **MenuClick** si habla de e-commerce/ventas online/delivery
        → Menciona: "Como Más Pizza que ahorra $500k/mes vs apps delivery"
        → Link video: jorge-cabrera.cl/proyectos/menuclick
+     • **iDomo** si habla de condominios/edificios/conserjería/gestión accesos
+       → Menciona: "Ahorra $375k/mes, payback en 4 días, 48 horas operando"
+       → Link demo: jorge-cabrera.cl/proyectos/idomo
+     • **FiDigital** si habla de barberías/peluquerías/turnos/colas/agendamiento
+       → Menciona: "30% más clientes atendidos, 0 espera física, cola virtual"
+       → Link demo: jorge-cabrera.cl/proyectos/fidigital
      • **Importadora D&R** si habla de gestión/inventario/ERP
        → Menciona: "0 descuadres en 6 meses"
 

@@ -5,6 +5,9 @@
  * para el sistema de IA (Telegram Bot + Web Chatbot)
  */
 
+// Importar proyectos detallados
+export { PROYECTO_IDOMO, PROYECTO_FIDIGITAL } from './constants/proyectos';
+
 // ===================================
 // IDENTIDAD CORPORATIVA
 // ===================================

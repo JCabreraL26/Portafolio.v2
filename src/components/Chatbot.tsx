@@ -53,8 +53,17 @@ export function Chatbot() {
       setContext({ type, initialMessage });
       setIsOpen(true);
       
-      // Si hay mensaje inicial, enviarlo automáticamente después de abrir
-      if (initialMessage) {
+      // Si es agendamiento, pre-llenar con hora sugerida para acción rápida
+      if (type === 'schedule_meeting') {
+        const mañana = new Date();
+        mañana.setDate(mañana.getDate() + 1);
+        const horaSugerida = "Mañana 14:00";
+        
+        setTimeout(() => {
+          setInputText(horaSugerida);
+        }, 500);
+      } else if (initialMessage) {
+        // Para otros contextos, usar mensaje inicial si existe
         setTimeout(() => {
           setInputText(initialMessage);
         }, 500);

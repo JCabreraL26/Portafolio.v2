@@ -223,10 +223,7 @@ function Slide1({ liveCount }: { liveCount: number }) {
           <button
             onClick={() => {
               window.dispatchEvent(new CustomEvent('openChat', {
-                detail: {
-                  type: 'schedule_meeting',
-                  initialMessage: 'Hola, me gustaría agendar una reunión para conocer más sobre iDomo'
-                }
+                detail: { type: 'schedule_meeting' }
               }));
             }}
             className="group inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 text-sm sm:text-base font-bold text-white transition-all hover:scale-105 w-full sm:w-auto justify-center cursor-pointer"
@@ -725,10 +722,7 @@ function Slide8({ goToSlide }: { goToSlide: (index: number) => void }) {
           <button
             onClick={() => {
               window.dispatchEvent(new CustomEvent('openChat', {
-                detail: {
-                  type: 'schedule_meeting',
-                  initialMessage: 'Hola, me gustaría agendar una reunión para conocer más sobre iDomo'
-                }
+                detail: { type: 'schedule_meeting' }
               }));
             }}
             className="group inline-flex items-center justify-center gap-2 rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold text-white transition-all hover:scale-105 cursor-pointer"

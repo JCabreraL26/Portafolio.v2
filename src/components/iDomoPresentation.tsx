@@ -259,14 +259,18 @@ function Slide1({ liveCount }: { liveCount: number }) {
 // SLIDE 2: Video de Promoción
 function VideoSlide() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [videoSrc, setVideoSrc] = useState('');
 
   const openModal = () => {
+    // Cargar src dinámicamente como MenuClick
+    setVideoSrc('https://player.vimeo.com/video/1175745019?autoplay=1&muted=1&quality=1080p&controls=1&title=0&byline=0&portrait=0&h=0&sidedock=0&share=0');
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setVideoSrc(''); // Limpiar src como MenuClick
     document.body.style.overflow = 'unset';
   };
 
@@ -356,10 +360,10 @@ function VideoSlide() {
             {/* Video Container */}
             <div className="w-full h-full bg-black rounded-lg overflow-hidden">
               <iframe
-                src="https://player.vimeo.com/video/1175745019?autoplay=1&muted=1&quality=1080p&controls=1&title=0&byline=0&portrait=0&h=0&sidedock=0&share=0"
+                src={videoSrc}
                 className="w-full h-full"
                 frameBorder="0"
-                allow="autoplay=1; muted=1; fullscreen; picture-in-picture"
+                allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
               />
             </div>

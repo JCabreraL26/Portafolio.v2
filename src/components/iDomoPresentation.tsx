@@ -9,7 +9,7 @@ interface IDomoPresentationProps {
 
 export function IDomoPresentation({ liveCount = 12 }: IDomoPresentationProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 8;
+  const totalSlides = 9;
 
   const nextSlide = useCallback(() => {
     if (currentSlide < totalSlides - 1) {
@@ -83,13 +83,14 @@ export function IDomoPresentation({ liveCount = 12 }: IDomoPresentationProps) {
           className="absolute inset-0"
         >
           {currentSlide === 0 && <Slide1 liveCount={liveCount} />}
-          {currentSlide === 1 && <Slide2 />}
-          {currentSlide === 2 && <Slide3 />}
-          {currentSlide === 3 && <Slide4 />}
-          {currentSlide === 4 && <Slide5 />}
-          {currentSlide === 5 && <Slide6 />}
-          {currentSlide === 6 && <Slide7 />}
-          {currentSlide === 7 && <Slide8 goToSlide={goToSlide} />}
+          {currentSlide === 1 && <VideoSlide />}
+          {currentSlide === 2 && <Slide2 />}
+          {currentSlide === 3 && <Slide3 />}
+          {currentSlide === 4 && <Slide4 />}
+          {currentSlide === 5 && <Slide5 />}
+          {currentSlide === 6 && <Slide6 />}
+          {currentSlide === 7 && <Slide7 />}
+          {currentSlide === 8 && <Slide8 goToSlide={goToSlide} />}
         </motion.div>
       </AnimatePresence>
 
@@ -255,7 +256,121 @@ function Slide1({ liveCount }: { liveCount: number }) {
   );
 }
 
-// SLIDE 2: El Problema del Papel
+// SLIDE 2: Video de Promoción
+function VideoSlide() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  return (
+    <>
+      <div className="relative h-full w-full flex items-center justify-center bg-linear-to-br from-[#0A0E27] via-[#0D1117] to-[#0A0E27]">
+        {/* Video Container con Thumbnail */}
+        <div className="relative w-full h-full">
+          {/* Thumbnail de Vimeo */}
+          <div className="absolute inset-0">
+            <img 
+              src="https://vumbnail.com/1175745019.jpg" 
+              alt="iDomo - Video de Promoción" 
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            {/* Overlay sutil */}
+            <div className="absolute inset-0 bg-black/30"></div>
+          </div>
+          
+          {/* Contenido centrado con ajuste para flechas */}
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="text-center max-w-4xl mx-auto px-8 sm:px-12">
+              {/* Título */}
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 sm:mb-8"
+              >
+                Gestión smart de comunidades
+              </motion.h2>
+              
+              {/* Botón Play centrado */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={openModal}
+                className="w-20 h-20 sm:w-24 sm:h-24 bg-[#00D9FF] rounded-full flex items-center justify-center text-white shadow-2xl hover:bg-[#00BCD4] transition-all duration-300 relative mx-auto"
+              >
+                {/* Efecto de pulse */}
+                <div className="absolute inset-0 rounded-full border-4 border-[#00D9FF]/30 animate-ping"></div>
+                {/* Icono play */}
+                <svg className="w-8 h-8 sm:w-10 sm:h-10 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </motion.button>
+              
+              {/* Bajada */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="text-lg sm:text-xl text-white/80 mt-8 sm:mt-12 max-w-2xl mx-auto"
+              >
+                Dale play y mira cómo funciona. Del caos del papel al orden digital.
+              </motion.p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal Fullscreen para el video */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+          {/* Overlay */}
+          <div 
+            className="absolute inset-0 bg-black/95 backdrop-blur-sm"
+            onClick={closeModal}
+          />
+          
+          {/* Contenido del modal */}
+          <div className="relative w-[90%] max-w-5xl aspect-video">
+            {/* Botón cerrar */}
+            <button
+              onClick={closeModal}
+              className="absolute -top-14 right-0 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-all"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            {/* Video Container */}
+            <div className="w-full h-full bg-black rounded-lg overflow-hidden">
+              <iframe
+                src="https://player.vimeo.com/video/1175745019?autoplay=1&quality=1080p&controls=1&title=0&byline=0&portrait=0"
+                className="w-full h-full"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// SLIDE 3: El Problema del Papel (antes Slide 2)
 function Slide2() {
   const problems = [
     {

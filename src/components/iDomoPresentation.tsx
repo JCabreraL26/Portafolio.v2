@@ -262,8 +262,8 @@ function VideoSlide() {
   const [videoSrc, setVideoSrc] = useState('');
 
   const openModal = () => {
-    // Cargar src dinámicamente como MenuClick
-    setVideoSrc('https://player.vimeo.com/video/1175745019?autoplay=1&muted=1&quality=1080p&controls=1&title=0&byline=0&portrait=0&h=0&sidedock=0&share=0');
+    // Cargar src exactamente como MenuClick
+    setVideoSrc('https://player.vimeo.com/video/1175745019?autoplay=1&quality=1080p&controls=1&title=0&byline=0&portrait=0');
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };

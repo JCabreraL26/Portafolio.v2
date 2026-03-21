@@ -356,10 +356,10 @@ function VideoSlide() {
             {/* Video Container */}
             <div className="w-full h-full bg-black rounded-lg overflow-hidden">
               <iframe
-                src="https://player.vimeo.com/video/1175745019?autoplay=1&quality=1080p&controls=1&title=0&byline=0&portrait=0&h=0"
+                src="https://player.vimeo.com/video/1175745019?autoplay=1&muted=1&quality=1080p&controls=1&title=0&byline=0&portrait=0&h=0&sidedock=0&share=0"
                 className="w-full h-full"
                 frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
+                allow="autoplay=1; muted=1; fullscreen; picture-in-picture"
                 allowFullScreen
               />
             </div>

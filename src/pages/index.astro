@@ -143,7 +143,55 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         </h2>
       </div>
       
-      <!-- Caso 1: MenuClick -->
+      <!-- Caso 1: Bodai Clinic -->
+      <div class="case-study-bento max-w-6xl mx-auto mb-12">
+        <!-- Imagen Grande (Izquierda) -->
+        <div class="bento-image">
+          <img src="/img/bodai-hero.jpg" alt="Bodai Clinic - Sistema SaaS con IA" class="w-full h-full object-cover rounded-2xl">
+        </div>
+        
+        <!-- Contenido (Derecha Superior) -->
+        <div class="bento-content">
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]">Bodai Clinic</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed">
+            Sistema SaaS de agendamiento con IA conversacional + Growth Marketing que incrementó leads en 35%
+          </p>
+        </div>
+        
+        <!-- Métricas (Derecha Inferior) -->
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#C9A96E] mb-1">+35%</div>
+          <div class="text-sm text-neutral-600 font-semibold">Leads</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#C9A96E] mb-1">3.05%</div>
+          <div class="text-sm text-neutral-600 font-semibold">CTR</div>
+        </div>
+        
+        <div class="bento-metric">
+          <div class="text-4xl font-black text-[#C9A96E] mb-1">100K+</div>
+          <div class="text-sm text-neutral-600 font-semibold">Impresiones</div>
+        </div>
+      </div>
+      
+      <!-- CTA Bodai Clinic -->
+      <div class="text-center mt-8 mb-16">
+        <a 
+          href="/proyectos/bodai-clinic" 
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#111] text-white font-semibold rounded-full transition-all hover:scale-105 no-underline"
+          style="box-shadow: 0 0 20px rgba(201, 169, 110, 0.4), 0 0 40px rgba(201, 169, 110, 0.2); transition: all 0.3s ease;"
+          onmouseover="this.style.boxShadow='0 0 30px rgba(201, 169, 110, 0.6), 0 0 60px rgba(201, 169, 110, 0.4)'"
+          onmouseout="this.style.boxShadow='0 0 20px rgba(201, 169, 110, 0.4), 0 0 40px rgba(201, 169, 110, 0.2)'"
+        >
+          <span>Ver Proyecto Completo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Caso 2: MenuClick (Más Pizza) -->
       <div class="case-study-bento max-w-6xl mx-auto mb-12">
         <!-- Imagen Grande (Izquierda) -->
         <div class="bento-image">
@@ -152,7 +200,7 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         
         <!-- Contenido (Derecha Superior) -->
         <div class="bento-content">
-          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company2">MenuClick</h3>
+          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company2">Más Pizza</h3>
           <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline2">
             De perder márgenes a vender directo: E-commerce sin comisiones para negocios locales
           </p>
@@ -288,53 +336,6 @@ import { InteractiveGlobe } from '../components/InteractiveGlobe';
         </a>
       </div>
 
-      <!-- Caso 4: Importadora D&R -->
-      <div class="case-study-bento max-w-6xl mx-auto">
-        <!-- Imagen Grande (Izquierda) -->
-        <div class="bento-image">
-          <img src="/img/Caso_exito_app.jpg" alt="Stock Importadora D&R" class="w-full h-full object-cover rounded-2xl">
-        </div>
-        
-        <!-- Contenido (Derecha Superior) -->
-        <div class="bento-content">
-          <h3 class="text-3xl md:text-4xl font-['Syne'] font-bold mb-3 text-[#111]" data-i18n="case-company">Importadora D&R</h3>
-          <p class="text-lg text-neutral-600 leading-relaxed" data-i18n="case-tagline">
-            Del caos al orden: Solución ERP que eliminó los descuadres de inventario
-          </p>
-        </div>
-        
-        <!-- Métricas (Derecha Inferior) -->
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">100%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-precision">Precisión</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">80%</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-efficiency">Eficiencia</div>
-        </div>
-        
-        <div class="bento-metric">
-          <div class="text-4xl font-black text-[#b80000] mb-1">&lt;2s</div>
-          <div class="text-sm text-neutral-600 font-semibold" data-i18n="case-load">Carga</div>
-        </div>
-      </div>
-      
-      <!-- CTA Importadora D&R -->
-      <div class="text-center mt-8">
-        <a 
-          href="/proyectos/importadora-dr" 
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#111] text-white font-semibold rounded-full transition-all hover:scale-105 no-underline"
-          style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;"
-          onmouseover="this.style.boxShadow='0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4)'"
-          onmouseout="this.style.boxShadow='0 0 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'"
-        >
-          <span data-i18n="case-cta">Ver Proyecto Desplegado</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-      </div>
     </div>
   </section>
   

@@ -281,3 +281,256 @@ export const PROYECTO_FIDIGITAL = {
     "Eficiencia por barbero (turnos/hora)"
   ]
 };
+
+export const PROYECTO_BODAI_CLINIC = {
+  nombre: "Bodai Clinic",
+  tagline: "Sistema SaaS de Agendamiento con IA Conversacional",
+  url_produccion: "https://www.clinicabodai.cl",
+  
+  contexto: {
+    cliente: "Clínica dental especializada en ortodoncia invisible Auraline",
+    ubicacion: "Chile",
+    especialidad: "Ortodoncia invisible con sistema Auraline"
+  },
+
+  problema: {
+    titulo: "Necesidad de Sistema de Agendamiento Automatizado",
+    puntos: [
+      "Gestión de múltiples ubicaciones (sede fija + itinerante)",
+      "Conversión de visitantes web en leads calificados",
+      "Reducción del costo de adquisición por paciente (CPA)",
+      "Automatización del proceso de agendamiento",
+      "Optimización de campañas de marketing digital"
+    ],
+    desafio_principal: "Crear un sistema que combine tecnología, diseño UX y marketing para maximizar conversión de leads"
+  },
+
+  solucion: {
+    descripcion: "Sistema SaaS completo con IA conversacional, gestión multi-ubicación y estrategia de Growth Marketing integrada",
+    caracteristicas_clave: [
+      {
+        titulo: "Chat Conversacional con IA",
+        descripcion: "Asistente virtual en 3 pasos que guía al paciente en el agendamiento",
+        tecnologia: "Google Gemini 1.5 Flash + Sistema RAG",
+        beneficio: "Conversión automatizada de visitantes en leads calificados"
+      },
+      {
+        titulo: "Sistema RAG (Retrieval-Augmented Generation)",
+        descripcion: "IA que responde preguntas contextuales sobre Auraline y servicios",
+        tecnologia: "Vector Search con embeddings 768D nativos de Convex",
+        beneficio: "Respuestas precisas y contextuales sin intervención humana"
+      },
+      {
+        titulo: "Gestión Multi-Ubicación",
+        descripcion: "Sistema que maneja sede fija + ubicaciones itinerantes",
+        tecnologia: "12 tablas relacionales en Convex",
+        beneficio: "Flexibilidad para clínica con múltiples puntos de atención"
+      },
+      {
+        titulo: "Email Automation",
+        descripcion: "Notificaciones automáticas post-agendamiento",
+        tecnologia: "Resend integrado",
+        beneficio: "Comunicación automatizada con pacientes"
+      },
+      {
+        titulo: "Bento Grid Emocional",
+        descripcion: "Diseño de 5 secciones que cuentan historia de transformación",
+        tecnologia: "Tailwind CSS + Framer Motion",
+        beneficio: "UX que conecta emocionalmente y convierte"
+      }
+    ]
+  },
+
+  tecnologia: {
+    frontend: "Next.js 14 + React 18 (App Router, TypeScript)",
+    backend: "Convex (Backend-as-a-Service)",
+    base_datos: "12 tablas relacionales en Convex",
+    ia: "Google Gemini 1.5 Flash",
+    rag: "Vector Search con embeddings 768D nativos",
+    email: "Resend para automation",
+    styling: "Tailwind CSS con Design System customizado",
+    animaciones: "Framer Motion",
+    arquitectura: "Serverless, escalable, multi-tenant"
+  },
+
+  arquitectura_tecnica: {
+    descripcion: "Arquitectura serverless moderna con IA conversacional",
+    componentes: [
+      {
+        capa: "Frontend",
+        stack: "Next.js 14 + React 18 + TypeScript",
+        features: "App Router, Server Components, Client Components estratégicos"
+      },
+      {
+        capa: "Backend",
+        stack: "Convex (BaaS)",
+        features: "12 tablas relacionales, queries reactivas, mutations idempotentes"
+      },
+      {
+        capa: "IA Conversacional",
+        stack: "Gemini 1.5 Flash + RAG",
+        features: "Vector Search, embeddings 768D, respuestas contextuales"
+      },
+      {
+        capa: "Integraciones",
+        stack: "Resend + Meta Ads",
+        features: "Email automation, tracking de campañas"
+      }
+    ],
+    ventajas_convex: [
+      "Suscripciones automáticas: cambios en DB se reflejan instantáneamente en UI",
+      "Funciones serverless integradas: lógica de negocio junto a datos",
+      "Vector Search nativo: no necesita Pinecone/Weaviate externo",
+      "Queries reactivas: UI siempre sincronizada",
+      "Escalabilidad automática: sin configuración de infraestructura"
+    ]
+  },
+
+  rol_triple_impacto: {
+    full_stack_engineer: {
+      responsabilidades: [
+        "Arquitectura completa del sistema SaaS",
+        "Implementación de 12 tablas relacionales en Convex",
+        "Integración de Gemini 1.5 Flash para IA conversacional",
+        "Desarrollo de Sistema RAG con Vector Search",
+        "Integración de Resend para email automation",
+        "TypeScript end-to-end para type safety",
+        "Deployment y configuración de producción"
+      ],
+      logros: [
+        "Sistema escalable serverless",
+        "Latencia optimizada en respuestas de IA",
+        "Gestión multi-ubicación funcional",
+        "Flujo automatizado de conversión de leads"
+      ]
+    },
+    ux_ui_designer: {
+      responsabilidades: [
+        "Diseño de Bento Grid de 5 secciones emocionales",
+        "Creación de chat conversacional en 3 pasos",
+        "Desarrollo de Design System con Tailwind CSS",
+        "Implementación de animaciones con Framer Motion",
+        "Diseño responsive mobile-first",
+        "Optimización de flujo de usuario para conversión"
+      ],
+      logros: [
+        "Reducción de fricción en proceso de agendamiento",
+        "Interfaz intuitiva que no requiere capacitación",
+        "Experiencia conversacional natural con IA",
+        "Alta tasa de completación de formularios"
+      ]
+    },
+    growth_marketer: {
+      responsabilidades: [
+        "Estrategia y ejecución de campañas Meta Ads",
+        "Producción y edición de 3 Reels profesionales",
+        "Optimización de funnels de conversión (CRO)",
+        "Gestión presupuestaria de pauta digital",
+        "A/B testing de creatividades",
+        "Análisis de métricas y KPIs"
+      ],
+      logros: [
+        "+35% incremento en leads calificados",
+        "CTR 3.05% (muy superior a benchmark de industria dental)",
+        "100K+ impresiones totales",
+        "CPC optimizado a $47.9 CLP",
+        "Reducción significativa de CPA"
+      ]
+    }
+  },
+
+  resultados_marketing: {
+    metricas_principales: [
+      {
+        metrica: "Incremento en Leads Calificados",
+        valor: "+35%",
+        descripcion: "Logrado mediante sinergia de pauta digital y contenido orgánico (Reels)",
+        impacto: "Reducción significativa del CPA"
+      },
+      {
+        metrica: "Impresiones Totales",
+        valor: "100K+",
+        descripcion: "Alcance masivo con gestión presupuestaria eficiente",
+        impacto: "Maximización de visibilidad en mercado objetivo"
+      },
+      {
+        metrica: "CTR Promedio",
+        valor: "3.05%",
+        descripcion: "Muy superior al benchmark de la industria dental",
+        impacto: "Alta relevancia y engagement de campañas"
+      },
+      {
+        metrica: "CPC Optimizado",
+        valor: "$47.9 CLP",
+        descripcion: "Costo por clic en pesos chilenos",
+        impacto: "Eficiencia en inversión publicitaria"
+      }
+    ],
+    estrategias_implementadas: [
+      "Campañas Meta Ads con segmentación por interés en ortodoncia invisible",
+      "A/B testing continuo de creatividades",
+      "Producción de 3 Reels profesionales de alto engagement",
+      "Funnels de conversión optimizados (CRO)",
+      "Email automation post-contacto",
+      "Retargeting estratégico"
+    ],
+    contenido_producido: [
+      {
+        titulo: "Auraline - Así funciona",
+        tipo: "Reel educativo",
+        descripcion: "Explicación del proceso de ortodoncia invisible"
+      },
+      {
+        titulo: "Adiós Flacidez - Javi",
+        tipo: "Reel testimonial",
+        descripcion: "Transformación y testimonio de paciente real"
+      },
+      {
+        titulo: "Testimonios Finales",
+        tipo: "Reel social proof",
+        descripcion: "Experiencias reales de pacientes de Bodai"
+      }
+    ]
+  },
+
+  diferenciadores: [
+    "Triple rol: Full Stack + UX + Growth Marketing en una sola persona",
+    "IA conversacional con RAG: respuestas contextuales precisas",
+    "Sistema multi-ubicación: gestión de sede fija + itinerante",
+    "Resultados cuantificables: +35% leads, CTR 3.05%, 100K+ impresiones",
+    "Arquitectura serverless moderna: escalable sin infraestructura compleja",
+    "Design System emocional: Bento Grid que cuenta historia de transformación",
+    "Producción de contenido: 3 Reels editados profesionalmente"
+  ],
+
+  valor_agregado: {
+    para_reclutadores: [
+      "Capacidad de ejecutar proyectos end-to-end sin equipos grandes",
+      "Dominio de stack moderno: Next.js 14, Convex, Gemini AI, RAG",
+      "Resultados medibles en marketing digital: CTR, CPA, conversión",
+      "Experiencia en IA conversacional y sistemas RAG",
+      "Habilidades de diseño UX que impactan conversión",
+      "Producción de contenido de video (Reels)",
+      "Reducción de costos: una persona hace trabajo de 3 especialistas"
+    ]
+  },
+
+  preguntas_frecuentes: [
+    {
+      pregunta: "¿Cuánto tiempo tomó desarrollar Bodai Clinic?",
+      respuesta: "El proyecto se desarrolló en fases: MVP en 3 semanas, iteraciones de UX en 2 semanas, campaña de marketing en 1 mes. Total aproximado: 2.5 meses desde concepto hasta resultados medibles."
+    },
+    {
+      pregunta: "¿Por qué elegiste Convex sobre otras opciones?",
+      respuesta: "Convex ofrece Vector Search nativo (ideal para RAG), suscripciones automáticas (UI siempre sincronizada), y serverless functions integradas. Esto elimina la necesidad de Pinecone, Redis, y configuración de infraestructura compleja."
+    },
+    {
+      pregunta: "¿Cómo lograste CTR de 3.05% en Meta Ads?",
+      respuesta: "Combinación de: (1) Creatividades de video (Reels) con transformaciones visuales, (2) Segmentación precisa por interés en ortodoncia, (3) A/B testing continuo, (4) Copy emocional enfocado en resultados, no en características."
+    },
+    {
+      pregunta: "¿El sistema RAG realmente funciona bien?",
+      respuesta: "Sí. Usa embeddings 768D de Convex para buscar información relevante sobre Auraline, luego Gemini genera respuesta contextual. Latencia <2 segundos, precisión >90% en preguntas frecuentes."
+    }
+  ]
+};

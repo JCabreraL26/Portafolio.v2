@@ -1,0 +1,187 @@
+/**
+ * Design Tokens - Constructivismo Editorial
+ * Áperca SpA - Landing de Ventas High-Ticket
+ * Paleta cromática extraída del isotipo Áperca
+ */
+
+:root {
+  /* ========================================
+     COLORES CORE
+     ======================================== */
+  
+  /* Base Neutral Absoluto */
+  --color-black: #0A0A0A;
+  --color-white: #FFFFFF;
+  --color-carbon: #1F1F1F;
+  
+  /* Accent Color (Extraído del Isotipo Áperca) */
+  --color-amber: #F99D1C;
+  --color-amber-dark: #C47A0A;
+  --color-amber-light: #FEF3D9;
+  --color-amber-muted: #F9D98C;
+  
+  /* Verde Oliva Profundo (Fondos sofisticados) */
+  --color-olive: #283329;
+  
+  /* Paleta de Estados */
+  --color-success: #34A853;
+  --color-error: #EA4335;
+  --color-warning: #FBBC04;
+  --color-focus: var(--color-amber);
+  
+  /* ========================================
+     TIPOGRAFÍA
+     ======================================== */
+  
+  /* Familias */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  
+  /* Pesos */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* Tamaños (Desktop) */
+  --font-size-h1: 64px;
+  --font-size-h2: 40px;
+  --font-size-h3: 24px;
+  --font-size-body: 16px;
+  --font-size-small: 14px;
+  --font-size-mono: 14px;
+  --font-size-cta: 16px;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  
+  /* Letter Spacing */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  
+  /* ========================================
+     ESPACIADO (Múltiplos de 8)
+     ======================================== */
+  
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  
+  /* ========================================
+     GRID Y LAYOUT
+     ======================================== */
+  
+  --container-max: 1280px;
+  --grid-columns: 12;
+  --grid-gutter: 24px;
+  
+  /* ========================================
+     BORDES Y SOMBRAS
+     ======================================== */
+  
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --shadow-amber: 0 0 20px rgba(249, 157, 28, 0.4);
+  
+  /* ========================================
+     TRANSICIONES
+     ======================================== */
+  
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+  
+  /* ========================================
+     Z-INDEX LAYERS
+     ======================================== */
+  
+  --z-base: 0;
+  --z-video: 1;
+  --z-overlay: 2;
+  --z-content: 10;
+  --z-navbar: 100;
+  --z-modal: 1000;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media (max-width: 1024px) {
+  :root {
+    --font-size-h1: 48px;
+    --font-size-h2: 32px;
+    --font-size-h3: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --font-size-h1: 36px;
+    --font-size-h2: 24px;
+    --font-size-h3: 18px;
+    --font-size-body: 14px;
+    --grid-gutter: 16px;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.text-amber {
+  color: var(--color-amber);
+}
+
+.text-black {
+  color: var(--color-black);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.bg-black {
+  background-color: var(--color-black);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-amber {
+  background-color: var(--color-amber);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.container-max {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}

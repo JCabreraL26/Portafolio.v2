@@ -156,29 +156,21 @@ export function Chatbot() {
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           {/* Anillo animado de fondo */}
-          <div className="absolute inset-0 rounded-full bg-[#b80000]/20 animate-ping" />
+          <div className="absolute inset-0 rounded-full bg-[#F99D1C]/30 animate-ping" />
           
           <button
             onClick={() => setIsOpen(true)}
-            className="relative w-16 h-16 bg-gradient-to-br from-[#1a1a1a] via-[#111] to-[#b80000] text-white rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(184,0,0,0.6)] hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+            className="relative w-16 h-16 bg-[#283329] rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(249,157,28,0.8)] hover:scale-110 transition-all duration-300 flex items-center justify-center group border-2 border-[#F99D1C]"
             aria-label="Abrir chat"
           >
-            <svg 
-              className="w-8 h-8 drop-shadow-lg" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" 
-              />
-            </svg>
+            <img 
+              src="/img/logo-nav-bar.png" 
+              alt="Áperca Chat" 
+              className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(249,157,28,0.6)]"
+            />
             
             {/* Badge de notificación */}
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-[#ff0000] to-[#b80000] rounded-full flex items-center justify-center text-xs font-bold shadow-lg animate-pulse">
+            <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#F99D1C] rounded-full flex items-center justify-center text-xs font-bold shadow-lg animate-pulse text-[#283329]">
               1
             </span>
           </button>
@@ -187,16 +179,18 @@ export function Chatbot() {
       
       {/* Ventana de chat */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[400px] max-w-[calc(100vw-3rem)] h-[600px] max-h-[calc(100vh-3rem)] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border-2 border-[#111] sm:w-96 sm:h-[600px]">
+        <div className="fixed bottom-6 right-6 w-[400px] max-w-[calc(100vw-3rem)] h-[600px] max-h-[calc(100vh-3rem)] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border-2 border-[#F99D1C] sm:w-96 sm:h-[600px]">
           {/* Header */}
-          <div className="bg-[#111] text-white p-4 flex items-center justify-between">
+          <div className="bg-[#283329] text-white p-4 flex items-center justify-between border-b-2 border-[#F99D1C]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-xl font-bold text-[#111]">
-                A
-              </div>
+              <img 
+                src="/img/logo-nav-bar.png" 
+                alt="Áperca" 
+                className="w-10 h-10 object-contain"
+              />
               <div>
                 <h3 className="font-['Syne'] font-bold text-lg">ÁPERCA SpA</h3>
-                <p className="text-xs text-white/70">Asistente Virtual</p>
+                <p className="text-xs text-[#F99D1C]">Asistente Virtual</p>
               </div>
             </div>
             
@@ -231,7 +225,7 @@ export function Chatbot() {
                 <div
                   className={`max-w-[80%] p-3 rounded-2xl ${
                     msg.esUsuario
-                      ? "bg-[#111] text-white rounded-br-none"
+                      ? "bg-[#283329] text-white rounded-br-none border-2 border-[#F99D1C]"
                       : "bg-white text-neutral-900 rounded-bl-none shadow-md border border-neutral-200"
                   }`}
                 >
@@ -279,14 +273,14 @@ export function Chatbot() {
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Escribe tu mensaje..."
-                className="flex-1 px-4 py-3 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-[#111] transition-colors font-['Poppins'] text-sm"
+                className="flex-1 px-4 py-3 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-[#F99D1C] transition-colors font-['Poppins'] text-sm"
                 disabled={isTyping}
               />
               
               <button
                 onClick={handleSendMessage}
                 disabled={!inputText.trim() || isTyping}
-                className="bg-[#111] text-white p-3 rounded-full hover:bg-[#b80000] disabled:bg-neutral-300 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110"
+                className="bg-[#283329] text-white p-3 rounded-full hover:bg-[#F99D1C] hover:text-[#283329] disabled:bg-neutral-300 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 border-2 border-[#F99D1C]"
                 aria-label="Enviar mensaje"
               >
                 <svg 
@@ -307,7 +301,7 @@ export function Chatbot() {
             
             {/* Footer */}
             <p className="text-xs text-neutral-400 text-center mt-2 font-['Poppins']">
-              Powered by <span className="font-semibold text-[#111]">Google Gemini AI</span>
+              Powered by <span className="font-semibold text-[#283329]">Google Gemini AI</span>
             </p>
           </div>
         </div>

@@ -7,44 +7,44 @@ const currentPath = Astro.url.pathname;
 <nav class="navbar-glass fixed top-0 left-0 right-0 z-50 rounded-b-3xl">
   <div class="navbar-content max-w-[900px] mx-auto flex justify-between items-center px-6 py-4">
     <a href="/" class="navbar-logo flex items-center gap-3 no-underline transition-colors hover:opacity-80">
-      <img src="/img/Logo aperca oscuro.svg" alt="Logo Aperca" class="h-10 w-auto object-contain">
+      <img src="/img/logo-nav-bar.png" alt="Logo Aperca" class="h-10 w-auto object-contain">
       <div class="flex flex-col">
-        <span class="text-2xl lowercase text-[#222] leading-none" style="font-family: Impact, 'Haettenschweiler', 'Franklin Gothic Bold', 'Arial Black', sans-serif; font-weight: 900; letter-spacing: 0.02em;">aperca</span>
-        <span class="text-xs font-['Poppins'] text-[#666] mt-0.5">Jorge Cabrera UX</span>
+        <span class="text-2xl lowercase text-white leading-none" style="font-family: Impact, 'Haettenschweiler', 'Franklin Gothic Bold', 'Arial Black', sans-serif; font-weight: 900; letter-spacing: 0.02em;">aperca</span>
+        <span class="text-xs font-['Poppins'] text-[#F99D1C] mt-0.5">Jorge Cabrera UX</span>
       </div>
     </a>
     
     <div class="navbar-hamburger hidden flex-col justify-center items-center w-8 h-8 cursor-pointer ml-4" id="navbar-hamburger" role="button" aria-label="Toggle navigation" aria-expanded="false">
-      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
-      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
-      <span class="block w-6 h-[3px] bg-[#222] my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
+      <span class="block w-6 h-[3px] bg-white my-1 rounded-sm transition-all"></span>
     </div>
     
     <div class="navbar-links flex items-center gap-0" id="navbar-links">
       <a 
         href="/" 
-        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/' ? 'text-[#F99D1C]' : 'text-white hover:text-[#F99D1C]'}`}
         data-i18n="nav-home"
       >
         Inicio
       </a>
       <a 
         href="/mi-perfil" 
-        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/mi-perfil' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/mi-perfil' ? 'text-[#F99D1C]' : 'text-white hover:text-[#F99D1C]'}`}
         data-i18n="nav-profile"
       >
         Mi Perfil
       </a>
       <a 
         href="/reclutadores" 
-        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/reclutadores' ? 'text-[#b80000]' : 'text-[#111] hover:text-[#b80000]'}`}
+        class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline ${currentPath === '/reclutadores' ? 'text-[#F99D1C]' : 'text-white hover:text-[#F99D1C]'}`}
         data-i18n="nav-portfolio"
       >
         Portfolio Técnico
       </a>
       <div class="relative ml-6 group">
         <button 
-          class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] cursor-pointer transition-colors pb-0.5 no-underline flex items-center gap-1 ${currentPath.includes('/proyectos') ? 'text-[#b80000]' : 'text-[#111] group-hover:text-[#b80000]'}`}
+          class={`nav-link bg-transparent border-none font-semibold font-['Poppins'] cursor-pointer transition-colors pb-0.5 no-underline flex items-center gap-1 ${currentPath.includes('/proyectos') ? 'text-[#F99D1C]' : 'text-white group-hover:text-[#F99D1C]'}`}
           data-i18n="nav-cases"
         >
           Casos de Éxito
@@ -86,7 +86,7 @@ const currentPath = Astro.url.pathname;
       </div>
       <button 
         onclick="window.dispatchEvent(new CustomEvent('openChat', { detail: { type: 'contact' } }))"
-        class="nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline text-[#111] hover:text-[#b80000]"
+        class="nav-link bg-transparent border-none font-semibold font-['Poppins'] ml-6 cursor-pointer transition-colors pb-0.5 no-underline text-white hover:text-[#F99D1C]"
         data-i18n="nav-contact"
       >
         Contacto

@@ -201,9 +201,12 @@ const currentPath = Astro.url.pathname;
       top: 60px;
       left: 50%;
       transform: translateX(-50%);
-      background: #fff;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
       border-radius: 12px;
+      border: 2px solid #F99D1C;
       padding: 16px 0;
       display: none;
       flex-direction: column;
@@ -262,9 +265,14 @@ const currentPath = Astro.url.pathname;
     }
 
     .dropdown-menu a {
-      background: #f5f5f5;
+      background: rgba(249, 157, 28, 0.1);
       border-radius: 8px;
       margin: 4px 8px;
+      color: white !important;
+    }
+    
+    .dropdown-menu a:hover {
+      background: rgba(249, 157, 28, 0.2);
     }
   }
 </style>

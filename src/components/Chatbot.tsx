@@ -94,9 +94,9 @@ export function Chatbot() {
       if (context.type === 'schedule_meeting') {
         welcomeText = "📅 **¡Perfecto! Agendemos tu reunión**\n\nPara agendar tu reunión con Jorge Cabrera, necesito algunos datos:\n\n**Opciones de horario disponibles:**\n• Lunes a Viernes: 9:00 - 18:00\n• Duración: 30 minutos\n\n¿Qué día y hora prefieres? (Ej: 'Mañana 15:00' o 'Viernes 10:30')";
       } else if (context.type === 'contact') {
-        welcomeText = "💬 **¡Hola! ¿En qué puedo ayudarte?**\n\nPuedes preguntarme sobre:\n• 📅 Agendar una reunión\n• 💼 Servicios de desarrollo\n• 📊 Proyectos anteriores\n• 💰 Cotizaciones\n\nTambién puedes escribir directamente a **contacto@aperca.cl**";
+        welcomeText = "💬 **¿En qué puedo ayudarte?**\n\nPuedo asistirte con:\n• 📅 Agendar diagnóstico estratégico (30 min, gratuito)\n• � Análisis de tu desafío técnico o de negocio\n• 📊 Casos de éxito y ROI de proyectos similares\n• � Oportunidades laborales (si eres reclutador)\n\n📧 **contacto@aperca.cl**";
       } else {
-        welcomeText = "👋 ¡Hola! Soy el asistente de **Áperca Spa** (Jorge Cabrera).\n\nAyudo a negocios a digitalizar sus operaciones con soluciones de software a medida.\n\n💼 **Servicios:**\n• 🌐 Landing pages\n• 🏢 Sitios web completos\n• 🛒 E-commerce sin comisiones\n• ⚙️ ERP personalizados\n\n¿En qué puedo ayudarte? Pregúntame por cualquier servicio para conocer más detalles.\n\n📧 **contacto@aperca.cl**";
+        welcomeText = "👋 **Áperca SpA** — Secure Digital Product Studio\n\n¿Tienes un desafío de negocio sin resolver?\n\n**Resolvemos:**\n• 🔥 Fricción operativa que frena tu crecimiento\n• 🔒 Sistemas legacy sin seguridad ni documentación\n• 📉 Funnels de conversión que no convierten\n• ⚡ Necesitas velocidad startup con calidad enterprise\n\n¿Eres empresa con un desafío técnico o reclutador buscando talento?\n\nCuéntame tu situación.";
       }
       
       setMessages([{

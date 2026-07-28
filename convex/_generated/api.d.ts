@@ -15,6 +15,7 @@ import type * as functions_ai_agenda from "../functions/ai/agenda.js";
 import type * as functions_ai_gemini from "../functions/ai/gemini.js";
 import type * as functions_ai_googleChatbot from "../functions/ai/googleChatbot.js";
 import type * as functions_ai_ragv2 from "../functions/ai/ragv2.js";
+import type * as functions_ai_security from "../functions/ai/security.js";
 import type * as functions_ai_uxResearch_router from "../functions/ai/uxResearch/router.js";
 import type * as functions_ai_zep from "../functions/ai/zep.js";
 import type * as functions_proyectos from "../functions/proyectos.js";
@@ -37,6 +38,7 @@ declare const fullApi: ApiFromModules<{
   "functions/ai/gemini": typeof functions_ai_gemini;
   "functions/ai/googleChatbot": typeof functions_ai_googleChatbot;
   "functions/ai/ragv2": typeof functions_ai_ragv2;
+  "functions/ai/security": typeof functions_ai_security;
   "functions/ai/uxResearch/router": typeof functions_ai_uxResearch_router;
   "functions/ai/zep": typeof functions_ai_zep;
   "functions/proyectos": typeof functions_proyectos;

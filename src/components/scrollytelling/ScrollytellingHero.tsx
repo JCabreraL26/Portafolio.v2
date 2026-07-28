@@ -209,19 +209,35 @@ export function ScrollytellingHero() {
                 </div>
 
                 {currentStationData.ctaText && (
-                  <a
-                    href={currentStationData.ctaLink}
-                    className={`cta-button ${
-                      currentStation === 0 ? 'cta-scroll' : 'cta-secondary'
-                    }`}
-                  >
-                    {currentStationData.ctaText}
-                    {currentStation === 0 ? (
-                      <ArrowDown className="w-5 h-5 animate-bounce" />
+                  <>
+                    {(currentStation === 4 || currentStation === 5) ? (
+                      <button
+                        onClick={() => {
+                          window.dispatchEvent(new CustomEvent('openChat', { 
+                            detail: { type: 'general' } 
+                          }));
+                        }}
+                        className="cta-button cta-secondary"
+                      >
+                        {currentStationData.ctaText}
+                        <ArrowRight className="w-5 h-5" />
+                      </button>
                     ) : (
-                      <ArrowRight className="w-5 h-5" />
+                      <a
+                        href={currentStationData.ctaLink}
+                        className={`cta-button ${
+                          currentStation === 0 ? 'cta-scroll' : 'cta-secondary'
+                        }`}
+                      >
+                        {currentStationData.ctaText}
+                        {currentStation === 0 ? (
+                          <ArrowDown className="w-5 h-5 animate-bounce" />
+                        ) : (
+                          <ArrowRight className="w-5 h-5" />
+                        )}
+                      </a>
                     )}
-                  </a>
+                  </>
                 )}
               </div>
             )}

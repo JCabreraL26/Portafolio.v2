@@ -8,6 +8,12 @@
  * @module
  */
 
+import type * as agent_context_00_core_identity from "../agent/context/00_core_identity.js";
+import type * as agent_context_01_qualifying_rules from "../agent/context/01_qualifying_rules.js";
+import type * as agent_context_layers_general_faq from "../agent/context/layers/general_faq.js";
+import type * as agent_context_layers_high_ticket from "../agent/context/layers/high_ticket.js";
+import type * as agent_context_layers_recruiter from "../agent/context/layers/recruiter.js";
+import type * as agent_orchestrator from "../agent/orchestrator.js";
 import type * as constants from "../constants.js";
 import type * as constants_proyectos from "../constants/proyectos.js";
 import type * as functions_agenda from "../functions/agenda.js";
@@ -31,6 +37,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "agent/context/00_core_identity": typeof agent_context_00_core_identity;
+  "agent/context/01_qualifying_rules": typeof agent_context_01_qualifying_rules;
+  "agent/context/layers/general_faq": typeof agent_context_layers_general_faq;
+  "agent/context/layers/high_ticket": typeof agent_context_layers_high_ticket;
+  "agent/context/layers/recruiter": typeof agent_context_layers_recruiter;
+  "agent/orchestrator": typeof agent_orchestrator;
   constants: typeof constants;
   "constants/proyectos": typeof constants_proyectos;
   "functions/agenda": typeof functions_agenda;

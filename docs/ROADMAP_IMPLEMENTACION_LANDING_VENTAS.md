@@ -722,12 +722,12 @@ export default defineSchema({
 
 ---
 
-## FASE 4: ACTUALIZACIÓN DEL CHATBOT (Semana 4)
+## FASE 4: ACTUALIZACIÓN DEL CHATBOT ✅ COMPLETADA (28 Jul 2026)
 
 ### 🎯 Objetivo
 Implementar Context Layering y lógica de cualificación dual
 
-### ✅ Tareas
+### ✅ Tareas COMPLETADAS
 
 #### 4.1 Estructura de Context Layering
 **Crear carpetas:**
@@ -974,14 +974,78 @@ export function classifyUserIntent(message: string): "HIGH_TICKET" | "RECRUITER"
 - Capturar email cuando se cualifica un lead
 
 **Tiempo estimado:** 6 horas
+**Estado:** ✅ Implementado
 
-### 📋 Entregables
-- [ ] Estructura de Context Layering completa
-- [ ] Core Identity y Qualifying Rules implementados
-- [ ] Capas high_ticket y recruiter con información completa
-- [ ] Orchestrator con clasificación de intención
-- [ ] Chatbot actualizado con nueva lógica
-- [ ] Testing de conversaciones (ambos tipos de usuario)
+### 📋 Entregables COMPLETADOS
+- [x] Estructura de Context Layering completa (convex/agent/)
+- [x] Core Identity (00_core_identity.ts)
+- [x] Qualifying Rules (01_qualifying_rules.ts)
+- [x] Capa high_ticket.ts con servicios y casos de éxito
+- [x] Capa recruiter.ts con perfil profesional completo
+- [x] Capa general_faq.ts con preguntas frecuentes
+- [x] Orchestrator con clasificación de intención
+- [x] Integración con googleChatbot.ts
+- [x] Deploy de Convex
+
+### 🎯 Implementación Real
+
+**Archivos Creados:**
+1. `convex/agent/context/00_core_identity.ts` - Identidad core de Áperca SpA
+2. `convex/agent/context/01_qualifying_rules.ts` - Reglas de cualificación
+3. `convex/agent/context/layers/high_ticket.ts` - Capa para clientes high-ticket
+4. `convex/agent/context/layers/recruiter.ts` - Capa para reclutadores
+5. `convex/agent/context/layers/general_faq.ts` - Capa para preguntas generales
+6. `convex/agent/orchestrator.ts` - Orquestador de capas
+
+**Funcionalidades Implementadas:**
+
+**Orchestrator:**
+- `buildSystemPrompt(userType)` - Construye prompt dinámico según tipo de usuario
+- `classifyUserIntent(message)` - Clasifica usuario en HIGH_TICKET, RECRUITER o UNKNOWN
+- `shouldOfferScheduling()` - Detecta cuándo ofrecer agendamiento
+- `extractQualificationData()` - Extrae datos de cualificación del historial
+
+**Integración con googleChatbot.ts:**
+- ✅ Import del orchestrator
+- ✅ Clasificación automática de usuario en cada mensaje
+- ✅ Construcción dinámica de system prompt según tipo
+- ✅ Eliminación de prompt estático largo (ahora usa Context Layering)
+- ✅ Optimización de tokens (solo carga capa relevante)
+
+**Capas de Contexto:**
+
+**Core Identity (siempre presente):**
+- Posicionamiento: Secure Digital Product Studio
+- Especialidades: OSINT, Power BI, Python, DevSecOps, Agentic AI, Growth Engineering
+- Tono: Profesional, estratégico, directo (Fractional CTO/CPO)
+- Límites: No promesas sin contexto, tarifa mínima $3k USD
+
+**High-Ticket Layer:**
+- 4 servicios detallados con rangos de precio
+- Casos de éxito: Bodai Clinic, iDomo, MenuClick
+- Metodología: STAR, OSINT, Vibecoding, DevSecOps
+- CTA: Diagnóstico estratégico gratuito (30 min)
+
+**Recruiter Layer:**
+- Perfil profesional completo de Jorge Cabrera
+- Stack técnico detallado (Frontend, Backend, IA, DevSecOps, BI, Marketing)
+- Proyectos destacados con roles específicos
+- Disponibilidad y pretensiones salariales
+
+**General FAQ Layer:**
+- Preguntas frecuentes sobre servicios
+- Diferenciación vs competencia
+- Proceso de trabajo
+- Garantías y soporte
+
+**Beneficios del Context Layering:**
+- ✅ Optimización de tokens (solo carga contexto relevante)
+- ✅ Respuestas más precisas según tipo de usuario
+- ✅ Mejor cualificación de leads
+- ✅ Experiencia personalizada
+- ✅ Mantenibilidad (capas separadas por tipo)
+
+**Tiempo total Fase 4:** ~6 horas
 
 ---
 

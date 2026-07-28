@@ -966,6 +966,45 @@ Siguiente: Probar Gemini`;
       
       console.log(`✅ Respuesta generada por Gemini (${respuesta.length} caracteres)`);
       
+      // 🎯 AUTO-SAVE LEAD: Si usuario HIGH_TICKET completó qualifying, guardar lead
+      if (userType === "HIGH_TICKET" && historial.length >= 3) {
+        console.log("🔍 Verificando si qualifying está completo para guardar lead...");
+        
+        // Extraer datos de qualifying del historial completo
+        const allMessages = historial.map(h => h.mensaje_usuario + " " + h.respuesta_bot).join(" ");
+        const hasChallenge = /automatización|ia|mvp|ux|osint|seguridad|devsecops/i.test(allMessages);
+        const hasBudget = /\$|usd|presupuesto|3k|10k|30k/i.test(allMessages);
+        const hasContact = /email|correo|@|teléfono|nombre/i.test(allMessages);
+        
+        if (hasChallenge && hasBudget && hasContact) {
+          console.log("✅ Qualifying completo detectado, intentando guardar lead...");
+          
+          try {
+            // Extraer datos con regex simple
+            const emailMatch = allMessages.match(/[\w\.-]+@[\w\.-]+\.\w+/);
+            const nameMatch = allMessages.match(/(?:me llamo|soy|nombre es|mi nombre)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)/i);
+            
+            if (emailMatch) {
+              const leadData = {
+                userType: "company",
+                name: nameMatch ? nameMatch[1] : "Lead desde chat",
+                email: emailMatch[0],
+                phone: undefined,
+                challenge: hasChallenge ? "automation" : "general",
+                budgetRange: hasBudget ? "3k-10k" : "unknown",
+                message: allMessages.substring(0, 500),
+              };
+              
+              await ctx.runMutation(api.funnel.submitLead, leadData);
+              console.log("✅ Lead guardado automáticamente:", leadData.email);
+            }
+          } catch (errorLead) {
+            console.error("⚠️ Error guardando lead automático:", errorLead);
+            // No fallar la respuesta si falla el guardado
+          }
+        }
+      }
+      
     } catch (error) {
       console.error("❌ Error llamando a Gemini:", error);
       respuesta = "Lo siento, estoy experimentando problemas técnicos. Por favor contacta directamente a jcabreralabbe@gmail.com";

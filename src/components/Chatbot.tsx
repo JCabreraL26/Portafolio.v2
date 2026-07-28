@@ -2,6 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAction, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
+// 🛡️ Helper: Sanitizar HTML del bot para prevenir XSS
+function sanitizarHtmlBot(html: string): string {
+  if (!html) return "";
+  return html
+    .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, "")
+    .replace(/<iframe\b[^>]*>([\s\S]*?)<\/iframe>/gi, "")
+    .replace(/<object\b[^>]*>([\s\S]*?)<\/object>/gi, "")
+    .replace(/<embed\b[^>]*>([\s\S]*?)<\/embed>/gi, "")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+\s*=/gi, "");
+}
+
 interface Message {
   id: string;
   texto: string;
@@ -232,9 +244,11 @@ export function Chatbot() {
                   <p 
                     className="text-sm leading-relaxed font-['Poppins'] whitespace-pre-wrap"
                     dangerouslySetInnerHTML={{
-                      __html: msg.texto
-                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\n/g, '<br />')
+                      __html: sanitizarHtmlBot(
+                        msg.texto
+                          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                          .replace(/\n/g, '<br />')
+                      )
                     }}
                   />
                   <span className={`text-xs mt-1 block ${msg.esUsuario ? 'text-white/50' : 'text-neutral-500'}`}>
@@ -270,9 +284,10 @@ export function Chatbot() {
                 ref={inputRef}
                 type="text"
                 value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
+                onChange={(e) => setInputText(e.target.value.slice(0, 1000))}
                 onKeyPress={handleKeyPress}
                 placeholder="Escribe tu mensaje..."
+                maxLength={1000}
                 className="flex-1 px-4 py-3 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-[#F99D1C] transition-colors font-['Poppins'] text-sm"
                 disabled={isTyping}
               />

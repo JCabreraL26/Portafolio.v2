@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { mutation, query, action } from "../../_generated/server";
 import { api } from "../../_generated/api";
 import { GoogleGenAI, createUserContent, createPartFromUri } from "@google/genai";
+import { validarTimestampRazonable, validarMensajeUsuario } from "./security";
 
 // FinBot Pro - Google Gemini (Plan Gratuito)
 // Extractor de datos financieros con IA
@@ -931,6 +932,21 @@ ${contextoMemoria}Analiza el siguiente documento:`;
             tipoAccion = "GASTO";
           }
           
+          // 🛡️ VALIDACIÓN DE DATOS EXTRAÍDOS POR LLM
+          const erroresValidacion: string[] = [];
+
+          if (isNaN(monto_total) || monto_total <= 0 || monto_total > 999_999_999_999) {
+            erroresValidacion.push("monto inválido (debe ser positivo y razonable)");
+          }
+
+          const categoriaLimpia = validarMensajeUsuario(categoria, { maxLength: 100, permitirHtml: false }).mensaje;
+          const descripcionLimpia = validarMensajeUsuario(descripcion, { maxLength: 500, permitirHtml: false }).mensaje;
+
+          const tiposPermitidos = ["factura", "boleta", "nota_credito", "nota_debito", "factura_exenta", "otro"];
+          if (!tiposPermitidos.includes(tipo_documento)) {
+            erroresValidacion.push(`tipo_documento inválido: ${tipo_documento}`);
+          }
+
           // Convertir fecha ISO a timestamp
           let fechaTimestamp = Date.now(); // Default: hoy
           if (fechaStr && fechaStr !== "N/A" && fechaStr.match(/\d{4}-\d{2}-\d{2}/)) {
@@ -943,7 +959,20 @@ ${contextoMemoria}Analiza el siguiente documento:`;
           } else {
             console.warn(`⚠️ Fecha no detectada en formato correcto, usando fecha actual`);
           }
-          
+
+          if (!validarTimestampRazonable(fechaTimestamp, { minDesdeAhora: -365 * 24 * 60 * 60 * 1000, maxDiasFuturo: 30 })) {
+            erroresValidacion.push("fecha fuera de rango válido (±1 año)");
+          }
+
+          if (erroresValidacion.length > 0) {
+            console.warn(`⚠️ Datos extraídos de documento inválidos: ${erroresValidacion.join(", ")}`);
+            return {
+              respuesta: `⚠️ No pude registrar el documento porque los datos extraídos parecen inválidos: ${erroresValidacion.join(", ")}.\n\n¿Podrías verificar el documento o enviarlo nuevamente?`,
+              accion: "validacion_fallida",
+              datos: { errores: erroresValidacion },
+            };
+          }
+
           console.log(`💾 Guardando factura: ${tipoAccion} de $${monto_total} del ${fechaStr || 'hoy'}`);
           console.log(`   Tipo Doc: ${tipo_documento} | Folio: ${folio || 'N/A'}`);
           console.log(`   Emisor: ${razon_social_emisor || rut_emisor || 'N/A'}`);
@@ -952,8 +981,8 @@ ${contextoMemoria}Analiza el siguiente documento:`;
           // Usar registrarTransaccionConIVA para guardar con todos los datos tributarios
           const resultado = await ctx.runMutation(api.functions.ai.gemini.registrarTransaccionConIVA, {
             tipo: tipoAccion.toLowerCase() as "gasto" | "ingreso",
-            categoria,
-            descripcion: `📄 ${descripcion}`,
+            categoria: categoriaLimpia,
+            descripcion: `📄 ${descripcionLimpia}`,
             monto_total,
             fecha: fechaTimestamp,
             afecto_iva: true,

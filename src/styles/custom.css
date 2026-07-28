@@ -439,6 +439,13 @@
   border-radius: 24px 24px 0 0;
 }
 
+/* Footer limpio para landing de ventas - Constructivismo Editorial */
+.footer-clean {
+  background-color: #FFFFFF;
+  color: #111;
+  border-top: 1px solid #E5E5E5;
+}
+
 /* Service Cards con efecto 3D usando sombras */
 .service-card-3d {
   border-radius: 16px;

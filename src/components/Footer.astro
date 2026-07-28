@@ -1,12 +1,20 @@
 ---
+interface Props {
+  variant?: 'red' | 'clean';
+}
+
+const { variant = 'red' } = Astro.props;
 const currentYear = new Date().getFullYear();
+const footerClass = variant === 'clean' ? 'footer-clean' : 'footer-red';
 ---
 
-<footer class="footer-red">
+<footer class={footerClass}>
   <div class="container mx-auto px-6 py-12">
     <div class="text-center">
-      <p class="text-lg font-semibold font-['Poppins'] mb-2">Jorge Cabrera UX</p>
-      <p class="text-sm opacity-80">© {currentYear} - Arquitecto de Experiencias</p>
+      <p class="text-lg font-semibold font-['Poppins'] mb-2">
+        {variant === 'clean' ? 'ÁPERCA SpA' : 'Jorge Cabrera UX'}
+      </p>
+      <p class="text-sm opacity-80">© {currentYear} - Pensamiento estratégico</p>
     </div>
   </div>
 </footer>

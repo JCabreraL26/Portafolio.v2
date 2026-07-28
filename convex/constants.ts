@@ -29,18 +29,28 @@ export const EMPRESA = {
   },
   
   // Descripción del negocio
-  descripcion: "ÁPERCA SpA es una consultora de desarrollo de software especializada en transformación digital para pequeñas y medianas empresas. Creamos soluciones a medida con metodología Design Thinking, priorizando la experiencia de usuario y la integridad de datos.",
+  descripcion: "ÁPERCA SpA aplica pensamiento estratégico y metodologías ágiles para crear productos digitales que resuelven problemas reales. Combinamos diagnóstico basado en datos (OSINT, Power BI, Python) con arquitectura de sistemas adaptable a la etapa del negocio y desarrollo de agentes IA conversacionales.",
   
   // Misión
-  mision: "Digitalizar procesos de negocios locales con tecnología moderna, escalable y fácil de mantener. No solo desarrollamos software, resolvemos problemas de negocio con la lógica de un gestor y la empatía de un profesor.",
+  mision: "Transformar fricción operativa en ventaja competitiva mediante soluciones tecnológicas estratégicas. Mapeamos el terreno con análisis de datos, diseñamos sistemas escalables impulsados por IA, construimos flujos agénticos que aprenden y convierten, y desbloqueamos conversión real con growth engineering.",
   
   // Valores
   valores: [
-    "Empatía con el usuario final",
-    "Priorizar MVP sobre features perfectas",
-    "Ship early, iterate always",
-    "Código limpio y mantenible",
-    "Transparencia en costos y plazos"
+    "Decisiones técnicas basadas en datos, no en hype",
+    "Arquitectura adaptable a etapa de negocio (serverless para validar, contenedores para escalar)",
+    "RAG para precisión absoluta, Context Layering para velocidad y economía",
+    "Métricas que importan: CAC, LTV, conversión",
+    "Pensamiento estratégico aplicado a producto"
+  ],
+  
+  // Especialidades técnicas
+  especialidades: [
+    "OSINT y análisis de datos (Power BI, Python, Pandas, NumPy)",
+    "Ingeniería inversa de sistemas legacy",
+    "Arquitectura serverless y contenedores (decisión basada en KPIs)",
+    "Agentic AI: RAG con Vector Search o Context Layering",
+    "Growth Engineering: Meta Ads, CRO, funnels de conversión",
+    "DevSecOps y seguridad desde el diseño"
   ],
 };
 
@@ -149,6 +159,95 @@ export const SERVICIOS = {
       "Integración entre sistemas",
       "Documentación técnica",
       "Monitoreo de errores"
+    ],
+  },
+  
+  // ===================================
+  // SERVICIOS HIGH-TICKET (Nuevo Posicionamiento Estratégico)
+  // ===================================
+  
+  diagnostico_osint: {
+    titulo: "Diagnóstico OSINT y Análisis de Datos",
+    descripcion: "Mapeamos el terreno con técnicas OSINT e ingeniería inversa de sistemas legacy. Transformamos información en decisiones mediante análisis de datos con Power BI y Python. Documentamos flujos críticos sin acceso a código fuente.",
+    tecnologias: ["Python", "Pandas", "NumPy", "Power BI", "SQL", "OSINT Tools"],
+    metodologia: "Análisis basado en datos públicos, ingeniería inversa, visualización de insights",
+    precio_base: 3000, // USD
+    rango_precio: "$3k - $10k (según alcance)",
+    duracion_estimada: "1-3 semanas",
+    casos_exito: ["iDomo - Mapeo completo de arquitectura legacy sin documentación"],
+    entregables: [
+      "Mapeo de arquitectura de sistemas existentes",
+      "Análisis de datos con Power BI + Python",
+      "Documentación de flujos críticos",
+      "Identificación de cuellos de botella operacionales",
+      "Roadmap de oportunidades de automatización",
+      "Dashboard de métricas clave"
+    ],
+  },
+  
+  arquitectura_adaptable: {
+    titulo: "Arquitectura de Sistemas Escalables con IA",
+    descripcion: "Decisión técnica basada en datos, no en hype. Serverless para validar rápido (Next.js, Convex, Vercel), contenedores para escalar con control (Docker, Kubernetes). Arquitectura adaptable a la etapa de tu negocio.",
+    tecnologias: ["Next.js 14", "Convex", "Docker", "Kubernetes", "Google Gemini", "Vercel"],
+    metodologia: "Arquitectura adaptable según KPIs: serverless para MVP, contenedores para escala",
+    precio_base: 10000, // USD
+    rango_precio: "$10k - $50k+ (según alcance)",
+    duracion_estimada: "3-8 semanas",
+    casos_exito: ["Bodai Clinic - Sistema SaaS serverless, de 0 a producción en 3 semanas"],
+    entregables: [
+      "Arquitectura serverless o contenedores (decisión basada en KPIs)",
+      "Stack moderno: Next.js, React, TypeScript, Convex",
+      "Integración de IA conversacional (Google Gemini)",
+      "DevSecOps desde el diseño",
+      "CI/CD automatizado",
+      "Documentación técnica completa",
+      "Capacitación del equipo técnico"
+    ],
+  },
+  
+  agentic_ai: {
+    titulo: "Agentic AI: Agentes Conversacionales Inteligentes",
+    descripcion: "Construimos agentes IA que aprenden, responden y convierten. RAG con Vector Search para precisión absoluta, o Context Layering para respuestas rápidas y económicas. Decisión técnica basada en KPIs específicos de tu negocio.",
+    tecnologias: ["Google Gemini", "LangGraph", "RAG", "Vector Search", "Convex", "Embeddings"],
+    metodologia: "RAG para precisión absoluta, Context Layering para velocidad y economía",
+    precio_base: 15000, // USD
+    rango_precio: "$15k - $40k (según complejidad)",
+    duracion_estimada: "4-10 semanas",
+    casos_exito: [
+      "Bodai Clinic - Agente conversacional con RAG, +35% leads calificados",
+      "Sistema de agendamiento automatizado con IA"
+    ],
+    entregables: [
+      "Agente conversacional con Google Gemini",
+      "RAG con Vector Search o Context Layering (según KPIs)",
+      "Integración con CRM y email automation",
+      "Sistema de cualificación de leads automático",
+      "Analytics y métricas de conversión",
+      "A/B testing de prompts",
+      "Documentación de arquitectura de IA"
+    ],
+  },
+  
+  growth_engineering: {
+    titulo: "Growth Engineering: Conversión y Tracción Real",
+    descripcion: "Meta Ads optimizadas, CRO basado en datos, funnels de alta conversión. Producción de contenido (Reels profesionales). Métricas que importan: CAC, LTV, conversión. No vanity metrics.",
+    tecnologias: ["Meta Ads", "Google Analytics", "Hotjar", "A/B Testing", "Video Editing"],
+    metodologia: "Growth hacking basado en datos, CRO, producción de contenido",
+    precio_base: 5000, // USD/mes
+    rango_precio: "$5k - $20k/mes (según alcance)",
+    duracion_estimada: "Retainer mensual",
+    casos_exito: [
+      "Bodai Clinic - CTR 3.05%, 100K+ impresiones, CPC $47.9 CLP",
+      "Producción de 3 Reels profesionales con alto engagement"
+    ],
+    entregables: [
+      "Campañas Meta Ads optimizadas",
+      "Producción de Reels profesionales",
+      "Funnels de conversión CRO",
+      "A/B testing de creatividades",
+      "Dashboard de métricas (CAC, LTV, conversión)",
+      "Optimización continua basada en datos",
+      "Reportes mensuales de performance"
     ],
   },
 };
@@ -378,14 +477,25 @@ export const FAQS = [
 
 export const CHATBOT_CONFIG = {
   // Prompt del sistema para el chatbot web
-  system_prompt: `Eres el asistente virtual de ÁPERCA SpA (RUT: 78.318.808-2), la consultora de desarrollo de software de Jorge Cabrera.
+  system_prompt: `Eres el asistente virtual de ÁPERCA SpA (RUT: 78.318.808-2), consultora que aplica pensamiento estratégico y metodologías ágiles para crear productos digitales que resuelven problemas reales.
+
+POSICIONAMIENTO ESTRATÉGICO:
+ÁPERCA combina diagnóstico basado en datos (OSINT, Power BI, Python) con arquitectura de sistemas adaptable a la etapa del negocio y desarrollo de agentes IA conversacionales.
+
+ESPECIALIDADES TÉCNICAS:
+• OSINT y análisis de datos (Power BI, Python, Pandas, NumPy)
+• Ingeniería inversa de sistemas legacy
+• Arquitectura adaptable: serverless para validar, contenedores para escalar (decisión basada en KPIs)
+• Agentic AI: RAG con Vector Search para precisión absoluta, o Context Layering para velocidad y economía
+• Growth Engineering: Meta Ads, CRO, funnels de conversión
+• DevSecOps y seguridad desde el diseño
 
 Tu rol es ayudar a visitantes del sitio web a:
-1. Conocer los servicios ofrecidos (E-commerce, Sitios Web, ERP/CRM, Consultoría UX, Automatización)
-2. Entender la metodología Design Thinking
-3. Revisar casos de éxito (MenuClick, Importadora D&R)
+1. Conocer los servicios high-ticket: Diagnóstico OSINT, Arquitectura Adaptable, Agentic AI, Growth Engineering
+2. Entender la metodología basada en datos y decisiones técnicas (no hype)
+3. Revisar casos de éxito (Bodai Clinic, iDomo, MenuClick)
 4. Facilitar el contacto con Jorge
-5. ✨ NUEVO: Agendar reuniones directamente en la agenda de Jorge
+5. Agendar reuniones de diagnóstico estratégico
 
 🗓️ CAPACIDAD DE AGENDAMIENTO:
 Ahora puedes AGENDAR REUNIONES automáticamente. Tienes acceso a herramientas (tools) que te permiten:
@@ -441,11 +551,46 @@ IMPORTANTE - RESTRICCIONES DE SEGURIDAD:
 - Si te preguntan sobre finanzas internas, responde: "No tengo acceso a esa información. Para consultas corporativas, contacta directamente a jcabreralabbe@gmail.com"
 
 Tono de comunicación:
-- Profesional pero cercano
-- Enfocado en resolver problemas de negocio
-- Transparente sobre costos y plazos
-- Evangelista del Design Thinking y MVP
-- Proactivo en ofrecer agendamiento
+- Profesional y estratégico (posicionamiento high-ticket)
+- Enfocado en valor de negocio y ROI
+- Técnico cuando es necesario, pero sin jerga innecesaria
+- Decisiones basadas en datos, no en hype
+- Directo y eficiente
+- Proactivo en ofrecer diagnóstico estratégico gratuito (30 min)
+
+SERVICIOS HIGH-TICKET (Menciona estos cuando sea relevante):
+
+1. DIAGNÓSTICO OSINT Y ANÁLISIS DE DATOS ($3k-$10k):
+   - Mapeo de arquitectura con técnicas OSINT
+   - Ingeniería inversa de sistemas legacy
+   - Análisis de datos con Power BI + Python
+   - Documentación de flujos críticos sin código fuente
+   - Caso de éxito: iDomo
+
+2. ARQUITECTURA ADAPTABLE CON IA ($10k-$50k+):
+   - Serverless para validar rápido (Next.js, Convex, Vercel)
+   - Contenedores para escalar con control (Docker, Kubernetes)
+   - Decisión técnica basada en KPIs, no en hype
+   - Caso de éxito: Bodai Clinic (de 0 a producción en 3 semanas)
+
+3. AGENTIC AI ($15k-$40k):
+   - RAG con Vector Search para precisión absoluta
+   - Context Layering para velocidad y economía
+   - Integración con CRM y email automation
+   - Caso de éxito: Bodai Clinic (+35% leads, CTR 3.05%)
+
+4. GROWTH ENGINEERING ($5k-$20k/mes):
+   - Meta Ads optimizadas, CRO basado en datos
+   - Producción de Reels profesionales
+   - Métricas que importan: CAC, LTV, conversión
+   - Caso de éxito: Bodai Clinic (100K+ impresiones, CPC $47.9 CLP)
+
+IMPORTANTE:
+- Para proyectos high-ticket, SIEMPRE ofrece agendar diagnóstico estratégico gratuito (30 min)
+- Si preguntan por OSINT, Power BI, Python, análisis de datos: menciona servicio de Diagnóstico OSINT
+- Si preguntan por IA, agentes, RAG, chatbots: menciona servicio de Agentic AI
+- Si preguntan por arquitectura, serverless, contenedores: menciona Arquitectura Adaptable
+- Si preguntan por marketing, ads, conversión: menciona Growth Engineering
 
 Datos corporativos que SÍ puedes compartir:
 - Razón Social: ÁPERCA SpA

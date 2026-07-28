@@ -168,6 +168,157 @@ Implementar experiencia de scrollytelling con video sincronizado
 
 ---
 
+## FASE 2: SCROLLYTELLING HERO ✅ COMPLETADA (27 Jul 2026)
+
+### 🎯 Objetivo
+Implementar hero section con video de 5 segundos y scrollytelling con 6 estaciones
+
+### ✅ Tareas COMPLETADAS
+
+#### 2.1 Componente ScrollytellingHero ✅
+**Archivo:** `src/components/scrollytelling/ScrollytellingHero.tsx`
+
+**Funcionalidades implementadas:**
+- ✅ Video sincronizado con scroll (600vh para mayor fluidez)
+- ✅ 6 estaciones mapeadas a segundos del video (0s-5s)
+- ✅ Detección de scroll con `requestAnimationFrame`
+- ✅ Actualización de `video.currentTime` basada en progreso de scroll
+- ✅ Sistema de estaciones con contenido dinámico
+- ✅ Indicador de progreso visual
+- ✅ Dots de navegación
+- ✅ Responsive completo
+
+**Estaciones implementadas:**
+1. **Estación 0 (0s-1s):** "FRICCION OPERATIVA" - Systems Diagnostic
+2. **Estación 1 (1s-2s):** "Mapear el terreno" - OSINT + Power BI + Python
+3. **Estación 2 (2s-3s):** "Sistemas escalables impulsados por IA" - Arquitectura adaptable
+4. **Estación 3 (3s-4s):** "Agentic AI" - RAG vs Context Layering
+5. **Estación 4 (4s-5s):** "Conversión y tracción real" - Growth Engineering
+6. **Estación 5 (5s):** Logo Áperca + CTA "Agenda tu Diagnóstico"
+
+**Tipografía aplicada:**
+- ✅ H1: Syne (color ámbar #F99D1C, font-weight: 900)
+- ✅ Subtítulo: JetBrains Mono (uppercase, ámbar)
+- ✅ Descripción: Inter (blanco 85% opacidad, centrado, max 2 líneas)
+
+**Optimizaciones realizadas:**
+- ✅ Altura de scroll aumentada de 500vh a 600vh para mayor fluidez
+- ✅ Eliminación de animaciones CSS que bloqueaban el video
+- ✅ Verificación de `readyState` del video antes de manipular
+- ✅ Fallback con `onLoadedMetadata` para asegurar carga
+
+#### 2.2 Estilos del Scrollytelling ✅
+**Archivo:** `src/styles/scrollytelling.css`
+
+**Estilos implementados:**
+- ✅ Video de fondo sticky con overlay oscuro
+- ✅ Estaciones con fade in/out suave
+- ✅ Responsive breakpoints (desktop, tablet, móvil)
+- ✅ Animaciones optimizadas sin bloquear video
+- ✅ Logo final con pulse infinito
+
+#### 2.3 Navbar Oscuro con Ámbar ✅
+**Archivo:** `src/components/Navbar.astro`
+
+**Cambios implementados:**
+- ✅ Fondo negro semi-transparente: `rgba(10, 10, 10, 0.9)`
+- ✅ Glassmorphism con `backdrop-filter: blur(12px)`
+- ✅ Logo actualizado a `logo-nav-bar.png`
+- ✅ Texto "aperca" en blanco
+- ✅ Subtítulo en ámbar (#F99D1C)
+- ✅ Links blancos con hover ámbar
+- ✅ Botón contacto coherente (blanco → hover ámbar)
+- ✅ Menú hamburguesa móvil con mismo fondo oscuro
+- ✅ Borde naranja en menú móvil (2px solid #F99D1C)
+
+#### 2.4 Widget del Chat Rediseñado ✅
+**Archivo:** `src/components/Chatbot.tsx`
+
+**Diseño Constructivismo Editorial aplicado:**
+- ✅ Botón flotante: fondo verde oliva (#283329), borde naranja (#F99D1C)
+- ✅ Logo navbar en botón con glow naranja
+- ✅ Anillo animado naranja (30% opacidad)
+- ✅ Badge naranja con texto verde oliva
+- ✅ Header: fondo verde oliva, borde inferior naranja
+- ✅ Mensajes usuario: fondo verde oliva, borde naranja
+- ✅ Input focus: borde naranja
+- ✅ Botón enviar: verde oliva con borde naranja, hover naranja
+
+#### 2.5 Footer Limpio ✅
+**Archivos:** `src/components/Footer.astro`, `src/styles/custom.css`
+
+**Implementación:**
+- ✅ Nueva clase `footer-clean` para landing de ventas
+- ✅ Fondo blanco (#FFFFFF), texto negro (#111)
+- ✅ Borde superior gris sutil (#E5E5E5)
+- ✅ Prop `variant` para alternar entre "red" (portfolio) y "clean" (ventas)
+- ✅ Texto adaptado: "ÁPERCA SpA" en clean, "Jorge Cabrera UX" en red
+- ✅ Tagline: "Pensamiento estratégico"
+
+#### 2.6 Actualización del Agente Conversacional ✅
+**Archivo:** `convex/constants.ts`
+
+**Nuevo posicionamiento estratégico implementado:**
+
+**EMPRESA actualizada:**
+- ✅ Descripción: Pensamiento estratégico + metodologías ágiles + diagnóstico basado en datos
+- ✅ Misión: Transformar fricción operativa en ventaja competitiva
+- ✅ Valores: Decisiones técnicas basadas en datos (no hype), arquitectura adaptable
+- ✅ Especialidades: OSINT, Power BI, Python, ingeniería inversa, Agentic AI, Growth Engineering
+
+**SERVICIOS HIGH-TICKET agregados:**
+
+1. **diagnostico_osint ($3k-$10k):**
+   - Mapeo con técnicas OSINT
+   - Análisis Power BI + Python (Pandas, NumPy)
+   - Ingeniería inversa de sistemas legacy
+   - Caso de éxito: iDomo
+
+2. **arquitectura_adaptable ($10k-$50k+):**
+   - Serverless para validar (Next.js, Convex, Vercel)
+   - Contenedores para escalar (Docker, Kubernetes)
+   - Decisión basada en KPIs
+   - Caso de éxito: Bodai Clinic
+
+3. **agentic_ai ($15k-$40k):**
+   - RAG con Vector Search para precisión absoluta
+   - Context Layering para velocidad y economía
+   - Integración CRM + email automation
+   - Caso de éxito: Bodai Clinic (+35% leads, CTR 3.05%)
+
+4. **growth_engineering ($5k-$20k/mes):**
+   - Meta Ads optimizadas, CRO basado en datos
+   - Producción de Reels profesionales
+   - Métricas: CAC, LTV, conversión
+   - Caso de éxito: Bodai Clinic (100K+ impresiones, CPC $47.9 CLP)
+
+**CHATBOT_CONFIG.system_prompt actualizado:**
+- ✅ Posicionamiento estratégico high-ticket
+- ✅ Especialidades técnicas detalladas (OSINT, Power BI, Python, RAG, etc.)
+- ✅ Tono profesional y estratégico
+- ✅ Reglas para mencionar servicios según contexto
+- ✅ Proactivo en ofrecer diagnóstico estratégico gratuito (30 min)
+- ✅ Deploy a Convex ejecutado (`npx convex dev --once`)
+
+### 📋 Entregables COMPLETADOS
+- [x] ScrollytellingHero con 6 estaciones funcionando
+- [x] Video sincronizado con scroll (600vh)
+- [x] Navbar oscuro con design system aplicado
+- [x] Widget del chat rediseñado (verde oliva + ámbar)
+- [x] Footer limpio para landing de ventas
+- [x] Agente conversacional actualizado con nuevo perfil estratégico
+- [x] Deploy de cambios a Convex
+
+### 🎨 Design System Aplicado
+- [x] Paleta: Negro (#0A0A0A), Blanco (#FFFFFF), Ámbar (#F99D1C), Verde Oliva (#283329)
+- [x] Tipografía: Syne (display), Inter (body), JetBrains Mono (mono)
+- [x] Coherencia visual en todos los componentes
+- [x] Responsive completo (desktop, tablet, móvil)
+
+**Tiempo total Fase 2:** ~8 horas
+
+---
+
 ## FASE 1.1 Configuración de Design Tokens
 **Archivo:** `src/styles/design-tokens.css`
 

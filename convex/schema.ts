@@ -409,4 +409,21 @@ export default defineSchema({
     .index("por_proyecto", ["proyecto_id"])
     .index("por_estado", ["estado"])
     .index("por_started_at", ["started_at"]),
+
+  // Tabla de Leads - Qualifying Funnel
+  leads: defineTable({
+    type: v.string(), // "HIGH_TICKET_CLIENT" | "RECRUITER" | "GENERAL"
+    name: v.string(),
+    email: v.string(),
+    company: v.optional(v.string()),
+    budget_range: v.optional(v.string()),
+    challenge: v.optional(v.string()),
+    project_summary: v.string(),
+    source: v.string(), // "FUNNEL_FORM" | "AI_AGENT" | "DIRECT"
+    created_at: v.number(),
+  })
+    .index("por_email", ["email"])
+    .index("por_type", ["type"])
+    .index("por_source", ["source"])
+    .index("por_created_at", ["created_at"]),
 });

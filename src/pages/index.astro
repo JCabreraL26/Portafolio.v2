@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { ScrollytellingHero } from '../components/scrollytelling/ScrollytellingHero';
+import { QualifyingFunnel } from '../components/funnel/QualifyingFunnel';
 ---
 
 <Layout 
@@ -13,6 +14,23 @@ import { ScrollytellingHero } from '../components/scrollytelling/ScrollytellingH
   
   <!-- SCROLLYTELLING HERO -->
   <ScrollytellingHero client:load />
+
+  <!-- QUALIFYING FUNNEL -->
+  <section id="funnel" class="min-h-screen flex items-center justify-center bg-[#FAF9F6] py-20">
+    <div class="container mx-auto px-4 sm:px-6 w-full">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-black font-['Syne'] mb-4 text-[#0A0A0A]">
+            ¿Listo para empezar?
+          </h2>
+          <p class="text-lg text-neutral-600 font-['Inter']">
+            Responde 4 preguntas para agendar tu diagnóstico estratégico
+          </p>
+        </div>
+        <QualifyingFunnel client:load />
+      </div>
+    </div>
+  </section>
 
   <!-- CONTACTO + FOOTER -->
   <section id="contacto" class="min-h-screen flex items-center justify-center bg-white">

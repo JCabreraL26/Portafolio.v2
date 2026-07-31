@@ -12,7 +12,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description = "Soluciones digitales para un mundo dinámico. Desarrollo fullstack con enfoque en resultados operativos.", image = "/img/Open Graph.png" } = Astro.props;
+const { title, description = "Áperca SpA | Secure Digital Product Studio & AI-Driven Engineering — Chile, LATAM.", image = "/img/Open Graph.png" } = Astro.props;
 
 // URL base del sitio configurada en astro.config.mjs
 const siteUrl = 'https://jorge-cabrera.cl';
@@ -34,7 +34,7 @@ const ogImageUrl = new URL(image, siteUrl).href;
     <link rel="canonical" href={canonicalUrl} />
     
     <!-- Open Graph / WhatsApp / Facebook -->
-    <meta property="og:site_name" content="Jorge Cabrera - Desarrollo Fullstack" />
+    <meta property="og:site_name" content="Áperca SpA | Secure Digital Product Studio & AI-Driven Engineering — Chile, LATAM" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

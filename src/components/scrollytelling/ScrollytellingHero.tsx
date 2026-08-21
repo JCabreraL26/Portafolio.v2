@@ -31,8 +31,8 @@ const stations: Station[] = [
     title: 'Datos reales.\nBrechas visibles.\nRuta clara',
     subtitle: 'DIAGNÓSTICO ESTRATÉGICO',
     description: 'Construimos desde cero con seguridad integrada. Cero brechas de datos, cero caídas por arquitectura frágil. Tu reputación y datos de clientes están protegidos.',
-    ctaText: 'Ver iDomo',
-    ctaLink: '/proyectos/idomo',
+    ctaText: 'Ver Ciberseguridad',
+    ctaLink: '/proyectos/ciberseguridad-empresarial',
   },
   {
     id: 2,
@@ -41,8 +41,8 @@ const stations: Station[] = [
     title: 'Amenazas modeladas.\nCódigo seguro',
     subtitle: 'ARQUITECTURA BLINDADA',
     description: 'No pintamos sobre ruinas. Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir la primera línea de código. Tu sistema resiste auditorías desde el commit inicial',
-    ctaText: 'Ver MenuClick',
-    ctaLink: '/proyectos/menuclick',
+    ctaText: 'Ver Ciberseguridad',
+    ctaLink: '/proyectos/ciberseguridad-empresarial',
   },
   {
     id: 3,

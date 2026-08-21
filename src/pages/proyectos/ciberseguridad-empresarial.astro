@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
+---
+
+<Layout 
+  title="Ciberseguridad Empresarial - Protección que Previene Crisis | Jorge Cabrera"
+  description="Ciberseguridad nivel enterprise para empresas que no pueden permitirse brechas de datos. Pentesting ético, cumplimiento normativo, estándares OSSTMM y NIST."
+>
+  <Navbar />
+  
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0A0A0A] via-[#1a1a1a] to-[#0A0A0A]">
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
+      <div class="max-w-6xl mx-auto text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#FF6B35]/20 border border-[#FF6B35]/30 rounded-full mb-8">
+          <svg class="w-5 h-5 text-[#FF6B35]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span class="text-[#FF6B35] text-sm font-semibold">Ciberseguridad Enterprise</span>
+        </div>
+
+        <!-- Título Principal -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-['Syne'] font-black text-white leading-tight mb-6">
+          Protección Empresarial que<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]">
+            Previene Crisis de Reputación
+          </span>
+        </h1>
+        
+        <!-- Subtítulo -->
+        <p class="text-xl sm:text-2xl text-white/80 font-light mb-12 max-w-4xl mx-auto leading-relaxed">
+          Ciberseguridad nivel enterprise para empresas que no pueden permitirse brechas de datos ni caídas de sistema
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
+          <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+            <div class="text-3xl font-black text-white mb-2">72h</div>
+            <div class="text-sm text-white/60 font-medium">Diagnóstico Completo</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+            <div class="text-3xl font-black text-white mb-2">0</div>
+            <div class="text-sm text-white/60 font-medium">Brechas de Datos</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+            <div class="text-3xl font-black text-white mb-2">100%</div>
+            <div class="text-sm text-white/60 font-medium">Cumplimiento Legal</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+            <div class="text-3xl font-black text-white mb-2">24/7</div>
+            <div class="text-sm text-white/60 font-medium">Monitoreo Continuo</div>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+          <span class="text-white/60 text-sm">Descubre cómo protegemos tu empresa</span>
+          <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Section -->
+  <section class="relative z-20 py-20 bg-[#FAF9F6]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-black text-[#0A0A0A] mb-4">
+            Ciberseguridad que Protege tu Negocio
+          </h2>
+          <p class="text-lg text-neutral-600 max-w-3xl mx-auto">
+            No vendemos tecnología, vendemos tranquilidad. Cada medida de seguridad está diseñada para proteger lo que más importa: tu reputación, tus clientes y tu negocio.
+          </p>
+        </div>
+
+        <!-- Bento Grid Component (Isla de React) -->
+        <BentoGridSecurity client:visible />
+      </div>
+    </div>
+  </section>
+
+  <!-- Credenciales y Formación -->
+  <section class="relative z-20 py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-['Syne'] font-black text-[#0A0A0A] mb-12 text-center">
+          Formación Continua en Ciberseguridad
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Certificaciones -->
+          <div class="bg-[#FAF9F6] rounded-2xl p-8 border border-neutral-200">
+            <div class="w-16 h-16 bg-[#FF6B35] rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-[#0A0A0A] mb-4">Certificaciones</h3>
+            <ul class="space-y-3 text-neutral-700">
+              <li class="flex items-start gap-3">
+                <span class="text-[#FF6B35] mt-1">✓</span>
+                <span><strong>Cisco Network Basics</strong> - Fundamentos de redes y seguridad</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#FF6B35] mt-1">✓</span>
+                <span><strong>Ethical Hacking</strong> - En formación continua</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Herramientas -->
+          <div class="bg-[#FAF9F6] rounded-2xl p-8 border border-neutral-200">
+            <div class="w-16 h-16 bg-[#0A0A0A] rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-[#0A0A0A] mb-4">Stack de Pentesting</h3>
+            <ul class="space-y-3 text-neutral-700">
+              <li class="flex items-start gap-3">
+                <span class="text-[#0A0A0A] mt-1">•</span>
+                <span><strong>Kali Linux</strong> - Plataforma principal de pentesting</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#0A0A0A] mt-1">•</span>
+                <span><strong>Nmap, Burp Suite, Metasploit</strong> - Análisis de vulnerabilidades</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#0A0A0A] mt-1">•</span>
+                <span><strong>OWASP Top 10</strong> - Metodología de testing</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="relative z-20 py-20 bg-gradient-to-br from-[#0A0A0A] to-[#1a1a1a]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-black text-white mb-6">
+          ¿Listo para Proteger tu Empresa?
+        </h2>
+        <p class="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+          Diagnóstico de seguridad gratuito: identificamos tus 3 vulnerabilidades críticas en 72 horas.
+        </p>
+        <button
+          id="cta-security-audit"
+          class="px-8 py-4 bg-gradient-to-r from-[#FF6B35] to-[#FF8C42] text-white font-bold text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_0_30px_rgba(255,107,53,0.6)] hover:scale-105 inline-flex items-center gap-3"
+        >
+          <span>Solicitar Auditoría de Seguridad</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <Footer variant="clean" />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctaButton = document.getElementById('cta-security-audit');
+      if (ctaButton) {
+        ctaButton.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('openChat', { 
+            detail: { type: 'general' } 
+          }));
+        });
+      }
+    });
+  </script>
+</Layout>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  section {
+    animation: fadeInUp 0.8s ease-out;
+  }
+</style>

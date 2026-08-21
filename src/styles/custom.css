@@ -757,6 +757,46 @@
   color: #ffffff !important;
 }
 
+.service-card-5 {
+  background: #F99D1C;
+  color: #000000;
+  border: 2px solid #F99D1C;
+}
+
+.service-card-5:hover {
+  background: #000000;
+  color: #F99D1C;
+  border: 2px solid #F99D1C;
+  box-shadow: 
+    0 12px 24px rgba(249, 157, 28, 0.3),
+    0 24px 48px rgba(249, 157, 28, 0.2);
+}
+
+.service-card-5 h3,
+.service-card-5 p {
+  color: inherit;
+}
+
+.service-card-5:hover .text-white,
+.service-card-5:hover .text-white\/90 {
+  color: #F99D1C !important;
+}
+
+.service-card-5 .text-white,
+.service-card-5 .text-white\/90 {
+  color: #000000 !important;
+}
+
+.service-card-5 span {
+  background: rgba(0, 0, 0, 0.15);
+  color: #000000;
+}
+
+.service-card-5:hover span {
+  background: rgba(249, 157, 28, 0.2);
+  color: #F99D1C;
+}
+
 /* Responsive para Services Bento */
 @media (max-width: 900px) {
   .services-bento {

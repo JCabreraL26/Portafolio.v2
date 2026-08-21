@@ -41,7 +41,7 @@ export function InteractiveGlobe() {
         <div className="tech-tag tag-top-left">Full Stack</div>
         <div className="tech-tag tag-top-right">UX Design</div>
         <div className="tech-tag tag-bottom-left">Growth Marketing</div>
-        <div className="tech-tag tag-bottom-right">Meta Ads</div>
+        <div className="tech-tag tag-bottom-right">Hacking Ético</div>
         <div className="tech-tag tag-middle-left">CRO</div>
         <div className="tech-tag tag-middle-right">E-commerce</div>
       </div>

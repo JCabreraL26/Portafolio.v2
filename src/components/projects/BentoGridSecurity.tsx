@@ -23,7 +23,7 @@ const cards: BentoCard[] = [
     bgColor: 'bg-[#0A0A0A]',
     textColor: 'text-white',
     hasImage: true,
-    imagePlaceholder: 'surface-attack',
+    imagePlaceholder: 'building_network',
   },
   {
     id: 2,
@@ -31,9 +31,10 @@ const cards: BentoCard[] = [
     title: 'Protección de Datos de Pacientes: Cumplimiento Legal Total',
     subtitle: 'CASO BODAI CLINIC',
     description: 'Implementamos estándares OSSTMM y NIST nivel empresarial para proteger datos sensibles de 1,200+ pacientes. Cero brechas, cero multas, cero riesgo legal.',
-    bgColor: 'bg-white',
-    textColor: 'text-[#0A0A0A]',
-    icon: 'shield',
+    bgColor: 'bg-[#0A0A0A]',
+    textColor: 'text-white',
+    hasImage: true,
+    imagePlaceholder: 'shield_cibersecurity',
   },
   {
     id: 3,
@@ -43,8 +44,6 @@ const cards: BentoCard[] = [
     description: 'Identificación científica de riesgos: puertos expuestos, APIs sin sanitizar, bases de datos accesibles. Conoces tus puntos débiles antes que los hackers.',
     bgColor: 'bg-gradient-to-br from-[#FF6B35] to-[#FF8C42]',
     textColor: 'text-white',
-    hasImage: true,
-    imagePlaceholder: 'kali-analysis',
   },
   {
     id: 4,
@@ -72,9 +71,10 @@ const cards: BentoCard[] = [
     title: 'Documentación que Auditores Aprueban',
     subtitle: 'ESTÁNDARES ENTERPRISE',
     description: 'Estándares OSSTMM + NIST: superficie de ataque documentada, riesgos cuantificados científicamente. Pasas auditorías sin estrés.',
-    bgColor: 'bg-gradient-to-br from-[#FF6B35] to-[#FF8C42]',
+    bgColor: 'bg-[#0A0A0A]',
     textColor: 'text-white',
-    icon: 'document',
+    hasImage: true,
+    imagePlaceholder: 'station-1-osint',
   },
   {
     id: 7,
@@ -175,10 +175,15 @@ export function BentoGridSecurity() {
             </div>
           )}
 
-          {/* Image Placeholder */}
-          {card.hasImage && (
-            <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-              <div className="w-full h-full bg-gradient-to-br from-white/20 to-transparent" />
+          {/* Background Image */}
+          {card.hasImage && card.imagePlaceholder && (
+            <div className="absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity">
+              <img 
+                src={`/img/${card.imagePlaceholder}.png`}
+                alt={card.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-black/20" />
             </div>
           )}
 

@@ -412,18 +412,63 @@ export default defineSchema({
 
   // Tabla de Leads - Qualifying Funnel
   leads: defineTable({
-    type: v.string(), // "HIGH_TICKET_CLIENT" | "RECRUITER" | "GENERAL"
+    type: v.string(), // "HIGH_TICKET_CLIENT" | "RECRUITER" | "GENERAL" | "GRC_ASSESSMENT"
     name: v.string(),
     email: v.string(),
     company: v.optional(v.string()),
     budget_range: v.optional(v.string()),
     challenge: v.optional(v.string()),
     project_summary: v.string(),
-    source: v.string(), // "FUNNEL_FORM" | "AI_AGENT" | "DIRECT"
+    source: v.string(), // "FUNNEL_FORM" | "AI_AGENT" | "DIRECT" | "GRC_FUNNEL"
     created_at: v.number(),
   })
     .index("por_email", ["email"])
     .index("por_type", ["type"])
     .index("por_source", ["source"])
+    .index("por_created_at", ["created_at"]),
+
+  // Tabla de Resultados de Diagnóstico GRC (Ley 21.663 / Ley 21.719)
+  grc_assessments: defineTable({
+    leadId: v.id("leads"), // referencia al lead creado en el mismo submit
+
+    // Contexto de la autoevaluación
+    sector: v.union(
+      v.literal("salud"),
+      v.literal("servicios_financieros"),
+      v.literal("comercio"),
+      v.literal("otro")
+    ),
+    tamano_empresa: v.optional(v.string()), // ej: "1-10", "11-50", "51-200", "200+"
+
+    // Respuestas crudas del cuestionario (estructura de preguntas definida en Fase 4)
+    respuestas: v.array(
+      v.object({
+        questionId: v.string(),
+        value: v.union(v.string(), v.number(), v.boolean()),
+      })
+    ),
+
+    // Resultado de aplicabilidad normativa (calculado por convex/lib/compliance.ts en Fase 1/3)
+    aplicabilidad: v.object({
+      ley21663: v.boolean(),
+      ley21719: v.boolean(),
+      rol21719: v.optional(v.string()), // "responsable" | "encargado" | "ambos" | "no_aplica"
+      justificacion: v.optional(v.array(v.string())), // razones legibles, mostradas en el teaser de resultado
+    }),
+
+    // Score de madurez (0-100), no confundir con la exposición económica
+    score: v.number(),
+
+    // Salida del motor Monte Carlo FAIR (convex/lib/fairEngine.ts), en CLP
+    exposicionP10: v.number(),
+    exposicionP50: v.number(),
+    exposicionP90: v.number(),
+    moneda: v.optional(v.string()), // default "CLP"
+    seedUsada: v.number(), // permite reproducir la simulación exacta
+
+    created_at: v.number(),
+  })
+    .index("por_leadId", ["leadId"])
+    .index("por_sector", ["sector"])
     .index("por_created_at", ["created_at"]),
 });

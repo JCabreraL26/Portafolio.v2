@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAction, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useGrcChatFlow, type QuickReply, type GrcResult } from "./grc/useGrcChatFlow";
 
 // 🛡️ Helper: Sanitizar HTML del bot para prevenir XSS
 function sanitizarHtmlBot(html: string): string {
@@ -19,10 +20,12 @@ interface Message {
   texto: string;
   esUsuario: boolean;
   timestamp: number;
+  quickReplies?: QuickReply[];
+  resultCard?: GrcResult;
 }
 
 interface ChatContext {
-  type: 'general' | 'schedule_meeting' | 'contact';
+  type: 'general' | 'schedule_meeting' | 'contact' | 'grc_diagnostic';
   initialMessage?: string;
 }
 
@@ -36,9 +39,27 @@ export function Chatbot() {
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Debug: verificar que el componente se montó
+  useEffect(() => {
+    console.log('✅ Chatbot montado correctamente');
+  }, []);
   
   // Action de Convex para enviar mensajes
   const procesarMensaje = useAction(api.functions.ai.googleChatbot.procesarMensajeWeb);
+
+  // Flujo conversacional del Diagnóstico GRC (chips) — ver src/components/grc/useGrcChatFlow.ts
+  const appendGrcBotMessage = (msg: { texto: string; quickReplies?: QuickReply[]; resultCard?: GrcResult }) => {
+    setMessages(prev => [...prev, {
+      id: `grc_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      texto: msg.texto,
+      esUsuario: false,
+      timestamp: Date.now(),
+      quickReplies: msg.quickReplies,
+      resultCard: msg.resultCard,
+    }]);
+  };
+  const grcFlow = useGrcChatFlow(appendGrcBotMessage);
   
   // Auto-scroll al final de los mensajes
   const scrollToBottom = () => {
@@ -89,6 +110,11 @@ export function Chatbot() {
   // Mensaje de bienvenida al abrir por primera vez
   useEffect(() => {
     if (isOpen && messages.length === 0) {
+      if (context.type === 'grc_diagnostic') {
+        grcFlow.start();
+        return;
+      }
+
       let welcomeText = "";
       
       if (context.type === 'schedule_meeting') {
@@ -110,21 +136,32 @@ export function Chatbot() {
   
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
-    
+
     const userMessage: Message = {
       id: `user_${Date.now()}`,
       texto: inputText,
       esUsuario: true,
       timestamp: Date.now(),
     };
-    
+
     setMessages(prev => [...prev, userMessage]);
+    const textoEnviado = inputText;
     setInputText("");
+
+    // Diagnóstico GRC: los pasos de texto libre (nombre/email) los maneja el hook,
+    // no el agente de IA general.
+    if (context.type === 'grc_diagnostic') {
+      setIsTyping(true);
+      await grcFlow.handleTextReply(textoEnviado);
+      setIsTyping(false);
+      return;
+    }
+
     setIsTyping(true);
-    
+
     try {
       const response = await procesarMensaje({
-        mensaje: inputText,
+        mensaje: textoEnviado,
         session_id: sessionId,
         ip_usuario: undefined,
         user_agent: navigator.userAgent,
@@ -161,6 +198,53 @@ export function Chatbot() {
       handleSendMessage();
     }
   };
+
+  const handleGrcQuickReply = (qr: QuickReply) => {
+    // Si es el botón de redirección, ir a la página dedicada
+    if (qr.value === 'redirect') {
+      window.location.href = '/diagnostico-grc';
+      return;
+    }
+
+    const label = grcFlow.handleQuickReply(qr.value);
+    
+    if (!label) {
+      return;
+    }
+
+    const nuevoMensaje = {
+      id: `user_${Date.now()}_${Math.random()}`,
+      texto: label,
+      esUsuario: true,
+      timestamp: Date.now(),
+    };
+
+    setMessages(prev => [...prev, nuevoMensaje]);
+    
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+  };
+
+  const handleAgendarDesdeGrc = (result: GrcResult) => {
+    setContext({ type: 'schedule_meeting' });
+    
+    const nuevoMensaje = {
+      id: `bot_${Date.now()}`,
+      texto: `📅 **¡Perfecto! Agendemos tu reunión de diagnóstico GRC**\n\nVimos tu score de madurez (${result.score}/100) para el sector ${result.sector}. Para agendar con Jorge Cabrera, dime qué día y hora prefieres (Ej: "Mañana 15:00" o "Viernes 10:30").`,
+      esUsuario: false,
+      timestamp: Date.now(),
+    };
+    
+    setMessages(prev => [...prev, nuevoMensaje]);
+    
+    // Forzar scroll después de agregar el mensaje
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+  };
+
+  const formatCLP = (n: number) => `$${Math.round(n).toLocaleString('es-CL')} CLP`;
   
   return (
     <>
@@ -229,35 +313,103 @@ export function Chatbot() {
           
           {/* Messages area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#FAF9F6]">
-            {messages.map((msg) => (
+            {messages.map((msg, idx) => (
               <div
                 key={msg.id}
                 className={`flex ${msg.esUsuario ? "justify-end" : "justify-start"}`}
               >
-                <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    msg.esUsuario
-                      ? "bg-[#283329] text-white rounded-br-none border-2 border-[#F99D1C]"
-                      : "bg-white text-neutral-900 rounded-bl-none shadow-md border border-neutral-200"
-                  }`}
-                >
-                  <p 
-                    className="text-sm leading-relaxed font-['Poppins'] whitespace-pre-wrap"
-                    dangerouslySetInnerHTML={{
-                      __html: sanitizarHtmlBot(
-                        msg.texto
-                          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                          .replace(/\n/g, '<br />')
-                      )
-                    }}
-                  />
-                  <span className={`text-xs mt-1 block ${msg.esUsuario ? 'text-white/50' : 'text-neutral-500'}`}>
-                    {new Date(msg.timestamp).toLocaleTimeString('es-CL', { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </span>
-                </div>
+                {msg.resultCard ? (
+                  <div className="max-w-[90%] w-full bg-[#283329] text-white rounded-2xl rounded-bl-none shadow-md border-2 border-[#F99D1C] p-4 space-y-3">
+                    <p className="font-['Syne'] font-bold text-sm uppercase tracking-wide text-[#F99D1C]">
+                      Resultado de tu diagnóstico GRC
+                    </p>
+
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-14 h-14 shrink-0 rounded-full border-4 border-[#F99D1C] flex items-center justify-center font-['Syne'] font-bold text-lg">
+                        {msg.resultCard.score}
+                      </div>
+                      <p className="text-sm font-['Poppins']">Score de madurez sobre 100</p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      <span className={`text-xs font-['Poppins'] px-3 py-1 rounded-full border ${msg.resultCard.aplicabilidad.ley21663 ? 'bg-[#F99D1C] text-[#283329] border-[#F99D1C]' : 'bg-transparent border-white/30 text-white/70'}`}>
+                        Ley 21.663 {msg.resultCard.aplicabilidad.ley21663 ? 'Aplica' : 'No aplica'}
+                      </span>
+                      <span className={`text-xs font-['Poppins'] px-3 py-1 rounded-full border ${msg.resultCard.aplicabilidad.ley21719 ? 'bg-[#F99D1C] text-[#283329] border-[#F99D1C]' : 'bg-transparent border-white/30 text-white/70'}`}>
+                        Ley 21.719 {msg.resultCard.aplicabilidad.ley21719 ? 'Aplica' : 'No aplica'}
+                      </span>
+                    </div>
+
+                    <p className="text-sm font-['Poppins']">
+                      Exposición indicativa (P10–P90):
+                      <br />
+                      <strong className="text-[#F99D1C]">
+                        {formatCLP(msg.resultCard.exposicion.p10)} — {formatCLP(msg.resultCard.exposicion.p90)}
+                      </strong>
+                    </p>
+                    <p className="text-xs text-white/60 font-['Poppins']">
+                      Estimación indicativa, no un informe pericial. Se afina con datos reales en la reunión.
+                    </p>
+
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🔵 Click detectado en botón');
+                        handleAgendarDesdeGrc(msg.resultCard!);
+                      }}
+                      className="w-full bg-[#F99D1C] text-[#283329] font-['Syne'] font-bold py-2 rounded-full hover:bg-white transition-colors cursor-pointer relative z-10"
+                    >
+                      Agendar mi diagnóstico →
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    className={`max-w-[80%] p-3 rounded-2xl ${
+                      msg.esUsuario
+                        ? "bg-[#283329] text-white rounded-br-none border-2 border-[#F99D1C]"
+                        : "bg-white text-neutral-900 rounded-bl-none shadow-md border border-neutral-200"
+                    }`}
+                  >
+                    <p 
+                      className="text-sm leading-relaxed font-['Poppins'] whitespace-pre-wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: sanitizarHtmlBot(
+                          msg.texto
+                            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                            .replace(/\n/g, '<br />')
+                        )
+                      }}
+                    />
+                    <span className={`text-xs mt-1 block ${msg.esUsuario ? 'text-white/50' : 'text-neutral-500'}`}>
+                      {new Date(msg.timestamp).toLocaleTimeString('es-CL', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </span>
+
+                    {/* Chips del diagnóstico GRC — solo tocables en el último mensaje del bot */}
+                    {msg.quickReplies && idx === messages.length - 1 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {msg.quickReplies.map((qr) => (
+                          <button
+                            key={qr.value}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              console.log('🟢 Click detectado en quick reply button');
+                              handleGrcQuickReply(qr);
+                            }}
+                            className="flex items-center gap-1.5 px-3 py-2 bg-[#FAF9F6] border-2 border-[#283329] rounded-full text-xs font-['Poppins'] font-semibold hover:bg-[#F99D1C] hover:border-[#F99D1C] transition-colors cursor-pointer relative z-10"
+                          >
+                            {qr.icon && <span>{qr.icon}</span>}
+                            {qr.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
             
@@ -278,47 +430,59 @@ export function Chatbot() {
           </div>
           
           {/* Input area */}
-          <div className="p-4 bg-white border-t border-neutral-200">
-            <div className="flex gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value.slice(0, 1000))}
-                onKeyPress={handleKeyPress}
-                placeholder="Escribe tu mensaje..."
-                maxLength={1000}
-                className="flex-1 px-4 py-3 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-[#F99D1C] transition-colors font-['Poppins'] text-sm"
-                disabled={isTyping}
-              />
-              
-              <button
-                onClick={handleSendMessage}
-                disabled={!inputText.trim() || isTyping}
-                className="bg-[#283329] text-white p-3 rounded-full hover:bg-[#F99D1C] hover:text-[#283329] disabled:bg-neutral-300 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 border-2 border-[#F99D1C]"
-                aria-label="Enviar mensaje"
-              >
-                <svg 
-                  className="w-6 h-6" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" 
-                  />
-                </svg>
-              </button>
+          {context.type === 'grc_diagnostic' && (grcFlow.inputMode === 'chips' || grcFlow.inputMode === 'none') ? (
+            <div className="p-3 bg-white border-t border-neutral-200 text-center">
+              <p className="text-xs text-neutral-400 font-['Poppins']">
+                {grcFlow.inputMode === 'none' ? 'Un momento...' : 'Toca una opción arriba para continuar 👆'}
+              </p>
             </div>
-            
-            {/* Footer */}
-            <p className="text-xs text-neutral-400 text-center mt-2 font-['Poppins']">
-              Powered by <span className="font-semibold text-[#283329]">Google Gemini AI</span>
-            </p>
-          </div>
+          ) : (
+            <div className="p-4 bg-white border-t border-neutral-200">
+              <div className="flex gap-2">
+                <input
+                  ref={inputRef}
+                  type={context.type === 'grc_diagnostic' && grcFlow.inputMode === 'email' ? 'email' : 'text'}
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value.slice(0, 1000))}
+                  onKeyPress={handleKeyPress}
+                  placeholder={
+                    context.type === 'grc_diagnostic'
+                      ? grcFlow.inputMode === 'email' ? 'tu@email.com' : 'Tu nombre'
+                      : 'Escribe tu mensaje...'
+                  }
+                  maxLength={1000}
+                  className="flex-1 px-4 py-3 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-[#F99D1C] transition-colors font-['Poppins'] text-sm"
+                  disabled={isTyping}
+                />
+                
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!inputText.trim() || isTyping}
+                  className="bg-[#283329] text-white p-3 rounded-full hover:bg-[#F99D1C] hover:text-[#283329] disabled:bg-neutral-300 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 border-2 border-[#F99D1C]"
+                  aria-label="Enviar mensaje"
+                >
+                  <svg 
+                    className="w-6 h-6" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" 
+                    />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Footer */}
+              <p className="text-xs text-neutral-400 text-center mt-2 font-['Poppins']">
+                Powered by <span className="font-semibold text-[#283329]">Google Gemini AI</span>
+              </p>
+            </div>
+          )}
         </div>
       )}
     </>

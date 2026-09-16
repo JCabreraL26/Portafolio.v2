@@ -175,6 +175,29 @@ import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
     </div>
   </section>
 
+  <!-- Cumplimiento Regulatorio -->
+  <section class="relative z-20 py-20 bg-[#FAF9F6]">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-['Syne'] font-black text-[#0A0A0A] mb-6">
+          ¿Tu empresa cumple con la Ley 21.663 y 21.719?
+        </h2>
+        <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+          Diagnóstico exprés: descubre si te aplican las nuevas leyes de ciberseguridad y protección de datos, tu nivel de madurez y exposición económica indicativa.
+        </p>
+        <button
+          id="cta-grc-diagnostic"
+          class="px-8 py-4 bg-[#F99D1C] text-[#283329] font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 shadow-lg hover:shadow-xl"
+        >
+          <span>Evaluar mi Cumplimiento (Gratis)</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Final -->
   <section class="relative z-20 py-20 bg-gradient-to-br from-[#0A0A0A] to-[#1a1a1a]">
     <div class="container mx-auto px-4 sm:px-6">
@@ -202,6 +225,17 @@ import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // CTA Diagnóstico GRC
+      const grcButton = document.getElementById('cta-grc-diagnostic');
+      if (grcButton) {
+        grcButton.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('openChat', { 
+            detail: { type: 'grc_diagnostic' } 
+          }));
+        });
+      }
+
+      // CTA Auditoría de Seguridad
       const ctaButton = document.getElementById('cta-security-audit');
       if (ctaButton) {
         ctaButton.addEventListener('click', () => {

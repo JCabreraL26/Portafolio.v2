@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { GrcWizardWrapper } from '../components/grc/GrcWizardWrapper';
+---
+
+<Layout 
+  title="Diagnóstico GRC Gratuito - ¿Cumples con la Ley 21.663 y 21.719? | Áperca SpA"
+  description="Evalúa en 2 minutos si tu empresa cumple con las nuevas leyes chilenas de ciberseguridad y protección de datos. Score de madurez + exposición económica indicativa."
+>
+  <Navbar />
+  
+  <!-- Hero Section - Marketing directo -->
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#283329] to-[#0A0A0A] relative overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
+      <div class="max-w-4xl mx-auto">
+        <!-- Bajada -->
+        <h2 class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-8 text-center" style="letter-spacing: 0.02em;">
+          Motor · Análisis · Riesgo
+        </h2>
+
+        <!-- Título Principal - Responsive -->
+        <div class="relative mb-6 max-w-5xl mx-auto">
+          <!-- Mobile: apilado simple -->
+          <div class="block lg:hidden text-center">
+            <h1 class="text-3xl font-['Syne'] font-black leading-tight text-white mb-2" style="letter-spacing: -0.02em;">
+              Nuestro motor mide riesgos<br/>
+              <span class="text-[#F99D1C]">Nueva Ley de Datos</span>
+            </h1>
+          </div>
+
+          <!-- Desktop: diseño vanguardista -->
+          <div class="hidden lg:flex items-start gap-4">
+            <div class="w-1/2 pt-8">
+              <h1 class="text-xl xl:text-2xl font-['Syne'] font-black leading-tight text-white text-right pr-4" style="letter-spacing: -0.02em;">
+                Nuestro motor mide<br/>riesgos de incumplimiento
+              </h1>
+            </div>
+            <div class="w-1/2 pt-16">
+              <h1 class="text-5xl xl:text-6xl font-['Syne'] font-black leading-none text-[#F99D1C]" style="letter-spacing: -0.02em;">
+                Nueva Ley<br/>de Datos
+              </h1>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Subtítulo - Urgencia + Beneficio -->
+        <p class="text-xl text-white/80 mb-10 max-w-3xl mx-auto leading-relaxed text-center">
+          Evita sanciones millonarias y descubre la vulnerabilidad de tu infraestructura en 10 preguntas.
+        </p>
+
+        <!-- CTA Principal -->
+        <div class="text-center mb-8">
+          <button
+            id="cta-open-panel"
+            class="px-12 py-6 bg-[#F99D1C] text-[#283329] font-['Syne'] font-black text-2xl rounded-full transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(249,157,28,0.7)]"
+          >
+            Comenzar Evaluación Gratuita →
+          </button>
+        </div>
+
+        <!-- Trust bar simple -->
+        <div class="text-center">
+          <p class="text-sm text-white/50 font-['JetBrains_Mono']">
+            Ley 21.663 (Ciberseguridad) · Ley 21.719 (Datos Personales)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel Interactivo GRC - Se abre aquí inline -->
+  <div id="grc-panel" class="hidden bg-white py-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      <GrcWizardWrapper client:only="react" />
+    </div>
+  </div>
+
+  <!-- FAQ - Más compacto y al final -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-['Syne'] font-black text-center mb-12">
+          Preguntas frecuentes
+        </h2>
+        
+        <div class="space-y-6">
+          <details class="border-b border-neutral-200 pb-4">
+            <summary class="font-bold cursor-pointer">¿Es realmente gratis?</summary>
+            <p class="text-neutral-600 text-sm mt-2">Sí. El diagnóstico exprés y el resultado son 100% gratuitos. La reunión de 30 minutos también es sin costo ni compromiso.</p>
+          </details>
+          
+          <details class="border-b border-neutral-200 pb-4">
+            <summary class="font-bold cursor-pointer">¿Qué tan preciso es el resultado?</summary>
+            <p class="text-neutral-600 text-sm mt-2">Es una estimación indicativa basada en tus respuestas. En la reunión gratuita afinamos con datos reales de tu empresa para un informe detallado.</p>
+          </details>
+          
+          <details class="border-b border-neutral-200 pb-4">
+            <summary class="font-bold cursor-pointer">¿Qué pasa con mis datos?</summary>
+            <p class="text-neutral-600 text-sm mt-2">Se usan solo para calcular tu diagnóstico y preparar la reunión si la agendas. No compartimos ni vendemos tu información.</p>
+          </details>
+          
+          <details class="border-b border-neutral-200 pb-4">
+            <summary class="font-bold cursor-pointer">¿Esto es asesoría legal?</summary>
+            <p class="text-neutral-600 text-sm mt-2">No. Es un diagnóstico técnico de ciberseguridad y gobernanza de datos. Para asesoría legal, recomendamos consultar con un abogado especializado.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer variant="clean" />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnOpenPanel = document.getElementById('cta-open-panel');
+      const panel = document.getElementById('grc-panel');
+      
+      if (btnOpenPanel && panel) {
+        btnOpenPanel.addEventListener('click', () => {
+          // Mostrar panel
+          panel.classList.remove('hidden');
+          
+          // Scroll suave al panel
+          panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    });
+  </script>
+</Layout>

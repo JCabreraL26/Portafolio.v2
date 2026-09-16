@@ -18,19 +18,19 @@ const stations: Station[] = [
     id: 0,
     startTime: 0,
     endTime: 1,
-    title: 'Producto.\nSeguridad.\nInteligencia',
-    subtitle: 'SECURE DIGITAL PRODUCT STUDIO',
-    description: 'Construimos sistemas digitales que escalan, convierten y resisten auditorías. Un solo socio para arquitectura, ciberseguridad y agentes de IA con gobernanza',
-    ctaText: 'Scroll para continuar',
-    ctaLink: '#',
+    title: '¿Cumples\ncon la \nnueva ley de datos?',
+    subtitle: 'CUMPLIMIENTO · SEGURIDAD · GOBERNANZA',
+    description: 'Ley 21.663 y 21.719 ya están vigentes. Las multas por incumplimiento pueden paralizarte. Descubre tu exposición real ahora',
+    ctaText: 'Evaluar mi Cumplimiento',
+    ctaLink: '/diagnostico-grc',
   },
   {
     id: 1,
     startTime: 1,
     endTime: 2,
-    title: 'Datos reales.\nBrechas visibles.\nRuta clara',
+    title: 'Datos reales\nBrchas visibles. Ruta clara',
     subtitle: 'DIAGNÓSTICO ESTRATÉGICO',
-    description: 'Construimos desde cero con seguridad integrada. Cero brechas de datos, cero caídas por arquitectura frágil. Tu reputación y datos de clientes están protegidos.',
+    description: 'Construimos desde cero con seguridad integrada. Cero brechas de datos, cero caídas por arquitectura frágil.',
     ctaText: 'Ver Ciberseguridad',
     ctaLink: '/proyectos/ciberseguridad-empresarial',
   },
@@ -38,19 +38,19 @@ const stations: Station[] = [
     id: 2,
     startTime: 2,
     endTime: 3,
-    title: 'Amenazas modeladas.\nCódigo seguro',
+    title: 'Amenazas\nmodeladas\nCódigo seguro',
     subtitle: 'ARQUITECTURA BLINDADA',
-    description: 'No pintamos sobre ruinas. Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir la primera línea de código. Tu sistema resiste auditorías desde el commit inicial',
-    ctaText: 'Ver Ciberseguridad',
-    ctaLink: '/proyectos/ciberseguridad-empresarial',
+    description: 'Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir código. Tu sistema resiste auditorías desde el commit inicial.',
+    ctaText: 'Evalúa tu Cumplimiento GRC',
+    ctaLink: '/diagnostico-grc',
   },
   {
     id: 3,
     startTime: 3,
     endTime: 4,
-    title: 'Velocidad startup.\nCalidad enterprise.\nGobernanza total',
+    title: 'Velocidad startup\nCalidad enterprise. Gobernanza total',
     subtitle: 'INGENIERÍA ACELERADA',
-    description: 'Usamos IA para acelerar el desarrollo, pero con revisiones arquitectónicas, testing automatizado y gates de seguridad en cada sprint. Nada llega a producción sin validación humana.',
+    description: 'IA para acelerar el desarrollo, con revisiones arquitectónicas y gates de seguridad en cada sprint. Nada llega a producción sin validación humana.',
     ctaText: 'Ver Bodai Clinic',
     ctaLink: '/proyectos/bodai-clinic',
   },
@@ -58,10 +58,10 @@ const stations: Station[] = [
     id: 4,
     startTime: 4,
     endTime: 5,
-    title: 'Más conversión.\nMenos fugas.\nCero deuda técnica',
+    title: 'Más conversión\nMenos fugas\nCero deuda técnica',
     subtitle: 'IMPACTO MEDIABLE',
-    description: 'Agentes de IA que cualifican leads todo el día. Embudos sin fricción. Dashboards que muestran dónde creces y dónde sangras. Construimos tracción comercial real, no solo pantallas bonitas.',
-    ctaText: 'Agenda tu Diagnóstico Estratégico',
+    description: 'Agentes de IA que cualifican leads. Embudos sin fricción. Dashboards que muestran dónde creces y dónde sangras.',
+    ctaText: 'Agenda tu Diagnóstico',
     ctaLink: '#contacto',
   },
   {
@@ -70,8 +70,8 @@ const stations: Station[] = [
     endTime: 6,
     title: '',
     showLogo: true,
-    ctaText: 'Agenda tu Diagnóstico',
-    ctaLink: '#contacto',
+    ctaText: 'Conoce tu Exposición Legal',
+    ctaLink: '/diagnostico-grc',
   },
 ];
 
@@ -186,31 +186,94 @@ export function ScrollytellingHero() {
                   className="logo-aperca"
                 />
                 {currentStationData.ctaText && (
-                  <a
-                    href={currentStationData.ctaLink}
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('openChat', {
+                        detail: { type: 'grc_diagnostic' }
+                      }));
+                    }}
                     className="cta-button cta-primary"
                   >
                     {currentStationData.ctaText}
                     <ArrowRight className="w-5 h-5" />
-                  </a>
+                  </button>
                 )}
               </div>
             ) : (
-              // Estaciones 0-4: Título + Descripción + CTA
+              // Estaciones 0-4: Título + Descripción + CTA (alternando layout)
               <div className="station-content">
-                <div className="station-text">
-                  {currentStationData.subtitle && (
-                    <h2 className="station-subtitle">{currentStationData.subtitle}</h2>
-                  )}
-                  <h1 className="station-title">{currentStationData.title}</h1>
-                  {currentStationData.description && (
-                    <p className="station-description">{currentStationData.description}</p>
-                  )}
+                {/* Layout responsive: mobile apilado, desktop vanguardista */}
+                <div className="mb-8">
+                  {/* Mobile: layout simple apilado */}
+                  <div className="block lg:hidden text-center">
+                    {currentStationData.subtitle && (
+                      <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style={{letterSpacing: '0.02em'}}>
+                        {currentStationData.subtitle}
+                      </h2>
+                    )}
+                    <h1 className="text-4xl font-['Syne'] font-black leading-tight text-white mb-2 whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
+                      {currentStationData.title}
+                    </h1>
+                  </div>
+
+                  {/* Desktop: layout vanguardista alternado */}
+                  {(() => {
+                    const lines = currentStationData.title.split('\n').filter(l => l.trim());
+                    const midPoint = Math.ceil(lines.length / 2);
+                    const leftText = lines.slice(0, midPoint).join('\n');
+                    const rightText = lines.slice(midPoint).join('\n');
+                    
+                    return currentStation % 2 === 0 ? (
+                      // Estaciones pares: pequeño izquierda, grande derecha
+                      <div className="hidden lg:flex items-start gap-6 max-w-6xl mx-auto">
+                        <div className="w-1/2 pt-8">
+                          {currentStationData.subtitle && (
+                            <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-right pr-4" style={{letterSpacing: '0.02em'}}>
+                              {currentStationData.subtitle}
+                            </h2>
+                          )}
+                          <h1 className="text-2xl xl:text-3xl font-['Syne'] font-black leading-tight text-white text-right pr-4 whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
+                            {leftText}
+                          </h1>
+                        </div>
+                        <div className="w-1/2 pt-16">
+                          <h1 className="text-5xl xl:text-6xl font-['Syne'] font-black leading-tight text-[#F99D1C] whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
+                            {rightText}
+                          </h1>
+                        </div>
+                      </div>
+                    ) : (
+                      // Estaciones impares: grande izquierda, pequeño derecha
+                      <div className="hidden lg:flex items-start gap-6 max-w-6xl mx-auto">
+                        <div className="w-1/2 pt-8">
+                          <h1 className="text-5xl xl:text-6xl font-['Syne'] font-black leading-tight text-[#F99D1C] text-right pr-4 whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
+                            {leftText}
+                          </h1>
+                        </div>
+                        <div className="w-1/2 pt-16">
+                          {currentStationData.subtitle && (
+                            <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style={{letterSpacing: '0.02em'}}>
+                              {currentStationData.subtitle}
+                            </h2>
+                          )}
+                          <h1 className="text-2xl xl:text-3xl font-['Syne'] font-black leading-tight text-white whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
+                            {rightText}
+                          </h1>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
+                
+                {/* Descripción centrada */}
+                {currentStationData.description && (
+                  <p className="station-description">{currentStationData.description}</p>
+                )}
 
                 {currentStationData.ctaText && (
                   <>
-                    {(currentStation === 4 || currentStation === 5) ? (
+                    {currentStation === 4 ? (
+                      // Estación 4: Abre chat para agendar
                       <button
                         onClick={() => {
                           window.dispatchEvent(new CustomEvent('openChat', { 
@@ -223,18 +286,13 @@ export function ScrollytellingHero() {
                         <ArrowRight className="w-5 h-5" />
                       </button>
                     ) : (
+                      // Todas las demás: link directo
                       <a
                         href={currentStationData.ctaLink}
-                        className={`cta-button ${
-                          currentStation === 0 ? 'cta-scroll' : 'cta-secondary'
-                        }`}
+                        className="cta-button cta-secondary"
                       >
                         {currentStationData.ctaText}
-                        {currentStation === 0 ? (
-                          <ArrowDown className="w-5 h-5 animate-bounce" />
-                        ) : (
-                          <ArrowRight className="w-5 h-5" />
-                        )}
+                        <ArrowRight className="w-5 h-5" />
                       </a>
                     )}
                   </>

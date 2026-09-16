@@ -26,7 +26,11 @@ import type * as functions_ai_uxResearch_router from "../functions/ai/uxResearch
 import type * as functions_ai_zep from "../functions/ai/zep.js";
 import type * as functions_proyectos from "../functions/proyectos.js";
 import type * as funnel from "../funnel.js";
+import type * as grcAssessment from "../grcAssessment.js";
 import type * as http from "../http.js";
+import type * as lib_compliance from "../lib/compliance.js";
+import type * as lib_fairEngine from "../lib/fairEngine.js";
+import type * as lib_fairTypes from "../lib/fairTypes.js";
 import type * as seed from "../seed.js";
 import type * as telegram from "../telegram.js";
 
@@ -55,7 +59,11 @@ declare const fullApi: ApiFromModules<{
   "functions/ai/zep": typeof functions_ai_zep;
   "functions/proyectos": typeof functions_proyectos;
   funnel: typeof funnel;
+  grcAssessment: typeof grcAssessment;
   http: typeof http;
+  "lib/compliance": typeof lib_compliance;
+  "lib/fairEngine": typeof lib_fairEngine;
+  "lib/fairTypes": typeof lib_fairTypes;
   seed: typeof seed;
   telegram: typeof telegram;
 }>;

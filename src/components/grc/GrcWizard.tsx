@@ -162,7 +162,7 @@ export function GrcWizard() {
       {/* Barra de progreso - oculta en welcome */}
       {step !== 'welcome' && (
         <div className="mb-8">
-          <div className="h-2 bg-neutral-200 rounded-full overflow-hidden">
+          <div className="h-3 bg-neutral-200 rounded-full overflow-hidden">
             <div 
               className="h-full bg-[#F99D1C] transition-all duration-500"
               style={{ width: `${progress}%` }}
@@ -176,7 +176,7 @@ export function GrcWizard() {
 
       {/* Pantalla de bienvenida */}
       {step === 'welcome' && (
-        <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-neutral-200">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
           <h3 className="text-3xl font-['Syne'] font-black mb-6 text-center">Diagnóstico GRC</h3>
           <p className="text-neutral-600 mb-8 text-center leading-relaxed">
             Evaluaremos el nivel de cumplimiento de tu empresa con las leyes chilenas de ciberseguridad y protección de datos.
@@ -212,7 +212,7 @@ export function GrcWizard() {
 
       {/* Sector */}
       {step === 'sector' && (
-        <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-neutral-200">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
           <h3 className="text-2xl font-['Syne'] font-black mb-6">¿A qué sector pertenece tu empresa?</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {SECTOR_OPTIONS.map((option) => (
@@ -230,7 +230,7 @@ export function GrcWizard() {
 
       {/* Tamaño */}
       {step === 'tamano' && (
-        <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-neutral-200">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
           <h3 className="text-2xl font-['Syne'] font-black mb-6">¿Cuántas personas trabajan en tu empresa?</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {TAMANO_OPTIONS.map((option) => (
@@ -248,14 +248,14 @@ export function GrcWizard() {
 
       {/* Preguntas */}
       {step === 'questions' && (
-        <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-neutral-200">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
           <p className="text-sm text-[#F99D1C] font-['JetBrains_Mono'] uppercase tracking-wide mb-2">
             Pregunta {currentQuestion + 1} de {GRC_QUESTIONS.length}
           </p>
-          <h3 className="text-2xl font-['Syne'] font-black mb-6">
+          <h3 className="text-2xl font-['Space Grotesk'] font-medium mb-8 leading-relaxed">
             {GRC_QUESTIONS[currentQuestion].pregunta}
           </h3>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-6">
             <button
               onClick={() => handleAnswer(true)}
               className="flex-1 py-4 bg-[#F99D1C] text-[#283329] font-['Syne'] font-bold rounded-xl hover:scale-105 transition-transform"
@@ -269,12 +269,23 @@ export function GrcWizard() {
               No
             </button>
           </div>
+          <button
+            onClick={() => {
+              if (currentQuestion > 0) {
+                setCurrentQuestion(currentQuestion - 1);
+                setAnswers(answers.slice(0, -1));
+              }
+            }}
+            className="w-full py-2 text-neutral-500 text-sm font-['JetBrains_Mono'] hover:text-neutral-700 transition-colors"
+          >
+            ← Retroceder
+          </button>
         </div>
       )}
 
       {/* Contacto */}
       {step === 'contact' && (
-        <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-neutral-200">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
           <h3 className="text-2xl font-['Syne'] font-black mb-6">Último paso: tus datos</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -312,7 +323,7 @@ export function GrcWizard() {
 
       {/* Resultado */}
       {step === 'result' && result && (
-        <div className="bg-[#283329] text-white rounded-2xl p-8 shadow-lg border-2 border-[#F99D1C] animate-fadeIn">
+        <div className="bg-[#283329] text-white rounded-2xl p-8 shadow-2xl border-2 border-[#F99D1C] animate-fadeIn\">
           {/* Banner de éxito */}
           <div className="bg-green-500/20 border border-green-500/50 rounded-xl p-4 mb-6 text-center">
             <div className="text-4xl mb-2">✅</div>

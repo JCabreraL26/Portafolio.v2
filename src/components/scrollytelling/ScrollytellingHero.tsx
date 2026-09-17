@@ -18,9 +18,9 @@ const stations: Station[] = [
     id: 0,
     startTime: 0,
     endTime: 1,
-    title: '¿Cumples\ncon la \nnueva ley de datos?',
+    title: 'Averigua tu score\nde cumplimiento con la\nnueva ley de datos',
     subtitle: 'CUMPLIMIENTO · SEGURIDAD · GOBERNANZA',
-    description: 'Ley 21.663 y 21.719 ya están vigentes. Las multas por incumplimiento pueden paralizarte. Descubre tu exposición real ahora',
+    description: 'Leyes 21.663 y 21.719 son exigentes, pero tienen sentido. Cumplirlas protege tu negocio y la privacidad de tus clientes. ¡Descubre tu exposición real ahora!',
     ctaText: 'Evaluar mi Cumplimiento',
     ctaLink: '/diagnostico-grc',
   },
@@ -28,9 +28,9 @@ const stations: Station[] = [
     id: 1,
     startTime: 1,
     endTime: 2,
-    title: 'Datos reales\nBrchas visibles. Ruta clara',
+    title: 'Desarrollo Software\nArquitectura robusta gestada desde investigación UX',
     subtitle: 'DIAGNÓSTICO ESTRATÉGICO',
-    description: 'Construimos desde cero con seguridad integrada. Cero brechas de datos, cero caídas por arquitectura frágil.',
+    description: 'Solucionamos problemas aplicando Design Thinking. Centramos la investigación y desarrollo en la experiencia del usuario.',
     ctaText: 'Ver Ciberseguridad',
     ctaLink: '/proyectos/ciberseguridad-empresarial',
   },
@@ -40,7 +40,7 @@ const stations: Station[] = [
     endTime: 3,
     title: 'Amenazas\nmodeladas\nCódigo seguro',
     subtitle: 'ARQUITECTURA BLINDADA',
-    description: 'Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir código. Tu sistema resiste auditorías desde el commit inicial.',
+    description: 'Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir código',
     ctaText: 'Evalúa tu Cumplimiento GRC',
     ctaLink: '/diagnostico-grc',
   },
@@ -50,7 +50,7 @@ const stations: Station[] = [
     endTime: 4,
     title: 'Velocidad startup\nCalidad enterprise. Gobernanza total',
     subtitle: 'INGENIERÍA ACELERADA',
-    description: 'IA para acelerar el desarrollo, con revisiones arquitectónicas y gates de seguridad en cada sprint. Nada llega a producción sin validación humana.',
+    description: 'IA para acelerar el desarrollo, con revisiones arquitectónicas y gates de seguridad en cada sprint. Nada llega a producción sin validación humana',
     ctaText: 'Ver Bodai Clinic',
     ctaLink: '/proyectos/bodai-clinic',
   },
@@ -59,8 +59,8 @@ const stations: Station[] = [
     startTime: 4,
     endTime: 5,
     title: 'Más conversión\nMenos fugas\nCero deuda técnica',
-    subtitle: 'IMPACTO MEDIABLE',
-    description: 'Agentes de IA que cualifican leads. Embudos sin fricción. Dashboards que muestran dónde creces y dónde sangras.',
+    subtitle: 'IMPACTO MEDIBLE',
+    description: 'Agentes de IA que cualifican leads. Embudos sin fricción. Dashboards que muestran dónde creces y dónde sangras',
     ctaText: 'Agenda tu Diagnóstico',
     ctaLink: '#contacto',
   },
@@ -81,6 +81,7 @@ export function ScrollytellingHero() {
   const [currentStation, setCurrentStation] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -155,6 +156,33 @@ export function ScrollytellingHero() {
     };
   }, [currentStation, isVideoReady]);
 
+  // Effect para el efecto typewriter en la descripción
+  useEffect(() => {
+    const fullText = stations[currentStation]?.description || '';
+    setDisplayedText('');
+
+    if (!fullText) return;
+
+    let index = 0;
+    let timeoutId: NodeJS.Timeout;
+
+    const type = () => {
+      if (index < fullText.length) {
+        setDisplayedText(fullText.substring(0, index + 1));
+        index++;
+        timeoutId = setTimeout(type, 30); // 30ms por carácter
+      }
+    };
+
+    // Pequeño delay antes de empezar a escribir
+    const startDelay = setTimeout(type, 200);
+
+    return () => {
+      clearTimeout(startDelay);
+      clearTimeout(timeoutId);
+    };
+  }, [currentStation]);
+
   const currentStationData = stations[currentStation];
 
   return (
@@ -211,9 +239,28 @@ export function ScrollytellingHero() {
                         {currentStationData.subtitle}
                       </h2>
                     )}
-                    <h1 className="text-4xl font-['Syne'] font-black leading-tight text-white mb-2 whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
-                      {currentStationData.title}
-                    </h1>
+                    <div className="mb-2">
+                      {(() => {
+                        const lines = currentStationData.title.split('\n').filter(l => l.trim());
+                        // Aplicar tamaños y colores de forma semántica
+                        return lines.map((line, idx) => {
+                          // Patrón: grande naranja, pequeño blanco, grande naranja, etc.
+                          const isLarge = idx % 2 === 0;
+                          const isOrange = idx % 2 === 0;
+                          return (
+                            <div
+                              key={idx}
+                              className={`font-['Syne'] font-black leading-tight ${
+                                isLarge ? 'text-3xl' : 'text-lg'
+                              } ${isOrange ? 'text-[#F99D1C]' : 'text-white'}`}
+                              style={{letterSpacing: '-0.02em'}}
+                            >
+                              {line}
+                            </div>
+                          );
+                        });
+                      })()}
+                    </div>
                   </div>
 
                   {/* Desktop: layout vanguardista alternado */}
@@ -226,7 +273,7 @@ export function ScrollytellingHero() {
                     return currentStation % 2 === 0 ? (
                       // Estaciones pares: pequeño izquierda, grande derecha
                       <div className="hidden lg:flex items-start gap-6 max-w-6xl mx-auto">
-                        <div className="w-1/2 pt-8">
+                        <div className="w-1/2 pt-16">
                           {currentStationData.subtitle && (
                             <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-right pr-4" style={{letterSpacing: '0.02em'}}>
                               {currentStationData.subtitle}
@@ -245,7 +292,7 @@ export function ScrollytellingHero() {
                     ) : (
                       // Estaciones impares: grande izquierda, pequeño derecha
                       <div className="hidden lg:flex items-start gap-6 max-w-6xl mx-auto">
-                        <div className="w-1/2 pt-8">
+                        <div className="w-1/2 pt-16">
                           <h1 className="text-5xl xl:text-6xl font-['Syne'] font-black leading-tight text-[#F99D1C] text-right pr-4 whitespace-pre-line" style={{letterSpacing: '-0.02em'}}>
                             {leftText}
                           </h1>
@@ -265,9 +312,9 @@ export function ScrollytellingHero() {
                   })()}
                 </div>
                 
-                {/* Descripción centrada */}
+                {/* Descripción centrada con efecto typewriter */}
                 {currentStationData.description && (
-                  <p className="station-description">{currentStationData.description}</p>
+                  <p className="station-description">{displayedText}</p>
                 )}
 
                 {currentStationData.ctaText && (

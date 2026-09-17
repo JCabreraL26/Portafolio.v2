@@ -106,16 +106,17 @@
 }
 
 .station-description {
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: var(--font-weight-normal);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+  font-weight: 500;
   color: var(--color-white);
   line-height: var(--line-height-relaxed);
   margin: var(--space-lg) auto 0 auto;
-  max-width: 600px;
+  max-width: 750px;
   text-align: center;
   opacity: 0.85;
   transition: opacity 0.3s ease;
+  letter-spacing: 0.02em;
 }
 
 /* ========================================

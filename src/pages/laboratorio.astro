@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { TypewriterText } from '../components/TypewriterText';
 ---
 
 <Layout 
@@ -15,12 +16,12 @@ import Footer from '../components/Footer.astro';
     <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
       <div class="max-w-5xl mx-auto">
         <!-- Concepto creativo -->
-        <h2 class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-8 text-center" style="letter-spacing: 0.02em;">
+        <h2 class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-8 text-center" style="letter-spacing: 0.02em; animation: fadeIn 0.6s ease;">
           Respaldo local · Cumplimiento legal · Cero dependencia cloud
         </h2>
 
         <!-- Título Principal - Responsive -->
-        <div class="relative mb-8 max-w-5xl mx-auto">
+        <div class="relative mb-8 max-w-5xl mx-auto" style="animation: fadeIn 0.8s ease 0.2s both;">
           <!-- Mobile: apilado simple -->
           <div class="block lg:hidden text-center">
             <h1 class="text-4xl font-['Syne'] font-black leading-tight text-white mb-2" style="letter-spacing: -0.02em;">
@@ -43,9 +44,14 @@ import Footer from '../components/Footer.astro';
           </div>
         </div>
         
-        <!-- Subtítulo -->
-        <p class="text-xl text-white/70 mb-16 max-w-3xl mx-auto leading-relaxed text-center">
-          Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube
+        <!-- Subtítulo con efecto typewriter -->
+        <p class="font-['Space_Grotesk'] text-lg text-white/70 mb-16 max-w-3xl mx-auto leading-relaxed text-center" style="animation: fadeIn 0.8s ease 0.4s both; font-weight: 500; letter-spacing: 0.02em;">
+          <TypewriterText 
+            text="Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube"
+            speed={30}
+            delay={400}
+            client:load
+          />
         </p>
       </div>
     </div>
@@ -55,10 +61,16 @@ import Footer from '../components/Footer.astro';
   <section class="py-32 bg-white">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-12 leading-tight">
+        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style="letter-spacing: 0.02em;">
+          El conflicto
+        </p>
+        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-8 leading-tight">
           Reutilización inteligente:<br/>
           <span class="text-[#F99D1C]">De equipo en desuso a nodo de respaldo continuo</span>
         </h2>
+        <p class="text-neutral-600 text-lg leading-relaxed mb-12 max-w-2xl">
+          Tenía una laptop de 2018 acumulando polvo en un cajón. Mientras tanto, clientes que manejan datos sensibles seguían apostando el cien por ciento de su respaldo a un solo proveedor cloud. Dos problemas que, en el fondo, eran uno solo.
+        </p>
         
         <div class="grid md:grid-cols-3 gap-8 mb-16">
           <div>
@@ -91,6 +103,9 @@ import Footer from '../components/Footer.astro';
   <section class="py-32 bg-[#0A0A0A]">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-5xl mx-auto">
+        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-center" style="letter-spacing: 0.02em;">
+          La decisión
+        </p>
         <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-16 text-white text-center">
           Arquitectura Contenerizada
         </h2>
@@ -145,6 +160,9 @@ import Footer from '../components/Footer.astro';
   <section class="py-32 bg-white">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto">
+        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style="letter-spacing: 0.02em;">
+          El viaje
+        </p>
         <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-12 leading-tight">
           Construcción con<br/>
           <span class="text-[#F99D1C]">IA como copiloto</span>
@@ -154,6 +172,7 @@ import Footer from '../components/Footer.astro';
           <!-- Fase 1 -->
           <div class="border-l-4 border-[#F99D1C] pl-6">
             <h3 class="font-bold text-xl mb-3">Fase 1 · Sistema Base Headless</h3>
+            <p class="text-neutral-500 italic text-sm mb-2">El reto: que la laptop funcionara sin pantalla, sin fallar, sin nadie mirándola.</p>
             <p class="text-neutral-600 leading-relaxed mb-3">
               Debian instalado en metal. Configuración de energía optimizada para operar con la tapa cerrada. SSH habilitado desde el primer arranque.
             </p>
@@ -165,6 +184,7 @@ import Footer from '../components/Footer.astro';
           <!-- Fase 2 -->
           <div class="border-l-4 border-[#F99D1C] pl-6">
             <h3 class="font-bold text-xl mb-3">Fase 2 · Contenedores y Persistencia</h3>
+            <p class="text-neutral-500 italic text-sm mb-2">El reto: aislar los datos sin sacrificar velocidad de despliegue.</p>
             <p class="text-neutral-600 leading-relaxed mb-3">
               Docker + PostgreSQL + Nginx. Tres capas aisladas, orquestadas con Docker Compose. Volúmenes persistentes en disco local.
             </p>
@@ -176,6 +196,7 @@ import Footer from '../components/Footer.astro';
           <!-- Fase 3 -->
           <div class="border-l-4 border-[#F99D1C] pl-6">
             <h3 class="font-bold text-xl mb-3">Fase 3 · Seguridad y Acceso Remoto</h3>
+            <p class="text-neutral-500 italic text-sm mb-2">El reto: dejarlo accesible para mí, pero invisible para cualquier otro.</p>
             <p class="text-neutral-600 leading-relaxed mb-3">
               Firewall UFW configurado. Solo red local autorizada. Conexión desde Kali Linux y VS Code vía SSH. Scripts Bash para backups automáticos.
             </p>
@@ -187,6 +208,7 @@ import Footer from '../components/Footer.astro';
           <!-- Fase 4 -->
           <div class="border-l-4 border-[#F99D1C] pl-6">
             <h3 class="font-bold text-xl mb-3">Fase 4 · Verificación de Integridad</h3>
+            <p class="text-neutral-500 italic text-sm mb-2">El reto: comprobar que sobreviviría a un reinicio, un corte de luz, un mal día.</p>
             <p class="text-neutral-600 leading-relaxed mb-3">
               Pruebas de lectura/escritura con curl. Validación de persistencia ante reinicios. Incremento de registros en tiempo real desde clientes en red local.
             </p>
@@ -209,6 +231,9 @@ import Footer from '../components/Footer.astro';
   <section class="py-32 bg-[#0A0A0A]">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-5xl mx-auto">
+        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-center" style="letter-spacing: 0.02em;">
+          Lo que esto significa para ti
+        </p>
         <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-16 text-white text-center leading-tight">
           Infraestructura ágil,<br/>
           <span class="text-[#F99D1C]">datos seguros, cero desperdicio</span>
@@ -263,6 +288,9 @@ import Footer from '../components/Footer.astro';
   <section class="py-32 bg-white">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto text-center">
+        <p class="text-neutral-500 italic text-lg mb-6 max-w-xl mx-auto">
+          Esa laptop ya no acumula polvo. Ahora acumula respaldos. La pregunta es qué está acumulando la tuya.
+        </p>
         <h2 class="text-5xl sm:text-6xl font-['Syne'] font-black mb-8 leading-tight">
           ¿Necesitas un entorno<br/>
           de respaldo <span class="text-[#F99D1C]">que no dependa de la nube</span>?

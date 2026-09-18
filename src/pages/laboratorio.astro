@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { TypewriterText } from '../components/TypewriterText';
+import { LaboratorioScrollytelling } from '../components/laboratorio/LaboratorioScrollytelling';
 ---
 
 <Layout 
@@ -11,17 +11,17 @@ import { TypewriterText } from '../components/TypewriterText';
 >
   <Navbar />
   
-  <!-- Hero Section -->
+  <!-- Hero/Portada inicial -->
   <section class="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden">
     <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
       <div class="max-w-5xl mx-auto">
-        <!-- Concepto creativo -->
-        <h2 class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-8 text-center" style="letter-spacing: 0.02em; animation: fadeIn 0.6s ease;">
+        <!-- Bajada -->
+        <h2 class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-8 text-center" style="letter-spacing: 0.02em;">
           Respaldo local · Cumplimiento legal · Cero dependencia cloud
         </h2>
 
         <!-- Título Principal - Responsive -->
-        <div class="relative mb-8 max-w-5xl mx-auto" style="animation: fadeIn 0.8s ease 0.2s both;">
+        <div class="relative mb-8 max-w-5xl mx-auto">
           <!-- Mobile: apilado simple -->
           <div class="block lg:hidden text-center">
             <h1 class="text-4xl font-['Syne'] font-black leading-tight text-white mb-2" style="letter-spacing: -0.02em;">
@@ -44,282 +44,16 @@ import { TypewriterText } from '../components/TypewriterText';
           </div>
         </div>
         
-        <!-- Subtítulo con efecto typewriter -->
-        <p class="font-['Space_Grotesk'] text-lg text-white/70 mb-16 max-w-3xl mx-auto leading-relaxed text-center" style="animation: fadeIn 0.8s ease 0.4s both; font-weight: 500; letter-spacing: 0.02em;">
-          <TypewriterText 
-            text="Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube"
-            speed={30}
-            delay={400}
-            client:load
-          />
+        <!-- Subtítulo -->
+        <p class="text-xl text-white/70 mb-16 max-w-3xl mx-auto leading-relaxed text-center font-['Space_Grotesk'] font-medium" style="letter-spacing: 0.02em;">
+          Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube
         </p>
       </div>
     </div>
   </section>
 
-  <!-- La Idea -->
-  <section class="py-32 bg-white">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto">
-        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style="letter-spacing: 0.02em;">
-          El conflicto
-        </p>
-        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-8 leading-tight">
-          Reutilización inteligente:<br/>
-          <span class="text-[#F99D1C]">De equipo en desuso a nodo de respaldo continuo</span>
-        </h2>
-        <p class="text-neutral-600 text-lg leading-relaxed mb-12 max-w-2xl">
-          Tenía una laptop de 2018 acumulando polvo en un cajón. Mientras tanto, clientes que manejan datos sensibles seguían apostando el cien por ciento de su respaldo a un solo proveedor cloud. Dos problemas que, en el fondo, eran uno solo.
-        </p>
-        
-        <div class="grid md:grid-cols-3 gap-8 mb-16">
-          <div>
-            <div class="text-5xl font-black text-[#F99D1C] mb-3">01</div>
-            <h3 class="font-bold text-lg mb-2">Persistencia local</h3>
-            <p class="text-neutral-600 text-sm leading-relaxed">Copias de seguridad continuas. Consultas inmediatas sin latencia de red.</p>
-          </div>
-          <div>
-            <div class="text-5xl font-black text-[#F99D1C] mb-3">02</div>
-            <h3 class="font-bold text-lg mb-2">Aislamiento total</h3>
-            <p class="text-neutral-600 text-sm leading-relaxed">Entornos de prueba sin exponer datos de clientes a la red pública.</p>
-          </div>
-          <div>
-            <div class="text-5xl font-black text-[#F99D1C] mb-3">03</div>
-            <h3 class="font-bold text-lg mb-2">Operación 24/7</h3>
-            <p class="text-neutral-600 text-sm leading-relaxed">Configuración headless. Sin pantallas, sin suspensión, sin interrupciones.</p>
-          </div>
-        </div>
-
-        <div class="bg-[#FAF9F6] p-8 rounded-2xl border-l-4 border-[#F99D1C]">
-          <p class="text-neutral-700 leading-relaxed">
-            <strong>La decisión:</strong> En lugar de adquirir hardware costoso, recuperamos una laptop existente y la transformamos en un servidor headless dedicado exclusivamente a servir bases de datos y aplicaciones de prueba. Cero desperdicio, máxima eficiencia.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Arquitectura (Diagrama Visual) -->
-  <section class="py-32 bg-[#0A0A0A]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-5xl mx-auto">
-        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-center" style="letter-spacing: 0.02em;">
-          La decisión
-        </p>
-        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-16 text-white text-center">
-          Arquitectura Contenerizada
-        </h2>
-        
-        <!-- Diagrama de 3 capas -->
-        <div class="grid md:grid-cols-3 gap-6 mb-16">
-          <!-- Capa 1 -->
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 text-center">
-            <div class="w-16 h-16 bg-[#F99D1C] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-[#283329]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
-              </svg>
-            </div>
-            <h3 class="font-bold text-lg text-white mb-2">Almacenamiento Seguro</h3>
-            <p class="text-white/60 text-sm">PostgreSQL. Persistencia en disco. Copias incrementales automáticas.</p>
-          </div>
-
-          <!-- Capa 2 -->
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 text-center">
-            <div class="w-16 h-16 bg-[#F99D1C] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-[#283329]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-              </svg>
-            </div>
-            <h3 class="font-bold text-lg text-white mb-2">Motor de Procesamiento</h3>
-            <p class="text-white/60 text-sm">Backend aislado. Lógica de negocio. Validaciones sin exponer datos.</p>
-          </div>
-
-          <!-- Capa 3 -->
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 text-center">
-            <div class="w-16 h-16 bg-[#F99D1C] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-[#283329]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-            </div>
-            <h3 class="font-bold text-lg text-white mb-2">Control de Acceso</h3>
-            <p class="text-white/60 text-sm">Nginx reverse proxy. Firewall UFW. Solo red local autorizada.</p>
-          </div>
-        </div>
-
-        <!-- Flujo de datos -->
-        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10">
-          <p class="text-white/80 text-center font-['JetBrains_Mono'] text-sm">
-            Máquina de Trabajo → Red Local Segura → Servidor Headless → Base de Datos
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- El Proceso -->
-  <section class="py-32 bg-white">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto">
-        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style="letter-spacing: 0.02em;">
-          El viaje
-        </p>
-        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-12 leading-tight">
-          Construcción con<br/>
-          <span class="text-[#F99D1C]">IA como copiloto</span>
-        </h2>
-        
-        <div class="space-y-8">
-          <!-- Fase 1 -->
-          <div class="border-l-4 border-[#F99D1C] pl-6">
-            <h3 class="font-bold text-xl mb-3">Fase 1 · Sistema Base Headless</h3>
-            <p class="text-neutral-500 italic text-sm mb-2">El reto: que la laptop funcionara sin pantalla, sin fallar, sin nadie mirándola.</p>
-            <p class="text-neutral-600 leading-relaxed mb-3">
-              Debian instalado en metal. Configuración de energía optimizada para operar con la tapa cerrada. SSH habilitado desde el primer arranque.
-            </p>
-            <p class="text-sm text-neutral-500 font-['JetBrains_Mono']">
-              IA usada: Debuggear permisos SSH, optimizar consumo energético
-            </p>
-          </div>
-
-          <!-- Fase 2 -->
-          <div class="border-l-4 border-[#F99D1C] pl-6">
-            <h3 class="font-bold text-xl mb-3">Fase 2 · Contenedores y Persistencia</h3>
-            <p class="text-neutral-500 italic text-sm mb-2">El reto: aislar los datos sin sacrificar velocidad de despliegue.</p>
-            <p class="text-neutral-600 leading-relaxed mb-3">
-              Docker + PostgreSQL + Nginx. Tres capas aisladas, orquestadas con Docker Compose. Volúmenes persistentes en disco local.
-            </p>
-            <p class="text-sm text-neutral-500 font-['JetBrains_Mono']">
-              IA usada: Generar docker-compose.yml, resolver conflictos de puertos
-            </p>
-          </div>
-
-          <!-- Fase 3 -->
-          <div class="border-l-4 border-[#F99D1C] pl-6">
-            <h3 class="font-bold text-xl mb-3">Fase 3 · Seguridad y Acceso Remoto</h3>
-            <p class="text-neutral-500 italic text-sm mb-2">El reto: dejarlo accesible para mí, pero invisible para cualquier otro.</p>
-            <p class="text-neutral-600 leading-relaxed mb-3">
-              Firewall UFW configurado. Solo red local autorizada. Conexión desde Kali Linux y VS Code vía SSH. Scripts Bash para backups automáticos.
-            </p>
-            <p class="text-sm text-neutral-500 font-['JetBrains_Mono']">
-              IA usada: Optimizar reglas UFW, generar scripts de backup
-            </p>
-          </div>
-
-          <!-- Fase 4 -->
-          <div class="border-l-4 border-[#F99D1C] pl-6">
-            <h3 class="font-bold text-xl mb-3">Fase 4 · Verificación de Integridad</h3>
-            <p class="text-neutral-500 italic text-sm mb-2">El reto: comprobar que sobreviviría a un reinicio, un corte de luz, un mal día.</p>
-            <p class="text-neutral-600 leading-relaxed mb-3">
-              Pruebas de lectura/escritura con curl. Validación de persistencia ante reinicios. Incremento de registros en tiempo real desde clientes en red local.
-            </p>
-            <p class="text-sm text-neutral-500 font-['JetBrains_Mono']">
-              IA usada: Generar queries de prueba, documentar el proceso
-            </p>
-          </div>
-        </div>
-
-        <div class="mt-12 bg-[#FAF9F6] p-8 rounded-2xl">
-          <p class="text-neutral-700 leading-relaxed text-lg">
-            <strong>Resultado:</strong> Laboratorio funcional en días, no semanas. La IA no reemplazó el conocimiento técnico, lo aceleró. Cada error fue una oportunidad de aprendizaje documentada.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Valor para el Cliente -->
-  <section class="py-32 bg-[#0A0A0A]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-5xl mx-auto">
-        <p class="text-sm font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4 text-center" style="letter-spacing: 0.02em;">
-          Lo que esto significa para ti
-        </p>
-        <h2 class="text-4xl sm:text-5xl font-['Syne'] font-black mb-16 text-white text-center leading-tight">
-          Infraestructura ágil,<br/>
-          <span class="text-[#F99D1C]">datos seguros, cero desperdicio</span>
-        </h2>
-        
-        <div class="grid md:grid-cols-2 gap-8 mb-16">
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-            <h3 class="font-bold text-xl text-white mb-3">Garantía para el cliente</h3>
-            <p class="text-white/70 leading-relaxed">
-              Entornos de prueba y respaldo independientes de la nube. Tus datos nunca salen de tu red local hasta que tú decidas.
-            </p>
-          </div>
-
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-            <h3 class="font-bold text-xl text-white mb-3">Sostenibilidad técnica</h3>
-            <p class="text-white/70 leading-relaxed">
-              Extendemos la vida útil del hardware con arquitectura moderna. Lo que era desecho ahora es infraestructura crítica.
-            </p>
-          </div>
-
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-            <h3 class="font-bold text-xl text-white mb-3">Eficiencia operativa</h3>
-            <p class="text-white/70 leading-relaxed">
-              Ambientes listos en minutos para levantar nuevos backends o bases de datos. Sin costos adicionales de cloud.
-            </p>
-          </div>
-
-          <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-            <h3 class="font-bold text-xl text-white mb-3">Control total</h3>
-            <p class="text-white/70 leading-relaxed">
-              Acceso SSH desde Kali Linux para pentesting. VS Code remoto para desarrollo. Firewall configurado a medida.
-            </p>
-          </div>
-        </div>
-
-        <!-- Credenciales -->
-        <div class="text-center">
-          <p class="text-white/60 text-sm mb-4 uppercase tracking-wider font-['JetBrains_Mono']">Formación continua</p>
-          <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-            <span class="text-2xl">🎓</span>
-            <div class="text-left">
-              <p class="font-bold text-white">Cisco Ethical Hacker</p>
-              <p class="text-sm text-white/60">En progreso · Scripting Bash · Automatización</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="py-32 bg-white">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <p class="text-neutral-500 italic text-lg mb-6 max-w-xl mx-auto">
-          Esa laptop ya no acumula polvo. Ahora acumula respaldos. La pregunta es qué está acumulando la tuya.
-        </p>
-        <h2 class="text-5xl sm:text-6xl font-['Syne'] font-black mb-8 leading-tight">
-          ¿Necesitas un entorno<br/>
-          de respaldo <span class="text-[#F99D1C]">que no dependa de la nube</span>?
-        </h2>
-        <p class="text-xl text-neutral-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Diseño y despliego infraestructura local segura para clientes que no pueden permitirse caídas de servicio o exposición de datos.
-        </p>
-        <button
-          id="cta-contact-lab-final"
-          class="px-10 py-5 bg-[#0A0A0A] text-white font-['Syne'] font-bold text-xl rounded-full transition-all duration-300 hover:bg-[#F99D1C] hover:text-[#283329] hover:scale-105"
-        >
-          Hablemos de tu proyecto
-        </button>
-      </div>
-    </div>
-  </section>
+  <!-- Scrollytelling del Laboratorio -->
+  <LaboratorioScrollytelling client:load />
 
   <Footer variant="clean" />
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('cta-contact-lab-final');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('openChat', { 
-            detail: { type: 'contact' } 
-          }));
-        });
-      }
-    });
-  </script>
 </Layout>

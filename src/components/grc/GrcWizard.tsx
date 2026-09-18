@@ -213,7 +213,7 @@ export function GrcWizard() {
       {/* Sector */}
       {step === 'sector' && (
         <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
-          <h3 className="text-2xl font-['Syne'] font-black mb-6">¿A qué sector pertenece tu empresa?</h3>
+          <h3 className="text-2xl font-['Space_Grotesk'] font-bold mb-6">¿A qué sector pertenece tu empresa?</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {SECTOR_OPTIONS.map((option) => (
               <button
@@ -231,7 +231,7 @@ export function GrcWizard() {
       {/* Tamaño */}
       {step === 'tamano' && (
         <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
-          <h3 className="text-2xl font-['Syne'] font-black mb-6">¿Cuántas personas trabajan en tu empresa?</h3>
+          <h3 className="text-2xl font-['Space_Grotesk'] font-bold mb-6">¿Cuántas personas trabajan en tu empresa?</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {TAMANO_OPTIONS.map((option) => (
               <button
@@ -252,7 +252,7 @@ export function GrcWizard() {
           <p className="text-sm text-[#F99D1C] font-['JetBrains_Mono'] uppercase tracking-wide mb-2">
             Pregunta {currentQuestion + 1} de {GRC_QUESTIONS.length}
           </p>
-          <h3 className="text-2xl font-['Space Grotesk'] font-medium mb-8 leading-relaxed">
+          <h3 className="text-2xl font-['Space_Grotesk'] font-bold mb-8 leading-relaxed">
             {GRC_QUESTIONS[currentQuestion].pregunta}
           </h3>
           <div className="flex gap-4 mb-6">
@@ -286,7 +286,7 @@ export function GrcWizard() {
       {/* Contacto */}
       {step === 'contact' && (
         <div className="bg-white rounded-2xl p-8 shadow-2xl border-t-4 border-[#F99D1C]">
-          <h3 className="text-2xl font-['Syne'] font-black mb-6">Último paso: tus datos</h3>
+          <h3 className="text-2xl font-['Space_Grotesk'] font-bold mb-6">Último paso: tus datos</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold mb-2">Nombre completo</label>

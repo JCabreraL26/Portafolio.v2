@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
+import { SecurityScrollytelling } from '../../components/projects/SecurityScrollytelling';
 ---
 
 <Layout 
@@ -11,244 +11,178 @@ import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
 >
   <Navbar />
   
-  <!-- Hero Section con Background Image -->
-  <section class="relative min-h-screen flex items-center justify-center">
-    <!-- Background Image Fixed -->
+  <!-- Hero Section - Sincronizado con GRC -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image Fixed (parallax) -->
     <div 
-      class="fixed top-0 left-0 w-full h-screen bg-cover bg-center bg-no-repeat z-0"
+      class="fixed top-0 left-0 w-full h-screen bg-cover bg-center bg-no-repeat -z-10"
       style="background-image: url('/img/Logo aperca brutalista.jpg');"
-    >
-    </div>
-    <!-- Overlay para contraste del texto -->
-    <div class="fixed top-0 left-0 w-full h-screen bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-[1]"></div>
+    ></div>
+    <!-- Overlay oscuro solo para el hero -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/60 to-[#0A0A0A]/90 pointer-events-none"></div>
 
     <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
       <div class="max-w-6xl mx-auto text-center">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#F99D1C]/30 border border-[#F99D1C]/50 rounded-full mb-8 backdrop-blur-sm">
-          <svg class="w-5 h-5 text-[#F99D1C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg>
-          <span class="text-[#F99D1C] text-sm font-semibold">Ciberseguridad Enterprise</span>
-        </div>
-
-        <!-- Título Principal -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-['Syne'] font-black leading-tight mb-6" style="color: #F99D1C; text-shadow: 0 0 20px rgba(249, 157, 28, 0.8), 0 0 40px rgba(249, 157, 28, 0.4), 0 2px 20px rgba(0,0,0,0.8);">
-          Protección Empresarial que<br/>
-          Previene Crisis de Reputación
-        </h1>
-        
-        <!-- Subtítulo -->
-        <p class="text-xl sm:text-2xl text-white font-light mb-12 max-w-4xl mx-auto leading-relaxed" style="text-shadow: 0 2px 15px rgba(0,0,0,0.9);">
-          Ciberseguridad nivel enterprise para empresas que no pueden permitirse brechas de datos ni caídas de sistema
-        </p>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
-          <div class="text-center p-6 bg-black/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl">
-            <div class="text-3xl font-black text-white mb-2">72h</div>
-            <div class="text-sm text-white/80 font-medium">Diagnóstico Completo</div>
-          </div>
-          <div class="text-center p-6 bg-black/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl">
-            <div class="text-3xl font-black text-white mb-2">0</div>
-            <div class="text-sm text-white/80 font-medium">Brechas de Datos</div>
-          </div>
-          <div class="text-center p-6 bg-black/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl">
-            <div class="text-3xl font-black text-white mb-2">100%</div>
-            <div class="text-sm text-white/80 font-medium">Cumplimiento Legal</div>
-          </div>
-          <div class="text-center p-6 bg-black/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl">
-            <div class="text-3xl font-black text-white mb-2">24/7</div>
-            <div class="text-sm text-white/80 font-medium">Monitoreo Continuo</div>
-          </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="flex flex-col items-center gap-2 animate-bounce">
-          <span class="text-white/60 text-sm">Descubre cómo protegemos tu empresa</span>
-          <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bento Grid Section -->
-  <section class="relative z-20 py-20 bg-[#FAF9F6]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-7xl mx-auto">
-        <!-- Section Header -->
-        <div class="text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-black text-[#0A0A0A] mb-4">
-            Ciberseguridad que Protege tu Negocio
-          </h2>
-          <p class="text-lg text-neutral-600 max-w-3xl mx-auto">
-            No vendemos tecnología, vendemos tranquilidad. Cada medida de seguridad está diseñada para proteger lo que más importa: tu reputación, tus clientes y tu negocio.
-          </p>
-        </div>
-
-        <!-- Bento Grid Component (Isla de React) -->
-        <BentoGridSecurity client:visible />
-      </div>
-    </div>
-  </section>
-
-  <!-- Credenciales y Formación -->
-  <section class="relative z-20 py-20 bg-white">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-['Syne'] font-black text-[#0A0A0A] mb-12 text-center">
-          Formación Continua en Ciberseguridad
+        <!-- Bajada - Estilo GRC -->
+        <h2 class="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-12 tracking-wider animate-fade-in">
+          Ciberseguridad · Cumplimiento · Protección
         </h2>
-        
-        <div class="grid md:grid-cols-2 gap-8">
-          <!-- Certificaciones -->
-          <div class="bg-white rounded-2xl p-8 border border-neutral-200 shadow-sm">
-            <h3 class="text-xl font-bold text-[#0A0A0A] mb-6 flex items-center gap-2">
-              <span class="text-2xl">🎓</span>
-              Certificaciones
-            </h3>
-            
-            <div class="space-y-4">
-              <!-- Cisco Badge -->
-              <div class="flex items-start gap-4 p-4 bg-[#FAF9F6] rounded-xl">
-                <img 
-                  src="/img/networking-basics.png" 
-                  alt="Cisco Networking Basics" 
-                  class="w-16 h-16 object-contain flex-shrink-0"
-                />
-                <div>
-                  <p class="font-bold text-[#0A0A0A]">Cisco Network Basics</p>
-                  <p class="text-sm text-neutral-600 mt-1">Fundamentos de redes y seguridad</p>
-                </div>
-              </div>
-              
-              <!-- Ethical Hacking -->
-              <div class="flex items-start gap-4 p-4 bg-[#FAF9F6] rounded-xl">
-                <div class="w-16 h-16 bg-[#FF6B35] rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-bold text-[#0A0A0A]">Ethical Hacking</p>
-                  <p class="text-sm text-neutral-600 mt-1">En formación continua</p>
-                </div>
-              </div>
-            </div>
+
+        <!-- Título Principal - Diseño vanguardista de dos planos -->
+        <div class="relative mb-12 max-w-5xl mx-auto">
+          <!-- Mobile: apilado simple -->
+          <div class="block lg:hidden text-center animate-fade-in-up">
+            <h1 class="text-4xl font-['Syne'] font-black leading-tight text-white mb-2" style="letter-spacing: -0.02em;">
+              La ley de datos es exigente, pero tiene sentido<br/>
+              <span class="text-[#F99D1C]">Evita una crisis de reputación</span>
+            </h1>
           </div>
 
-          <!-- Stack de Pentesting -->
-          <div class="bg-white rounded-2xl p-8 border border-neutral-200 shadow-sm">
-            <h3 class="text-xl font-bold text-[#0A0A0A] mb-6 flex items-center gap-2">
-              <span class="text-2xl">⚡</span>
-              Stack de Pentesting
-            </h3>
-            
-            <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <span class="text-[#FF6B35] text-lg mt-0.5">▸</span>
-                <div>
-                  <p class="font-bold text-[#0A0A0A]">Kali Linux</p>
-                  <p class="text-sm text-neutral-600">Plataforma principal de pentesting</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-3">
-                <span class="text-[#FF6B35] text-lg mt-0.5">▸</span>
-                <div>
-                  <p class="font-bold text-[#0A0A0A]">Nmap, Burp Suite, Metasploit</p>
-                  <p class="text-sm text-neutral-600">Análisis de vulnerabilidades</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-3">
-                <span class="text-[#FF6B35] text-lg mt-0.5">▸</span>
-                <div>
-                  <p class="font-bold text-[#0A0A0A]">OWASP Top 10</p>
-                  <p class="text-sm text-neutral-600">Metodología de testing</p>
-                </div>
-              </div>
+          <!-- Desktop: diseño vanguardista -->
+          <div class="hidden lg:flex items-center gap-4">
+            <div class="w-1/2 flex items-center justify-end pr-4 animate-slide-in-left" style="min-height: 180px;">
+              <h1 class="text-2xl xl:text-3xl font-['Syne'] font-black leading-tight text-white text-right" style="letter-spacing: -0.02em;">
+                La ley de datos es<br/>exigente, pero<br/>tiene sentido
+              </h1>
+            </div>
+            <div class="w-1/2 flex items-center animate-slide-in-right" style="min-height: 180px;">
+              <h1 class="text-5xl xl:text-6xl font-['Syne'] font-black leading-none text-[#F99D1C]" style="letter-spacing: -0.02em;">
+                Evita una<br/>crisis de<br/>reputación
+              </h1>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cumplimiento Regulatorio -->
-  <section class="relative z-20 py-20 bg-[#FAF9F6]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-['Syne'] font-black text-[#0A0A0A] mb-6">
-          ¿Tu empresa cumple con la Ley 21.663 y 21.719?
-        </h2>
-        <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
-          Diagnóstico exprés: descubre si te aplican las nuevas leyes de ciberseguridad y protección de datos, tu nivel de madurez y exposición económica indicativa.
+        
+        <!-- Subtítulo - Space Grotesk con animación -->
+        <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-['Space_Grotesk'] font-medium animate-fade-in-up" style="letter-spacing: 0.02em; animation-delay: 0.2s;">
+          Ciberseguridad para empresas que no pueden permitirse brechas de datos. Cumplimiento legal garantizado.
         </p>
-        <button
-          id="cta-grc-diagnostic"
-          class="px-8 py-4 bg-[#F99D1C] text-[#283329] font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 shadow-lg hover:shadow-xl"
-        >
-          <span>Evaluar mi Cumplimiento (Gratis)</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </section>
 
-  <!-- CTA Final -->
-  <section class="relative z-20 py-20 bg-gradient-to-br from-[#0A0A0A] to-[#1a1a1a]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-black text-white mb-6">
-          ¿Listo para Proteger tu Empresa?
-        </h2>
-        <p class="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-          Diagnóstico de seguridad gratuito: identificamos tus 3 vulnerabilidades críticas en 72 horas.
-        </p>
-        <button
-          id="cta-security-audit"
-          class="px-8 py-4 bg-gradient-to-r from-[#FF6B35] to-[#FF8C42] text-white font-bold text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_0_30px_rgba(255,107,53,0.6)] hover:scale-105 inline-flex items-center gap-3"
+        <!-- CTA Principal - Motor GRC con animación -->
+        <a
+          href="/diagnostico-grc"
+          class="inline-flex items-center gap-3 px-10 py-5 bg-[#F99D1C] text-black font-['Syne'] font-bold text-xl rounded-full hover:bg-white hover:scale-105 hover:shadow-[0_0_30px_rgba(249,157,28,0.6)] transition-all duration-300 shadow-lg mb-16 animate-fade-in-up"
+          style="animation-delay: 0.4s;"
         >
-          <span>Solicitar Auditoría de Seguridad</span>
+          <span>Evaluar mi Cumplimiento GRC</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
-        </button>
+        </a>
+
+        <!-- Stats - Glassmorphism sincronizado con animaciones escalonadas -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+          <div class="text-center p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 hover:border-[#F99D1C]/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+            <div class="text-3xl font-bold text-[#F99D1C] mb-2">72h</div>
+            <div class="text-xs text-gray-400 uppercase tracking-wide font-['JetBrains_Mono']">Diagnóstico</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 hover:border-[#F99D1C]/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+            <div class="text-3xl font-bold text-[#F99D1C] mb-2">0</div>
+            <div class="text-xs text-gray-400 uppercase tracking-wide font-['JetBrains_Mono']">Brechas</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 hover:border-[#F99D1C]/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
+            <div class="text-3xl font-bold text-[#F99D1C] mb-2">100%</div>
+            <div class="text-xs text-gray-400 uppercase tracking-wide font-['JetBrains_Mono']">Cumplimiento</div>
+          </div>
+          <div class="text-center p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 hover:border-[#F99D1C]/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+            <div class="text-3xl font-bold text-[#F99D1C] mb-2">24/7</div>
+            <div class="text-xs text-gray-400 uppercase tracking-wide font-['JetBrains_Mono']">Monitoreo</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Casos Reales Section - Minimalismo absoluto -->
+  <section class="relative z-20 py-20">
+    <!-- Fondo con imagen del logo borrosa -->
+    <div 
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 blur-sm"
+      style="background-image: url('/img/Logo aperca brutalista.jpg');"
+    ></div>
+    <div class="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-md"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <h3 class="text-3xl sm:text-4xl font-['Syne'] font-bold text-white mb-4">
+            Clientes Protegidos
+          </h3>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto font-['Space_Grotesk']">
+            Documentos de cumplimiento entregados. Auditorías completadas. Datos protegidos.
+          </p>
+        </div>
+
+        <!-- Cards de Clientes - Minimalistas -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Bodai Clinic -->
+          <div class="backdrop-blur-xl rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-12 h-12 rounded-xl border border-white/30 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-['Syne'] font-bold text-white mb-1">Bodai Clinic</h4>
+                <p class="text-sm text-gray-400 font-['Space_Grotesk']">Clínica de Salud Dental</p>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-6 font-['Space_Grotesk'] leading-relaxed">
+              Documentos de cumplimiento Ley 21.719 (Protección de Datos Personales). Respaldo local de historiales clínicos. Servidor headless 24/7. Auditoría lista.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Ley 21.719</span>
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Respaldo Local</span>
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Datos Sensibles</span>
+            </div>
+          </div>
+
+          <!-- Corredora de Seguros -->
+          <div class="backdrop-blur-xl rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-12 h-12 rounded-xl border border-white/30 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-['Syne'] font-bold text-white mb-1">Jacqueline Labbé</h4>
+                <p class="text-sm text-gray-400 font-['Space_Grotesk']">Corredora de Seguros</p>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-6 font-['Space_Grotesk'] leading-relaxed">
+              Auditoría de ciberseguridad completada. Cumplimiento normativo verificado. Respaldo de pólizas y datos de clientes. Infraestructura protegida.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Auditoría</span>
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Cumplimiento</span>
+              <span class="text-xs px-3 py-1.5 border border-white/20 text-white rounded-full font-['Space_Grotesk']">Financiero</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scrollytelling Section - Incluye CTA en último slide -->
+  <SecurityScrollytelling client:load />
+
   <Footer variant="clean" />
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // CTA Diagnóstico GRC
-      const grcButton = document.getElementById('cta-grc-diagnostic');
-      if (grcButton) {
-        grcButton.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('openChat', { 
-            detail: { type: 'grc_diagnostic' } 
-          }));
-        });
-      }
-
-      // CTA Auditoría de Seguridad
-      const ctaButton = document.getElementById('cta-security-audit');
-      if (ctaButton) {
-        ctaButton.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('openChat', { 
-            detail: { type: 'general' } 
-          }));
-        });
-      }
-    });
-  </script>
 </Layout>
 
 <style>
+  /* Animaciones sincronizadas con el resto del sitio */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -258,6 +192,47 @@ import { BentoGridSecurity } from '../../components/projects/BentoGridSecurity';
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: both;
   }
 
   section {

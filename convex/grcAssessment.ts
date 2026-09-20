@@ -65,12 +65,20 @@ export const submitGrcAssessment = mutation({
       sector,
       tamano_empresa: tamano,
       respuestas: args.respuestas,
-      aplicabilidad,
+      aplicabilidad: {
+        ley21663: aplicabilidad.ley21663,
+        ley21719: aplicabilidad.ley21719,
+        rol21719: aplicabilidad.rol21719,
+        esOIV: aplicabilidad.esOIV,
+        esPSE: aplicabilidad.esPSE,
+        justificacion: aplicabilidad.justificacion,
+      },
       score,
       exposicionP10,
       exposicionP50,
       exposicionP90,
       moneda: "CLP",
+      seedUsada: Date.now(), // Seed para reproducibilidad (aunque no usamos Monte Carlo aquí)
       created_at: Date.now(),
     });
 
@@ -79,6 +87,13 @@ export const submitGrcAssessment = mutation({
       const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
       const CHAT_ID = process.env.TELEGRAM_AUTHORIZED_USER;
 
+      console.log("🔍 Telegram config:", { 
+        hasToken: !!BOT_TOKEN, 
+        hasChat: !!CHAT_ID,
+        tokenLength: BOT_TOKEN?.length,
+        chatId: CHAT_ID 
+      });
+
       if (BOT_TOKEN && CHAT_ID) {
         const fmtCLP = (n: number) => `$${Math.round(n).toLocaleString("es-CL")} CLP`;
 
@@ -86,11 +101,12 @@ export const submitGrcAssessment = mutation({
 
 👤 *Nombre:* ${args.name}
 📧 *Email:* ${args.email}
-${args.company ? `🏢 *Empresa:* ${args.company}\n` : ""}${args.phone ? `📱 *Teléfono:* ${args.phone}\n` : ""}🏷️ *Sector:* ${sector} · *Tamaño:* ${tamano}
+${args.company ? `🏢 *Empresa:* ${args.company}\n` : ""}${args.phone ? `📱 *Teléfono:* ${args.phone}\n` : ""}
+🏷️ *Sector:* ${sector} · *Tamaño:* ${tamano}
 📊 *Score madurez:* ${score}/100
-⚖️ *Ley 21.663:* ${aplicabilidad.ley21663 ? `Aplica (${aplicabilidad.esOIV ? "OIV" : "PSE"})` : "No aplica (indicativo)"}
-⚖️ *Ley 21.719:* ${aplicabilidad.ley21719 ? `Aplica (${aplicabilidad.rol21719})` : "No aplica (indicativo)"}
-💰 *Exposición indicativa (P10–P90):* ${fmtCLP(exposicionP10)} — ${fmtCLP(exposicionP90)}
+⚖️ *Ley 21.663:* ${aplicabilidad.ley21663 ? "Aplica" : "No aplica"}
+⚖️ *Ley 21.719:* ${aplicabilidad.ley21719 ? `Aplica (${aplicabilidad.rol21719})` : "No aplica"}
+💰 *Exposición (P10–P90):* ${fmtCLP(exposicionP10)} — ${fmtCLP(exposicionP90)}
 
 _Lead ID: ${leadId}_`;
 
@@ -105,7 +121,10 @@ _Lead ID: ${leadId}_`;
         });
 
         if (!response.ok) {
-          console.warn("⚠️ Error enviando notificación a Telegram:", await response.text());
+          const errorText = await response.text();
+          console.error("❌ Error enviando notificación a Telegram:", errorText);
+        } else {
+          console.log("✅ Notificación enviada a Telegram correctamente");
         }
       } else {
         console.warn("⚠️ Telegram no configurado - notificación no enviada");

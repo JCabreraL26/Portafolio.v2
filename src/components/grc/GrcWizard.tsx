@@ -215,14 +215,28 @@ export function GrcWizard() {
             </div>
           </div>
 
-          {/* Qué recibirás - estilo minimalista con borde izquierdo */}
-          <div className="mb-10 border-l-2 border-[#F99D1C] pl-6 py-2">
-            <h4 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider font-['JetBrains_Mono']">Al finalizar recibirás</h4>
-            <ul className="space-y-3 text-sm text-gray-300 font-['Space_Grotesk'] font-light">
-              <li className="leading-relaxed">Score de madurez GRC (0-100 puntos)</li>
-              <li className="leading-relaxed">Aplicabilidad de Ley 21.663 y Ley 21.719</li>
-              <li className="leading-relaxed">Rango de exposición económica (P10-P90 en CLP)</li>
-            </ul>
+          {/* Qué recibirás - Minimalista con strokes blancos */}
+          <div className="mb-10 pl-6 py-2">
+            <h4 className="text-xs font-bold text-gray-400 mb-6 uppercase tracking-wider font-['JetBrains_Mono']">Al finalizar recibirás</h4>
+            <div className="space-y-4">
+              {/* Score de madurez */}
+              <div className="p-4 border border-white/20 rounded-lg">
+                <p className="text-sm font-bold text-white mb-1 font-['Space_Grotesk']">Score de madurez GRC (0-100)</p>
+                <p className="text-xs text-gray-400 font-['Space_Grotesk']">Qué tan preparada está tu empresa para prevenir incidentes de seguridad</p>
+              </div>
+
+              {/* Aplicabilidad */}
+              <div className="p-4 border border-white/20 rounded-lg">
+                <p className="text-sm font-bold text-white mb-1 font-['Space_Grotesk']">Aplicabilidad de Ley 21.663 y 21.719</p>
+                <p className="text-xs text-gray-400 font-['Space_Grotesk']">Si tu empresa debe cumplir con las nuevas leyes chilenas de ciberseguridad y datos</p>
+              </div>
+
+              {/* Exposición económica */}
+              <div className="p-4 border border-white/20 rounded-lg">
+                <p className="text-sm font-bold text-white mb-1 font-['Space_Grotesk']">Exposición económica (P10-P90)</p>
+                <p className="text-xs text-gray-400 font-['Space_Grotesk']">Rango de multas potenciales en UTM si no cumples con las normativas</p>
+              </div>
+            </div>
           </div>
 
           {/* Divisor */}
@@ -445,21 +459,17 @@ export function GrcWizard() {
           <div className="space-y-4">
             <button
               onClick={() => {
-                // Ocultar el panel
-                const panel = document.getElementById('grc-panel');
-                if (panel) {
-                  panel.classList.add('hidden');
-                }
-                // Abrir chat para agendar
+                // Abrir chat con contexto del resultado
                 window.dispatchEvent(new CustomEvent('openChat', { 
-                  detail: { type: 'schedule_meeting' } 
+                  detail: { 
+                    type: 'grc_followup',
+                    message: `Acabo de completar el diagnóstico GRC. Mi score es ${result.score}/100 y mi sector es ${result.sector}. Me gustaría discutir los resultados con más detalle.`
+                  } 
                 }));
-                // Scroll al inicio
-                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="w-full py-4 bg-[#F99D1C] text-black font-['Syne'] font-bold text-lg rounded-full hover:bg-white hover:scale-105 hover:shadow-[0_0_30px_rgba(249,157,28,0.6)] transition-all duration-300"
             >
-              Agendar diagnóstico detallado →
+              Hablar con un experto →
             </button>
             
             <button

@@ -453,6 +453,8 @@ export default defineSchema({
       ley21663: v.boolean(),
       ley21719: v.boolean(),
       rol21719: v.optional(v.string()), // "responsable" | "encargado" | "ambos" | "no_aplica"
+      esOIV: v.optional(v.boolean()), // Operador de Importancia Vital — techo agravado Ley 21.663
+      esPSE: v.optional(v.boolean()), // Prestador de Servicios Esenciales (no OIV) — techo estándar Ley 21.663
       justificacion: v.optional(v.array(v.string())), // razones legibles, mostradas en el teaser de resultado
     }),
 

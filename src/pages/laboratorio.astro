@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { LaboratorioScrollytelling } from '../components/laboratorio/LaboratorioScrollytelling';
+import { TypewriterText } from '../components/TypewriterText';
 ---
 
 <Layout 
@@ -30,13 +31,13 @@ import { LaboratorioScrollytelling } from '../components/laboratorio/Laboratorio
           </div>
 
           <!-- Desktop: diseño vanguardista -->
-          <div class="hidden lg:flex items-start gap-4">
-            <div class="w-1/2 pt-8">
-              <h1 class="text-2xl xl:text-3xl font-['Syne'] font-black leading-tight text-white text-right pr-4" style="letter-spacing: -0.02em;">
+          <div class="hidden lg:flex items-center gap-4">
+            <div class="w-1/2 flex items-center justify-end pr-4" style="min-height: 180px;">
+              <h1 class="text-2xl xl:text-3xl font-['Syne'] font-black leading-tight text-white text-right" style="letter-spacing: -0.02em;">
                 ¿Qué pasa con<br/>los datos si
               </h1>
             </div>
-            <div class="w-1/2 pt-16">
+            <div class="w-1/2 flex items-center" style="min-height: 180px;">
               <h1 class="text-6xl xl:text-7xl font-['Syne'] font-black leading-none text-[#F99D1C]" style="letter-spacing: -0.02em;">
                 la nube<br/>falla?
               </h1>
@@ -44,9 +45,14 @@ import { LaboratorioScrollytelling } from '../components/laboratorio/Laboratorio
           </div>
         </div>
         
-        <!-- Subtítulo -->
+        <!-- Subtítulo con animación tipo máquina -->
         <p class="text-xl text-white/70 mb-16 max-w-3xl mx-auto leading-relaxed text-center font-['Space_Grotesk'] font-medium" style="letter-spacing: 0.02em;">
-          Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube
+          <TypewriterText 
+            text="Creación de un servidor headless con Debian que respalda información, cumple con normativas de persistencia y elimina la dependencia total de la nube"
+            speed={30}
+            delay={800}
+            client:load
+          />
         </p>
       </div>
     </div>

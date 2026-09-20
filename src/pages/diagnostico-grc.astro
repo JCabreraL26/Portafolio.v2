@@ -38,13 +38,13 @@ import { TypewriterText } from '../components/TypewriterText';
           </div>
 
           <!-- Desktop: diseño vanguardista -->
-          <div class="hidden lg:flex items-start gap-4">
-            <div class="w-1/2 pt-8">
-              <h1 class="text-xl xl:text-2xl font-['Syne'] font-black leading-tight text-white text-right pr-4" style="letter-spacing: -0.02em;">
+          <div class="hidden lg:flex items-center gap-4">
+            <div class="w-1/2 flex items-center justify-end pr-4" style="min-height: 180px;">
+              <h1 class="text-xl xl:text-2xl font-['Syne'] font-black leading-tight text-white text-right" style="letter-spacing: -0.02em;">
                 Nuestro motor mide<br/>riesgos de incumplimiento
               </h1>
             </div>
-            <div class="w-1/2 pt-16">
+            <div class="w-1/2 flex items-center" style="min-height: 180px;">
               <h1 class="text-5xl xl:text-6xl font-['Syne'] font-black leading-none text-[#F99D1C]" style="letter-spacing: -0.02em;">
                 Nueva Ley<br/>de Datos
               </h1>
@@ -62,13 +62,14 @@ import { TypewriterText } from '../components/TypewriterText';
           />
         </p>
 
-        <!-- CTA Principal -->
+        <!-- CTA Principal - Más llamativo -->
         <div class="text-center mb-8">
           <button
             id="cta-open-panel"
-            class="px-12 py-6 bg-[#F99D1C] text-[#283329] font-['Syne'] font-black text-2xl rounded-full transition-all duration-300 hover:scale-105 shadow-xl"
+            class="px-12 py-6 bg-[#F99D1C] text-black font-['Syne'] font-black text-2xl rounded-full transition-all duration-300 hover:scale-105 hover:bg-white shadow-[0_0_40px_rgba(249,157,28,0.8),0_0_80px_rgba(249,157,28,0.4)]"
+            style="animation: glowPulseAmber 3s ease-in-out infinite;"
           >
-            Comenzar Evaluación Gratuita →
+            Evaluar Ahora →
           </button>
         </div>
 
@@ -173,4 +174,15 @@ import { TypewriterText } from '../components/TypewriterText';
       });
     });
   </script>
+
+  <style>
+    @keyframes glowPulseAmber {
+      0%, 100% {
+        box-shadow: 0 0 40px rgba(249, 157, 28, 0.8), 0 0 80px rgba(249, 157, 28, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 60px rgba(249, 157, 28, 1), 0 0 120px rgba(249, 157, 28, 0.6);
+      }
+    }
+  </style>
 </Layout>

@@ -88,7 +88,7 @@ export const submitGrcAssessment = mutation({
 📧 *Email:* ${args.email}
 ${args.company ? `🏢 *Empresa:* ${args.company}\n` : ""}${args.phone ? `📱 *Teléfono:* ${args.phone}\n` : ""}🏷️ *Sector:* ${sector} · *Tamaño:* ${tamano}
 📊 *Score madurez:* ${score}/100
-⚖️ *Ley 21.663:* ${aplicabilidad.ley21663 ? "Aplica" : "No aplica (indicativo)"}
+⚖️ *Ley 21.663:* ${aplicabilidad.ley21663 ? `Aplica (${aplicabilidad.esOIV ? "OIV" : "PSE"})` : "No aplica (indicativo)"}
 ⚖️ *Ley 21.719:* ${aplicabilidad.ley21719 ? `Aplica (${aplicabilidad.rol21719})` : "No aplica (indicativo)"}
 💰 *Exposición indicativa (P10–P90):* ${fmtCLP(exposicionP10)} — ${fmtCLP(exposicionP90)}
 

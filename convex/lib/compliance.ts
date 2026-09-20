@@ -32,6 +32,10 @@ export interface AplicabilidadResult {
   ley21663: boolean;
   ley21719: boolean;
   rol21719: RolLey21719;
+  // Distinción requerida por el motor de exposición v2: el techo sancionatorio
+  // de la Ley 21.663 depende de si la empresa es OIV (agravado) o PSE estándar.
+  esOIV: boolean;
+  esPSE: boolean;
   justificacion: string[];
 }
 
@@ -122,6 +126,9 @@ export const GRC_QUESTIONS: GrcQuestion[] = [
 
 
 const MATURITY_QUESTION_IDS = ["q_politica_seguridad", "q_plan_continuidad", "q_capacitacion"];
+// No depender de proveedores externos críticos es en sí un factor de resiliencia/madurez
+// (antes se preguntaba en el cuestionario pero nunca se usaba en el cálculo del score).
+const RESILIENCIA_SIN_TERCEROS_ID = "q_terceros_criticos";
 
 function getRespuesta(respuestas: RespuestaGRC[], id: string): string | number | boolean | undefined {
   return respuestas.find((r) => r.questionId === id)?.value;
@@ -186,14 +193,23 @@ export function evaluarAplicabilidad(
     );
   }
 
-  return { ley21663, ley21719, rol21719, justificacion };
+  // Perfil requerido por el motor de exposición v2: OIV agrava el techo de la
+  // Ley 21.663; PSE es cualquier otra empresa sujeta a la ley pero no designada OIV.
+  const esOIV = oivDesignado;
+  const esPSE = ley21663 && !oivDesignado;
+
+  return { ley21663, ley21719, rol21719, esOIV, esPSE, justificacion };
 }
 
 // ─── Score de madurez (0-100) ──────────────────────────────────
 
 export function calcularScoreMadurez(respuestas: RespuestaGRC[]): number {
   const positivos = MATURITY_QUESTION_IDS.filter((id) => getRespuesta(respuestas, id) === true).length;
-  const baseScore = (positivos / MATURITY_QUESTION_IDS.length) * 100;
+  // "No depender de terceros críticos" suma como factor positivo adicional — sin esto,
+  // la pregunta se recolectaba pero nunca influía en el score (bug de granularidad).
+  const sinDependenciaCritica = getRespuesta(respuestas, RESILIENCIA_SIN_TERCEROS_ID) === false ? 1 : 0;
+  const totalFactores = MATURITY_QUESTION_IDS.length + 1;
+  const baseScore = ((positivos + sinDependenciaCritica) / totalFactores) * 100;
 
   const tuvoIncidentes = getRespuesta(respuestas, "q_incidentes_previos") === true;
   const penalizacion = tuvoIncidentes ? 20 : 0;
@@ -201,19 +217,16 @@ export function calcularScoreMadurez(respuestas: RespuestaGRC[]): number {
   return Math.min(100, Math.max(0, Math.round(baseScore - penalizacion)));
 }
 
-// ─── Techos sancionatorios REALES según leyes chilenas ─
+// ─── Techos sancionatorios REALES según leyes chilenas (motor v2) ─
+// Ver docs/logica-calculo-exposicion-grc-v2.md — la Ley 21.663 tiene dos
+// techos distintos según el perfil de la empresa: PSE estándar u OIV (agravado).
 
 export const TECHOS_SANCIONATORIOS = {
   ley21663: {
-    leve: { min: 0, max: 5_000, unidad: "UTM" },
-    grave: { min: 5_001, max: 20_000, unidad: "UTM" },
-    gravisima: { min: 20_001, max: 40_000, unidad: "UTM" },
+    pse: { leve: 5_000, grave: 10_000, gravisima: 20_000 },
+    oiv: { leve: 10_000, grave: 20_000, gravisima: 40_000 },
   },
-  ley21719: {
-    leve: { min: 0, max: 2_000, unidad: "UTM" },
-    grave: { min: 2_001, max: 10_000, unidad: "UTM" },
-    gravisima: { min: 10_001, max: 20_000, unidad: "UTM" },
-  },
+  ley21719: { leve: 5_000, grave: 10_000, gravisima: 20_000 },
 } as const;
 
 // Valor UTM en CLP (Unidad Tributaria Mensual)
@@ -224,36 +237,43 @@ const UTM_CLP = 67000;
 /**
  * Calcula exposición económica basada en multas REALES de las leyes chilenas
  * (Ley 21.663 y Ley 21.719), expresadas en UTM y convertidas a CLP.
- * 
- * NO usa valores de activos inventados, solo los techos sancionatorios legales.
+ *
+ * Motor v2 (docs/logica-calculo-exposicion-grc-v2.md): en vez de ponderar un único
+ * techo gravísimo combinado para los 3 percentiles, cada percentil se calcula sobre
+ * la base sancionatoria de SU propia tipología de falta (leve/grave/gravísima),
+ * sumando ambas leyes cuando aplican y distinguiendo el perfil PSE vs OIV para la
+ * Ley 21.663. Esto corrige la sobreestimación de usar el máximo legal absoluto
+ * como base para escenarios optimistas y medios.
  */
 export function calcularExposicionLegal(
   aplicabilidad: AplicabilidadResult,
   scoreMadurez: number
 ): { p10: number; p50: number; p90: number } {
-  let multaMinUTM = 0;
-  let multaMaxUTM = 0;
+  const perfilCiber = aplicabilidad.esOIV
+    ? TECHOS_SANCIONATORIOS.ley21663.oiv
+    : aplicabilidad.esPSE
+      ? TECHOS_SANCIONATORIOS.ley21663.pse
+      : null;
 
-  // Sumar techos según leyes aplicables
-  if (aplicabilidad.ley21663) {
-    multaMaxUTM += TECHOS_SANCIONATORIOS.ley21663.gravisima.max; // 40,000 UTM
-  }
-  if (aplicabilidad.ley21719) {
-    multaMaxUTM += TECHOS_SANCIONATORIOS.ley21719.gravisima.max; // 20,000 UTM
-  }
+  const baseLeveTotal = (perfilCiber?.leve ?? 0) + (aplicabilidad.ley21719 ? TECHOS_SANCIONATORIOS.ley21719.leve : 0);
+  const baseGraveTotal = (perfilCiber?.grave ?? 0) + (aplicabilidad.ley21719 ? TECHOS_SANCIONATORIOS.ley21719.grave : 0);
+  const baseGravisimaTotal =
+    (perfilCiber?.gravisima ?? 0) + (aplicabilidad.ley21719 ? TECHOS_SANCIONATORIOS.ley21719.gravisima : 0);
 
   // Si ninguna ley aplica, exposición mínima
-  if (multaMaxUTM === 0) {
+  if (baseGravisimaTotal === 0) {
     return { p10: 0, p50: 0, p90: 0 };
   }
 
-  // Ajustar según score de madurez (a menor madurez, mayor probabilidad de multa alta)
-  const factorRiesgo = 1 - (scoreMadurez / 100) * 0.7; // 0.3 - 1.0
+  // Ajustar según score de madurez (a MAYOR madurez, MENOR exposición)
+  // Score 100 → factorRiesgo = 0.1 (muy bajo riesgo)
+  // Score 0 → factorRiesgo = 1.0 (riesgo máximo)
+  const factorRiesgo = 1 - (Math.min(100, Math.max(0, scoreMadurez)) / 100) * 0.9; // 0.1 - 1.0
 
-  // Percentiles basados en severidad probable
-  const p10UTM = multaMaxUTM * 0.05 * factorRiesgo;  // Escenario optimista
-  const p50UTM = multaMaxUTM * 0.15 * factorRiesgo;  // Escenario medio
-  const p90UTM = multaMaxUTM * 0.40 * factorRiesgo;  // Escenario pesimista
+  // Percentiles ponderados por la base de SU propia tipología de falta
+  const p10UTM = baseLeveTotal * 0.05 * factorRiesgo; // Escenario leve
+  const p50UTM = baseGraveTotal * 0.10 * factorRiesgo; // Escenario grave
+  const p90UTM = baseGravisimaTotal * 0.20 * factorRiesgo; // Escenario gravísimo
 
   return {
     p10: Math.round(p10UTM * UTM_CLP),

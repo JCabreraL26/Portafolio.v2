@@ -463,7 +463,7 @@ export function GrcWizard() {
                 window.dispatchEvent(new CustomEvent('openChat', { 
                   detail: { 
                     type: 'grc_followup',
-                    message: `Acabo de completar el diagnóstico GRC. Mi score es ${result.score}/100 y mi sector es ${result.sector}. Me gustaría discutir los resultados con más detalle.`
+                    initialMessage: `Acabo de completar el diagnóstico GRC. Mi score es ${result.score}/100 y mi sector es ${result.sector}. Me gustaría discutir los resultados con más detalle.`
                   } 
                 }));
               }}

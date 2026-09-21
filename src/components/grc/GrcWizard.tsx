@@ -459,11 +459,14 @@ export function GrcWizard() {
           <div className="space-y-4">
             <button
               onClick={() => {
-                // Abrir chat con contexto del resultado
+                // Abrir chat con mensaje automático
+                const mensaje = `Acabo de completar el diagnóstico GRC. Mi score es ${result.score}/100 y mi sector es ${result.sector}. Me gustaría discutir los resultados con más detalle.`;
+                
                 window.dispatchEvent(new CustomEvent('openChat', { 
                   detail: { 
                     type: 'grc_followup',
-                    initialMessage: `Acabo de completar el diagnóstico GRC. Mi score es ${result.score}/100 y mi sector es ${result.sector}. Me gustaría discutir los resultados con más detalle.`
+                    initialMessage: mensaje,
+                    autoSend: true // Flag para enviar automáticamente
                   } 
                 }));
               }}

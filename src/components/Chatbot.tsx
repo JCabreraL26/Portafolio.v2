@@ -80,8 +80,8 @@ export function Chatbot() {
   // Escuchar eventos globales para abrir chat
   useEffect(() => {
     const handleOpenChat = (e: Event) => {
-      const customEvent = e as CustomEvent<ChatContext>;
-      const { type, initialMessage } = customEvent.detail || { type: 'general' };
+      const customEvent = e as CustomEvent<ChatContext & { autoSend?: boolean }>;
+      const { type, initialMessage, autoSend } = customEvent.detail || { type: 'general' };
       
       setContext({ type, initialMessage });
       setIsOpen(true);
@@ -96,16 +96,61 @@ export function Chatbot() {
           setInputText(horaSugerida);
         }, 500);
       } else if (initialMessage) {
-        // Para otros contextos, usar mensaje inicial si existe
+        // Para otros contextos, usar mensaje inicial
         setTimeout(() => {
           setInputText(initialMessage);
+          
+          // Si autoSend es true, enviar automáticamente
+          if (autoSend) {
+            setTimeout(() => {
+              // Simular envío del mensaje
+              const userMessage: Message = {
+                id: `user_${Date.now()}`,
+                texto: initialMessage,
+                esUsuario: true,
+                timestamp: Date.now(),
+              };
+              
+              setMessages(prev => [...prev, userMessage]);
+              setInputText("");
+              setIsTyping(true);
+              
+              // Procesar mensaje con IA
+              procesarMensaje({
+                mensaje: initialMessage,
+                session_id: sessionId,
+                ip_usuario: undefined,
+                user_agent: navigator.userAgent,
+                context: type,
+              }).then(response => {
+                const botMessage: Message = {
+                  id: `bot_${Date.now()}`,
+                  texto: response.respuesta,
+                  esUsuario: false,
+                  timestamp: Date.now(),
+                };
+                setMessages(prev => [...prev, botMessage]);
+              }).catch(error => {
+                console.error("Error enviando mensaje automático:", error);
+                const errorMessage: Message = {
+                  id: `error_${Date.now()}`,
+                  texto: "Lo siento, hubo un error. Por favor intenta de nuevo.",
+                  esUsuario: false,
+                  timestamp: Date.now(),
+                };
+                setMessages(prev => [...prev, errorMessage]);
+              }).finally(() => {
+                setIsTyping(false);
+              });
+            }, 800); // Esperar un poco para que el usuario vea el mensaje
+          }
         }, 500);
       }
     };
     
     window.addEventListener('openChat', handleOpenChat);
     return () => window.removeEventListener('openChat', handleOpenChat);
-  }, []);
+  }, [sessionId]);
   
   // Mensaje de bienvenida al abrir por primera vez
   useEffect(() => {

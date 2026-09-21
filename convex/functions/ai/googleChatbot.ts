@@ -168,7 +168,7 @@ export const procesarMensajeWeb = action({
     session_id: v.string(),
     ip_usuario: v.optional(v.string()),
     user_agent: v.optional(v.string()),
-    context: v.optional(v.union(v.literal("general"), v.literal("schedule_meeting"), v.literal("contact"))),
+    context: v.optional(v.union(v.literal("general"), v.literal("schedule_meeting"), v.literal("contact"), v.literal("grc_followup"))),
   },
   handler: async (ctx, args): Promise<{ respuesta: string; tipo_mensaje: string; intencion_detectada: string; agente: string; servicios_sugeridos: any[] }> => {
     // 🛡️ VALIDACIÓN DE SEGURIDAD: Input del usuario

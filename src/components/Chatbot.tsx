@@ -25,7 +25,7 @@ interface Message {
 }
 
 interface ChatContext {
-  type: 'general' | 'schedule_meeting' | 'contact' | 'grc_diagnostic';
+  type: 'general' | 'schedule_meeting' | 'contact' | 'grc_diagnostic' | 'grc_followup';
   initialMessage?: string;
 }
 
@@ -86,16 +86,8 @@ export function Chatbot() {
       setContext({ type, initialMessage });
       setIsOpen(true);
       
-      // Si es agendamiento, pre-llenar con hora sugerida para acción rápida
-      if (type === 'schedule_meeting') {
-        const mañana = new Date();
-        mañana.setDate(mañana.getDate() + 1);
-        const horaSugerida = "Mañana 14:00";
-        
-        setTimeout(() => {
-          setInputText(horaSugerida);
-        }, 500);
-      } else if (initialMessage) {
+      // Si hay mensaje inicial, usarlo
+      if (initialMessage) {
         // Para otros contextos, usar mensaje inicial
         setTimeout(() => {
           setInputText(initialMessage);
@@ -116,12 +108,16 @@ export function Chatbot() {
               setIsTyping(true);
               
               // Procesar mensaje con IA
+              // Convertir tipo de contexto si es necesario (grc_diagnostic no es válido para la API)
+              const apiContext: 'general' | 'schedule_meeting' | 'contact' | 'grc_followup' = 
+                type === 'grc_diagnostic' ? 'general' : type;
+              
               procesarMensaje({
                 mensaje: initialMessage,
                 session_id: sessionId,
                 ip_usuario: undefined,
                 user_agent: navigator.userAgent,
-                context: type,
+                context: apiContext,
               }).then(response => {
                 const botMessage: Message = {
                   id: `bot_${Date.now()}`,
@@ -163,9 +159,9 @@ export function Chatbot() {
       let welcomeText = "";
       
       if (context.type === 'schedule_meeting') {
-        welcomeText = "📅 **¡Perfecto! Agendemos tu reunión**\n\nPara agendar tu reunión con Jorge Cabrera, necesito algunos datos:\n\n**Opciones de horario disponibles:**\n• Lunes a Viernes: 9:00 - 18:00\n• Duración: 30 minutos\n\n¿Qué día y hora prefieres? (Ej: 'Mañana 15:00' o 'Viernes 10:30')";
+        welcomeText = "📅 **Agendar reunión**\n\nPara coordinar una reunión, usa el botón \"Enviar email\" de abajo. Te responderé con opciones de horario dentro de 24 horas.\n\n**Horarios disponibles:**\n• Lunes a Viernes: 9:00 - 18:00 CLT\n• Duración: 30-60 minutos";
       } else if (context.type === 'contact') {
-        welcomeText = "💬 **¿En qué puedo ayudarte?**\n\nPuedo asistirte con:\n• 📅 Agendar diagnóstico estratégico (30 min, gratuito)\n• � Análisis de tu desafío técnico o de negocio\n• 📊 Casos de éxito y ROI de proyectos similares\n• � Oportunidades laborales (si eres reclutador)\n\n📧 **contacto@aperca.cl**";
+        welcomeText = "💬 **¿En qué puedo ayudarte?**\n\nPuedo asistirte con:\n• 📅 Diagnóstico estratégico\n• 🔍 Análisis técnico o de negocio\n• 📊 Casos de éxito y ROI\n• 💼 Oportunidades laborales\n\n**Usa el botón \"Enviar email\" de abajo** para contactarme directamente.";
       } else {
         welcomeText = "👋 **Áperca SpA** — Secure Digital Product Studio\n\n¿Tienes un desafío de negocio sin resolver?\n\n**Resolvemos:**\n• 🔥 Fricción operativa que frena tu crecimiento\n• 🔒 Sistemas legacy sin seguridad ni documentación\n• 📉 Funnels de conversión que no convierten\n• ⚡ Necesitas velocidad startup con calidad enterprise\n\n¿Eres empresa con un desafío técnico o reclutador buscando talento?\n\nCuéntame tu situación.";
       }
@@ -205,12 +201,16 @@ export function Chatbot() {
     setIsTyping(true);
 
     try {
+      // Convertir tipo de contexto si es necesario (grc_diagnostic no es válido para la API)
+      const apiContext: 'general' | 'schedule_meeting' | 'contact' | 'grc_followup' = 
+        context.type === 'grc_diagnostic' ? 'general' : context.type;
+      
       const response = await procesarMensaje({
         mensaje: textoEnviado,
         session_id: sessionId,
         ip_usuario: undefined,
         user_agent: navigator.userAgent,
-        context: context.type,
+        context: apiContext,
       });
       
       const botMessage: Message = {
@@ -482,7 +482,35 @@ export function Chatbot() {
               </p>
             </div>
           ) : (
-            <div className="p-4 bg-white border-t border-neutral-200">
+            <div className="p-4 bg-white border-t border-neutral-200 space-y-3">
+              {/* Botón de email para schedule_meeting, grc_followup y contact */}
+              {(context.type === 'schedule_meeting' || context.type === 'grc_followup' || context.type === 'contact') && (
+                <button
+                  onClick={() => {
+                    let subject = 'Contacto desde sitio web - Áperca SpA';
+                    let body = 'Hola Jorge,\n\nMe gustaría contactarte.\n\nNombre:\nEmpresa:\nMotivo:\n\nSaludos';
+                    
+                    if (context.type === 'schedule_meeting') {
+                      subject = 'Solicitud de reunión - Áperca SpA';
+                      body = 'Hola Jorge,\n\nMe gustaría agendar una reunión contigo.\n\nNombre:\nEmpresa:\nMotivo:\nHorarios disponibles:\n\nSaludos';
+                    } else if (context.type === 'grc_followup') {
+                      subject = 'Consulta sobre resultado GRC - Áperca SpA';
+                      body = 'Hola Jorge,\n\nCompletí el diagnóstico GRC y me gustaría discutir los resultados.\n\nNombre:\nEmpresa:\nSector:\n\nSaludos';
+                    }
+                    
+                    // Abrir Gmail web en nueva pestaña (más confiable que mailto:)
+                    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=contacto@aperca.cl&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(gmailUrl, '_blank');
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#F99D1C] text-[#283329] font-['Syne'] font-bold rounded-full hover:bg-[#283329] hover:text-white transition-all duration-300 border-2 border-[#F99D1C]"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Enviar email
+                </button>
+              )}
+              
               <div className="flex gap-2">
                 <input
                   ref={inputRef}

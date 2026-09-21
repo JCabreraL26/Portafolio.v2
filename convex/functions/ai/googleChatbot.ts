@@ -212,6 +212,42 @@ export const procesarMensajeWeb = action({
     console.log(`🌐 WEB CHATBOT - INICIO DE FUNCIÓN`);
     console.log(`📱 Session: ${args.session_id}`);
     console.log(`💬 Mensaje: "${mensajeSeguro}"`);
+    console.log(`🎯 Context: ${chatContext}`);
+
+    // 🎯 RESPUESTA ESPECÍFICA PARA GRC FOLLOWUP
+    if (chatContext === "grc_followup") {
+      // Extraer score del mensaje (formato: "Mi score es XX/100")
+      const scoreMatch = mensajeSeguro.match(/score es (\d+)\/100/i);
+      const score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+      
+      let explicacion = "";
+      if (score !== null) {
+        if (score < 40) {
+          explicacion = `**Score ${score}/100 = Riesgo Alto**\n\nNo tienes controles básicos implementados. Estás expuesto a multas y brechas de seguridad. Prioridad: implementar política de seguridad y capacitación urgente.`;
+        } else if (score < 70) {
+          explicacion = `**Score ${score}/100 = Madurez Moderada**\n\nTienes bases pero faltan controles críticos. Riesgo medio de incumplimiento. Siguiente paso: documentar procesos y fortalecer respuesta a incidentes.`;
+        } else {
+          explicacion = `**Score ${score}/100 = Buena Madurez**\n\nTienes controles sólidos implementados. Riesgo bajo, pero siempre hay margen de mejora. Enfócate en auditorías periódicas y mejora continua.`;
+        }
+      } else {
+        explicacion = "Gracias por completar el diagnóstico GRC.";
+      }
+
+      const respuestaGRC = `${explicacion}
+
+Para profundizar en tu situación específica:
+📧 **Usa el botón "Enviar email"** de abajo para contactarme directamente.
+
+O escríbeme a: contacto@aperca.cl`;
+
+      return {
+        respuesta: respuestaGRC,
+        tipo_mensaje: "grc_followup",
+        intencion_detectada: "grc_resultado",
+        agente: "google",
+        servicios_sugeridos: [],
+      };
+    }
     console.log(`⏱️ Timestamp: ${new Date().toISOString()}`);
     console.log(`═══════════════════════════════════════`);
     

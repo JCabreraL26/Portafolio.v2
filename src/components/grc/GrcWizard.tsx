@@ -319,7 +319,7 @@ export function GrcWizard() {
             </button>
             <button
               onClick={() => handleAnswer(false)}
-              className="flex-1 py-4 bg-white/5 border border-white/20 text-white font-['Syne'] font-bold rounded-full hover:bg-white/10 hover:border-white/40 hover:scale-105 hover:shadow-lg transition-all duration-300"
+              className="flex-1 py-4 bg-white/5 border border-white/20 text-white font-['Syne'] font-bold rounded-full hover:bg-[#F99D1C] hover:border-[#F99D1C] hover:text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(249,157,28,0.5)] transition-all duration-300"
             >
               No
             </button>
@@ -470,9 +470,23 @@ export function GrcWizard() {
                   } 
                 }));
               }}
-              className="w-full py-4 bg-[#F99D1C] text-black font-['Syne'] font-bold text-lg rounded-full hover:bg-white hover:scale-105 hover:shadow-[0_0_30px_rgba(249,157,28,0.6)] transition-all duration-300"
+              className="w-full py-4 bg-[#F99D1C] text-black font-['Syne'] font-bold text-lg rounded-full hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_30px_rgba(249,157,28,0.6)] transition-all duration-300"
             >
-              Hablar con un experto →
+              ¿Qué significa mi score?
+            </button>
+
+            <button
+              onClick={() => {
+                // Abrir chat para agendar reunión
+                window.dispatchEvent(new CustomEvent('openChat', { 
+                  detail: { 
+                    type: 'schedule_meeting'
+                  } 
+                }));
+              }}
+              className="w-full py-4 bg-white/5 border border-white/20 text-white font-['Space_Grotesk'] font-bold text-lg rounded-full hover:bg-[#F99D1C] hover:border-[#F99D1C] hover:text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(249,157,28,0.5)] transition-all duration-300"
+            >
+              Agendar reunión
             </button>
             
             <button

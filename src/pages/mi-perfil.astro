@@ -8,9 +8,8 @@ import { GLSLHills } from '../components/ui/GLSLHills';
 <Layout title="Mi Perfil UX - Jorge Cabrera">
   <Navbar />
   
-  <!-- Hero Section: GLSL Animated -->
-  <section class="hero-glsl relative min-h-screen flex items-start justify-center overflow-hidden pt-32 bg-black">
-    <!-- GLSL Hills Background (bottom positioned) -->
+  <!-- Background GLSL Fixed (permanece fijo durante todo el scroll) -->
+  <div class="fixed inset-0 z-0 bg-black">
     <div class="absolute inset-0 flex items-end">
       <div class="w-full h-[70vh]">
         <GLSLHills 
@@ -22,205 +21,211 @@ import { GLSLHills } from '../components/ui/GLSLHills';
         />
       </div>
     </div>
-    
-    <!-- Content Overlay (top positioned) -->
-    <div class="container mx-auto px-6 relative z-10 pt-12">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="chaos-title mb-6">
-          <span class="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight" style="font-family: 'Syne', sans-serif; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-            Mi background es <span class="text-[#ff3333]">mi superpoder</span>
-          </span>
-        </h1>
-        <p class="text-base sm:text-lg md:text-xl text-neutral-300 font-['Poppins'] max-w-2xl mx-auto" style="text-shadow: 0 2px 10px rgba(0,0,0,0.7);">
-          Autodidacta. Analítico. Solopreneur.
-        </p>
-      </div>
-    </div>
-  </section>
+    <!-- Overlay oscuro para mejor legibilidad -->
+    <div class="absolute inset-0 bg-black/40"></div>
+  </div>
 
-  <!-- Section 1: Bento Box Asimétrico - Filosofía -->
-  <section class="section-bento py-32 bg-white relative overflow-hidden">
-    <div class="container mx-auto px-6">
-      <div class="chaos-grid grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- Imagen grande -->
-        <div class="lg:col-span-7 reveal-on-scroll" data-delay="0">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl" style="transform: rotate(-3deg);">
-            <img 
-              src="/img/Jorge-Cabrera-Libros.jpg" 
-              alt="Filosofía y pensamiento crítico" 
-              class="w-full h-[500px] object-cover"
-            />
-            <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-neutral-800">
-              Filosofía → UX
+  <!-- Contenedor de créditos (todo el contenido sube) -->
+  <div class="relative z-10">
+    <!-- Espacio inicial vacío (para que el contenido empiece fuera de vista) -->
+    <div class="h-screen"></div>
+
+    <!-- Contenido que sube como créditos -->
+    <div class="credits-container">
+      
+      <!-- Hero Title -->
+      <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="chaos-title mb-6">
+            <span class="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight" style="font-family: 'Syne', sans-serif; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+              Mi background es <span class="text-[#ff3333]">mi superpoder</span>
+            </span>
+          </h1>
+          <p class="text-base sm:text-lg md:text-xl text-neutral-300 font-['Poppins'] max-w-2xl mx-auto" style="text-shadow: 0 2px 10px rgba(0,0,0,0.7);">
+            Autodidacta. Analítico. Solopreneur.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 1: Filosofía -->
+      <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <!-- Imagen -->
+            <div class="reveal-on-scroll" data-delay="0">
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <img 
+                  src="/img/Jorge-Cabrera-Libros.jpg" 
+                  alt="Filosofía y pensamiento crítico" 
+                  class="w-full h-[400px] object-cover"
+                />
+                <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-neutral-800">
+                  Filosofía → UX
+                </div>
+              </div>
+            </div>
+            
+            <!-- Texto -->
+            <div class="reveal-on-scroll" data-delay="200">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20">
+                <h2 class="text-4xl font-black mb-4 text-white" style="font-family: 'Space Grotesk', sans-serif;">
+                  De preguntas filosóficas<br/>a soluciones de diseño
+                </h2>
+                <p class="text-lg text-neutral-200 font-['Poppins'] leading-relaxed">
+                  Años enseñando filosofía me entrenaron en hacer <strong>las preguntas correctas</strong>. 
+                  Aprendí que entender el "por qué" es el primer paso para diseñar el "cómo".
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        
-        <!-- Texto -->
-        <div class="lg:col-span-5 reveal-on-scroll" data-delay="200">
-          <div class="bg-neutral-50 p-8 rounded-3xl border-4 border-neutral-200" style="transform: rotate(2deg);">
-            <h2 class="text-4xl font-black mb-4" style="font-family: 'Space Grotesk', sans-serif; color: #b80000;">
-              De preguntas filosóficas<br/>a soluciones de diseño
-            </h2>
-            <p class="text-lg text-neutral-700 font-['Poppins'] leading-relaxed">
-              Años enseñando filosofía me entrenaron en hacer <strong>las preguntas correctas</strong>. 
-              Aprendí que entender el "por qué" es el primer paso para diseñar el "cómo".
+      </section>
+
+      <!-- Section 2: Pollitas -->
+      <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <!-- Imagen -->
+            <div class="reveal-on-scroll" data-delay="0">
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <img 
+                  src="/img/Aves-gestión.jpg" 
+                  alt="Gestión avícola - La necesidad como maestra" 
+                  class="w-full h-[400px] object-cover"
+                />
+              </div>
+            </div>
+            
+            <!-- Texto -->
+            <div class="reveal-on-scroll" data-delay="200">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20">
+                <h2 class="text-4xl font-black mb-4 text-white" style="font-family: 'Space Grotesk', sans-serif;">
+                  La necesidad<br/>
+                  <span class="text-[#ff3333]">como mejor maestra</span>
+                </h2>
+                <p class="text-lg text-neutral-200 font-['Poppins'] leading-relaxed">
+                  Sin conocimientos previos en avicultura, fui al sur a criar aves. 
+                  Crié planteles de pollitas durante 5 años. El campo me enseñó a <strong>aprender rápido y resolver problemas</strong> con lo que está a la mano.
+                  Me hicieron falta en ese tiempo las habilidades UX que adquirí después. En simple: me adapto.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Quote Hölderlin -->
+      <section class="py-32 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="reveal-on-scroll" data-delay="0">
+            <blockquote class="text-3xl md:text-5xl lg:text-6xl font-black mb-8 text-[#F99D1C]" style="font-family: 'Space Grotesk', sans-serif; text-shadow: 0 4px 20px rgba(249,157,28,0.3);">
+              <span id="typewriter-quote"></span>
+            </blockquote>
+            <p class="text-lg md:text-xl text-neutral-300 font-['Poppins'] italic">
+              — Friedrich Hölderlin
             </p>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Section 2: Pollitas - La Necesidad como Maestra -->
-  <section class="section-zigzag py-32 bg-gradient-to-b from-white to-neutral-100 relative overflow-hidden">
-    <div class="container mx-auto px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="chaos-grid grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <!-- Imagen -->
-          <div class="lg:col-span-7 reveal-on-scroll" data-delay="0">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl" style="transform: rotate(3deg);">
-              <img 
-                src="/img/Aves-gestión.jpg" 
-                alt="Gestión avícola - La necesidad como maestra" 
-                class="w-full h-[400px] object-cover"
-              />
-            </div>
-          </div>
+      <!-- Section 4: Cuatro Formas de Pensar -->
+      <section class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-5xl md:text-6xl font-black text-center mb-20 text-white reveal-on-scroll" style="font-family: 'Syne', sans-serif;">
+            Cuatro formas de pensar
+          </h2>
           
-          <!-- Texto -->
-          <div class="lg:col-span-5 reveal-on-scroll" data-delay="200">
-            <div class="bg-neutral-50 p-8 rounded-3xl border-4 border-neutral-200" style="transform: rotate(-2deg);">
-              <h2 class="text-4xl font-black mb-4" style="font-family: 'Space Grotesk', sans-serif; color: #b80000;">
-                La necesidad<br/>
-                <span class="text-neutral-900">como mejor maestra</span>
-              </h2>
-              <p class="text-lg text-neutral-700 font-['Poppins'] leading-relaxed">
-                Sin conocimientos previos en avicultura, fui al sur a criar aves. 
-                Crié planteles de pollitas durante 5 años. El campo me enseñó a <strong>aprender rápido y resolver problemas</strong> con lo que está a la mano.
-                Me hicieron falta en ese tiempo las habilidades UX que adquirí después. En simple: me adapto.
-              </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1: Pensamiento Crítico -->
+            <div class="reveal-on-scroll" data-delay="0">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 h-full">
+                <div class="flex justify-center mb-6">
+                  <span class="text-5xl text-white font-['Space Grotesk'] font-black">Φ</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white font-['Space Grotesk']">Pensamiento Crítico</h3>
+                <p class="text-neutral-200 font-['Poppins'] text-sm">
+                  Hacía cursos de ética y filosofía en la universidad. Aprendí a cuestionar supuestos y buscar la verdad detrás de las apariencias.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Card 2: Pensamiento Estratégico -->
+            <div class="reveal-on-scroll" data-delay="100">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 h-full">
+                <div class="flex justify-center mb-6">
+                  <span class="text-5xl text-white font-['Space Grotesk'] font-black">◆</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white font-['Space Grotesk']">Pensamiento Estratégico</h3>
+                <p class="text-neutral-200 font-['Poppins'] text-sm">
+                  Aprendí a gestionar un negocio desde cero con las pollitas. Recursos limitados, decisiones rápidas, adaptación constante.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Card 3: Pensamiento de Diseño -->
+            <div class="reveal-on-scroll" data-delay="200">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 h-full">
+                <div class="flex justify-center mb-6">
+                  <span class="text-5xl text-white font-['Space Grotesk'] font-black">△</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white font-['Space Grotesk']">Pensamiento de Diseño</h3>
+                <p class="text-neutral-200 font-['Poppins'] text-sm">
+                  Mi experiencia en UX Design me enseñó a empatizar, prototipar rápido y validar con usuarios reales antes de construir.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Card 4: Pensamiento Hacker -->
+            <div class="reveal-on-scroll" data-delay="300">
+              <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 h-full">
+                <div class="flex justify-center mb-6">
+                  <span class="text-5xl text-white font-['Space Grotesk'] font-black">⬡</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white font-['Space Grotesk']">Pensamiento Hacker</h3>
+                <p class="text-neutral-200 font-['Poppins'] text-sm">
+                  Ethical hacking y ciberseguridad. Pensar como un atacante para defender mejor. Encontrar vulnerabilidades antes que otros.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Section 3: Cards Flotantes - Mi Proceso -->
-  <section class="section-philosophy relative py-24 md:py-40 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black overflow-hidden">
-    <!-- Floating Elements -->
-    <div class="floating-element absolute top-10 left-10 w-16 h-16 md:w-24 md:h-24 rounded-full bg-[#ff0000]/20 blur-xl animate-float" style="animation-delay: 0s;"></div>
-    <div class="floating-element absolute top-32 right-16 w-20 h-20 md:w-32 md:h-32 rounded-full bg-[#ff3333]/15 blur-2xl animate-float" style="animation-delay: 1s;"></div>
-    <div class="floating-element absolute bottom-20 left-1/4 w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/10 blur-xl animate-float" style="animation-delay: 2s;"></div>
-    <div class="floating-element absolute bottom-32 right-1/3 w-16 h-16 md:w-28 md:h-28 rounded-full bg-[#b80000]/20 blur-2xl animate-float" style="animation-delay: 1.5s;"></div>
-    
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="max-w-4xl mx-auto text-center">
-        <!-- Philosophy Quote -->
-        <div class="reveal-on-scroll" data-delay="0">
-          <blockquote class="text-3xl md:text-5xl lg:text-6xl font-black mb-8 text-white" style="font-family: 'Space Grotesk', sans-serif; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-            El diseño es traducir<br/>
-            <span class="text-[#ff3333]">problemas humanos</span><br/>
-            en soluciones intuitivas
-          </blockquote>
-          <p class="text-lg md:text-xl text-neutral-300 font-['Poppins'] italic mb-10">
-            Cada línea de código, cada pixel, cada decisión tiene un propósito
+      <!-- Contacto -->
+      <section id="contacto" class="py-32 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-white leading-tight">
+            Hablemos
+          </h2>
+          <p class="text-xl text-neutral-200 mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']">
+            No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor.
           </p>
-          <div class="flex flex-wrap justify-center gap-3">
-            <span class="px-5 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/20">Usuario primero</span>
-            <span class="px-5 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/20">Data-driven</span>
-            <span class="px-5 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/20">Iterativo</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: Cards Flotantes Superpuestas - Metodología -->
-  <section class="section-cards py-32 bg-gradient-to-b from-white to-neutral-100 relative overflow-hidden">
-    <div class="container mx-auto px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-5xl md:text-6xl font-black text-center mb-20 reveal-on-scroll" style="font-family: 'Syne', sans-serif; color: #111;">
-          Mi Proceso
-        </h2>
-        
-        <div class="relative min-h-[600px]">
-          <!-- Card 1: Diseñar (ARRIBA) -->
-          <div class="float-card absolute top-0 right-0 lg:right-12 w-full lg:w-[400px] reveal-on-scroll" data-delay="0" style="transform: rotate(3deg);">
-            <div class="bg-neutral-900 text-white p-8 rounded-3xl shadow-2xl">
-              <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4" style="transform: rotate(-8deg);">
-                <span class="text-3xl">🎨</span>
-              </div>
-              <h3 class="text-2xl font-bold mb-3 font-['Space Grotesk']">Diseñar</h3>
-              <p class="text-neutral-300 font-['Poppins']">
-                Prototipar rápido. Validar con usuarios. Iterar sin miedo al cambio.
-              </p>
-            </div>
-          </div>
           
-          <!-- Card 2: Analizar -->
-          <div class="float-card absolute top-32 lg:top-20 left-0 lg:left-12 w-full lg:w-[400px] reveal-on-scroll" data-delay="200" style="transform: rotate(-4deg);">
-            <div class="bg-white p-8 rounded-3xl shadow-2xl border-4 border-neutral-200">
-              <div class="w-16 h-16 bg-[#b80000] rounded-2xl flex items-center justify-center mb-4" style="transform: rotate(12deg);">
-                <span class="text-3xl">🔍</span>
-              </div>
-              <h3 class="text-2xl font-bold mb-3 font-['Space Grotesk']">Analizar</h3>
-              <p class="text-neutral-700 font-['Poppins']">
-                Investigación profunda. Preguntas incómodas. Datos reales, no suposiciones.
-              </p>
-            </div>
-          </div>
-          
-          <!-- Card 3: Ejecutar -->
-          <div class="float-card absolute top-80 lg:top-56 left-0 right-0 mx-auto w-full lg:w-[400px] reveal-on-scroll" data-delay="400" style="transform: rotate(-2deg);">
-            <div class="bg-[#b80000] text-white p-8 rounded-3xl shadow-2xl">
-              <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4" style="transform: rotate(6deg);">
-                <span class="text-3xl">⚡</span>
-              </div>
-              <h3 class="text-2xl font-bold mb-3 font-['Space Grotesk']">Ejecutar</h3>
-              <p class="text-white/90 font-['Poppins']">
-                Código limpio. Sistemas escalables. Soluciones simples a problemas complejos.
-              </p>
-            </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button 
+              id="contact-button-perfil"
+              class="px-8 py-4 border-2 border-white text-white font-semibold rounded-full transition-all hover:bg-[#ff3333] hover:border-[#ff3333] hover:scale-105"
+            >
+              Contacto
+            </button>
+            <a 
+              href="https://linkedin.com/in/jorge-cabrera-ux" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-8 py-4 border-2 border-white text-white font-semibold rounded-full transition-all hover:bg-[#ff3333] hover:border-[#ff3333] hover:scale-105 no-underline"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Contacto + Footer -->
-  <section id="contacto" class="py-20 bg-gradient-to-br from-[#2a2a2a] to-[#111111]">
-    <div class="container mx-auto px-4 sm:px-6">
-      <div class="max-w-4xl mx-auto text-center mb-12">
-        <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black font-['Syne'] mb-6 text-[#FAF9F6] leading-tight">
-          🔴 Hablemos
-        </h2>
-        <p class="text-xl text-[#d1d1d1] mb-12 max-w-2xl mx-auto leading-relaxed font-['Poppins']">
-          No solo diseño. Resuelvo problemas. Con la lógica de un gestor y la empatía de un profesor.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="mailto:jcabreralabbe@gmail.com"
-            class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
-          >
-            Email
-          </a>
-          <a 
-            href="https://linkedin.com/in/jorge-cabrera-ux" 
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-8 py-4 border-2 border-[#FAF9F6] text-[#FAF9F6] font-semibold rounded-full transition-all hover:bg-[#b80000] hover:border-[#b80000] hover:scale-105 no-underline"
-          >
-            LinkedIn
-          </a>
-        </div>
-      </div>
+      <!-- Espacio final vacío (para que el contenido termine fuera de vista) -->
+      <div class="h-screen"></div>
+      
     </div>
-  </section>
-
-  <Footer />
+    <!-- Fin del contenedor de créditos -->
+  </div>
 </Layout>
 
 <style>
@@ -339,21 +344,46 @@ import { GLSLHills } from '../components/ui/GLSLHills';
       observer.observe(el);
     });
 
-    // Timeline items animation
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    
-    const timelineObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          timelineObserver.unobserve(entry.target);
-        }
+    // Botón de contacto
+    const contactButton = document.getElementById('contact-button-perfil');
+    if (contactButton) {
+      contactButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('openChat', { 
+          detail: { type: 'contact' } 
+        }));
       });
-    }, { threshold: 0.1 });
+    }
+
+    // Typewriter effect para la quote de Hölderlin
+    const typewriterElement = document.getElementById('typewriter-quote');
+    const quoteText = "El hombre es un dios cuando sueña y un mendigo cuando reflexiona";
     
-    timelineItems.forEach(item => {
-      timelineObserver.observe(item);
-    });
+    if (typewriterElement) {
+      let charIndex = 0;
+      let isTyping = false;
+
+      const typewriterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !isTyping && typewriterElement) {
+            isTyping = true;
+            typewriterEffect();
+            typewriterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      if (typewriterElement) {
+        typewriterObserver.observe(typewriterElement);
+      }
+
+      function typewriterEffect() {
+        if (charIndex < quoteText.length && typewriterElement) {
+          typewriterElement.textContent += quoteText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typewriterEffect, 50); // Velocidad de escritura (50ms por carácter)
+        }
+      }
+    }
   });
 </script>
 

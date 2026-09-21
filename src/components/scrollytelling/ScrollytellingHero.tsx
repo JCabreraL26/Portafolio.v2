@@ -11,6 +11,7 @@ interface Station {
   ctaText?: string;
   ctaLink?: string;
   showLogo?: boolean;
+  mobileTitle?: string; // Versión corta para mobile
 }
 
 const stations: Station[] = [
@@ -28,11 +29,11 @@ const stations: Station[] = [
     id: 1,
     startTime: 1,
     endTime: 2,
-    title: 'Desarrollo Software\nArquitectura robusta gestada desde investigación UX',
+    title: 'Desarrollo Software\nArquitectura robusta basada en UX',
     subtitle: 'DIAGNÓSTICO ESTRATÉGICO',
     description: 'Solucionamos problemas aplicando Design Thinking. Centramos la investigación y desarrollo en la experiencia del usuario.',
-    ctaText: 'Ver Ciberseguridad',
-    ctaLink: '/proyectos/ciberseguridad-empresarial',
+    ctaText: 'Ver Bodai Clinic',
+    ctaLink: '/proyectos/bodai-clinic',
   },
   {
     id: 2,
@@ -41,8 +42,8 @@ const stations: Station[] = [
     title: 'Amenazas\nmodeladas\nCódigo seguro',
     subtitle: 'ARQUITECTURA BLINDADA',
     description: 'Definimos la estructura, clasificamos los datos y blindamos el flujo antes de escribir código',
-    ctaText: 'Evalúa tu Cumplimiento GRC',
-    ctaLink: '/diagnostico-grc',
+    ctaText: 'Ver Ciberseguridad',
+    ctaLink: '/proyectos/ciberseguridad-empresarial',
   },
   {
     id: 3,
@@ -62,7 +63,7 @@ const stations: Station[] = [
     subtitle: 'IMPACTO MEDIBLE',
     description: 'Agentes de IA que cualifican leads. Embudos sin fricción. Dashboards que muestran dónde creces y dónde sangras',
     ctaText: 'Agenda tu Diagnóstico',
-    ctaLink: '#contacto',
+    ctaLink: 'contact', // Cambiado para abrir chat
   },
   {
     id: 5,
@@ -232,35 +233,32 @@ export function ScrollytellingHero() {
               <div className="station-content">
                 {/* Layout responsive: mobile apilado, desktop vanguardista */}
                 <div className="mb-8">
-                  {/* Mobile: layout simple apilado */}
-                  <div className="block lg:hidden text-center">
+                  {/* Mobile: layout vanguardista (dos planos) */}
+                  <div className="block lg:hidden text-center px-4">
                     {currentStationData.subtitle && (
-                      <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-4" style={{letterSpacing: '0.02em'}}>
+                      <h2 className="text-xs font-['JetBrains_Mono'] font-bold uppercase text-[#F99D1C] mb-6" style={{letterSpacing: '0.02em'}}>
                         {currentStationData.subtitle}
                       </h2>
                     )}
-                    <div className="mb-2">
-                      {(() => {
-                        const lines = currentStationData.title.split('\n').filter(l => l.trim());
-                        // Aplicar tamaños y colores de forma semántica
-                        return lines.map((line, idx) => {
-                          // Patrón: grande naranja, pequeño blanco, grande naranja, etc.
-                          const isLarge = idx % 2 === 0;
-                          const isOrange = idx % 2 === 0;
-                          return (
-                            <div
-                              key={idx}
-                              className={`font-['Syne'] font-black leading-tight ${
-                                isLarge ? 'text-3xl' : 'text-lg'
-                              } ${isOrange ? 'text-[#F99D1C]' : 'text-white'}`}
-                              style={{letterSpacing: '-0.02em'}}
-                            >
-                              {line}
-                            </div>
-                          );
-                        });
-                      })()}
-                    </div>
+                    {(() => {
+                      const lines = currentStationData.title.split('\n').filter(l => l.trim());
+                      const midPoint = Math.ceil(lines.length / 2);
+                      const topText = lines.slice(0, midPoint).join(' ');
+                      const bottomText = lines.slice(midPoint).join(' ');
+                      
+                      return (
+                        <div className="space-y-4">
+                          {/* Frase pequeña arriba (blanco) */}
+                          <h1 className="text-xl font-['Syne'] font-black leading-tight text-white" style={{letterSpacing: '-0.02em'}}>
+                            {topText}
+                          </h1>
+                          {/* Frase grande abajo (ámbar) */}
+                          <h1 className="text-4xl font-['Syne'] font-black leading-tight text-[#F99D1C]" style={{letterSpacing: '-0.02em'}}>
+                            {bottomText}
+                          </h1>
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   {/* Desktop: layout vanguardista alternado */}
@@ -319,12 +317,12 @@ export function ScrollytellingHero() {
 
                 {currentStationData.ctaText && (
                   <>
-                    {currentStation === 4 ? (
-                      // Estación 4: Abre chat para agendar
+                    {currentStationData.ctaLink === 'contact' ? (
+                      // Abre chat con botón de email
                       <button
                         onClick={() => {
                           window.dispatchEvent(new CustomEvent('openChat', { 
-                            detail: { type: 'general' } 
+                            detail: { type: 'contact' } 
                           }));
                         }}
                         className="cta-button cta-secondary"
